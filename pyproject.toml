@@ -51,7 +51,7 @@ dev = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/bamboohr_sdk"]
+packages = ["bamboohr_sdk"]
 
 [tool.mypy]
 python_version = "3.10"
@@ -70,13 +70,13 @@ module = "bamboohr_sdk.api.*"
 disallow_untyped_defs = false
 
 [[tool.mypy.overrides]]
-module = "bamboohr_sdk.model.*"
+module = "bamboohr_sdk.models.*"
 disallow_untyped_defs = false
 
 [tool.ruff]
 target-version = "py310"
 line-length = 120
-src = ["src", "tests"]
+src = ["bamboohr_sdk", "tests"]
 
 [tool.ruff.lint]
 select = [
@@ -105,5 +105,5 @@ line-ending = "auto"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["src"]
+pythonpath = ["."]
 addopts = "-ra -q"
