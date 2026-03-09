@@ -6,7 +6,10 @@
 
 # Protect custom client code from being overwritten during regeneration
 bamboohr_sdk/client/**
-bamboohr_sdk/exceptions/**
+
+# Protect hand-written SDK helper modules
+bamboohr_sdk/api_helper.py
+bamboohr_sdk/api_error_helper.py
 
 # Protect project scaffolding files the generator would create
 pyproject.toml
