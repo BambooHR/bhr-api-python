@@ -232,7 +232,7 @@ class AccountInformationApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Get Users
 
         Retrieves a list of all active users in the system with their basic information. This includes user IDs, names, and email addresses. The list can be used to map user IDs to user information throughout the API.
@@ -268,10 +268,11 @@ class AccountInformationApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def get_list_of_users_with_http_info(
@@ -641,7 +642,7 @@ class AccountInformationApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Create or Update List Field Values
 
         This resource accepts one or more options. To update an option, specify an ID. You may also remove an option from the list of current values by archiving the value. To create a new option, do not specify an \"id\" attribute.
@@ -690,10 +691,11 @@ class AccountInformationApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def metadata_add_or_update_values_for_list_fields_with_http_info(
@@ -891,7 +893,7 @@ class AccountInformationApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Get Fields
 
         This endpoint can help with discovery of fields that are available in an account.
@@ -933,10 +935,11 @@ class AccountInformationApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def metadata_get_a_list_of_fields_with_http_info(
@@ -1111,7 +1114,7 @@ class AccountInformationApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Get Tabular Fields
 
         This endpoint can help discover table fields available in your BambooHR account.
@@ -1153,10 +1156,11 @@ class AccountInformationApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def metadata_get_a_list_of_tabular_fields_with_http_info(
@@ -1331,7 +1335,7 @@ class AccountInformationApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Get List Field Details
 
         This endpoint will return details for all list fields. Lists that can be edited will have the \"manageable\" attribute set to yes. Lists with the \"multiple\" attribute set to yes are fields that can have multiple values. Options with the \"archived\" attribute set to yes should not appear as current options, but are included so that historical data can reference the value.
@@ -1373,10 +1377,11 @@ class AccountInformationApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def metadata_get_details_for_list_fields_with_http_info(

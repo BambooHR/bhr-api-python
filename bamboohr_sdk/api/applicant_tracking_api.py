@@ -92,7 +92,7 @@ class ApplicantTrackingApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Create Candidate
 
         Add a new candidate application to a job opening. The owner of the API key used must have access to ATS settings.
@@ -198,10 +198,11 @@ class ApplicantTrackingApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def add_new_candidate_with_http_info(
@@ -753,7 +754,7 @@ class ApplicantTrackingApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Create Job Opening
 
         Add a new job opening. The owner of the API key used must have access to ATS settings.
@@ -859,10 +860,11 @@ class ApplicantTrackingApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def add_new_job_opening_with_http_info(
@@ -2440,7 +2442,7 @@ class ApplicantTrackingApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Get Job Summaries
 
         Get a list of job summaries. The owner of the API key used must have access to ATS settings. Combine as many different optional parameter filters as you like.
@@ -2491,10 +2493,11 @@ class ApplicantTrackingApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def get_job_summaries_with_http_info(
@@ -2697,7 +2700,7 @@ class ApplicantTrackingApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Get Applicant Statuses
 
         Get a list of statuses for a company. The owner of the API key used must have access to ATS settings.
@@ -2735,10 +2738,11 @@ class ApplicantTrackingApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def get_statuses_with_http_info(
@@ -2895,7 +2899,7 @@ class ApplicantTrackingApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Update Applicant Status
 
         Change applicant\\'s status. The owner of the API key used must have access to ATS settings.
@@ -2944,10 +2948,11 @@ class ApplicantTrackingApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def post_applicant_status_with_http_info(
@@ -3146,7 +3151,7 @@ class ApplicantTrackingApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Create Job Application Comment
 
         Add a comment to an application. The owner of the API key used must have access to ATS settings.
@@ -3195,10 +3200,11 @@ class ApplicantTrackingApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def post_application_comment_with_http_info(

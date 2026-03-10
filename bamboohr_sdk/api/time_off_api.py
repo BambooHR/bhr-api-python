@@ -59,7 +59,7 @@ class TimeOffApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Get Who’s Out
 
         This endpoint will return a list, sorted by date, of employees who will be out, and company holidays, for a period of time.
@@ -107,10 +107,11 @@ class TimeOffApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def get_a_list_of_who_is_out_with_http_info(
@@ -319,7 +320,7 @@ class TimeOffApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Get Time Off Policies
 
         This endpoint gets a list of time off policies.
@@ -361,10 +362,11 @@ class TimeOffApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def get_time_off_policies_with_http_info(
@@ -789,7 +791,7 @@ class TimeOffApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Create Time Off Request History Item
 
         To use this API make an HTTP PUT where the body of the request is the JSON documented below. A new time off history item will be inserted into the database. On success, a 201 Created code is returned and the \"Location\" header of the response will contain a URL that identifies the new history item.
@@ -837,10 +839,11 @@ class TimeOffApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def time_off_add_a_time_off_history_item_for_time_off_request_with_http_info(
@@ -1035,7 +1038,7 @@ class TimeOffApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Create Time Off Request
 
         A time off request is an entity that describes the decision making process for approving time off. Once a request has been created, a history entry can be created documenting the actual use of time off.
@@ -1083,10 +1086,11 @@ class TimeOffApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def time_off_add_a_time_off_request_with_http_info(
@@ -1281,7 +1285,7 @@ class TimeOffApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Update Time Off Balance
 
         To use this API make an HTTP PUT where the body of the request is the JSON documented below. A time off balance adjustment will be inserted into the database. On success, a 201 Created code is returned and the \"Location\" header of the response will contain a URL that identifies the new history item.
@@ -1328,10 +1332,11 @@ class TimeOffApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def time_off_adjust_time_off_balance_with_http_info(
@@ -1526,7 +1531,7 @@ class TimeOffApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Assign Time Off Policies
 
         To use this API make an HTTP PUT where the body of the request is the JSON documented below. A time off policy will be assigned to the employee with accruals starting on the date specified. A null start date will remove the assignment. On success, a 200 Success code is returned and the content of the response will be the same as the List Time off Policies API.
@@ -1571,10 +1576,11 @@ class TimeOffApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def time_off_assign_time_off_policies_for_an_employee_with_http_info(
@@ -1771,7 +1777,7 @@ class TimeOffApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Assign Time Off Policies v1.1
 
         To use this API make an HTTP PUT where the body of the request is the JSON documented below. A time off policy will be assigned to the employee with accruals starting on the date specified. On success, a 200 Success code is returned and the content of the response will be the same as the List Time off Policies API.
@@ -1816,10 +1822,11 @@ class TimeOffApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def time_off_assign_time_off_policies_for_an_employee_v1_1_with_http_info(
@@ -2014,7 +2021,7 @@ class TimeOffApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Update Time Off Request Status
 
         This endpoint allows you to change the status of a request in the system. You can use this to approve, deny, or cancel a time off request.
@@ -2062,10 +2069,11 @@ class TimeOffApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def time_off_change_a_request_status_with_http_info(
@@ -2595,7 +2603,7 @@ class TimeOffApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Get Time Off Requests
 
         Retrieves a list of time off requests based on specified filters. This endpoint allows filtering by date range, status, employee, and time off type. It's useful for generating time off reports or displaying a calendar of time off events.
@@ -2659,10 +2667,11 @@ class TimeOffApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def time_off_get_time_off_requests_with_http_info(
@@ -2969,7 +2978,7 @@ class TimeOffApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Get Time Off Policies for Employee
 
         Retrieves a list of time off policies assigned to a specific employee. This includes policy details such as name, type, and current balance. The response helps in displaying available time off options and balances to employees.
@@ -3011,10 +3020,11 @@ class TimeOffApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def time_off_list_time_off_policies_for_employee_with_http_info(
@@ -3183,7 +3193,7 @@ class TimeOffApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Get Time Off Policies for Employee v1.1
 
         Version 1.1 of the endpoint that retrieves time off policies for a specific employee. This version includes additional policy details and enhanced filtering capabilities compared to v1. It provides comprehensive information about each policy including accrual rates, carryover rules, and policy-specific settings.
@@ -3225,10 +3235,11 @@ class TimeOffApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def time_off_list_time_off_policies_for_employee_v1_1_with_http_info(

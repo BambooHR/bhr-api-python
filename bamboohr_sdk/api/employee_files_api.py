@@ -41,7 +41,7 @@ class EmployeeFilesApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Create Employee File Category
 
         Add an employee file category.
@@ -86,10 +86,11 @@ class EmployeeFilesApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def add_employee_file_category_with_http_info(
@@ -280,7 +281,7 @@ class EmployeeFilesApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Delete Employee File
 
         Delete an employee file
@@ -327,10 +328,11 @@ class EmployeeFilesApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def delete_employee_file_with_http_info(
@@ -530,7 +532,7 @@ class EmployeeFilesApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Get Employee File
 
         Gets an employee file
@@ -577,10 +579,11 @@ class EmployeeFilesApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def get_employee_file_with_http_info(
@@ -774,7 +777,7 @@ class EmployeeFilesApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Get Employee Files and Categories
 
         Lists employee files and categories
@@ -814,10 +817,11 @@ class EmployeeFilesApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def list_employee_files_with_http_info(
@@ -989,7 +993,7 @@ class EmployeeFilesApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Update Employee File
 
         Update an employee file
@@ -1040,10 +1044,11 @@ class EmployeeFilesApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def update_employee_file_with_http_info(
@@ -1263,7 +1268,7 @@ class EmployeeFilesApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Upload Employee File
 
         Upload an employee file
@@ -1304,10 +1309,11 @@ class EmployeeFilesApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def upload_employee_file_with_http_info(

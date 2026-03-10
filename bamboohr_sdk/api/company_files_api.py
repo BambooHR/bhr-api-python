@@ -41,7 +41,7 @@ class CompanyFilesApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Create Company File Category
 
         Add a company file category.
@@ -86,10 +86,11 @@ class CompanyFilesApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def add_company_file_category_with_http_info(
@@ -274,7 +275,7 @@ class CompanyFilesApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Delete Company File
 
         Delete a company file
@@ -318,10 +319,11 @@ class CompanyFilesApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def delete_company_file_with_http_info(
@@ -494,7 +496,7 @@ class CompanyFilesApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Get Company File
 
         Gets an company file
@@ -538,10 +540,11 @@ class CompanyFilesApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def get_company_file_with_http_info(
@@ -713,7 +716,7 @@ class CompanyFilesApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Get Company Files and Categories
 
         Lists company files and categories
@@ -751,10 +754,11 @@ class CompanyFilesApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def list_company_files_with_http_info(
@@ -911,7 +915,7 @@ class CompanyFilesApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Update Company File
 
         Update a company file
@@ -959,10 +963,11 @@ class CompanyFilesApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def update_company_file_with_http_info(
@@ -1155,7 +1160,7 @@ class CompanyFilesApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """Upload Company File
 
         Upload a company file
@@ -1194,10 +1199,11 @@ class CompanyFilesApi:
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
+        # BambooHR SDK: return full ApiResponse for endpoints without a defined return type
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     def upload_company_file_with_http_info(
