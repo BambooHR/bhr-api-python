@@ -26,7 +26,7 @@ class CountrySchema(BaseModel):
     Schema for country data
     """
 
-    id: StrictInt | None = Field(default=None, description="Unique identifier for the country")
+    id: StrictInt | StrictStr | None = Field(default=None, description="Unique identifier for the country")
     name: StrictStr | None = Field(default=None, description="Full name of the country")
     iso_code: StrictStr | None = Field(default=None, description="ISO code for the country", alias="isoCode")
     __properties: ClassVar[list[str]] = ["id", "name", "isoCode"]

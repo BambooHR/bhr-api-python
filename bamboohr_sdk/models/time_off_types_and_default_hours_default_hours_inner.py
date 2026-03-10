@@ -27,7 +27,7 @@ class TimeOffTypesAndDefaultHoursDefaultHoursInner(BaseModel):
     """
 
     name: StrictStr = Field(description="Day of week")
-    amount: StrictFloat | StrictInt = Field(description="Default hours for the day")
+    amount: StrictFloat | StrictInt | StrictStr = Field(description="Default hours for the day")
     __properties: ClassVar[list[str]] = ["name", "amount"]
 
     model_config = ConfigDict(

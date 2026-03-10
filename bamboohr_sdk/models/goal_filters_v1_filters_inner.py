@@ -37,8 +37,8 @@ class GoalFiltersV1FiltersInner(BaseModel):
         if value is None:
             return value
 
-        if value not in set(["status-in_progress", "status-completed"]):
-            raise ValueError("must be one of enum values ('status-in_progress', 'status-completed')")
+        if value not in set(["status-in_progress", "status-inProgress", "status-completed"]):
+            raise ValueError("must be one of enum values ('status-in_progress', 'status-inProgress', 'status-completed')")
         return value
 
     @field_validator("name")

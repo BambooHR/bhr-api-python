@@ -165,6 +165,148 @@ def add_custom_headers_to_docs() -> None:
             print(f"  Added content to {filepath.relative_to(PROJECT_ROOT)}")
 
 
+def fix_model_types() -> None:
+    """Patch generated models where the API returns types that differ from the spec.
+
+    The BambooHR API frequently returns string representations of numeric values
+    (e.g. ``"64"`` instead of ``64``). The OpenAPI spec declares these as integers,
+    which causes Pydantic ``StrictInt`` validation to reject the actual responses.
+
+    This function applies targeted patches so the generated models accept what the
+    API actually sends. Each patch is documented with the model, field, and the
+    mismatch it corrects.
+    """
+    print("Fixing model type mismatches...")
+
+    MODELS_DIR = PACKAGE_DIR / "models"
+
+    # Each entry: (filename, old_text, new_text, description)
+    patches: list[tuple[str, str, str, str]] = [
+        # --- ID fields returned as strings instead of integers ---
+        (
+            "country_schema.py",
+            "id: StrictInt | None = Field(default=None, description=\"Unique identifier for the country\")",
+            "id: StrictInt | StrictStr | None = Field(default=None, description=\"Unique identifier for the country\")",
+            "CountrySchema.id: API returns string IDs like '1'",
+        ),
+        (
+            "time_off_types_and_default_hours_time_off_types_inner.py",
+            "id: StrictInt = Field(description=\"Time off type ID\")",
+            "id: StrictInt | StrictStr = Field(description=\"Time off type ID\")",
+            "TimeOffTypesAndDefaultHoursTimeOffTypesInner.id: API returns string IDs like '64'",
+        ),
+        (
+            "goals_aggregate_v1_comments_inner.py",
+            "goal_id: StrictInt | None = Field(",
+            "goal_id: StrictInt | StrictStr | None = Field(",
+            "GoalsAggregateV1CommentsInner.goalId: API returns string IDs like '25'",
+        ),
+        (
+            "goals_aggregate_v1_comments_inner.py",
+            "comment_count: StrictInt | None = Field(",
+            "comment_count: StrictInt | StrictStr | None = Field(",
+            "GoalsAggregateV1CommentsInner.commentCount: API returns string counts",
+        ),
+        # --- Numeric amounts returned as strings ---
+        (
+            "time_off_types_and_default_hours_default_hours_inner.py",
+            "amount: StrictFloat | StrictInt = Field(description=\"Default hours for the day\")",
+            "amount: StrictFloat | StrictInt | StrictStr = Field(description=\"Default hours for the day\")",
+            "TimeOffTypesAndDefaultHoursDefaultHoursInner.amount: API returns string '0'",
+        ),
+    ]
+
+    # Ensure StrictStr is imported in files that need it.
+    # Newline-anchored to avoid substring matching the already-patched line.
+    import_patches: list[tuple[str, str, str, str]] = [
+        (
+            "goals_aggregate_v1_comments_inner.py",
+            "from pydantic import BaseModel, ConfigDict, Field, StrictInt\n",
+            "from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr\n",
+            "GoalsAggregateV1CommentsInner: add StrictStr import",
+        ),
+    ]
+
+    all_patches = import_patches + patches
+    applied = 0
+    total = len(all_patches) + 2  # +2 for the enum and structural patches below
+
+    for filename, old_text, new_text, description in all_patches:
+        filepath = MODELS_DIR / filename
+        if not filepath.exists():
+            print(f"  Skipped (file not found): {description}")
+            continue
+
+        content = filepath.read_text()
+        if old_text not in content:
+            if new_text in content:
+                print(f"  Already applied: {description}")
+                applied += 1
+            else:
+                print(f"  Warning - pattern not found: {description}")
+            continue
+
+        content = content.replace(old_text, new_text, 1)
+        filepath.write_text(content)
+        print(f"  Applied: {description}")
+        applied += 1
+
+    # --- Enum patch: GoalFiltersV1FiltersInner.id ---
+    # Handled with simple replacements on the specific strings, not full lines,
+    # so it works regardless of how ruff formats the surrounding code.
+    desc = "GoalFiltersV1FiltersInner.id enum: API returns 'status-inProgress' (camelCase)"
+    gfi_path = MODELS_DIR / "goal_filters_v1_filters_inner.py"
+    if gfi_path.exists():
+        gfi_content = gfi_path.read_text()
+        if "status-inProgress" in gfi_content:
+            print(f"  Already applied: {desc}")
+            applied += 1
+        else:
+            gfi_content = gfi_content.replace(
+                '"status-in_progress", "status-completed"',
+                '"status-in_progress", "status-inProgress", "status-completed"',
+            )
+            gfi_content = gfi_content.replace(
+                "'status-in_progress', 'status-completed'",
+                "'status-in_progress', 'status-inProgress', 'status-completed'",
+            )
+            gfi_path.write_text(gfi_content)
+            print(f"  Applied: {desc}")
+            applied += 1
+    else:
+        print(f"  Skipped (file not found): {desc}")
+
+    # --- Structural patch: GoalFiltersV1.from_dict ---
+    # Handled separately because the old pattern is a subset of the new text,
+    # which would cause duplication with simple str.replace.
+    desc = "GoalFiltersV1.from_dict: handle list input (API returns array, not object)"
+    gf_path = MODELS_DIR / "goal_filters_v1.py"
+    if gf_path.exists():
+        gf_content = gf_path.read_text()
+        list_check = "if isinstance(obj, list):"
+        if list_check in gf_content:
+            print(f"  Already applied: {desc}")
+            applied += 1
+        else:
+            anchor = "        if not isinstance(obj, dict):\n            return cls.model_validate(obj)"
+            insertion = (
+                "        if isinstance(obj, list):\n"
+                '            return cls.model_validate({"filters": [GoalFiltersV1FiltersInner.from_dict(_item) for _item in obj]})\n'
+                "\n"
+            )
+            if anchor in gf_content:
+                gf_content = gf_content.replace(anchor, insertion + anchor, 1)
+                gf_path.write_text(gf_content)
+                print(f"  Applied: {desc}")
+                applied += 1
+            else:
+                print(f"  Warning - pattern not found: {desc}")
+    else:
+        print(f"  Skipped (file not found): {desc}")
+
+    print(f"  {applied}/{total} model patches applied")
+
+
 def cleanup_obsolete_files() -> None:
     """Run the cleanup obsolete files script in force mode."""
     print("Cleaning up obsolete files...")
@@ -191,6 +333,7 @@ def main() -> int:
     cleanup_generator_artifacts()
     remove_public_api()
     format_generated_code()
+    fix_model_types()
     add_custom_headers_to_docs()
     cleanup_obsolete_files()
 

@@ -85,6 +85,9 @@ class GoalFiltersV1(BaseModel):
         if obj is None:
             return None
 
+        if isinstance(obj, list):
+            return cls.model_validate({"filters": [GoalFiltersV1FiltersInner.from_dict(_item) for _item in obj]})
+
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
