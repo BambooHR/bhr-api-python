@@ -244,6 +244,10 @@ class BambooHRClient:
         if self._auth_builder.has_oauth_refresh:
             self._setup_oauth_refresh()
 
+        # Apply timeout to Configuration so ApiClient can use it as default
+        if self._timeout is not None:
+            self._config.timeout = self._timeout
+
         # Create the generated ApiClient if not injected
         if self._api_client is None:
             self._api_client = ApiClient(configuration=self._config)
@@ -470,6 +474,7 @@ class BambooHRClient:
         :raises ValueError: If authentication or company domain is missing.
         """
         # Authentication check
+        # Since we're using HTTP Basic auth for API keys, check username
         has_api_key = bool(self._config.username)
         has_oauth = bool(self._config.access_token)
 

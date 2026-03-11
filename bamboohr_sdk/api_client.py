@@ -274,12 +274,15 @@ class ApiClient:
         :return: RESTResponse
         """
 
+        # Use per-request timeout if provided, otherwise fall back to config default
+        effective_timeout = _request_timeout if _request_timeout is not None else self.configuration.timeout
+
         def _do_request():
             return self.rest_client.request(
                 method, url,
                 headers=header_params,
                 body=body, post_params=post_params,
-                _request_timeout=_request_timeout
+                _request_timeout=effective_timeout
             )
 
         response_data = send_with_retries(
