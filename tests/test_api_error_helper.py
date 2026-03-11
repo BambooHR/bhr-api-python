@@ -10,13 +10,26 @@ from bamboohr_sdk.api_error_helper import (
 )
 from bamboohr_sdk.exceptions import (
     ApiException,
+    ClientException,
+    ServerException,
     BadRequestException,
+    AuthenticationFailedException,
+    PermissionDeniedException,
+    ResourceNotFoundException,
+    MethodNotAllowedException,
+    RequestTimeoutException,
     ConflictException,
-    ForbiddenException,
-    NotFoundException,
-    ServiceException,
-    UnauthorizedException,
+    PayloadTooLargeException,
+    UnsupportedMediaTypeException,
     UnprocessableEntityException,
+    RateLimitExceededException,
+    InternalServerErrorException,
+    NotImplementedException,
+    BadGatewayException,
+    ServiceUnavailableException,
+    GatewayTimeoutException,
+    InsufficientStorageException,
+    NetworkReadTimeoutException,
 )
 
 
@@ -27,16 +40,26 @@ class TestCreateException:
         "status_code,expected_class",
         [
             (400, BadRequestException),
-            (401, UnauthorizedException),
-            (403, ForbiddenException),
-            (404, NotFoundException),
+            (401, AuthenticationFailedException),
+            (403, PermissionDeniedException),
+            (404, ResourceNotFoundException),
+            (405, MethodNotAllowedException),
+            (408, RequestTimeoutException),
             (409, ConflictException),
+            (413, PayloadTooLargeException),
+            (415, UnsupportedMediaTypeException),
             (422, UnprocessableEntityException),
-            (500, ServiceException),
-            (502, ServiceException),
-            (503, ServiceException),
-            (504, ServiceException),
-            (418, ApiException),  # Unknown status → base ApiException
+            (429, RateLimitExceededException),
+            (500, InternalServerErrorException),
+            (501, NotImplementedException),
+            (502, BadGatewayException),
+            (503, ServiceUnavailableException),
+            (504, GatewayTimeoutException),
+            (507, InsufficientStorageException),
+            (598, NetworkReadTimeoutException),
+            (418, ClientException),  # Unknown 4xx → base ClientException
+            (599, ServerException),  # Unknown 5xx → base ServerException
+            (302, ApiException),  # Non-error status → base ApiException
         ],
     )
     def test_creates_correct_exception_class(self, status_code, expected_class):

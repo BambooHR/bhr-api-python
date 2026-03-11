@@ -36,10 +36,10 @@ from bamboohr_sdk.exceptions import (
     ApiValueError,
     ApiException,
     BadRequestException,
-    UnauthorizedException,
-    ForbiddenException,
-    NotFoundException,
-    ServiceException
+    AuthenticationFailedException,
+    PermissionDeniedException,
+    ResourceNotFoundException,
+    InternalServerErrorException,
 )
 
 RequestSerialized = Tuple[str, str, Dict[str, str], Optional[str], List[str]]
