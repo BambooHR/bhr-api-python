@@ -20,7 +20,6 @@ Usage::
         body={"firstName": "Jane", "lastName": "Doe"},
     )
 
-Reference: PHP SDK ``lib/Api/ManualApi.php`` (SPN-2303).
 """
 
 from __future__ import annotations
