@@ -26,7 +26,7 @@ class TimeOffTypesAndDefaultHoursTimeOffTypesInner(BaseModel):
     TimeOffTypesAndDefaultHoursTimeOffTypesInner
     """
 
-    id: StrictInt = Field(description="Time off type ID")
+    id: StrictInt | StrictStr = Field(description="Time off type ID")
     name: StrictStr = Field(description="Time off type name")
     units: StrictStr = Field(description="Units for time off")
     color: StrictStr | None = Field(description="Hex color code")

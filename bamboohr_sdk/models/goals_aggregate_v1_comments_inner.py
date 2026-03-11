@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 from typing import Any, ClassVar
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing_extensions import Self
 
 
@@ -26,10 +26,10 @@ class GoalsAggregateV1CommentsInner(BaseModel):
     GoalsAggregateV1CommentsInner
     """
 
-    goal_id: StrictInt | None = Field(
+    goal_id: StrictInt | StrictStr | None = Field(
         default=None, description="The goalId that the comments are linked to.", alias="goalId"
     )
-    comment_count: StrictInt | None = Field(
+    comment_count: StrictInt | StrictStr | None = Field(
         default=None, description="How many comments are linked to the goal", alias="commentCount"
     )
     __properties: ClassVar[list[str]] = ["goalId", "commentCount"]

@@ -2,7 +2,7 @@
 ApiErrorHelper — Error catalog and exception factory for BambooHR SDK.
 
 Provides detailed error messages, debugging tips, and request ID support
-for API error responses. Mirrors the PHP SDK's ApiErrorHelper.
+for API error responses.
 """
 
 from __future__ import annotations

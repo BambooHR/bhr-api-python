@@ -2,7 +2,7 @@
 ApiHelper — Retry logic and logging utilities for BambooHR SDK.
 
 Provides request retry with exponential backoff, request/response logging
-with sensitive data redaction. Mirrors the PHP SDK's ApiHelper.
+with sensitive data redaction.
 """
 
 from __future__ import annotations
