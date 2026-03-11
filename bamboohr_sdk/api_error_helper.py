@@ -11,13 +11,26 @@ from typing import Any, Dict, List, Optional
 
 from bamboohr_sdk.exceptions import (
     ApiException,
+    ClientException,
+    ServerException,
     BadRequestException,
-    ForbiddenException,
-    NotFoundException,
-    ServiceException,
-    UnauthorizedException,
+    AuthenticationFailedException,
+    PermissionDeniedException,
+    ResourceNotFoundException,
+    MethodNotAllowedException,
+    RequestTimeoutException,
     ConflictException,
+    PayloadTooLargeException,
+    UnsupportedMediaTypeException,
     UnprocessableEntityException,
+    RateLimitExceededException,
+    InternalServerErrorException,
+    NotImplementedException,
+    BadGatewayException,
+    ServiceUnavailableException,
+    GatewayTimeoutException,
+    InsufficientStorageException,
+    NetworkReadTimeoutException,
 )
 
 # Error messages and debugging tips by HTTP status code
@@ -292,11 +305,23 @@ ERROR_MESSAGES: Dict[int, Dict[str, Any]] = {
 # Mapping from status code to exception class
 _STATUS_TO_EXCEPTION: Dict[int, type] = {
     400: BadRequestException,
-    401: UnauthorizedException,
-    403: ForbiddenException,
-    404: NotFoundException,
+    401: AuthenticationFailedException,
+    403: PermissionDeniedException,
+    404: ResourceNotFoundException,
+    405: MethodNotAllowedException,
+    408: RequestTimeoutException,
     409: ConflictException,
+    413: PayloadTooLargeException,
+    415: UnsupportedMediaTypeException,
     422: UnprocessableEntityException,
+    429: RateLimitExceededException,
+    500: InternalServerErrorException,
+    501: NotImplementedException,
+    502: BadGatewayException,
+    503: ServiceUnavailableException,
+    504: GatewayTimeoutException,
+    507: InsufficientStorageException,
+    598: NetworkReadTimeoutException,
 }
 
 
@@ -325,8 +350,10 @@ def create_exception(
     exc_class = _STATUS_TO_EXCEPTION.get(status_code)
     if exc_class is not None:
         exc = exc_class(status=status_code, reason=message, body=body)
+    elif 400 <= status_code <= 499:
+        exc = ClientException(status=status_code, reason=message, body=body)
     elif 500 <= status_code <= 599:
-        exc = ServiceException(status=status_code, reason=message, body=body)
+        exc = ServerException(status=status_code, reason=message, body=body)
     else:
         exc = ApiException(status=status_code, reason=message, body=body)
 
