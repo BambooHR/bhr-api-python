@@ -11,6 +11,9 @@ bamboohr_sdk/client/**
 bamboohr_sdk/api_helper.py
 bamboohr_sdk/api_error_helper.py
 
+# Protect hand-written API classes (not auto-generated from OpenAPI spec)
+bamboohr_sdk/api/manual_api.py
+
 # Protect project scaffolding files the generator would create
 pyproject.toml
 README.md
