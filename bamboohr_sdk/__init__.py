@@ -46,6 +46,26 @@ __all__ = [
     "ApiKeyError",
     "ApiAttributeError",
     "ApiException",
+    "ClientException",
+    "ServerException",
+    "BadRequestException",
+    "AuthenticationFailedException",
+    "PermissionDeniedException",
+    "ResourceNotFoundException",
+    "MethodNotAllowedException",
+    "RequestTimeoutException",
+    "ConflictException",
+    "PayloadTooLargeException",
+    "UnsupportedMediaTypeException",
+    "UnprocessableEntityException",
+    "RateLimitExceededException",
+    "InternalServerErrorException",
+    "NotImplementedException",
+    "BadGatewayException",
+    "ServiceUnavailableException",
+    "GatewayTimeoutException",
+    "InsufficientStorageException",
+    "NetworkReadTimeoutException",
     "AddNewEmployeeTrainingRecordRequest",
     "AddNewEmployeeTrainingRecordRequestCost",
     "AddTrainingCategoryRequest",
@@ -317,6 +337,26 @@ from bamboohr_sdk.exceptions import ApiValueError as ApiValueError
 from bamboohr_sdk.exceptions import ApiKeyError as ApiKeyError
 from bamboohr_sdk.exceptions import ApiAttributeError as ApiAttributeError
 from bamboohr_sdk.exceptions import ApiException as ApiException
+from bamboohr_sdk.exceptions import ClientException as ClientException
+from bamboohr_sdk.exceptions import ServerException as ServerException
+from bamboohr_sdk.exceptions import BadRequestException as BadRequestException
+from bamboohr_sdk.exceptions import AuthenticationFailedException as AuthenticationFailedException
+from bamboohr_sdk.exceptions import PermissionDeniedException as PermissionDeniedException
+from bamboohr_sdk.exceptions import ResourceNotFoundException as ResourceNotFoundException
+from bamboohr_sdk.exceptions import MethodNotAllowedException as MethodNotAllowedException
+from bamboohr_sdk.exceptions import RequestTimeoutException as RequestTimeoutException
+from bamboohr_sdk.exceptions import ConflictException as ConflictException
+from bamboohr_sdk.exceptions import PayloadTooLargeException as PayloadTooLargeException
+from bamboohr_sdk.exceptions import UnsupportedMediaTypeException as UnsupportedMediaTypeException
+from bamboohr_sdk.exceptions import UnprocessableEntityException as UnprocessableEntityException
+from bamboohr_sdk.exceptions import RateLimitExceededException as RateLimitExceededException
+from bamboohr_sdk.exceptions import InternalServerErrorException as InternalServerErrorException
+from bamboohr_sdk.exceptions import NotImplementedException as NotImplementedException
+from bamboohr_sdk.exceptions import BadGatewayException as BadGatewayException
+from bamboohr_sdk.exceptions import ServiceUnavailableException as ServiceUnavailableException
+from bamboohr_sdk.exceptions import GatewayTimeoutException as GatewayTimeoutException
+from bamboohr_sdk.exceptions import InsufficientStorageException as InsufficientStorageException
+from bamboohr_sdk.exceptions import NetworkReadTimeoutException as NetworkReadTimeoutException
 
 # import models into sdk package
 from bamboohr_sdk.models.add_new_employee_training_record_request import AddNewEmployeeTrainingRecordRequest as AddNewEmployeeTrainingRecordRequest

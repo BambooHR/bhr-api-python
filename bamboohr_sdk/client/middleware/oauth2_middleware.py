@@ -85,9 +85,9 @@ class OAuth2Middleware:
             logger.debug("Received 401; attempting reactive token refresh")
             try:
                 self._refresh_access_token()
-            except Exception:
-                # Refresh failed — raise the original 401.
-                raise exc
+            except Exception as refresh_err:
+                logger.warning("Token refresh failed during 401 recovery: %s", refresh_err)
+                raise exc from refresh_err
 
             # Retry the request with the fresh token.
             return send_request()

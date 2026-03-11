@@ -97,6 +97,29 @@ class TestConfiguration:
         c = BambooHRClient().with_timeout((5.0, 30.0))
         assert c.timeout == (5.0, 30.0)
 
+    def test_with_timeout_propagates_to_configuration(self):
+        c = _build_client()
+        assert c.configuration.timeout is None  # no timeout by default
+
+        c2 = (
+            BambooHRClient()
+            .with_api_key("k")
+            .for_company("acme")
+            .with_timeout(15.0)
+            .build()
+        )
+        assert c2.configuration.timeout == 15.0
+
+    def test_with_timeout_tuple_propagates_to_configuration(self):
+        c = (
+            BambooHRClient()
+            .with_api_key("k")
+            .for_company("acme")
+            .with_timeout((5.0, 30.0))
+            .build()
+        )
+        assert c.configuration.timeout == (5.0, 30.0)
+
     def test_with_debug(self):
         c = BambooHRClient().with_debug(True)
         assert c.configuration.debug is True
@@ -329,6 +352,61 @@ class TestAPIAccessorCaching:
 # ===========================================================================
 # Pre-configured AuthBuilder
 # ===========================================================================
+
+
+class TestTimeoutCoalesce:
+    """Tests that ApiClient.call_api uses config timeout as default."""
+
+    def test_config_timeout_used_when_no_per_request_timeout(self):
+        client = (
+            BambooHRClient()
+            .with_api_key("k")
+            .for_company("acme")
+            .with_timeout(15.0)
+            .build()
+        )
+        api_client = client.api_client
+        with patch.object(api_client.rest_client, "request") as mock_req:
+            mock_resp = MagicMock()
+            mock_resp.status = 200
+            mock_resp.getheaders.return_value = {}
+            mock_req.return_value = mock_resp
+
+            api_client.call_api("GET", "https://acme.bamboohr.com/api/v1/test")
+            _, kwargs = mock_req.call_args
+            assert kwargs["_request_timeout"] == 15.0
+
+    def test_per_request_timeout_overrides_config(self):
+        client = (
+            BambooHRClient()
+            .with_api_key("k")
+            .for_company("acme")
+            .with_timeout(15.0)
+            .build()
+        )
+        api_client = client.api_client
+        with patch.object(api_client.rest_client, "request") as mock_req:
+            mock_resp = MagicMock()
+            mock_resp.status = 200
+            mock_resp.getheaders.return_value = {}
+            mock_req.return_value = mock_resp
+
+            api_client.call_api("GET", "https://acme.bamboohr.com/api/v1/test", _request_timeout=5.0)
+            _, kwargs = mock_req.call_args
+            assert kwargs["_request_timeout"] == 5.0
+
+    def test_no_timeout_when_neither_set(self):
+        client = _build_client()
+        api_client = client.api_client
+        with patch.object(api_client.rest_client, "request") as mock_req:
+            mock_resp = MagicMock()
+            mock_resp.status = 200
+            mock_resp.getheaders.return_value = {}
+            mock_req.return_value = mock_resp
+
+            api_client.call_api("GET", "https://acme.bamboohr.com/api/v1/test")
+            _, kwargs = mock_req.call_args
+            assert kwargs["_request_timeout"] is None
 
 
 class TestPreConfiguredAuthBuilder:
