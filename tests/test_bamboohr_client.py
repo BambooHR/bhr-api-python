@@ -409,6 +409,49 @@ class TestTimeoutCoalesce:
             assert kwargs["_request_timeout"] is None
 
 
+class TestLastRequestId:
+    """Tests for last_request_id property on BambooHRClient."""
+
+    def test_last_request_id_none_before_build(self):
+        client = BambooHRClient()
+        assert client.last_request_id is None
+
+    def test_last_request_id_none_before_any_request(self):
+        client = _build_client()
+        assert client.last_request_id is None
+
+    def test_last_request_id_extracted_after_call(self):
+        client = _build_client()
+        api_client = client.api_client
+        with patch.object(api_client.rest_client, "request") as mock_req:
+            mock_resp = MagicMock()
+            mock_resp.status = 200
+            mock_resp.getheader.return_value = "req-id-xyz"
+            mock_resp.getheaders.return_value = {"x-request-id": "req-id-xyz"}
+            mock_req.return_value = mock_resp
+
+            api_client.call_api("GET", "https://acme.bamboohr.com/api/v1/test")
+            assert client.last_request_id == "req-id-xyz"
+
+    def test_last_request_id_updates_on_each_call(self):
+        client = _build_client()
+        api_client = client.api_client
+        with patch.object(api_client.rest_client, "request") as mock_req:
+            mock_resp1 = MagicMock()
+            mock_resp1.status = 200
+            mock_resp1.getheader.return_value = "first-id"
+            mock_req.return_value = mock_resp1
+            api_client.call_api("GET", "https://acme.bamboohr.com/api/v1/test")
+            assert client.last_request_id == "first-id"
+
+            mock_resp2 = MagicMock()
+            mock_resp2.status = 200
+            mock_resp2.getheader.return_value = "second-id"
+            mock_req.return_value = mock_resp2
+            api_client.call_api("GET", "https://acme.bamboohr.com/api/v1/test")
+            assert client.last_request_id == "second-id"
+
+
 class TestPreConfiguredAuthBuilder:
     """Tests for injecting a pre-configured AuthBuilder."""
 

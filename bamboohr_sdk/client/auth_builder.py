@@ -8,6 +8,7 @@ from __future__ import annotations
 
 from typing import Any, Callable, Dict, Optional
 
+from bamboohr_sdk.client.logger.secure_log_filter import mask_value
 from bamboohr_sdk.configuration import Configuration
 
 
@@ -243,12 +244,12 @@ class AuthBuilder:
         }
 
         if self._auth_type == "api_key":
-            info["api_key"] = _mask(self._api_key)
+            info["api_key"] = mask_value(self._api_key)
         elif self._auth_type == "oauth":
-            info["oauth_token"] = _mask(self._oauth_token)
+            info["oauth_token"] = mask_value(self._oauth_token)
         elif self._auth_type == "oauth_refresh":
-            info["oauth_token"] = _mask(self._oauth_token)
-            info["refresh_token"] = _mask(self._refresh_token)
+            info["oauth_token"] = mask_value(self._oauth_token)
+            info["refresh_token"] = mask_value(self._refresh_token)
             info["client_id"] = self._client_id
             info["has_callback"] = self._on_token_refresh is not None
 
@@ -270,13 +271,3 @@ class AuthBuilder:
         return self
 
 
-# ------------------------------------------------------------------
-# Module-level helpers
-# ------------------------------------------------------------------
-
-
-def _mask(value: Optional[str]) -> str:
-    """Mask a sensitive string, showing only the first and last 4 chars."""
-    if not value or len(value) <= 8:
-        return "********"
-    return value[:4] + "********" + value[-4:]

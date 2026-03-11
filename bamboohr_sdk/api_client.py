@@ -17,6 +17,7 @@ from dateutil.parser import parse
 from enum import Enum
 import decimal
 import json
+import logging
 import mimetypes
 import os
 import re
@@ -31,7 +32,7 @@ from bamboohr_sdk.configuration import Configuration
 from bamboohr_sdk.api_response import ApiResponse, T as ApiResponseT
 import bamboohr_sdk.models
 from bamboohr_sdk import rest
-from bamboohr_sdk.api_helper import send_with_retries
+from bamboohr_sdk.api_helper import send_with_retries, redact_url, redact_headers
 from bamboohr_sdk.exceptions import (
     ApiValueError,
     ApiException,
@@ -41,6 +42,8 @@ from bamboohr_sdk.exceptions import (
     ResourceNotFoundException,
     InternalServerErrorException,
 )
+
+logger = logging.getLogger("bamboohr_sdk")
 
 RequestSerialized = Tuple[str, str, Dict[str, str], Optional[str], List[str]]
 
@@ -95,6 +98,16 @@ class ApiClient:
         self.user_agent = configuration.sdk_user_agent
         self.client_side_validation = configuration.client_side_validation
 
+        # BambooHR SDK: Request ID tracking middleware (lazy import to avoid circular dependency)
+        from bamboohr_sdk.client.middleware.request_id_middleware import RequestIdMiddleware
+        self._request_id_middleware = RequestIdMiddleware()
+
+        logger.debug(
+            "ApiClient initialised (host=%s, user_agent=%s)",
+            configuration.host,
+            self.user_agent,
+        )
+
     def __enter__(self):
         return self
 
@@ -113,6 +126,15 @@ class ApiClient:
     def set_default_header(self, header_name, header_value):
         self.default_headers[header_name] = header_value
 
+    @property
+    def request_id_middleware(self):
+        """Return the :class:`RequestIdMiddleware` instance."""
+        return self._request_id_middleware
+
+    @property
+    def last_request_id(self) -> Optional[str]:
+        """Return the most recent ``x-request-id`` from an API response."""
+        return self._request_id_middleware.last_request_id
 
     _default = None
 
@@ -294,6 +316,9 @@ class ApiClient:
             retryable_status_codes=self.configuration.retryable_status_codes,
         )
 
+        # BambooHR SDK: extract request ID from response for tracing
+        self._request_id_middleware.extract_request_id(response_data)
+
         return response_data
 
     def response_deserialize(
@@ -339,12 +364,20 @@ class ApiClient:
                     data=return_data,
                 )
 
-        return ApiResponse(
+        api_response = ApiResponse(
             status_code = response_data.status,
             data = return_data,
             headers = response_data.getheaders(),
             raw_data = response_data.data
         )
+
+        logger.debug(
+            "Response deserialised (status=%d, type=%s)",
+            response_data.status,
+            response_type or "none",
+        )
+
+        return api_response
 
     def sanitize_for_serialization(self, obj):
         """Builds a JSON POST object.

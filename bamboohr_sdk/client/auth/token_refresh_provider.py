@@ -80,9 +80,16 @@ class BambooHRTokenRefreshProvider:
             },
         )
 
+        logger.debug("Sending token refresh request to %s", self._token_endpoint)
+
         status_code, headers, response_body = self._send(req)
 
         if status_code < 200 or status_code >= 300:
+            logger.error(
+                "Token refresh failed (status=%d, endpoint=%s)",
+                status_code,
+                self._token_endpoint,
+            )
             raise ApiException(
                 status=status_code,
                 reason=f"Token refresh failed with status {status_code}",
@@ -104,6 +111,12 @@ class BambooHRTokenRefreshProvider:
                 reason="Token response missing required access_token field",
                 body=response_body,
             )
+
+        logger.debug(
+            "Token refresh succeeded (has_new_refresh=%s, has_expiry=%s)",
+            "refresh_token" in data,
+            "expires_in" in data,
+        )
 
         return TokenResponse(
             access_token=data["access_token"],
@@ -156,12 +169,18 @@ class BambooHRTokenRefreshProvider:
             body = ""
             if exc.fp:
                 body = exc.fp.read().decode("utf-8", errors="replace")
+            logger.error(
+                "Token refresh HTTP error (status=%d, reason=%s)",
+                exc.code,
+                exc.reason,
+            )
             raise ApiException(
                 status=exc.code,
                 reason=f"Token refresh request failed: {exc.reason}",
                 body=body,
             )
         except URLError as exc:
+            logger.error("Token refresh connection error: %s", exc.reason)
             raise ApiException(
                 status=0,
                 reason=f"Token refresh request failed: {exc.reason}",

@@ -2,7 +2,8 @@
 
 import pytest
 
-from bamboohr_sdk.client.auth_builder import AuthBuilder, _mask
+from bamboohr_sdk.client.auth_builder import AuthBuilder
+from bamboohr_sdk.client.logger.secure_log_filter import mask_value
 from bamboohr_sdk.configuration import Configuration
 
 
@@ -178,25 +179,25 @@ class TestReset:
         assert ab.token_refresh_callback is None
 
 
-class TestMask:
-    """Tests for the _mask utility."""
+class TestMaskValue:
+    """Tests for the mask_value utility."""
 
     def test_short_value(self):
-        assert _mask("short") == "********"
+        assert mask_value("short") == "[REDACTED]"
 
     def test_none_value(self):
-        assert _mask(None) == "********"
+        assert mask_value(None) == "[EMPTY]"
 
     def test_empty_value(self):
-        assert _mask("") == "********"
+        assert mask_value("") == "[EMPTY]"
 
     def test_long_value(self):
-        result = _mask("abcdefghijklmnop")
-        assert result == "abcd********mnop"
+        result = mask_value("abcdefghijklmnop")
+        assert result == "abcd****mnop"
 
     def test_exactly_8_chars(self):
-        assert _mask("12345678") == "********"
+        assert mask_value("12345678") == "[REDACTED]"
 
     def test_9_chars(self):
-        result = _mask("123456789")
-        assert result == "1234********6789"
+        result = mask_value("123456789")
+        assert result == "1234****6789"

@@ -200,14 +200,23 @@ class BambooHRClient:
         self,
         log_logger: Optional[logging.Logger] = None,
         level: int = logging.INFO,
+        secure: bool = True,
     ) -> BambooHRClient:
         """Enable SDK logging.
+
+        When *secure* is ``True`` (the default), a :class:`SecureLogFilter` is
+        attached to the logger so that sensitive data (tokens, passwords,
+        API keys, etc.) is automatically redacted from log output.
 
         :param log_logger: A :class:`logging.Logger` instance.
             Defaults to the ``bamboohr_sdk`` logger.
         :param level: Logging level (e.g. ``logging.DEBUG``).
+        :param secure: Attach the :class:`SecureLogFilter` for automatic
+            redaction (default ``True``).
         :return: self for chaining.
         """
+        from bamboohr_sdk.client.logger.secure_log_filter import SecureLogFilter
+
         target = log_logger or logger
         target.setLevel(level)
         if not target.handlers:
@@ -216,7 +225,12 @@ class BambooHRClient:
                 logging.Formatter("%(asctime)s %(levelname)s %(name)s: %(message)s")
             )
             target.addHandler(handler)
-        logger.info("Logging enabled at level %s", logging.getLevelName(level))
+
+        # Attach the secure redaction filter (idempotent — won't double-add)
+        if secure and not any(isinstance(f, SecureLogFilter) for f in target.filters):
+            target.addFilter(SecureLogFilter())
+
+        logger.info("Logging enabled at level %s (secure=%s)", logging.getLevelName(level), secure)
         return self
 
     # ------------------------------------------------------------------
@@ -414,6 +428,18 @@ class BambooHRClient:
     def oauth2_middleware(self) -> Optional[OAuth2Middleware]:
         """Return the :class:`OAuth2Middleware`, or ``None`` if OAuth refresh is not configured."""
         return self._oauth2_middleware
+
+    @property
+    def last_request_id(self) -> Optional[str]:
+        """Return the most recent ``x-request-id`` from an API response.
+
+        Convenience proxy for ``api_client.last_request_id``.
+        Returns ``None`` if the client has not been built or no request
+        has been made yet.
+        """
+        if self._api_client is not None:
+            return self._api_client.last_request_id
+        return None
 
     # ------------------------------------------------------------------
     # Private helpers
