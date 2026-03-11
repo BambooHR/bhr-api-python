@@ -55,11 +55,21 @@ cleanup-obsolete:
 
 clean:
 	@echo "Cleaning generated files..."
+	@# Preserve hand-written API files before wiping the directory
+	@mkdir -p /tmp/bhr-sdk-preserve
+	@if [ -f bamboohr_sdk/api/manual_api.py ]; then \
+		cp bamboohr_sdk/api/manual_api.py /tmp/bhr-sdk-preserve/; \
+	fi
 	rm -rf bamboohr_sdk/api bamboohr_sdk/models docs test .openapi-generator
 	@# Recreate empty directories with __init__.py
 	mkdir -p bamboohr_sdk/api bamboohr_sdk/models
 	echo '"""Auto-generated API classes from OpenAPI specification."""' > bamboohr_sdk/api/__init__.py
 	echo '"""Auto-generated data models from OpenAPI specification."""' > bamboohr_sdk/models/__init__.py
+	@# Restore hand-written API files
+	@if [ -f /tmp/bhr-sdk-preserve/manual_api.py ]; then \
+		cp /tmp/bhr-sdk-preserve/manual_api.py bamboohr_sdk/api/; \
+		rm -rf /tmp/bhr-sdk-preserve; \
+	fi
 	@echo "Clean complete!"
 
 test:

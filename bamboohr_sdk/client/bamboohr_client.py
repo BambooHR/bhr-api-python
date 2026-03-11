@@ -395,6 +395,21 @@ class BambooHRClient:
         from bamboohr_sdk.api.login_api import LoginApi
         return self.get_api(LoginApi)
 
+    def manual(self):
+        """Access the Manual API for custom/ad-hoc requests.
+
+        Returns a :class:`~bamboohr_sdk.api.manual_api.ManualApi` that
+        lets you make arbitrary HTTP requests while still using the SDK's
+        built-in authentication, error handling, retry logic, and logging.
+
+        Example::
+
+            resp = client.manual().get("/api/gateway.php/acme/v1/employees/directory")
+            resp = client.manual().post("/api/gateway.php/acme/v1/employees", body={...})
+        """
+        from bamboohr_sdk.api.manual_api import ManualApi
+        return self.get_api(ManualApi)
+
     # ------------------------------------------------------------------
     # Introspection
     # ------------------------------------------------------------------
