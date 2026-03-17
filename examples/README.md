@@ -103,13 +103,18 @@ Comprehensive guide to handling API errors, including retry strategies, the buil
 **Exception hierarchy:**
 ```
 ApiException (base)
-├── BadRequestException        (400)
-├── UnauthorizedException      (401)
-├── ForbiddenException         (403)
-├── NotFoundException          (404)
-├── ConflictException          (409)
-├── UnprocessableEntityException (422)
-└── ServiceException           (5xx)
+├── ClientException (4xx)
+│   ├── BadRequestException           (400)
+│   ├── AuthenticationFailedException (401)
+│   ├── PermissionDeniedException     (403)
+│   ├── ResourceNotFoundException     (404)
+│   ├── ConflictException             (409)
+│   ├── UnprocessableEntityException  (422)
+│   └── RateLimitExceededException    (429)
+└── ServerException (5xx)
+    ├── InternalServerErrorException  (500)
+    ├── ServiceUnavailableException   (503)
+    └── GatewayTimeoutException       (504)
 ```
 
 ---

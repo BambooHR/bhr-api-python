@@ -31,9 +31,9 @@ from unittest.mock import MagicMock
 from bamboohr_sdk.client import BambooHRClient
 from bamboohr_sdk.exceptions import (
     ApiException,
-    NotFoundException,
-    ServiceException,
-    UnauthorizedException,
+    AuthenticationFailedException,
+    ResourceNotFoundException,
+    ServerException,
 )
 
 # ---------------------------------------------------------------------------
@@ -63,7 +63,7 @@ class EmployeeService:
                 fields="firstName,lastName",
             )
             return f"{employee.first_name} {employee.last_name}"
-        except NotFoundException:
+        except ResourceNotFoundException:
             return "Unknown"
 
     def get_department_headcount(self) -> dict[str, int]:
@@ -71,7 +71,7 @@ class EmployeeService:
         directory = self._client.employees().get_employees_directory()
         counts: dict[str, int] = {}
         for emp in directory.employees or []:
-            dept = emp.department or "Unassigned"
+            dept = emp.get("department") or "Unassigned"
             counts[dept] = counts.get(dept, 0) + 1
         return counts
 
@@ -118,7 +118,7 @@ class TestEmployeeServiceBasicMocking(unittest.TestCase):
 
     def test_get_employee_name_not_found(self) -> None:
         """Test graceful handling when employee doesn't exist."""
-        self.mock_client.employees().get_employee.side_effect = NotFoundException(status=404, reason="Not found")
+        self.mock_client.employees().get_employee.side_effect = ResourceNotFoundException(status=404, reason="Not found")
 
         name = self.service.get_employee_name("999")
 
@@ -127,9 +127,10 @@ class TestEmployeeServiceBasicMocking(unittest.TestCase):
     def test_get_department_headcount(self) -> None:
         """Test department counting logic."""
         mock_directory = MagicMock()
-        emp1 = MagicMock(department="Engineering")
-        emp2 = MagicMock(department="Engineering")
-        emp3 = MagicMock(department="Marketing")
+        # Directory employees are dicts with camelCase keys (list[dict[str, Any]])
+        emp1 = {"id": "1", "displayName": "Alice", "department": "Engineering"}
+        emp2 = {"id": "2", "displayName": "Bob", "department": "Engineering"}
+        emp3 = {"id": "3", "displayName": "Carol", "department": "Marketing"}
         mock_directory.employees = [emp1, emp2, emp3]
 
         self.mock_client.employees().get_employees_directory.return_value = mock_directory
@@ -159,7 +160,7 @@ class TestErrorHandling(unittest.TestCase):
 
     def test_health_check_fails_on_auth_error(self) -> None:
         """Health check returns False on authentication failure."""
-        self.mock_client.employees().get_employees_directory.side_effect = UnauthorizedException(
+        self.mock_client.employees().get_employees_directory.side_effect = AuthenticationFailedException(
             status=401, reason="Unauthorized"
         )
 
@@ -167,7 +168,7 @@ class TestErrorHandling(unittest.TestCase):
 
     def test_health_check_fails_on_server_error(self) -> None:
         """Health check returns False on server error."""
-        self.mock_client.employees().get_employees_directory.side_effect = ServiceException(
+        self.mock_client.employees().get_employees_directory.side_effect = ServerException(
             status=500, reason="Internal Server Error"
         )
 
@@ -175,9 +176,9 @@ class TestErrorHandling(unittest.TestCase):
 
     def test_get_employee_propagates_auth_errors(self) -> None:
         """Auth errors propagate (they're not caught by get_employee_name)."""
-        self.mock_client.employees().get_employee.side_effect = UnauthorizedException(status=401, reason="Unauthorized")
+        self.mock_client.employees().get_employee.side_effect = AuthenticationFailedException(status=401, reason="Unauthorized")
 
-        with self.assertRaises(UnauthorizedException):
+        with self.assertRaises(AuthenticationFailedException):
             self.service.get_employee_name("123")
 
 
@@ -319,13 +320,17 @@ class MockEmployeeFactory:
         return mock
 
     @staticmethod
-    def create_directory(employees: list[MagicMock] | None = None) -> MagicMock:
-        """Create a mock directory response."""
+    def create_directory(employees: list[dict] | None = None) -> MagicMock:
+        """Create a mock directory response.
+
+        Directory employees are dicts with camelCase keys, matching the real
+        API response shape (list[dict[str, Any]]).
+        """
         mock_dir = MagicMock()
         mock_dir.employees = employees or [
-            MockEmployeeFactory.create(first_name="Alice", department="Engineering"),
-            MockEmployeeFactory.create(first_name="Bob", department="Marketing"),
-            MockEmployeeFactory.create(first_name="Carol", department="Engineering"),
+            {"id": "1", "displayName": "Alice Smith", "department": "Engineering"},
+            {"id": "2", "displayName": "Bob Jones", "department": "Marketing"},
+            {"id": "3", "displayName": "Carol White", "department": "Engineering"},
         ]
         return mock_dir
 

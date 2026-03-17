@@ -2,6 +2,12 @@
 
 Official Python SDK for the [BambooHR API](https://documentation.bamboohr.com).
 
+## Overview
+
+The BambooHR Python SDK provides a type-safe, Pythonic interface to the BambooHR REST API. It includes auto-generated client classes covering all public API endpoints, a fluent builder for authentication and configuration, and production-ready features such as automatic token refresh, retry with exponential backoff, and secure logging.
+
+**Supported APIs:** Employees, Time Off, Time Tracking, Benefits, Reports, Custom Reports, Datasets, Tabular Data, Goals, Training, Applicant Tracking, Webhooks, Company Files, Employee Files, Photos, Account Information, Hours, Last Change Information, Login, and a Manual API for custom requests.
+
 ## Requirements
 
 - Python 3.10+
@@ -12,100 +18,51 @@ Official Python SDK for the [BambooHR API](https://documentation.bamboohr.com).
 pip install bamboohr-sdk
 ```
 
-### Development Setup
+## Quick Start
 
-```bash
-# Clone the repository
-git clone https://github.com/BambooHR/bhr-api-python.git
-cd bhr-api-python
+```python
+from bamboohr_sdk.client import BambooHRClient
+from bamboohr_sdk.exceptions import ApiException
 
-# Create a virtual environment
-python -m venv .venv
-source .venv/bin/activate
+client = (
+    BambooHRClient()
+    .with_api_key("your-api-key")
+    .for_company("your-company-subdomain")
+    .build()
+)
 
-# Install with dev dependencies
-pip install -e ".[dev]"
+try:
+    directory = client.employees().get_employees_directory()
+    for emp in directory.employees or []:
+        print(emp.get("displayName"))
+except ApiException as e:
+    print(f"API error ({e.status}): {e.reason}")
 ```
 
-## Development
+See [GETTING_STARTED.md](GETTING_STARTED.md) for a full walkthrough and [AUTHENTICATION.md](AUTHENTICATION.md) for all authentication options. **OAuth 2.0 is recommended for all partner integrations** — see the authentication guide for setup.
 
-### Linting & Formatting
+## Documentation
 
-```bash
-# Check linting
-ruff check bamboohr_sdk/ tests/
-
-# Auto-fix linting issues
-ruff check --fix bamboohr_sdk/ tests/
-
-# Format code
-ruff format bamboohr_sdk/ tests/
-```
-
-### Type Checking
-
-```bash
-mypy bamboohr_sdk/
-```
-
-### Testing
-
-```bash
-pytest
-```
-
-## Project Structure
-
-```
-bhr-api-python/
-├── bamboohr_sdk/               # Main package
-│   ├── api/                    # Auto-generated API classes
-│   ├── models/                 # Auto-generated data models
-│   ├── client/                 # Custom API client & auth
-│   │   ├── auth/               # TokenManager, RefreshProvider
-│   │   ├── middleware/         # OAuth2, RequestId middleware
-│   │   └── logger/            # SecureLogger
-│   ├── api_helper.py           # Retry logic & logging utilities
-│   └── api_error_helper.py    # Error catalog & exception factory
-├── test/                       # Auto-generated API test stubs
-├── tests/                      # Custom hand-written tests
-├── docs/                       # Auto-generated API documentation
-├── templates-python/           # Custom openapi-generator templates
-├── scripts/                    # Post-generation scripts
-├── examples/                   # Usage examples
-└── pyproject.toml              # Project configuration
-```
-
-### Protecting Implemented Tests
-
-The `test/` directory contains auto-generated API test stubs created by `make generate`.
-These stubs are overwritten on each regeneration. Once you implement real test logic in a
-test file, add it to `.openapi-generator-ignore` to prevent it from being overwritten:
-
-```
-# .openapi-generator-ignore
-test/test_employees_api.py
-test/test_time_tracking_api.py
-```
-
-This ensures your implemented tests survive regeneration while new API test stubs are still
-generated for any newly added APIs.
+- [Getting Started Guide](GETTING_STARTED.md) — installation, first API call, configuration options
+- [Authentication Guide](AUTHENTICATION.md) — OAuth 2.0 (recommended), API key, automatic token refresh
+- [API Reference](docs/) — per-endpoint documentation for all API classes
+- [Examples](examples/) — runnable examples covering common patterns
+- [BambooHR API Docs](https://documentation.bamboohr.com/docs/getting-started)
+- [Changelog](CHANGELOG.md)
 
 ## SDK Features
 
-The BambooHR Python SDK includes the following built-in features:
-
 ### Retry with Exponential Backoff
 
-All API requests are automatically retried on transient failures. Configure via `Configuration`:
+All API requests are automatically retried on transient failures (HTTP 408, 429, 504, 598). Configure via `BambooHRClient`:
 
 ```python
-from bamboohr_sdk import Configuration
-
-config = Configuration(
-    host="https://api.bamboohr.com",
-    retries=3,                              # 0-5, default 1
-    retryable_status_codes=[408, 429, 504],  # default: [408, 429, 504, 598]
+client = (
+    BambooHRClient()
+    .with_api_key("your-api-key")
+    .for_company("your-company")
+    .with_retries(3)  # 0-5, default 1
+    .build()
 )
 ```
 
@@ -140,6 +97,99 @@ logging.getLogger("bamboohr_sdk").setLevel(logging.DEBUG)
 ### Raw Response for Void Endpoints
 
 Endpoints without a defined return type return an `ApiResponse` object instead of `None`, giving access to status code, headers, and raw response data.
+
+## Project Structure
+
+```
+bhr-api-python/
+├── bamboohr_sdk/               # Main package
+│   ├── api/                    # Auto-generated API classes
+│   ├── models/                 # Auto-generated data models
+│   ├── client/                 # Custom API client & auth
+│   │   ├── auth/               # TokenManager, RefreshProvider
+│   │   ├── middleware/         # OAuth2, RequestId middleware
+│   │   └── logger/             # SecureLogger
+│   ├── api_helper.py           # Retry logic & logging utilities
+│   └── api_error_helper.py     # Error catalog & exception factory
+├── test/                       # Auto-generated API test stubs
+├── tests/                      # Custom hand-written tests
+├── docs/                       # Auto-generated API documentation
+├── templates-python/           # Custom openapi-generator templates
+├── scripts/                    # Post-generation scripts
+├── examples/                   # Usage examples
+└── pyproject.toml              # Project configuration
+```
+
+## Development Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/BambooHR/bhr-api-python.git
+cd bhr-api-python
+
+# Create a virtual environment
+python -m venv .venv
+source .venv/bin/activate
+
+# Install with dev dependencies
+pip install -e ".[dev]"
+```
+
+### Linting & Formatting
+
+```bash
+# Check linting
+ruff check bamboohr_sdk/ tests/
+
+# Auto-fix linting issues
+ruff check --fix bamboohr_sdk/ tests/
+
+# Format code
+ruff format bamboohr_sdk/ tests/
+```
+
+### Type Checking
+
+```bash
+mypy bamboohr_sdk/
+```
+
+### Testing
+
+```bash
+pytest
+```
+
+### Protecting Implemented Tests
+
+The `test/` directory contains auto-generated API test stubs created by `make generate`.
+These stubs are overwritten on each regeneration. Once you implement real test logic in a
+test file, add it to `.openapi-generator-ignore` to prevent it from being overwritten:
+
+```
+# .openapi-generator-ignore
+test/test_employees_api.py
+test/test_time_tracking_api.py
+```
+
+This ensures your implemented tests survive regeneration while new API test stubs are still
+generated for any newly added APIs.
+
+## Contributing
+
+Contributions are welcome. Please open an issue before submitting a pull request for significant changes. Ensure all tests pass and type-checking is clean before opening a PR.
+
+```bash
+pytest
+mypy bamboohr_sdk/
+ruff check bamboohr_sdk/ tests/
+```
+
+## Support
+
+- **API documentation:** [documentation.bamboohr.com](https://documentation.bamboohr.com/docs/getting-started)
+- **Issues:** [GitHub Issues](https://github.com/BambooHR/bhr-api-python/issues)
+- **BambooHR support:** [support.bamboohr.com](https://support.bamboohr.com)
 
 ## License
 
