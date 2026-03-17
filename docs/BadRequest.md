@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**error** | **str** |  | [optional] 
+**error** | [**BadRequestError**](BadRequestError.md) |  | [optional] 
 
 ## Example
 

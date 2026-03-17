@@ -6,11 +6,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **completed** | **str** | Completed is the only required field and must be in yyyy-mm-dd format. The other parameters are optional. | 
-**cost** | [**AddNewEmployeeTrainingRecordRequestCost**](AddNewEmployeeTrainingRecordRequestCost.md) |  | [optional] 
-**instructor** | **str** |  | [optional] 
-**hours** | **float** |  | [optional] 
-**credits** | **float** |  | [optional] 
-**notes** | **float** |  | [optional] 
+**cost** | [**CreateEmployeeTrainingRecordRequestCost**](CreateEmployeeTrainingRecordRequestCost.md) |  | [optional] 
+**instructor** | **str** | Name of the training instructor. | [optional] 
+**hours** | **float** | Number of hours for the training. | [optional] 
+**credits** | **float** | Credits earned for the training. | [optional] 
+**notes** | **str** | Optional notes about the training record. | [optional] 
 
 ## Example
 

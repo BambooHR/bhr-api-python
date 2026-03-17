@@ -195,6 +195,8 @@ class Configuration:
       (0-5, default 1). This is separate from urllib3's transport-level retries.
     :param retryable_status_codes: List of HTTP status codes that trigger a retry.
       Default: [408, 429, 504, 598].
+    :param timeout: Default request timeout in seconds. Can be a float for a single
+      total timeout, or a (connect, read) tuple. Per-request timeouts override this.
     :param ca_cert_data: verify the peer using concatenated CA certificate data
       in PEM (str) or DER (bytes) format.
 
@@ -304,6 +306,7 @@ conf = {{{packageName}}}.Configuration(
         ssl_ca_cert: Optional[str]=None,
         retries: Optional[int] = None,
         retryable_status_codes: Optional[List[int]] = None,
+        timeout: Optional[Union[float, tuple]] = None,
         ca_cert_data: Optional[Union[str, bytes]] = None,
         *,
         debug: Optional[bool] = None,
@@ -444,6 +447,10 @@ conf = {{{packageName}}}.Configuration(
             else list(_DEFAULT_RETRYABLE_STATUS_CODES)
         )
         """HTTP status codes that trigger an automatic retry.
+        """
+        self.timeout: Optional[Union[float, tuple]] = timeout
+        """Default request timeout in seconds (float or (connect, read) tuple).
+           Per-request _request_timeout overrides this value.
         """
         # Enable client side validation
         self.client_side_validation = True

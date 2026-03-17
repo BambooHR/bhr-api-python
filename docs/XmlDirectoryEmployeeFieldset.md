@@ -1,6 +1,6 @@
 # XmlDirectoryEmployeeFieldset
 
-Field definitions
+Field definitions included in this directory response.
 
 ## Properties
 

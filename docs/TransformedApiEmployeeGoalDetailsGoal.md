@@ -14,9 +14,10 @@ Name | Type | Description | Notes
 **shared_with_employee_ids** | **List[int]** | Ids of the employees that have access to this goal. | [optional] 
 **due_date** | **str** | The due date of the goal. | [optional] 
 **completion_date** | **str** | The date the goal was completed. | [optional] 
+**last_changed_date_time** | **str** | ISO 8601 UTC timestamp of when the goal was last modified. | [optional] 
 **status** | **str** | The status of the goal. | [optional] 
-**milestones** | [**List[TransformedApiGoalGoalMilestonesInner]**](TransformedApiGoalGoalMilestonesInner.md) | All milestones for the individual goal. This array will not exist if milestones are not selected for this goal. | [optional] 
-**actions** | [**TransformedApiGoalGoalActions**](TransformedApiGoalGoalActions.md) |  | [optional] 
+**milestones** | [**List[TransformedApiGoalMilestonesInner]**](TransformedApiGoalMilestonesInner.md) | All milestones for the individual goal. This array will not exist if milestones are not selected for this goal. | [optional] 
+**actions** | [**TransformedApiGoalActions**](TransformedApiGoalActions.md) |  | [optional] 
 
 ## Example
 

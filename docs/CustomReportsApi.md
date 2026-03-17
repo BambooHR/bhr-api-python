@@ -5,15 +5,15 @@ All URIs are relative to *https://companySubDomain.bamboohr.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**get_by_report_id**](CustomReportsApi.md#get_by_report_id) | **GET** /api/v1/custom-reports/{reportId} | Get Report by ID
-[**list_reports**](CustomReportsApi.md#list_reports) | **GET** /api/v1/custom-reports | Get Reports
+[**list_reports**](CustomReportsApi.md#list_reports) | **GET** /api/v1/custom-reports | List Reports
 
 
 # **get_by_report_id**
-> EmployeeResponse get_by_report_id(report_id)
+> EmployeeResponse get_by_report_id(report_id, page=page, page_size=page_size)
 
 Get Report by ID
 
-Use this resource to retrieve data for a specific report.
+Retrieve data for a specific saved custom report by its ID. Returns the same paginated data structure as the ad-hoc dataset query endpoint, using the report's saved field list and filter configuration. Use GET /api/v1/custom-reports to list available report IDs. Results default to 500 records per page; use the `page` and `page_size` query parameters to paginate.
 
 ### Example
 
@@ -49,11 +49,13 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.CustomReportsApi(api_client)
-    report_id = 56 # int | 
+    report_id = 56 # int | The ID of the saved custom report to retrieve data for.
+    page = 1 # int | The page number to retrieve. Defaults to 1. (optional) (default to 1)
+    page_size = 500 # int | The number of records to retrieve per page. Defaults to 500. Maximum is 1000. (optional) (default to 500)
 
     try:
         # Get Report by ID
-        api_response = api_instance.get_by_report_id(report_id)
+        api_response = api_instance.get_by_report_id(report_id, page=page, page_size=page_size)
         print("The response of CustomReportsApi->get_by_report_id:\n")
         pprint(api_response)
     except Exception as e:
@@ -67,7 +69,9 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **report_id** | **int**|  | 
+ **report_id** | **int**| The ID of the saved custom report to retrieve data for. | 
+ **page** | **int**| The page number to retrieve. Defaults to 1. | [optional] [default to 1]
+ **page_size** | **int**| The number of records to retrieve per page. Defaults to 500. Maximum is 1000. | [optional] [default to 500]
 
 ### Return type
 
@@ -97,9 +101,9 @@ Name | Type | Description  | Notes
 # **list_reports**
 > ReportsResponse list_reports(page=page, page_size=page_size)
 
-Get Reports
+List Reports
 
-Use this resource to retrieve a list of available reports.
+Retrieve a paginated list of saved custom reports available in the account. Returns each report's ID and name. Use the report ID with GET /api/v1/custom-reports/{reportId} to fetch the report's data. Results default to 500 records per page.
 
 ### Example
 
@@ -135,11 +139,11 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.CustomReportsApi(api_client)
-    page = 56 # int | The page number to retrieve (optional)
-    page_size = 56 # int | The number of records to retrieve per page. Default is 500 and the Max is 1000 (optional)
+    page = 1 # int | The page number to retrieve. Defaults to 1. (optional) (default to 1)
+    page_size = 500 # int | The number of records to retrieve per page. Defaults to 500. Maximum is 1000. (optional) (default to 500)
 
     try:
-        # Get Reports
+        # List Reports
         api_response = api_instance.list_reports(page=page, page_size=page_size)
         print("The response of CustomReportsApi->list_reports:\n")
         pprint(api_response)
@@ -154,8 +158,8 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int**| The page number to retrieve | [optional] 
- **page_size** | **int**| The number of records to retrieve per page. Default is 500 and the Max is 1000 | [optional] 
+ **page** | **int**| The page number to retrieve. Defaults to 1. | [optional] [default to 1]
+ **page_size** | **int**| The number of records to retrieve per page. Defaults to 500. Maximum is 1000. | [optional] [default to 500]
 
 ### Return type
 

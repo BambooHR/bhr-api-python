@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**filters** | [**EmployeeBenefitFiltersFilters**](EmployeeBenefitFiltersFilters.md) |  | [optional] 
+**filters** | [**EmployeeBenefitFiltersFilters**](EmployeeBenefitFiltersFilters.md) |  | 
 
 ## Example
 

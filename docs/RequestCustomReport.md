@@ -1,13 +1,15 @@
 # RequestCustomReport
 
+Report definition for an ad-hoc custom report. Specify the fields to include and optionally filter the employee set. Field IDs are the internal BambooHR field names (e.g. `firstName`, `lastName`, `department`). See the fields metadata endpoint for available field IDs.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**title** | **str** |  | [optional] 
+**title** | **str** | A label for the report. Included in the response and used as the file name for downloaded reports. | [optional] 
+**fields** | **List[str]** | Array of field IDs to include as columns in the report. Maximum of 400 fields. | [optional] 
 **filters** | [**RequestCustomReportFilters**](RequestCustomReportFilters.md) |  | [optional] 
-**fields** | **List[str]** |  | [optional] 
+**filter_duplicates** | **str** | Whether to apply standard duplicate row filtering. Defaults to enabled. Set to &#x60;no&#x60; to return raw results without deduplication. | [optional] 
 
 ## Example
 

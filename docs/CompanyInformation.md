@@ -5,10 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**legal_name** | **str** | The legal name of the company | [optional] 
-**display_name** | **str** | The display name of the company | [optional] 
+**legal_name** | **str** | The legal name of the company. | [optional] 
+**display_name** | **str** | The display name of the company. | [optional] 
 **address** | [**CompanyInformationAddress**](CompanyInformationAddress.md) |  | [optional] 
-**phone** | **str** | The phone number of the company | [optional] 
+**phone** | **str** | The primary contact phone number of the company. | [optional] 
 
 ## Example
 

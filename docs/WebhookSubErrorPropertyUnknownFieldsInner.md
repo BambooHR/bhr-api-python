@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** |  | [optional] 
+**id** | [**WebhookSubErrorPropertyUnknownFieldsInnerId**](WebhookSubErrorPropertyUnknownFieldsInnerId.md) |  | [optional] 
 **name** | **str** |  | [optional] 
 
 ## Example

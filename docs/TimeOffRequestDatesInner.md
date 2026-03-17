@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ymd** | **str** |  | [optional] 
-**amount** | **int** |  | [optional] 
+**ymd** | **date** | Date in YYYY-MM-DD format. | [optional] 
+**amount** | **float** | Hours or days for this date. | [optional] 
 
 ## Example
 

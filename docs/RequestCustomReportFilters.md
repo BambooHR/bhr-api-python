@@ -1,11 +1,13 @@
 # RequestCustomReportFilters
 
+Optional filters to restrict which employees appear in the report.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **last_changed** | [**RequestCustomReportFiltersLastChanged**](RequestCustomReportFiltersLastChanged.md) |  | [optional] 
+**employee_ids** | **List[int]** | Restricts the report to only the specified employee IDs. | [optional] 
 
 ## Example
 

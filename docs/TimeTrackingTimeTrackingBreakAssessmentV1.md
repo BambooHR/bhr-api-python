@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | The unique identifier for the time tracking break assessment | [optional] [readonly] 
 **break_id** | **str** | The unique identifier of the break | [optional] [readonly] 
-**employee_id** | **float** | The id of the employee | [optional] 
-**employee_timesheet_id** | **float** | The id of the employee timesheet | [optional] 
+**employee_id** | **int** | The id of the employee | [optional] 
+**employee_timesheet_id** | **int** | The id of the employee timesheet | [optional] 
 **var_date** | **date** | The date of the break assessment | [optional] 
 **timezone** | **str** | The timezone of the break assessment | [optional] 
 **result** | **str** | The result of the break assessment | [optional] 

@@ -101,16 +101,15 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | Successful deletion will return a 204 - No content response. |  -  |
-**400** | The posted JSON is invalid. |  -  |
-**403** | Goal is not editable or insufficient permissions. |  -  |
-**404** | The goal specified by the given goalId was not found. |  -  |
+**204** | The goal was successfully deleted. |  -  |
+**403** | The API user does not have permission to delete this goal. |  -  |
+**404** | The goalId is zero or non-positive after integer cast, or the goal was not found. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -193,15 +192,15 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | Successful deletion will return a 204 - No content response. |  -  |
-**400** | The posted JSON is invalid. |  -  |
+**204** | The comment was successfully deleted. No response body is returned. |  -  |
+**400** | The goal does not belong to the specified employee. |  -  |
 **403** | Goal is not editable or insufficient permissions. |  -  |
 **404** | The goal specified by the given goalId was not found. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_can_create_goal**
-> get_can_create_goal(employee_id)
+> CanCreateGoalsResponse get_can_create_goal(employee_id)
 
 Check Goal Creation Permission
 
@@ -214,6 +213,7 @@ Determine if the API user has permission to create a goal for this employee.
 
 ```python
 import bamboohr_sdk
+from bamboohr_sdk.models.can_create_goals_response import CanCreateGoalsResponse
 from bamboohr_sdk.rest import ApiException
 from pprint import pprint
 
@@ -244,7 +244,9 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Check Goal Creation Permission
-        api_instance.get_can_create_goal(employee_id)
+        api_response = api_instance.get_can_create_goal(employee_id)
+        print("The response of GoalsApi->get_can_create_goal:\n")
+        pprint(api_response)
     except Exception as e:
         print("Exception when calling GoalsApi->get_can_create_goal: %s\n" % e)
 ```
@@ -260,7 +262,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**CanCreateGoalsResponse**](CanCreateGoalsResponse.md)
 
 ### Authorization
 
@@ -275,7 +277,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | The response content will be a JSON document with the requested information. |  -  |
+**200** | Returns whether the API user can create a goal for this employee. |  -  |
+**400** | The provided employeeId is invalid. |  -  |
+**403** | The API user does not have permission to view goals for this employee. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -364,7 +368,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_goal_comments**
-> get_goal_comments(employee_id, goal_id)
+> GoalCommentsResponse get_goal_comments(employee_id, goal_id)
 
 Get Goal Comments
 
@@ -377,6 +381,7 @@ Get comments for a goal.
 
 ```python
 import bamboohr_sdk
+from bamboohr_sdk.models.goal_comments_response import GoalCommentsResponse
 from bamboohr_sdk.rest import ApiException
 from pprint import pprint
 
@@ -408,7 +413,9 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Get Goal Comments
-        api_instance.get_goal_comments(employee_id, goal_id)
+        api_response = api_instance.get_goal_comments(employee_id, goal_id)
+        print("The response of GoalsApi->get_goal_comments:\n")
+        pprint(api_response)
     except Exception as e:
         print("Exception when calling GoalsApi->get_goal_comments: %s\n" % e)
 ```
@@ -425,7 +432,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**GoalCommentsResponse**](GoalCommentsResponse.md)
 
 ### Authorization
 
@@ -440,7 +447,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | The response content will be a JSON document with a list of comments for the specified goal. |  -  |
+**200** | Returns up to 50 comments for the specified goal, ordered by creation date. |  -  |
+**403** | The API user does not have permission to view comments for this goal, or the goal does not belong to this employee. |  -  |
+**404** | The specified goalId is invalid (non-positive integer). |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -529,7 +538,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_goals_aggregate_v1**
-> GoalsAggregateV1 get_goals_aggregate_v1(employee_id)
+> GoalsAggregateV1 get_goals_aggregate_v1(employee_id, filter=filter)
 
 Get Goals Aggregate
 
@@ -570,10 +579,11 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.GoalsApi(api_client)
     employee_id = 'employee_id_example' # str | employeeId is the employee ID used to generate the aggregate information.
+    filter = 'filter_example' # str | Filter goals by status. Accepts filter IDs returned by the filters endpoint (e.g. status-inProgress). If omitted or invalid, defaults to the first available filter. The API accepts arbitrary strings and returns 200. (optional)
 
     try:
         # Get Goals Aggregate
-        api_response = api_instance.get_goals_aggregate_v1(employee_id)
+        api_response = api_instance.get_goals_aggregate_v1(employee_id, filter=filter)
         print("The response of GoalsApi->get_goals_aggregate_v1:\n")
         pprint(api_response)
     except Exception as e:
@@ -588,6 +598,7 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **employee_id** | **str**| employeeId is the employee ID used to generate the aggregate information. | 
+ **filter** | **str**| Filter goals by status. Accepts filter IDs returned by the filters endpoint (e.g. status-inProgress). If omitted or invalid, defaults to the first available filter. The API accepts arbitrary strings and returns 200. | [optional] 
 
 ### Return type
 
@@ -611,7 +622,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_goals_aggregate_v1_1**
-> GoalsAggregateV11 get_goals_aggregate_v1_1(employee_id)
+> GoalsAggregateV11 get_goals_aggregate_v1_1(employee_id, filter=filter)
 
 Get Goals Aggregate v1.1
 
@@ -652,10 +663,11 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.GoalsApi(api_client)
     employee_id = 'employee_id_example' # str | employeeId is the employee ID used to generate the aggregate information.
+    filter = 'filter_example' # str | Filter goals by status. Accepts filter IDs returned by the filters endpoint (e.g. status-inProgress). If omitted or invalid, defaults to the first available filter. The API accepts arbitrary strings and returns 200. (optional)
 
     try:
         # Get Goals Aggregate v1.1
-        api_response = api_instance.get_goals_aggregate_v1_1(employee_id)
+        api_response = api_instance.get_goals_aggregate_v1_1(employee_id, filter=filter)
         print("The response of GoalsApi->get_goals_aggregate_v1_1:\n")
         pprint(api_response)
     except Exception as e:
@@ -670,6 +682,7 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **employee_id** | **str**| employeeId is the employee ID used to generate the aggregate information. | 
+ **filter** | **str**| Filter goals by status. Accepts filter IDs returned by the filters endpoint (e.g. status-inProgress). If omitted or invalid, defaults to the first available filter. The API accepts arbitrary strings and returns 200. | [optional] 
 
 ### Return type
 
@@ -693,7 +706,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_goals_aggregate_v1_2**
-> GoalsAggregateV12 get_goals_aggregate_v1_2(employee_id)
+> GoalsAggregateV12 get_goals_aggregate_v1_2(employee_id, filter=filter)
 
 Get Goals Aggregate v1.2
 
@@ -734,10 +747,11 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.GoalsApi(api_client)
     employee_id = 56 # int | employeeId is the employee ID used to generate the aggregate information.
+    filter = 'filter_example' # str | Filter goals by status. Accepts filter IDs returned by the filters endpoint (e.g. status-inProgress). If omitted or invalid, defaults to the first available filter. The API accepts arbitrary strings and returns 200. (optional)
 
     try:
         # Get Goals Aggregate v1.2
-        api_response = api_instance.get_goals_aggregate_v1_2(employee_id)
+        api_response = api_instance.get_goals_aggregate_v1_2(employee_id, filter=filter)
         print("The response of GoalsApi->get_goals_aggregate_v1_2:\n")
         pprint(api_response)
     except Exception as e:
@@ -752,6 +766,7 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **employee_id** | **int**| employeeId is the employee ID used to generate the aggregate information. | 
+ **filter** | **str**| Filter goals by status. Accepts filter IDs returned by the filters endpoint (e.g. status-inProgress). If omitted or invalid, defaults to the first available filter. The API accepts arbitrary strings and returns 200. | [optional] 
 
 ### Return type
 
@@ -775,7 +790,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_goals_alignment_options**
-> get_goals_alignment_options(employee_id, goal_id=goal_id, get_goals_alignment_options_request=get_goals_alignment_options_request)
+> AlignmentOptionsResponse get_goals_alignment_options(employee_id, goal_id=goal_id)
 
 Get Alignable Goal Options
 
@@ -788,7 +803,7 @@ Get alignable goal options for an employee.
 
 ```python
 import bamboohr_sdk
-from bamboohr_sdk.models.get_goals_alignment_options_request import GetGoalsAlignmentOptionsRequest
+from bamboohr_sdk.models.alignment_options_response import AlignmentOptionsResponse
 from bamboohr_sdk.rest import ApiException
 from pprint import pprint
 
@@ -816,12 +831,13 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.GoalsApi(api_client)
     employee_id = 'employee_id_example' # str | employeeId is the employee ID to get alignable goal options for.
-    goal_id = 56 # int | Optional. The goal ID to get alignment options for. Can be provided as a query parameter or in the request body. (optional)
-    get_goals_alignment_options_request = bamboohr_sdk.GetGoalsAlignmentOptionsRequest() # GetGoalsAlignmentOptionsRequest | Optional. Provide goalId to get alignment options including the option currently aligned with this goal. If omitted, response will be alignment options belonging to the API user. Note: goalId can also be provided as a query parameter. (optional)
+    goal_id = 56 # int | Optional. When provided, the response includes the option currently aligned with this goal. If omitted, returns alignment options for the API user. (optional)
 
     try:
         # Get Alignable Goal Options
-        api_instance.get_goals_alignment_options(employee_id, goal_id=goal_id, get_goals_alignment_options_request=get_goals_alignment_options_request)
+        api_response = api_instance.get_goals_alignment_options(employee_id, goal_id=goal_id)
+        print("The response of GoalsApi->get_goals_alignment_options:\n")
+        pprint(api_response)
     except Exception as e:
         print("Exception when calling GoalsApi->get_goals_alignment_options: %s\n" % e)
 ```
@@ -834,12 +850,11 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **employee_id** | **str**| employeeId is the employee ID to get alignable goal options for. | 
- **goal_id** | **int**| Optional. The goal ID to get alignment options for. Can be provided as a query parameter or in the request body. | [optional] 
- **get_goals_alignment_options_request** | [**GetGoalsAlignmentOptionsRequest**](GetGoalsAlignmentOptionsRequest.md)| Optional. Provide goalId to get alignment options including the option currently aligned with this goal. If omitted, response will be alignment options belonging to the API user. Note: goalId can also be provided as a query parameter. | [optional] 
+ **goal_id** | **int**| Optional. When provided, the response includes the option currently aligned with this goal. If omitted, returns alignment options for the API user. | [optional] 
 
 ### Return type
 
-void (empty response body)
+[**AlignmentOptionsResponse**](AlignmentOptionsResponse.md)
 
 ### Authorization
 
@@ -847,7 +862,7 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 ### HTTP response details
@@ -855,6 +870,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | The response content will be a JSON document with a list of goals that are available alignment options. |  -  |
+**400** | The provided goalId does not belong to the specified employee. |  -  |
+**403** | The employeeId resolves to 0 (invalid path segment), or the API user lacks permission to view the specified goal. |  -  |
+**404** | The provided goalId is zero or non-positive after integer cast (e.g. goalId&#x3D;0, goalId&#x3D;-1, or a non-numeric value such as goalId&#x3D;abc). |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -936,8 +954,8 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Contains the map of goal statuses, their counts, and available actions |  -  |
-**403** | Permissions error. |  -  |
+**200** | Returns goal status filter counts. Goals with milestones are excluded in this version. |  -  |
+**403** | The API user does not have permission to view goals for this employee. |  -  |
 **500** | Something went wrong fetching filters. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -1111,7 +1129,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_goals_share_options**
-> get_goals_share_options(employee_id, search=search, limit=limit)
+> ShareOptionsResponse get_goals_share_options(employee_id, search, limit=limit)
 
 Get Available Goal Sharing Options
 
@@ -1124,6 +1142,7 @@ Provides a list of employees with whom the specified employee\'s goals may be sh
 
 ```python
 import bamboohr_sdk
+from bamboohr_sdk.models.share_options_response import ShareOptionsResponse
 from bamboohr_sdk.rest import ApiException
 from pprint import pprint
 
@@ -1151,12 +1170,14 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.GoalsApi(api_client)
     employee_id = 'employee_id_example' # str | employeeId is the employee ID to get sharing options for.
-    search = 'search_example' # str | The search term used to filter employees returned. Will search name, employee ID and email. (optional)
-    limit = 'limit_example' # str | Limit will restrict results to specified number. (optional)
+    search = 'search_example' # str | The search term used to filter employees returned. Will search name, employee ID and email.
+    limit = 10 # int | Maximum number of employees to return. Defaults to 10, maximum 100. (optional) (default to 10)
 
     try:
         # Get Available Goal Sharing Options
-        api_instance.get_goals_share_options(employee_id, search=search, limit=limit)
+        api_response = api_instance.get_goals_share_options(employee_id, search, limit=limit)
+        print("The response of GoalsApi->get_goals_share_options:\n")
+        pprint(api_response)
     except Exception as e:
         print("Exception when calling GoalsApi->get_goals_share_options: %s\n" % e)
 ```
@@ -1169,12 +1190,12 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **employee_id** | **str**| employeeId is the employee ID to get sharing options for. | 
- **search** | **str**| The search term used to filter employees returned. Will search name, employee ID and email. | [optional] 
- **limit** | **str**| Limit will restrict results to specified number. | [optional] 
+ **search** | **str**| The search term used to filter employees returned. Will search name, employee ID and email. | 
+ **limit** | **int**| Maximum number of employees to return. Defaults to 10, maximum 100. | [optional] [default to 10]
 
 ### Return type
 
-void (empty response body)
+[**ShareOptionsResponse**](ShareOptionsResponse.md)
 
 ### Authorization
 
@@ -1190,6 +1211,8 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | The response content will be a JSON document with a list of available employees with whom the goals can be shared. |  -  |
+**400** | The search parameter is invalid or empty. |  -  |
+**403** | Goals are not enabled, or the API user does not have permission to view sharing options for this employee. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1371,7 +1394,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_goal_comment**
-> post_goal_comment(employee_id, goal_id, body)
+> GoalCommentResponse post_goal_comment(employee_id, goal_id, post_goal_comment_request)
 
 Create Goal Comment
 
@@ -1384,6 +1407,8 @@ Create a new goal comment.
 
 ```python
 import bamboohr_sdk
+from bamboohr_sdk.models.goal_comment_response import GoalCommentResponse
+from bamboohr_sdk.models.post_goal_comment_request import PostGoalCommentRequest
 from bamboohr_sdk.rest import ApiException
 from pprint import pprint
 
@@ -1412,11 +1437,13 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
     api_instance = bamboohr_sdk.GoalsApi(api_client)
     employee_id = 'employee_id_example' # str | employeeId is the employee ID with whom the goal is associated.
     goal_id = 'goal_id_example' # str | goalId is the goal ID for the specified employee.
-    body = 'body_example' # str | 
+    post_goal_comment_request = bamboohr_sdk.PostGoalCommentRequest() # PostGoalCommentRequest | 
 
     try:
         # Create Goal Comment
-        api_instance.post_goal_comment(employee_id, goal_id, body)
+        api_response = api_instance.post_goal_comment(employee_id, goal_id, post_goal_comment_request)
+        print("The response of GoalsApi->post_goal_comment:\n")
+        pprint(api_response)
     except Exception as e:
         print("Exception when calling GoalsApi->post_goal_comment: %s\n" % e)
 ```
@@ -1430,11 +1457,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **employee_id** | **str**| employeeId is the employee ID with whom the goal is associated. | 
  **goal_id** | **str**| goalId is the goal ID for the specified employee. | 
- **body** | **str**|  | 
+ **post_goal_comment_request** | [**PostGoalCommentRequest**](PostGoalCommentRequest.md)|  | 
 
 ### Return type
 
-void (empty response body)
+[**GoalCommentResponse**](GoalCommentResponse.md)
 
 ### Authorization
 
@@ -1450,7 +1477,7 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | A goal comment object with the new goal comment ID. |  -  |
-**400** | If the posted XML or JSON is invalid or the minimum fields are not provided. |  -  |
+**400** | The goal does not belong to the specified employee, or the comment text is blank. |  -  |
 **403** | If the API user does not have permission to add a comment to the specified goal. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -1543,7 +1570,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **put_goal_comment**
-> put_goal_comment(employee_id, goal_id, comment_id, body)
+> GoalCommentResponse put_goal_comment(employee_id, goal_id, comment_id, put_goal_comment_request)
 
 Update Goal Comment
 
@@ -1556,6 +1583,8 @@ Update a goal comment.
 
 ```python
 import bamboohr_sdk
+from bamboohr_sdk.models.goal_comment_response import GoalCommentResponse
+from bamboohr_sdk.models.put_goal_comment_request import PutGoalCommentRequest
 from bamboohr_sdk.rest import ApiException
 from pprint import pprint
 
@@ -1585,11 +1614,13 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
     employee_id = 'employee_id_example' # str | employeeId is the employee ID with whom the goal is associated.
     goal_id = 'goal_id_example' # str | goalId is the goal ID for the specified employee.
     comment_id = 'comment_id_example' # str | commentId is the comment ID for the specified goal.
-    body = 'body_example' # str | 
+    put_goal_comment_request = bamboohr_sdk.PutGoalCommentRequest() # PutGoalCommentRequest | 
 
     try:
         # Update Goal Comment
-        api_instance.put_goal_comment(employee_id, goal_id, comment_id, body)
+        api_response = api_instance.put_goal_comment(employee_id, goal_id, comment_id, put_goal_comment_request)
+        print("The response of GoalsApi->put_goal_comment:\n")
+        pprint(api_response)
     except Exception as e:
         print("Exception when calling GoalsApi->put_goal_comment: %s\n" % e)
 ```
@@ -1604,11 +1635,11 @@ Name | Type | Description  | Notes
  **employee_id** | **str**| employeeId is the employee ID with whom the goal is associated. | 
  **goal_id** | **str**| goalId is the goal ID for the specified employee. | 
  **comment_id** | **str**| commentId is the comment ID for the specified goal. | 
- **body** | **str**|  | 
+ **put_goal_comment_request** | [**PutGoalCommentRequest**](PutGoalCommentRequest.md)|  | 
 
 ### Return type
 
-void (empty response body)
+[**GoalCommentResponse**](GoalCommentResponse.md)
 
 ### Authorization
 
@@ -1624,7 +1655,7 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | A successful response indicates that all the requested changes were made. The content of the response will be the goal comment response object for the specified commentId. |  -  |
-**400** | The posted JSON is invalid. |  -  |
+**400** | The goal does not belong to the specified employee, or the comment text is blank. |  -  |
 **403** | Goal is not editable or insufficient permissions. |  -  |
 **404** | The goal specified by the given goalId was not found. |  -  |
 

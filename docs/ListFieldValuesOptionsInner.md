@@ -5,10 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** |  | [optional] 
-**value** | **str** |  | [optional] 
-**archived** | **str** |  | [optional] 
-**adp_code** | **str** |  | [optional] 
+**id** | **int** | The existing option ID. Omit this field to create a new option. | [optional] 
+**value** | **str** | The display value for the option. | [optional] 
+**archived** | **str** | Whether the option should be archived. Use &#x60;yes&#x60; to archive an option or &#x60;no&#x60; to keep it active. | [optional] 
+**adp_code** | **str** | Optional payroll-mapping code associated with the option. | [optional] 
 
 ## Example
 

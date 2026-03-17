@@ -1,12 +1,14 @@
 # RequestCustomReportFiltersLastChanged
 
+Filters employees to those whose data was last changed on or after the given date/time.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**include_null** | **str** | yes|no | [optional] 
-**value** | **str** | Date last changed | [optional] 
+**value** | **datetime** | ISO 8601 date-time value. Only employees whose data has changed at or after this date-time will be included. | [optional] 
+**include_null** | **str** | Whether to include employees with no last-changed date. &#x60;yes&#x60; (default) includes them; &#x60;no&#x60; excludes them. | [optional] 
+**any_field** | **str** | Whether to match against changes to any field (&#x60;yes&#x60;, default) or only specific fields. Set to &#x60;no&#x60; to restrict matching. Note: &#x60;anyField&#x3D;no&#x60; is deprecated. | [optional] 
 
 ## Example
 

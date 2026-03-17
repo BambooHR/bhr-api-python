@@ -6,9 +6,9 @@ Schema for country data
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** | Unique identifier for the country | [optional] 
+**id** | **str** | Unique identifier for the country | [optional] 
 **name** | **str** | Full name of the country | [optional] 
-**iso_code** | **str** | ISO code for the country | [optional] 
+**iso_code** | **str** | ISO 3166-1 alpha-2 code for the country, or null if no ISO code is defined. | [optional] 
 
 ## Example
 

@@ -1,11 +1,13 @@
 # MemberBenefitEvent
 
+A single member (employee or dependent) and their benefit coverage events across all enrolled plans.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**members** | [**List[MemberBenefitEventMembersInner]**](MemberBenefitEventMembersInner.md) | Members | [optional] 
+**member_id** | **str** | The unique identifier of the member. Format: &#39;employee.{id}&#39; for employees, &#39;dependent.{id}&#39; for dependents. | [optional] 
+**coverages** | [**List[MemberBenefitEventCoveragesInner]**](MemberBenefitEventCoveragesInner.md) | The benefit plan coverages for this member, one entry per plan. | [optional] 
 
 ## Example
 

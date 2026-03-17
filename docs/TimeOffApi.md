@@ -4,443 +4,27 @@ All URIs are relative to *https://companySubDomain.bamboohr.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_a_list_of_who_is_out**](TimeOffApi.md#get_a_list_of_who_is_out) | **GET** /api/v1/time_off/whos_out | Get Who’s Out
-[**get_time_off_policies**](TimeOffApi.md#get_time_off_policies) | **GET** /api/v1/meta/time_off/policies | Get Time Off Policies
-[**get_time_off_types**](TimeOffApi.md#get_time_off_types) | **GET** /api/v1/meta/time_off/types | Get Time Off Types
-[**time_off_add_a_time_off_history_item_for_time_off_request**](TimeOffApi.md#time_off_add_a_time_off_history_item_for_time_off_request) | **PUT** /api/v1/employees/{employeeId}/time_off/history | Create Time Off Request History Item
-[**time_off_add_a_time_off_request**](TimeOffApi.md#time_off_add_a_time_off_request) | **PUT** /api/v1/employees/{employeeId}/time_off/request | Create Time Off Request
-[**time_off_adjust_time_off_balance**](TimeOffApi.md#time_off_adjust_time_off_balance) | **PUT** /api/v1/employees/{employeeId}/time_off/balance_adjustment | Update Time Off Balance
-[**time_off_assign_time_off_policies_for_an_employee**](TimeOffApi.md#time_off_assign_time_off_policies_for_an_employee) | **PUT** /api/v1/employees/{employeeId}/time_off/policies | Assign Time Off Policies
-[**time_off_assign_time_off_policies_for_an_employee_v1_1**](TimeOffApi.md#time_off_assign_time_off_policies_for_an_employee_v1_1) | **PUT** /api/v1_1/employees/{employeeId}/time_off/policies | Assign Time Off Policies v1.1
-[**time_off_change_a_request_status**](TimeOffApi.md#time_off_change_a_request_status) | **PUT** /api/v1/time_off/requests/{requestId}/status | Update Time Off Request Status
-[**time_off_get_time_off_balance**](TimeOffApi.md#time_off_get_time_off_balance) | **GET** /api/v1/employees/{employeeId}/time_off/calculator | Get Time Off Balance
-[**time_off_get_time_off_requests**](TimeOffApi.md#time_off_get_time_off_requests) | **GET** /api/v1/time_off/requests | Get Time Off Requests
-[**time_off_list_time_off_policies_for_employee**](TimeOffApi.md#time_off_list_time_off_policies_for_employee) | **GET** /api/v1/employees/{employeeId}/time_off/policies | Get Time Off Policies for Employee
-[**time_off_list_time_off_policies_for_employee_v1_1**](TimeOffApi.md#time_off_list_time_off_policies_for_employee_v1_1) | **GET** /api/v1_1/employees/{employeeId}/time_off/policies | Get Time Off Policies for Employee v1.1
-
-
-# **get_a_list_of_who_is_out**
-> get_a_list_of_who_is_out(accept_header_parameter=accept_header_parameter, start=start, end=end)
-
-Get Who’s Out
-
-This endpoint will return a list, sorted by date, of employees who will be out, and company holidays, for a period of time.
-
-### Example
-
-* Basic Authentication (basic):
-* OAuth Authentication (oauth):
-
-```python
-import bamboohr_sdk
-from bamboohr_sdk.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to https://companySubDomain.bamboohr.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = bamboohr_sdk.Configuration(
-    host = "https://companySubDomain.bamboohr.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basic
-configuration = bamboohr_sdk.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
-# Enter a context with an instance of the API client
-with bamboohr_sdk.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = bamboohr_sdk.TimeOffApi(api_client)
-    accept_header_parameter = 'accept_header_parameter_example' # str | This endpoint can produce either JSON or XML. (optional)
-    start = 'start_example' # str | A date in the form YYYY-MM-DD - defaults to the current date. (optional)
-    end = 'end_example' # str | A date in the form YYYY-MM-DD - defaults to 14 days from the start date. (optional)
-
-    try:
-        # Get Who’s Out
-        api_instance.get_a_list_of_who_is_out(accept_header_parameter=accept_header_parameter, start=start, end=end)
-    except Exception as e:
-        print("Exception when calling TimeOffApi->get_a_list_of_who_is_out: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **accept_header_parameter** | **str**| This endpoint can produce either JSON or XML. | [optional] 
- **start** | **str**| A date in the form YYYY-MM-DD - defaults to the current date. | [optional] 
- **end** | **str**| A date in the form YYYY-MM-DD - defaults to 14 days from the start date. | [optional] 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[basic](../README.md#basic), [oauth](../README.md#oauth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json, application/xml
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** |  |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_time_off_policies**
-> get_time_off_policies(accept_header_parameter=accept_header_parameter)
-
-Get Time Off Policies
-
-This endpoint gets a list of time off policies.
-
-### Example
-
-* Basic Authentication (basic):
-* OAuth Authentication (oauth):
-
-```python
-import bamboohr_sdk
-from bamboohr_sdk.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to https://companySubDomain.bamboohr.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = bamboohr_sdk.Configuration(
-    host = "https://companySubDomain.bamboohr.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basic
-configuration = bamboohr_sdk.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
-# Enter a context with an instance of the API client
-with bamboohr_sdk.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = bamboohr_sdk.TimeOffApi(api_client)
-    accept_header_parameter = 'accept_header_parameter_example' # str | This endpoint can produce either JSON or XML. (optional)
-
-    try:
-        # Get Time Off Policies
-        api_instance.get_time_off_policies(accept_header_parameter=accept_header_parameter)
-    except Exception as e:
-        print("Exception when calling TimeOffApi->get_time_off_policies: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **accept_header_parameter** | **str**| This endpoint can produce either JSON or XML. | [optional] 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[basic](../README.md#basic), [oauth](../README.md#oauth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** |  |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_time_off_types**
-> TimeOffTypesAndDefaultHours get_time_off_types(accept_header_parameter=accept_header_parameter, mode=mode)
-
-Get Time Off Types
-
-This endpoint gets a list of time off types.
-
-### Example
-
-* Basic Authentication (basic):
-* OAuth Authentication (oauth):
-
-```python
-import bamboohr_sdk
-from bamboohr_sdk.models.time_off_types_and_default_hours import TimeOffTypesAndDefaultHours
-from bamboohr_sdk.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to https://companySubDomain.bamboohr.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = bamboohr_sdk.Configuration(
-    host = "https://companySubDomain.bamboohr.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basic
-configuration = bamboohr_sdk.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
-# Enter a context with an instance of the API client
-with bamboohr_sdk.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = bamboohr_sdk.TimeOffApi(api_client)
-    accept_header_parameter = 'accept_header_parameter_example' # str | This endpoint can produce either JSON or XML. (optional)
-    mode = 'mode_example' # str | Set to 'request' to filter down to time off types that the user has permission to request (optional)
-
-    try:
-        # Get Time Off Types
-        api_response = api_instance.get_time_off_types(accept_header_parameter=accept_header_parameter, mode=mode)
-        print("The response of TimeOffApi->get_time_off_types:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling TimeOffApi->get_time_off_types: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **accept_header_parameter** | **str**| This endpoint can produce either JSON or XML. | [optional] 
- **mode** | **str**| Set to &#39;request&#39; to filter down to time off types that the user has permission to request | [optional] 
-
-### Return type
-
-[**TimeOffTypesAndDefaultHours**](TimeOffTypesAndDefaultHours.md)
-
-### Authorization
-
-[basic](../README.md#basic), [oauth](../README.md#oauth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Time off types |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **time_off_add_a_time_off_history_item_for_time_off_request**
-> time_off_add_a_time_off_history_item_for_time_off_request(employee_id, time_off_history)
-
-Create Time Off Request History Item
-
-To use this API make an HTTP PUT where the body of the request is the JSON documented below. A new time off history item will be inserted into the database. On success, a 201 Created code is returned and the "Location" header of the response will contain a URL that identifies the new history item.
-
-### Example
-
-* Basic Authentication (basic):
-* OAuth Authentication (oauth):
-
-```python
-import bamboohr_sdk
-from bamboohr_sdk.models.time_off_history import TimeOffHistory
-from bamboohr_sdk.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to https://companySubDomain.bamboohr.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = bamboohr_sdk.Configuration(
-    host = "https://companySubDomain.bamboohr.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basic
-configuration = bamboohr_sdk.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
-# Enter a context with an instance of the API client
-with bamboohr_sdk.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = bamboohr_sdk.TimeOffApi(api_client)
-    employee_id = 56 # int | The ID of the employee.
-    time_off_history = bamboohr_sdk.TimeOffHistory() # TimeOffHistory | 
-
-    try:
-        # Create Time Off Request History Item
-        api_instance.time_off_add_a_time_off_history_item_for_time_off_request(employee_id, time_off_history)
-    except Exception as e:
-        print("Exception when calling TimeOffApi->time_off_add_a_time_off_history_item_for_time_off_request: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **employee_id** | **int**| The ID of the employee. | 
- **time_off_history** | [**TimeOffHistory**](TimeOffHistory.md)|  | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[basic](../README.md#basic), [oauth](../README.md#oauth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**201** | The history item has been created. |  -  |
-**400** | For empty or malformed JSON, an invalid date format, or an invalid time off request. |  -  |
-**403** | Invalid permissions to perform this action. |  -  |
-**409** | If the time off request already has a history item. |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **time_off_add_a_time_off_request**
-> time_off_add_a_time_off_request(employee_id, time_off_request)
-
-Create Time Off Request
-
-A time off request is an entity that describes the decision making process for approving time off. Once a request has been created, a history entry can be created documenting the actual use of time off.
-
-### Example
-
-* Basic Authentication (basic):
-* OAuth Authentication (oauth):
-
-```python
-import bamboohr_sdk
-from bamboohr_sdk.models.time_off_request import TimeOffRequest
-from bamboohr_sdk.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to https://companySubDomain.bamboohr.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = bamboohr_sdk.Configuration(
-    host = "https://companySubDomain.bamboohr.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basic
-configuration = bamboohr_sdk.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
-# Enter a context with an instance of the API client
-with bamboohr_sdk.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = bamboohr_sdk.TimeOffApi(api_client)
-    employee_id = 'employee_id_example' # str | 
-    time_off_request = bamboohr_sdk.TimeOffRequest() # TimeOffRequest | 
-
-    try:
-        # Create Time Off Request
-        api_instance.time_off_add_a_time_off_request(employee_id, time_off_request)
-    except Exception as e:
-        print("Exception when calling TimeOffApi->time_off_add_a_time_off_request: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **employee_id** | **str**|  | 
- **time_off_request** | [**TimeOffRequest**](TimeOffRequest.md)|  | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[basic](../README.md#basic), [oauth](../README.md#oauth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**201** | Request created. |  -  |
-**400** | Malformed request. |  -  |
-**403** | Forbidden. Cannot change past approved requests. |  -  |
-**404** | Employee not found |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **time_off_adjust_time_off_balance**
-> time_off_adjust_time_off_balance(employee_id, adjust_time_off_balance)
-
-Update Time Off Balance
-
-To use this API make an HTTP PUT where the body of the request is the JSON documented below. A time off balance adjustment will be inserted into the database. On success, a 201 Created code is returned and the "Location" header of the response will contain a URL that identifies the new history item.
+[**adjust_time_off_balance**](TimeOffApi.md#adjust_time_off_balance) | **PUT** /api/v1/employees/{employeeId}/time_off/balance_adjustment | Adjust Time Off Balance
+[**assign_time_off_policies**](TimeOffApi.md#assign_time_off_policies) | **PUT** /api/v1/employees/{employeeId}/time_off/policies | Assign Time Off Policies
+[**assign_time_off_policies_v1_1**](TimeOffApi.md#assign_time_off_policies_v1_1) | **PUT** /api/v1_1/employees/{employeeId}/time_off/policies | Assign Time Off Policies v1.1
+[**create_time_off_history**](TimeOffApi.md#create_time_off_history) | **PUT** /api/v1/employees/{employeeId}/time_off/history | Create Time Off History Item
+[**create_time_off_request**](TimeOffApi.md#create_time_off_request) | **PUT** /api/v1/employees/{employeeId}/time_off/request | Create Time Off Request
+[**get_time_off_balance**](TimeOffApi.md#get_time_off_balance) | **GET** /api/v1/employees/{employeeId}/time_off/calculator | Get Time Off Balance
+[**list_employee_time_off_policies**](TimeOffApi.md#list_employee_time_off_policies) | **GET** /api/v1/employees/{employeeId}/time_off/policies | List Employee Time Off Policies
+[**list_employee_time_off_policies_v1_1**](TimeOffApi.md#list_employee_time_off_policies_v1_1) | **GET** /api/v1_1/employees/{employeeId}/time_off/policies | List Employee Time Off Policies v1.1
+[**list_time_off_policies**](TimeOffApi.md#list_time_off_policies) | **GET** /api/v1/meta/time_off/policies | List Time Off Policies
+[**list_time_off_requests**](TimeOffApi.md#list_time_off_requests) | **GET** /api/v1/time_off/requests | List Time Off Requests
+[**list_time_off_types**](TimeOffApi.md#list_time_off_types) | **GET** /api/v1/meta/time_off/types | List Time Off Types
+[**list_whos_out**](TimeOffApi.md#list_whos_out) | **GET** /api/v1/time_off/whos_out | List Who’s Out
+[**update_time_off_request_status**](TimeOffApi.md#update_time_off_request_status) | **PUT** /api/v1/time_off/requests/{requestId}/status | Update Time Off Request Status
+
+
+# **adjust_time_off_balance**
+> adjust_time_off_balance(employee_id, adjust_time_off_balance)
+
+Adjust Time Off Balance
+
+Creates a balance adjustment for an employee's time off type. The adjustment is recorded as an override history item. Cannot adjust balances for discretionary (unlimited) time off types.
 
 ### Example
 
@@ -480,10 +64,10 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
     adjust_time_off_balance = bamboohr_sdk.AdjustTimeOffBalance() # AdjustTimeOffBalance | 
 
     try:
-        # Update Time Off Balance
-        api_instance.time_off_adjust_time_off_balance(employee_id, adjust_time_off_balance)
+        # Adjust Time Off Balance
+        api_instance.adjust_time_off_balance(employee_id, adjust_time_off_balance)
     except Exception as e:
-        print("Exception when calling TimeOffApi->time_off_adjust_time_off_balance: %s\n" % e)
+        print("Exception when calling TimeOffApi->adjust_time_off_balance: %s\n" % e)
 ```
 
 
@@ -506,7 +90,7 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
 ### HTTP response details
@@ -514,17 +98,20 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | The balance adjustment has been created. |  -  |
-**400** | For empty or malformed JSON, an invalid date format, or an invalid time off type. |  -  |
-**403** | Invalid permissions to perform this action. |  -  |
+**400** | Empty or malformed JSON/XML, an invalid date format, an invalid time off type, an invalid override amount, or an attempt to adjust a discretionary time off type. |  -  |
+**401** | Unauthorized. Invalid API credentials. |  -  |
+**403** | Insufficient permissions to perform this action. |  -  |
+**404** | Employee not found. |  -  |
+**503** | Service unavailable due to a database error. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **time_off_assign_time_off_policies_for_an_employee**
-> time_off_assign_time_off_policies_for_an_employee(employee_id, time_off_assign_time_off_policies_for_an_employee_request_inner)
+# **assign_time_off_policies**
+> List[AssignedTimeOffPolicy] assign_time_off_policies(employee_id, assign_time_off_policies_request_inner)
 
 Assign Time Off Policies
 
-To use this API make an HTTP PUT where the body of the request is the JSON documented below. A time off policy will be assigned to the employee with accruals starting on the date specified. A null start date will remove the assignment. On success, a 200 Success code is returned and the content of the response will be the same as the List Time off Policies API.
+Assigns time off policies to an employee with accruals starting on the specified date. A null start date removes the existing assignment. On success, returns the current list of assigned policies.
 
 ### Example
 
@@ -533,7 +120,8 @@ To use this API make an HTTP PUT where the body of the request is the JSON docum
 
 ```python
 import bamboohr_sdk
-from bamboohr_sdk.models.time_off_assign_time_off_policies_for_an_employee_request_inner import TimeOffAssignTimeOffPoliciesForAnEmployeeRequestInner
+from bamboohr_sdk.models.assign_time_off_policies_request_inner import AssignTimeOffPoliciesRequestInner
+from bamboohr_sdk.models.assigned_time_off_policy import AssignedTimeOffPolicy
 from bamboohr_sdk.rest import ApiException
 from pprint import pprint
 
@@ -560,14 +148,16 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.TimeOffApi(api_client)
-    employee_id = 'employee_id_example' # str | 
-    time_off_assign_time_off_policies_for_an_employee_request_inner = [bamboohr_sdk.TimeOffAssignTimeOffPoliciesForAnEmployeeRequestInner()] # List[TimeOffAssignTimeOffPoliciesForAnEmployeeRequestInner] | 
+    employee_id = 56 # int | The ID of the employee to assign policies to.
+    assign_time_off_policies_request_inner = [bamboohr_sdk.AssignTimeOffPoliciesRequestInner()] # List[AssignTimeOffPoliciesRequestInner] | 
 
     try:
         # Assign Time Off Policies
-        api_instance.time_off_assign_time_off_policies_for_an_employee(employee_id, time_off_assign_time_off_policies_for_an_employee_request_inner)
+        api_response = api_instance.assign_time_off_policies(employee_id, assign_time_off_policies_request_inner)
+        print("The response of TimeOffApi->assign_time_off_policies:\n")
+        pprint(api_response)
     except Exception as e:
-        print("Exception when calling TimeOffApi->time_off_assign_time_off_policies_for_an_employee: %s\n" % e)
+        print("Exception when calling TimeOffApi->assign_time_off_policies: %s\n" % e)
 ```
 
 
@@ -577,12 +167,12 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **employee_id** | **str**|  | 
- **time_off_assign_time_off_policies_for_an_employee_request_inner** | [**List[TimeOffAssignTimeOffPoliciesForAnEmployeeRequestInner]**](TimeOffAssignTimeOffPoliciesForAnEmployeeRequestInner.md)|  | 
+ **employee_id** | **int**| The ID of the employee to assign policies to. | 
+ **assign_time_off_policies_request_inner** | [**List[AssignTimeOffPoliciesRequestInner]**](AssignTimeOffPoliciesRequestInner.md)|  | 
 
 ### Return type
 
-void (empty response body)
+[**List[AssignedTimeOffPolicy]**](AssignedTimeOffPolicy.md)
 
 ### Authorization
 
@@ -597,16 +187,20 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** |  |  -  |
+**200** | The current list of assigned policies for the employee. |  -  |
+**400** | Invalid request. Possible causes: employee not found, missing hire date, malformed JSON, missing timeOffPolicyId, or a policy is already assigned for the time off type. |  -  |
+**401** | Unauthorized. Invalid API credentials. |  -  |
+**403** | Insufficient permissions to assign time off policies. |  -  |
+**422** | Unprocessable entity. The operation is not allowed for this employee, for example because of EOR restrictions. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **time_off_assign_time_off_policies_for_an_employee_v1_1**
-> time_off_assign_time_off_policies_for_an_employee_v1_1(employee_id, time_off_assign_time_off_policies_for_an_employee_request_inner)
+# **assign_time_off_policies_v1_1**
+> List[AssignedTimeOffPolicyV11] assign_time_off_policies_v1_1(employee_id, assign_time_off_policies_request_inner)
 
 Assign Time Off Policies v1.1
 
-To use this API make an HTTP PUT where the body of the request is the JSON documented below. A time off policy will be assigned to the employee with accruals starting on the date specified. On success, a 200 Success code is returned and the content of the response will be the same as the List Time off Policies API.
+Assigns time off policies to an employee with accruals starting on the specified date. On success, returns the current list of assigned policies including manual and unlimited policy types.
 
 ### Example
 
@@ -615,7 +209,8 @@ To use this API make an HTTP PUT where the body of the request is the JSON docum
 
 ```python
 import bamboohr_sdk
-from bamboohr_sdk.models.time_off_assign_time_off_policies_for_an_employee_request_inner import TimeOffAssignTimeOffPoliciesForAnEmployeeRequestInner
+from bamboohr_sdk.models.assign_time_off_policies_request_inner import AssignTimeOffPoliciesRequestInner
+from bamboohr_sdk.models.assigned_time_off_policy_v11 import AssignedTimeOffPolicyV11
 from bamboohr_sdk.rest import ApiException
 from pprint import pprint
 
@@ -642,14 +237,16 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.TimeOffApi(api_client)
-    employee_id = 'employee_id_example' # str | 
-    time_off_assign_time_off_policies_for_an_employee_request_inner = [bamboohr_sdk.TimeOffAssignTimeOffPoliciesForAnEmployeeRequestInner()] # List[TimeOffAssignTimeOffPoliciesForAnEmployeeRequestInner] | 
+    employee_id = 56 # int | The ID of the employee to assign policies to.
+    assign_time_off_policies_request_inner = [bamboohr_sdk.AssignTimeOffPoliciesRequestInner()] # List[AssignTimeOffPoliciesRequestInner] | 
 
     try:
         # Assign Time Off Policies v1.1
-        api_instance.time_off_assign_time_off_policies_for_an_employee_v1_1(employee_id, time_off_assign_time_off_policies_for_an_employee_request_inner)
+        api_response = api_instance.assign_time_off_policies_v1_1(employee_id, assign_time_off_policies_request_inner)
+        print("The response of TimeOffApi->assign_time_off_policies_v1_1:\n")
+        pprint(api_response)
     except Exception as e:
-        print("Exception when calling TimeOffApi->time_off_assign_time_off_policies_for_an_employee_v1_1: %s\n" % e)
+        print("Exception when calling TimeOffApi->assign_time_off_policies_v1_1: %s\n" % e)
 ```
 
 
@@ -659,12 +256,12 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **employee_id** | **str**|  | 
- **time_off_assign_time_off_policies_for_an_employee_request_inner** | [**List[TimeOffAssignTimeOffPoliciesForAnEmployeeRequestInner]**](TimeOffAssignTimeOffPoliciesForAnEmployeeRequestInner.md)|  | 
+ **employee_id** | **int**| The ID of the employee to assign policies to. | 
+ **assign_time_off_policies_request_inner** | [**List[AssignTimeOffPoliciesRequestInner]**](AssignTimeOffPoliciesRequestInner.md)|  | 
 
 ### Return type
 
-void (empty response body)
+[**List[AssignedTimeOffPolicyV11]**](AssignedTimeOffPolicyV11.md)
 
 ### Authorization
 
@@ -679,16 +276,21 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** |  |  -  |
+**200** | The current list of assigned policies for the employee, including manual and unlimited types. |  -  |
+**400** | Invalid request. Possible causes: malformed JSON, missing required fields, missing hire date, or duplicate policy type. |  -  |
+**401** | Unauthorized. Invalid API credentials. |  -  |
+**403** | Insufficient permissions to assign time off policies. |  -  |
+**422** | Unprocessable entity. The operation is not allowed for this employee (e.g., EOR restrictions). |  -  |
+**500** | Internal server error. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **time_off_change_a_request_status**
-> time_off_change_a_request_status(request_id, request)
+# **create_time_off_history**
+> create_time_off_history(employee_id, time_off_history)
 
-Update Time Off Request Status
+Create Time Off History Item
 
-This endpoint allows you to change the status of a request in the system. You can use this to approve, deny, or cancel a time off request.
+Creates a time off history item for an employee. For `used` type entries, a `timeOffRequestId` referencing an approved request is required. For `override` (balance adjustment) entries via the /history path, provide the `amount` and `timeOffTypeId` directly. The `eventType` defaults based on the URI path when omitted.
 
 ### Example
 
@@ -697,7 +299,7 @@ This endpoint allows you to change the status of a request in the system. You ca
 
 ```python
 import bamboohr_sdk
-from bamboohr_sdk.models.request import Request
+from bamboohr_sdk.models.time_off_history import TimeOffHistory
 from bamboohr_sdk.rest import ApiException
 from pprint import pprint
 
@@ -724,14 +326,14 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.TimeOffApi(api_client)
-    request_id = 'request_id_example' # str | 
-    request = bamboohr_sdk.Request() # Request | 
+    employee_id = 56 # int | The ID of the employee.
+    time_off_history = bamboohr_sdk.TimeOffHistory() # TimeOffHistory | 
 
     try:
-        # Update Time Off Request Status
-        api_instance.time_off_change_a_request_status(request_id, request)
+        # Create Time Off History Item
+        api_instance.create_time_off_history(employee_id, time_off_history)
     except Exception as e:
-        print("Exception when calling TimeOffApi->time_off_change_a_request_status: %s\n" % e)
+        print("Exception when calling TimeOffApi->create_time_off_history: %s\n" % e)
 ```
 
 
@@ -741,8 +343,8 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **request_id** | **str**|  | 
- **request** | [**Request**](Request.md)|  | 
+ **employee_id** | **int**| The ID of the employee. | 
+ **time_off_history** | [**TimeOffHistory**](TimeOffHistory.md)|  | 
 
 ### Return type
 
@@ -754,26 +356,116 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | The status has been updated. |  -  |
-**400** | If the posted XML is invalid or the status is not \&quot;approved\&quot;, \&quot;denied\&quot;, \&quot;canceled\&quot;, or \&quot;declined\&quot;. |  -  |
-**403** | If the current user doesn\\&#39;t have access to change the status in this way. |  -  |
-**404** | If the time off request ID doesn\\&#39;t exist. |  -  |
+**201** | The history item has been created. |  -  |
+**400** | Empty or malformed JSON/XML, an invalid date format, an invalid event type, an invalid time off request, an invalid time off type, or an invalid override amount. |  -  |
+**401** | Unauthorized. Invalid API credentials. |  -  |
+**403** | Invalid permissions to perform this action. |  -  |
+**404** | Employee not found. |  -  |
+**409** | The time off request already has a history item. |  -  |
+**503** | Service unavailable due to a database error. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **time_off_get_time_off_balance**
-> List[TimeOffBalanceEntry] time_off_get_time_off_balance(employee_id, accept_header_parameter=accept_header_parameter, end=end, precision=precision)
+# **create_time_off_request**
+> create_time_off_request(employee_id, time_off_request)
+
+Create Time Off Request
+
+Creates a time off request for an employee. The request can be submitted with a status of `approved`, `denied`, or `requested`. Approved and denied requests are recorded directly without triggering approval notifications. A `previousRequest` ID supersedes an existing request, cancelling the original. Accepts both JSON and XML request bodies.
+
+### Example
+
+* Basic Authentication (basic):
+* OAuth Authentication (oauth):
+
+```python
+import bamboohr_sdk
+from bamboohr_sdk.models.time_off_request import TimeOffRequest
+from bamboohr_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://companySubDomain.bamboohr.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = bamboohr_sdk.Configuration(
+    host = "https://companySubDomain.bamboohr.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basic
+configuration = bamboohr_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with bamboohr_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = bamboohr_sdk.TimeOffApi(api_client)
+    employee_id = 56 # int | The ID of the employee to create the time off request for.
+    time_off_request = bamboohr_sdk.TimeOffRequest() # TimeOffRequest | 
+
+    try:
+        # Create Time Off Request
+        api_instance.create_time_off_request(employee_id, time_off_request)
+    except Exception as e:
+        print("Exception when calling TimeOffApi->create_time_off_request: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **employee_id** | **int**| The ID of the employee to create the time off request for. | 
+ **time_off_request** | [**TimeOffRequest**](TimeOffRequest.md)|  | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[basic](../README.md#basic), [oauth](../README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, application/xml
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Request created. The &#x60;Location&#x60; header contains the URL of the new request. When &#x60;Accept: application/json&#x60; is set, the response body contains the created request. |  -  |
+**400** | Malformed JSON or XML, an invalid time off type, an invalid previous request ID, or other invalid request data. |  -  |
+**401** | Unauthorized. Invalid API credentials. |  -  |
+**403** | Forbidden. The caller does not have permission to create or record this request for the employee, time off type, or requested status. |  -  |
+**404** | Employee not found. |  -  |
+**422** | Unprocessable entity. Returned when a remote/EOR time off request cannot be created for the requested action. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_time_off_balance**
+> List[TimeOffBalanceEntry] get_time_off_balance(employee_id, accept_header_parameter=accept_header_parameter, end=end, precision=precision)
 
 Get Time Off Balance
 
-This endpoint returns time off balances for an employee for assigned categories as of a given date. Each category's balance is calculated by summing all historical balance events (accruals, manual adjustments, used time off, and carry-over events) plus any future accruals and adjustments up to the specified date. To get current balance, pass today's date in the 'end' parameter. To estimate a future balance, pass a future date. If no 'end' parameter is provided, it defaults to today.
+Returns time off balances for an employee across all assigned categories as of a given date. Each category's balance is calculated by summing all historical balance events (accruals, manual adjustments, used time off, and carry-over events) plus any future accruals and adjustments up to the specified date. To get current balances, pass today's date; to project future balances, pass a future date. Response defaults to XML unless Accept: application/json is provided.
 
 ### Example
 
@@ -811,16 +503,16 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
     api_instance = bamboohr_sdk.TimeOffApi(api_client)
     employee_id = 56 # int | The ID of the employee to get time off balances for.
     accept_header_parameter = 'accept_header_parameter_example' # str | This endpoint can produce either JSON or XML. (optional)
-    end = '2013-10-20' # date | The date to calculate the time off balance as of, in YYYY-MM-DD format. Defaults to company today if not provided. (optional)
+    end = '2026-12-31' # date | The date to calculate the time off balance as of, in YYYY-MM-DD format. Defaults to company today if not provided. Example: use a future date to project balance. (optional)
     precision = 2 # int | Number of decimal places for balance and usedYearToDate values. Minimum 0, maximum 4. Defaults to 2. (optional) (default to 2)
 
     try:
         # Get Time Off Balance
-        api_response = api_instance.time_off_get_time_off_balance(employee_id, accept_header_parameter=accept_header_parameter, end=end, precision=precision)
-        print("The response of TimeOffApi->time_off_get_time_off_balance:\n")
+        api_response = api_instance.get_time_off_balance(employee_id, accept_header_parameter=accept_header_parameter, end=end, precision=precision)
+        print("The response of TimeOffApi->get_time_off_balance:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling TimeOffApi->time_off_get_time_off_balance: %s\n" % e)
+        print("Exception when calling TimeOffApi->get_time_off_balance: %s\n" % e)
 ```
 
 
@@ -832,7 +524,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **employee_id** | **int**| The ID of the employee to get time off balances for. | 
  **accept_header_parameter** | **str**| This endpoint can produce either JSON or XML. | [optional] 
- **end** | **date**| The date to calculate the time off balance as of, in YYYY-MM-DD format. Defaults to company today if not provided. | [optional] 
+ **end** | **date**| The date to calculate the time off balance as of, in YYYY-MM-DD format. Defaults to company today if not provided. Example: use a future date to project balance. | [optional] 
  **precision** | **int**| Number of decimal places for balance and usedYearToDate values. Minimum 0, maximum 4. Defaults to 2. | [optional] [default to 2]
 
 ### Return type
@@ -853,16 +545,17 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | An array of time off balance entries, one per assigned time off type. |  -  |
-**404** | Employee not found. |  -  |
+**401** | Unauthorized. Invalid API credentials. |  -  |
+**404** | Employee not found. Some clients may receive an empty HTML response body for this legacy error case. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **time_off_get_time_off_requests**
-> time_off_get_time_off_requests(start, end, accept_header_parameter=accept_header_parameter, id=id, action=action, employee_id=employee_id, type=type, status=status)
+# **list_employee_time_off_policies**
+> List[EmployeeTimeOffPolicyAssignment] list_employee_time_off_policies(employee_id)
 
-Get Time Off Requests
+List Employee Time Off Policies
 
-Retrieves a list of time off requests based on specified filters. This endpoint allows filtering by date range, status, employee, and time off type. It's useful for generating time off reports or displaying a calendar of time off events.
+Returns the time off policies currently assigned to the specified employee, including policy ID, time off type, and accrual start date.
 
 ### Example
 
@@ -871,6 +564,7 @@ Retrieves a list of time off requests based on specified filters. This endpoint 
 
 ```python
 import bamboohr_sdk
+from bamboohr_sdk.models.employee_time_off_policy_assignment import EmployeeTimeOffPolicyAssignment
 from bamboohr_sdk.rest import ApiException
 from pprint import pprint
 
@@ -897,20 +591,15 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.TimeOffApi(api_client)
-    start = 'start_example' # str | YYYY-MM-DD. Only show time off that occurs on/after the specified start date.
-    end = 'end_example' # str | YYYY-MM-DD. Only show time off that occurs on/before the specified end date.
-    accept_header_parameter = 'accept_header_parameter_example' # str | This endpoint can produce either JSON or XML. (optional)
-    id = 56 # int | A particular request ID to limit the response to. (optional)
-    action = 'action_example' # str | Limit to requests that the user has a particular level of access to. Legal values are: \"view\" or \"approve\". Defaults to view. (optional)
-    employee_id = 'employee_id_example' # str | A particular employee ID to limit the response to. (optional)
-    type = 'type_example' # str | A comma separated list of time off types IDs to include limit the response to. If omitted, requests of all types are included. (optional)
-    status = 'status_example' # str | A comma separated list of request status values to include. If omitted, requests of all status values are included. Legal values are \"approved\", \"denied\", \"superceded\", \"requested\", \"canceled\". (optional)
+    employee_id = 56 # int | The ID of the employee.
 
     try:
-        # Get Time Off Requests
-        api_instance.time_off_get_time_off_requests(start, end, accept_header_parameter=accept_header_parameter, id=id, action=action, employee_id=employee_id, type=type, status=status)
+        # List Employee Time Off Policies
+        api_response = api_instance.list_employee_time_off_policies(employee_id)
+        print("The response of TimeOffApi->list_employee_time_off_policies:\n")
+        pprint(api_response)
     except Exception as e:
-        print("Exception when calling TimeOffApi->time_off_get_time_off_requests: %s\n" % e)
+        print("Exception when calling TimeOffApi->list_employee_time_off_policies: %s\n" % e)
 ```
 
 
@@ -920,18 +609,279 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **start** | **str**| YYYY-MM-DD. Only show time off that occurs on/after the specified start date. | 
- **end** | **str**| YYYY-MM-DD. Only show time off that occurs on/before the specified end date. | 
- **accept_header_parameter** | **str**| This endpoint can produce either JSON or XML. | [optional] 
- **id** | **int**| A particular request ID to limit the response to. | [optional] 
- **action** | **str**| Limit to requests that the user has a particular level of access to. Legal values are: \&quot;view\&quot; or \&quot;approve\&quot;. Defaults to view. | [optional] 
- **employee_id** | **str**| A particular employee ID to limit the response to. | [optional] 
- **type** | **str**| A comma separated list of time off types IDs to include limit the response to. If omitted, requests of all types are included. | [optional] 
- **status** | **str**| A comma separated list of request status values to include. If omitted, requests of all status values are included. Legal values are \&quot;approved\&quot;, \&quot;denied\&quot;, \&quot;superceded\&quot;, \&quot;requested\&quot;, \&quot;canceled\&quot;. | [optional] 
+ **employee_id** | **int**| The ID of the employee. | 
 
 ### Return type
 
-void (empty response body)
+[**List[EmployeeTimeOffPolicyAssignment]**](EmployeeTimeOffPolicyAssignment.md)
+
+### Authorization
+
+[basic](../README.md#basic), [oauth](../README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | The list of time off policies assigned to the employee. Only includes regular (accruing) policy types. |  -  |
+**401** | Unauthorized. Invalid API credentials. |  -  |
+**403** | Insufficient permissions to view time off policy assignments. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **list_employee_time_off_policies_v1_1**
+> List[EmployeeTimeOffPolicyAssignmentV11] list_employee_time_off_policies_v1_1(employee_id)
+
+List Employee Time Off Policies v1.1
+
+Returns the time off policies currently assigned to the specified employee, including manual and unlimited policy types that v1 excludes.
+
+### Example
+
+* Basic Authentication (basic):
+* OAuth Authentication (oauth):
+
+```python
+import bamboohr_sdk
+from bamboohr_sdk.models.employee_time_off_policy_assignment_v11 import EmployeeTimeOffPolicyAssignmentV11
+from bamboohr_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://companySubDomain.bamboohr.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = bamboohr_sdk.Configuration(
+    host = "https://companySubDomain.bamboohr.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basic
+configuration = bamboohr_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with bamboohr_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = bamboohr_sdk.TimeOffApi(api_client)
+    employee_id = 56 # int | The ID of the employee.
+
+    try:
+        # List Employee Time Off Policies v1.1
+        api_response = api_instance.list_employee_time_off_policies_v1_1(employee_id)
+        print("The response of TimeOffApi->list_employee_time_off_policies_v1_1:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling TimeOffApi->list_employee_time_off_policies_v1_1: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **employee_id** | **int**| The ID of the employee. | 
+
+### Return type
+
+[**List[EmployeeTimeOffPolicyAssignmentV11]**](EmployeeTimeOffPolicyAssignmentV11.md)
+
+### Authorization
+
+[basic](../README.md#basic), [oauth](../README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | The list of time off policies assigned to the employee, including manual and unlimited types. |  -  |
+**401** | Unauthorized. Invalid API credentials. |  -  |
+**403** | Insufficient permissions to view time off policy assignments. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **list_time_off_policies**
+> List[TimeOffPolicy] list_time_off_policies(accept_header_parameter=accept_header_parameter)
+
+List Time Off Policies
+
+Returns all non-deleted time off policies for the company, sorted alphabetically by name. Only includes policies whose time off type has not been deleted.
+
+### Example
+
+* Basic Authentication (basic):
+* OAuth Authentication (oauth):
+
+```python
+import bamboohr_sdk
+from bamboohr_sdk.models.time_off_policy import TimeOffPolicy
+from bamboohr_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://companySubDomain.bamboohr.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = bamboohr_sdk.Configuration(
+    host = "https://companySubDomain.bamboohr.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basic
+configuration = bamboohr_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with bamboohr_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = bamboohr_sdk.TimeOffApi(api_client)
+    accept_header_parameter = 'accept_header_parameter_example' # str | This endpoint can produce either JSON or XML. (optional)
+
+    try:
+        # List Time Off Policies
+        api_response = api_instance.list_time_off_policies(accept_header_parameter=accept_header_parameter)
+        print("The response of TimeOffApi->list_time_off_policies:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling TimeOffApi->list_time_off_policies: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accept_header_parameter** | **str**| This endpoint can produce either JSON or XML. | [optional] 
+
+### Return type
+
+[**List[TimeOffPolicy]**](TimeOffPolicy.md)
+
+### Authorization
+
+[basic](../README.md#basic), [oauth](../README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | A list of all non-deleted time off policies, sorted alphabetically by name. |  -  |
+**401** | Unauthorized. Invalid API credentials. |  -  |
+**403** | Insufficient permissions to view time off policies. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **list_time_off_requests**
+> List[TimeOffRequest1] list_time_off_requests(start, end, accept_header_parameter=accept_header_parameter, id=id, action=action, employee_id=employee_id, type=type, status=status, exclude_note=exclude_note)
+
+List Time Off Requests
+
+Returns time off requests within the specified date range. Both `start` and `end` query parameters are required (YYYY-MM-DD). The search is inclusive: requests whose date range overlaps the query window are returned. Results can be filtered by status, employee, time off type, or limited to requests the caller can approve.
+
+### Example
+
+* Basic Authentication (basic):
+* OAuth Authentication (oauth):
+
+```python
+import bamboohr_sdk
+from bamboohr_sdk.models.time_off_request1 import TimeOffRequest1
+from bamboohr_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://companySubDomain.bamboohr.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = bamboohr_sdk.Configuration(
+    host = "https://companySubDomain.bamboohr.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basic
+configuration = bamboohr_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with bamboohr_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = bamboohr_sdk.TimeOffApi(api_client)
+    start = '2013-10-20' # date | Only include requests that end on or after this date. YYYY-MM-DD format.
+    end = '2013-10-20' # date | Only include requests that start on or before this date. YYYY-MM-DD format.
+    accept_header_parameter = 'accept_header_parameter_example' # str | This endpoint can produce either JSON or XML. (optional)
+    id = 56 # int | A particular request ID to limit the response to. (optional)
+    action = view # str | Limit to requests the caller can `view`, requests they can `approve`, or only their own requests via `myRequests`. Defaults to `view`. (optional) (default to view)
+    employee_id = 56 # int | A particular employee ID to limit the response to. (optional)
+    type = 'type_example' # str | A comma-separated list of time off type IDs to filter by. If omitted, requests of all types are included. (optional)
+    status = 'status_example' # str | A comma-separated list of request status values to filter by. Accepted values are approved, denied, superceded, requested, and canceled. If omitted, requests of all statuses are included. (optional)
+    exclude_note = 'exclude_note_example' # str | When set to any truthy value, omits the `notes` object from each request in the response. (optional)
+
+    try:
+        # List Time Off Requests
+        api_response = api_instance.list_time_off_requests(start, end, accept_header_parameter=accept_header_parameter, id=id, action=action, employee_id=employee_id, type=type, status=status, exclude_note=exclude_note)
+        print("The response of TimeOffApi->list_time_off_requests:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling TimeOffApi->list_time_off_requests: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **start** | **date**| Only include requests that end on or after this date. YYYY-MM-DD format. | 
+ **end** | **date**| Only include requests that start on or before this date. YYYY-MM-DD format. | 
+ **accept_header_parameter** | **str**| This endpoint can produce either JSON or XML. | [optional] 
+ **id** | **int**| A particular request ID to limit the response to. | [optional] 
+ **action** | **str**| Limit to requests the caller can &#x60;view&#x60;, requests they can &#x60;approve&#x60;, or only their own requests via &#x60;myRequests&#x60;. Defaults to &#x60;view&#x60;. | [optional] [default to view]
+ **employee_id** | **int**| A particular employee ID to limit the response to. | [optional] 
+ **type** | **str**| A comma-separated list of time off type IDs to filter by. If omitted, requests of all types are included. | [optional] 
+ **status** | **str**| A comma-separated list of request status values to filter by. Accepted values are approved, denied, superceded, requested, and canceled. If omitted, requests of all statuses are included. | [optional] 
+ **exclude_note** | **str**| When set to any truthy value, omits the &#x60;notes&#x60; object from each request in the response. | [optional] 
+
+### Return type
+
+[**List[TimeOffRequest1]**](TimeOffRequest1.md)
 
 ### Authorization
 
@@ -946,17 +896,18 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** |  |  -  |
-**400** | Malformed request |  -  |
+**200** | A list of time off requests matching the specified filters. |  -  |
+**400** | Invalid or missing start/end date. |  -  |
+**401** | Unauthorized. Invalid API credentials. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **time_off_list_time_off_policies_for_employee**
-> time_off_list_time_off_policies_for_employee(employee_id)
+# **list_time_off_types**
+> TimeOffTypesAndDefaultHours list_time_off_types(accept_header_parameter=accept_header_parameter, mode=mode)
 
-Get Time Off Policies for Employee
+List Time Off Types
 
-Retrieves a list of time off policies assigned to a specific employee. This includes policy details such as name, type, and current balance. The response helps in displaying available time off options and balances to employees.
+Returns active time off types for the company along with the company's default hours-per-day schedule. Pass `mode=request` to filter to only types the authenticated employee has permission to request.
 
 ### Example
 
@@ -965,6 +916,7 @@ Retrieves a list of time off policies assigned to a specific employee. This incl
 
 ```python
 import bamboohr_sdk
+from bamboohr_sdk.models.time_off_types_and_default_hours import TimeOffTypesAndDefaultHours
 from bamboohr_sdk.rest import ApiException
 from pprint import pprint
 
@@ -991,13 +943,16 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.TimeOffApi(api_client)
-    employee_id = 'employee_id_example' # str | 
+    accept_header_parameter = 'accept_header_parameter_example' # str | This endpoint can produce either JSON or XML. (optional)
+    mode = 'mode_example' # str | Set to `request` to limit the results to time off types the authenticated employee can request. (optional)
 
     try:
-        # Get Time Off Policies for Employee
-        api_instance.time_off_list_time_off_policies_for_employee(employee_id)
+        # List Time Off Types
+        api_response = api_instance.list_time_off_types(accept_header_parameter=accept_header_parameter, mode=mode)
+        print("The response of TimeOffApi->list_time_off_types:\n")
+        pprint(api_response)
     except Exception as e:
-        print("Exception when calling TimeOffApi->time_off_list_time_off_policies_for_employee: %s\n" % e)
+        print("Exception when calling TimeOffApi->list_time_off_types: %s\n" % e)
 ```
 
 
@@ -1007,11 +962,12 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **employee_id** | **str**|  | 
+ **accept_header_parameter** | **str**| This endpoint can produce either JSON or XML. | [optional] 
+ **mode** | **str**| Set to &#x60;request&#x60; to limit the results to time off types the authenticated employee can request. | [optional] 
 
 ### Return type
 
-void (empty response body)
+[**TimeOffTypesAndDefaultHours**](TimeOffTypesAndDefaultHours.md)
 
 ### Authorization
 
@@ -1026,16 +982,17 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** |  |  -  |
+**200** | Active time off types and the company&#39;s default hours-per-day schedule. |  -  |
+**401** | Unauthorized. Invalid API credentials. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **time_off_list_time_off_policies_for_employee_v1_1**
-> time_off_list_time_off_policies_for_employee_v1_1(employee_id)
+# **list_whos_out**
+> List[WhosOutEntry] list_whos_out(accept_header_parameter=accept_header_parameter, start=start, end=end, filter=filter)
 
-Get Time Off Policies for Employee v1.1
+List Who’s Out
 
-Version 1.1 of the endpoint that retrieves time off policies for a specific employee. This version includes additional policy details and enhanced filtering capabilities compared to v1. It provides comprehensive information about each policy including accrual rates, carryover rules, and policy-specific settings.
+Returns a date-sorted list of employees who are out and company holidays for the specified period. Defaults to today through 14 days out when dates are omitted. Results include both time off entries and holidays, each identified by type.
 
 ### Example
 
@@ -1044,6 +1001,7 @@ Version 1.1 of the endpoint that retrieves time off policies for a specific empl
 
 ```python
 import bamboohr_sdk
+from bamboohr_sdk.models.whos_out_entry import WhosOutEntry
 from bamboohr_sdk.rest import ApiException
 from pprint import pprint
 
@@ -1070,13 +1028,18 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.TimeOffApi(api_client)
-    employee_id = 'employee_id_example' # str | 
+    accept_header_parameter = 'accept_header_parameter_example' # str | This endpoint can produce either JSON or XML. (optional)
+    start = '2013-10-20' # date | Start date in YYYY-MM-DD format. Defaults to today. (optional)
+    end = '2013-10-20' # date | End date in YYYY-MM-DD format. Defaults to 14 days after the start date. (optional)
+    filter = 'filter_example' # str | Set to `off` to disable the Who's Out visibility filter and return the unfiltered feed. Any other value leaves filtering enabled. (optional)
 
     try:
-        # Get Time Off Policies for Employee v1.1
-        api_instance.time_off_list_time_off_policies_for_employee_v1_1(employee_id)
+        # List Who’s Out
+        api_response = api_instance.list_whos_out(accept_header_parameter=accept_header_parameter, start=start, end=end, filter=filter)
+        print("The response of TimeOffApi->list_whos_out:\n")
+        pprint(api_response)
     except Exception as e:
-        print("Exception when calling TimeOffApi->time_off_list_time_off_policies_for_employee_v1_1: %s\n" % e)
+        print("Exception when calling TimeOffApi->list_whos_out: %s\n" % e)
 ```
 
 
@@ -1086,7 +1049,94 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **employee_id** | **str**|  | 
+ **accept_header_parameter** | **str**| This endpoint can produce either JSON or XML. | [optional] 
+ **start** | **date**| Start date in YYYY-MM-DD format. Defaults to today. | [optional] 
+ **end** | **date**| End date in YYYY-MM-DD format. Defaults to 14 days after the start date. | [optional] 
+ **filter** | **str**| Set to &#x60;off&#x60; to disable the Who&#39;s Out visibility filter and return the unfiltered feed. Any other value leaves filtering enabled. | [optional] 
+
+### Return type
+
+[**List[WhosOutEntry]**](WhosOutEntry.md)
+
+### Authorization
+
+[basic](../README.md#basic), [oauth](../README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json, application/xml
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | A date-sorted list of employees who are out and company holidays. |  -  |
+**401** | Unauthorized. Invalid API credentials. |  -  |
+**403** | The Who&#39;s Out feature is disabled for this account. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **update_time_off_request_status**
+> update_time_off_request_status(request_id, request)
+
+Update Time Off Request Status
+
+Updates the status of an existing time off request. Valid statuses are `approved`, `denied` (or `declined`), and `canceled`. Owner/admins can approve out of turn by completing all workflow steps at once; other approvers complete only their current step.
+
+### Example
+
+* Basic Authentication (basic):
+* OAuth Authentication (oauth):
+
+```python
+import bamboohr_sdk
+from bamboohr_sdk.models.request import Request
+from bamboohr_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://companySubDomain.bamboohr.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = bamboohr_sdk.Configuration(
+    host = "https://companySubDomain.bamboohr.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basic
+configuration = bamboohr_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with bamboohr_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = bamboohr_sdk.TimeOffApi(api_client)
+    request_id = 56 # int | The ID of the time off request to update.
+    request = bamboohr_sdk.Request() # Request | 
+
+    try:
+        # Update Time Off Request Status
+        api_instance.update_time_off_request_status(request_id, request)
+    except Exception as e:
+        print("Exception when calling TimeOffApi->update_time_off_request_status: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **request_id** | **int**| The ID of the time off request to update. | 
+ **request** | [**Request**](Request.md)|  | 
 
 ### Return type
 
@@ -1098,14 +1148,18 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json, application/xml
  - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** |  |  -  |
+**200** | The status has been updated. |  -  |
+**400** | If the posted XML is invalid or the status is not \&quot;approved\&quot;, \&quot;denied\&quot;, \&quot;canceled\&quot;, or \&quot;declined\&quot;. |  -  |
+**401** | Unauthorized. Invalid API credentials. |  -  |
+**403** | If the current user doesn\\&#39;t have access to change the status in this way. |  -  |
+**404** | If the time off request ID doesn\\&#39;t exist. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**member_id** | **str** | The member ID | [optional] 
-**subscriber_id** | **str** | The subscriber ID | [optional] 
+**member_id** | **str** | The member identifier. Formatted as \&quot;employee.{id}\&quot; for employees and \&quot;dependent.{id}\&quot; for dependents. | [optional] 
+**subscriber_id** | **str** | The employee ID of the plan subscriber as a string. For dependent members, this is the ID of the employee they are enrolled under. | [optional] 
 **plans** | [**List[MemberBenefitsGetSuccessResponseDataInnerPlansInner]**](MemberBenefitsGetSuccessResponseDataInnerPlansInner.md) |  | [optional] 
 
 ## Example

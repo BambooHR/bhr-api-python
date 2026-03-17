@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | Field identifier (XML attribute) | [optional] 
-**value** | **str** | Field display name (element text content) | [optional] 
+**id** | **str** | Field identifier on the &#x60;&lt;field&gt;&#x60; element. | [optional] 
+**value** | **str** | Field display name serialized as the &#x60;&lt;field&gt;&#x60; element text content. | [optional] 
 
 ## Example
 

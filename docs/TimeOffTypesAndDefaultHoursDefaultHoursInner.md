@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** | Day of week | 
-**amount** | **float** | Default hours for the day | 
+**amount** | **str** | Default hours for the day. Returned as a stringified decimal value. | 
 
 ## Example
 

@@ -1,6 +1,6 @@
 # TimeTrackingUpdateTimeTrackingBreakV1
 
-Data contract for updating a break
+Data contract for partially updating a break. All fields are optional; only fields present in the request body will be updated.
 
 ## Properties
 

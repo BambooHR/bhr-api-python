@@ -5,9 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** |  | [optional] 
-**category_id** | **str** |  | [optional] 
-**share_with_employee** | **str** |  | [optional] 
+**name** | **str** | The new display name for the file. | [optional] 
+**category_id** | **int** | The ID of the file category (section) to move the file into. | [optional] 
+**share_with_employee** | **str** | Whether the file is shared with the employee. Also accepted as &#39;shareWithEmployees&#39;. | [optional] 
+**share_with_employees** | **str** | Alias for shareWithEmployee. Whether the file is shared with the employee. | [optional] 
 
 ## Example
 

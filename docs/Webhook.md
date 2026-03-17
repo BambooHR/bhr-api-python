@@ -5,16 +5,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** | The id of the webhook. | [optional] 
+**id** | **str** | The ID of the webhook. | [optional] 
 **name** | **str** | The name of the webhook. | [optional] 
-**created** | **str** | timestamp of creation | [optional] 
-**last_sent** | **str** | timestamp of last webhook sent | [optional] 
-**monitor_fields** | **List[str]** | A list of fields to monitor. | [optional] 
-**post_fields** | **object** | A list of fields to post to the webhook url. Field ID or alias: external name | [optional] 
-**url** | **str** | The url the webhook should send data to. | [optional] 
-**format** | **str** | The format the webhook should use (json, form-encoded). | [optional] 
-**private_key** | **str** | The private key which can be used to verify that the webhook is secure (uses HMAC-SHA256) | [optional] 
-**include_company_domain** | **bool** | If set to true, the company domain will be added to the header. | [optional] 
+**created** | **str** | Datetime when the webhook was created (UTC, format: YYYY-MM-DD HH:MM:SS). | [optional] 
+**last_sent** | **str** | Datetime when the webhook was last fired (UTC, format: YYYY-MM-DD HH:MM:SS). Null if the webhook has never fired. | [optional] 
+**monitor_fields** | **List[str]** |  | [optional] 
+**post_fields** | **object** | An object map of field ID or alias to the external name used in the webhook payload. | [optional] 
+**url** | **str** | The URL the webhook sends data to. | [optional] 
+**format** | **str** | The payload format used by the webhook. | [optional] 
+**private_key** | **str** | The private key used to verify webhook authenticity via HMAC-SHA256. Only returned at creation time. | [optional] 
+**include_company_domain** | **bool** | Whether the company domain is added to the webhook request header. | [optional] 
+**events** | [**List[WebhookEventType]**](WebhookEventType.md) | Events that trigger this webhook. | [optional] 
 
 ## Example
 

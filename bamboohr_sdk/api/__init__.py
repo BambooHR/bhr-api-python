@@ -5,6 +5,7 @@ from bamboohr_sdk.api.account_information_api import AccountInformationApi
 from bamboohr_sdk.api.applicant_tracking_api import ApplicantTrackingApi
 from bamboohr_sdk.api.benefits_api import BenefitsApi
 from bamboohr_sdk.api.company_files_api import CompanyFilesApi
+from bamboohr_sdk.api.company_profile_api import CompanyProfileApi
 from bamboohr_sdk.api.custom_reports_api import CustomReportsApi
 from bamboohr_sdk.api.datasets_api import DatasetsApi
 from bamboohr_sdk.api.employee_files_api import EmployeeFilesApi
@@ -20,3 +21,4 @@ from bamboohr_sdk.api.time_off_api import TimeOffApi
 from bamboohr_sdk.api.time_tracking_api import TimeTrackingApi
 from bamboohr_sdk.api.training_api import TrainingApi
 from bamboohr_sdk.api.webhooks_api import WebhooksApi
+

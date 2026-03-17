@@ -16,7 +16,6 @@ bamboohr_sdk/api/manual_api.py
 
 # Protect project scaffolding files the generator would create
 pyproject.toml
-README.md
 .gitignore
 setup.py
 setup.cfg

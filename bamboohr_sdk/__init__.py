@@ -22,6 +22,7 @@ __all__ = [
     "ApplicantTrackingApi",
     "BenefitsApi",
     "CompanyFilesApi",
+    "CompanyProfileApi",
     "CustomReportsApi",
     "DatasetsApi",
     "EmployeeFilesApi",
@@ -46,58 +47,84 @@ __all__ = [
     "ApiKeyError",
     "ApiAttributeError",
     "ApiException",
-    "ClientException",
-    "ServerException",
-    "BadRequestException",
-    "AuthenticationFailedException",
-    "PermissionDeniedException",
-    "ResourceNotFoundException",
-    "MethodNotAllowedException",
-    "RequestTimeoutException",
-    "ConflictException",
-    "PayloadTooLargeException",
-    "UnsupportedMediaTypeException",
-    "UnprocessableEntityException",
-    "RateLimitExceededException",
-    "InternalServerErrorException",
-    "NotImplementedException",
-    "BadGatewayException",
-    "ServiceUnavailableException",
-    "GatewayTimeoutException",
-    "InsufficientStorageException",
-    "NetworkReadTimeoutException",
-    "AddNewEmployeeTrainingRecordRequest",
-    "AddNewEmployeeTrainingRecordRequestCost",
-    "AddTrainingCategoryRequest",
-    "AddTrainingTypeRequest",
-    "AddTrainingTypeRequestCategory",
     "AdjustTimeOffBalance",
     "AdjustTimeTrackingRequestSchema",
+    "AlignmentOptionsResponse",
+    "AlignmentOptionsResponseAlignsWithOptionsInner",
+    "ApplicantStatus",
     "ApplicationDetails",
     "ApplicationDetailsApplicant",
+    "ApplicationDetailsApplicantAddress",
+    "ApplicationDetailsApplicantEducation",
+    "ApplicationDetailsApplicantEducationLevel",
+    "ApplicationDetailsAttachmentsInner",
     "ApplicationDetailsJob",
+    "ApplicationDetailsJobHiringLead",
+    "ApplicationDetailsJobHiringLeadJobTitle",
+    "ApplicationDetailsJobTitle",
     "ApplicationDetailsQuestionsAndAnswersInner",
     "ApplicationDetailsQuestionsAndAnswersInnerAnswer",
     "ApplicationDetailsQuestionsAndAnswersInnerQuestion",
     "ApplicationDetailsStatus",
+    "ApplicationDetailsStatusChangedByUser",
+    "ApplicationDetailsStatusChangedByUserJobTitle",
     "ApplicationsList",
-    "ApplicationsListApplications",
-    "ApplicationsListApplicationsItemsInner",
-    "ApplicationsListApplicationsItemsInnerApplicant",
-    "ApplicationsListApplicationsItemsInnerJob",
-    "ApplicationsListApplicationsItemsInnerStatus",
+    "ApplicationsListApplicationsInner",
+    "ApplicationsListApplicationsInnerApplicant",
+    "ApplicationsListApplicationsInnerJob",
+    "ApplicationsListApplicationsInnerJobTitle",
+    "ApplicationsListApplicationsInnerStatus",
+    "AssignEmployeesToBreakPolicyRequest",
+    "AssignTimeOffPoliciesRequestInner",
+    "AssignedTimeOffPolicy",
+    "AssignedTimeOffPolicyV11",
+    "AvailableAction",
     "BadRequest",
+    "BadRequestError",
+    "BenefitCoveragesResponse",
+    "BenefitCoveragesResponseBenefitCoveragesInner",
+    "BenefitDeductionSubType",
+    "BenefitDeductionType",
+    "BenefitDeductionTypeId",
+    "CanCreateGoalsResponse",
+    "ChangedEmployeeIdsResponse",
+    "ChangedEmployeeIdsResponseEmployeesValue",
+    "ChangedEmployeeTableDataResponse",
+    "ChangedEmployeeTableDataResponseEmployeesValue",
+    "ChangedEmployeeTableDataResponseEmployeesValueRowsInnerValue",
+    "ChangedEmployeeTableDataResponseEmployeesValueRowsInnerValueAnyOfInner",
     "ClockEntriesSchema",
     "ClockEntryIdsSchema",
     "ClockEntrySchema",
     "ClockInRequestSchema",
     "ClockOutRequestSchema",
-    "CompanyBenefitResponse",
+    "CompanyBenefitSummary",
+    "CompanyBenefitsListResponse",
+    "CompanyDeletedWebhookPayload",
     "CompanyFileUpdate",
+    "CompanyFilesResponse",
+    "CompanyFilesResponseCategoriesInner",
+    "CompanyFilesResponseCategoriesInnerFilesInner",
     "CompanyInformation",
     "CompanyInformationAddress",
+    "CompanyIntegrationsUpdatedWebhookPayload",
+    "CompanyIntegrationsUpdatedWebhookPayloadData",
+    "CompanyProfileIntegrations",
+    "CompanyUpdatedWebhookPayload",
     "Country",
     "CountrySchema",
+    "CreateApplicationCommentRequest",
+    "CreateCandidateResponse",
+    "CreateCommentResponse",
+    "CreateEmployeeTrainingRecordRequest",
+    "CreateEmployeeTrainingRecordRequestCost",
+    "CreateJobOpeningResponse",
+    "CreateTrainingCategoryRequest",
+    "CreateTrainingTypeRequest",
+    "CreateTrainingTypeRequestCategory",
+    "CreateTrainingTypeRequestDueFromHireDate",
+    "CreateTrainingTypeRequestDueFromHireDateOneOf",
+    "CreateWebhookBadRequestResponse",
     "CursorPagedResponseMetadata",
     "CursorPagesResponse",
     "CursorPaginationQueryObject",
@@ -112,26 +139,40 @@ __all__ = [
     "DatasetsResponse",
     "DatasetsResponseDatasetsInner",
     "Employee",
-    "EmployeeBenefit",
     "EmployeeBenefitFilters",
     "EmployeeBenefitFiltersFilters",
+    "EmployeeBenefitsListResponse",
+    "EmployeeBenefitsListResponseEmployeeBenefitsInner",
+    "EmployeeBenefitsListResponseEmployeeBenefitsInnerEmployeeBenefitInner",
     "EmployeeCreatedWebhookPayload",
     "EmployeeCreatedWebhookPayloadData",
     "EmployeeDeletedWebhookPayload",
     "EmployeeDeletedWebhookPayloadData",
     "EmployeeDependent",
+    "EmployeeDependentsResponse",
+    "EmployeeDependentsResponseEmployeeDependentsInner",
     "EmployeeFileUpdate",
     "EmployeeResponse",
     "EmployeeResponseAggregationsInner",
+    "EmployeeTableRow",
+    "EmployeeTableRowValue",
+    "EmployeeTableRowValueAnyOfInner",
+    "EmployeeTimeOffPolicyAssignment",
+    "EmployeeTimeOffPolicyAssignmentV11",
     "EmployeeTimesheetEntryTransformer",
     "EmployeeUpdatedWebhookPayload",
     "EmployeeUpdatedWebhookPayloadData",
+    "EmployeeValue",
+    "EmployeeValueAnyOfInner",
+    "Field1",
+    "Field1Id",
     "FieldList",
     "FieldListFieldsInner",
     "FieldOptionsRequestSchema",
     "FieldOptionsRequestSchemaDependentFieldsValueInner",
     "FieldOptionsTransformer",
     "Forbidden",
+    "GetCompanyReportResponse",
     "GetEmployeesEmployeeResponse",
     "GetEmployeesFilterRequestObject",
     "GetEmployeesResponseObject",
@@ -139,12 +180,14 @@ __all__ = [
     "GetEmployeesResponseObjectLinksNext",
     "GetEmployeesResponseObjectLinksPrev",
     "GetEmployeesResponseObjectLinksSelf",
-    "GetGoalsAlignmentOptionsRequest",
     "Goal",
     "GoalAggregate",
     "GoalAggregateAlignsWithOptionsInner",
     "GoalAggregateCommentsInner",
     "GoalAggregatePersonsInner",
+    "GoalCommentResponse",
+    "GoalCommentsResponse",
+    "GoalCommentsResponseCommentsInner",
     "GoalFiltersV1",
     "GoalFiltersV11",
     "GoalFiltersV11FiltersInner",
@@ -159,23 +202,38 @@ __all__ = [
     "GoalsAggregateV1PersonsInner",
     "GoalsList",
     "HiringLead",
-    "HiringLeadsList",
     "HourEntriesRequestSchema",
     "HourEntryIdsSchema",
     "HourEntrySchema",
-    "InternalServerError",
     "InvalidRequest",
     "InvalidRequestError",
+    "JobSummary",
+    "JobSummaryDepartment",
+    "JobSummaryHiringLead",
+    "JobSummaryLocation",
+    "JobSummaryStatus",
     "JsonDirectoryEmployee",
     "JsonDirectoryEmployeeFieldsInner",
+    "JsonEmployeeFiles",
+    "JsonEmployeeFilesCategoriesInner",
+    "JsonEmployeeFilesCategoriesInnerFilesInner",
+    "JsonEmployeeFilesEmployee",
+    "ListFieldDetail",
+    "ListFieldOption",
     "ListFieldValues",
     "ListFieldValuesOptionsInner",
+    "ListUsersResponseValue",
+    "ListUsersXmlResponse",
+    "ListUsersXmlResponseUserInner",
     "Location",
-    "LocationsList",
+    "LoginFailureResponse",
+    "LoginFailureXmlResponse",
+    "LoginResponse",
+    "LoginXmlResponse",
     "MemberBenefitEvent",
-    "MemberBenefitEventMembersInner",
-    "MemberBenefitEventMembersInnerCoveragesInner",
-    "MemberBenefitEventMembersInnerCoveragesInnerEventsInner",
+    "MemberBenefitEventCoveragesInner",
+    "MemberBenefitEventCoveragesInnerEventsInner",
+    "MemberBenefitEventsResponse",
     "MemberBenefitsGetPermissionDeniedResponse",
     "MemberBenefitsGetSuccessResponse",
     "MemberBenefitsGetSuccessResponseDataInner",
@@ -188,9 +246,11 @@ __all__ = [
     "MemberBenefitsGetValidationErrorResponse",
     "ModelField",
     "NewWebHook",
+    "PagedResponse",
     "Pagination",
-    "PostApplicantStatusRequest",
-    "PostApplicationCommentRequest",
+    "PaginationMetaData",
+    "PersonInfoApiTransformer",
+    "PostGoalCommentRequest",
     "PostGoalRequest",
     "PostGoalRequestMilestonesInner",
     "PostNewEmployee",
@@ -199,6 +259,7 @@ __all__ = [
     "ProjectInfoApiTransformer",
     "ProjectInfoApiTransformerProject",
     "ProjectInfoApiTransformerTask",
+    "PutGoalCommentRequest",
     "PutGoalMilestoneProgressRequest",
     "PutGoalProgressRequest",
     "PutGoalSharedWithRequest",
@@ -210,22 +271,34 @@ __all__ = [
     "RequestCustomReport",
     "RequestCustomReportFilters",
     "RequestCustomReportFiltersLastChanged",
+    "RequestCustomReportResponse",
+    "RequestCustomReportResponseEmployeesInner",
+    "RequestCustomReportResponseFieldsInner",
+    "SetBreakPolicyEmployeesRequest",
+    "ShareOptionsResponse",
     "State",
     "StateProvinceResponseSchema",
     "StateProvinceSchema",
     "TableRowDeleteResponse",
     "TableRowUpdate",
+    "TabularField",
+    "TabularFieldFieldsInner",
     "TaskCreateSchema",
-    "TimeOffAssignTimeOffPoliciesForAnEmployeeRequestInner",
     "TimeOffBalanceEntry",
     "TimeOffHistory",
+    "TimeOffPolicy",
     "TimeOffRequest",
+    "TimeOffRequest1",
+    "TimeOffRequest1Actions",
+    "TimeOffRequest1Amount",
+    "TimeOffRequest1Notes",
+    "TimeOffRequest1Status",
+    "TimeOffRequest1Type",
     "TimeOffRequestDatesInner",
     "TimeOffRequestNotesInner",
     "TimeOffTypesAndDefaultHours",
     "TimeOffTypesAndDefaultHoursDefaultHoursInner",
     "TimeOffTypesAndDefaultHoursTimeOffTypesInner",
-    "TimeTrackingAssignEmployeesToBreakPolicyRequest",
     "TimeTrackingBreakPolicyEmployeeCollectionV1Inner",
     "TimeTrackingBulkResponseSchema",
     "TimeTrackingBulkResponseSchemaResponse",
@@ -249,7 +322,6 @@ __all__ = [
     "TimeTrackingRecordSchemaProject",
     "TimeTrackingRecordSchemaProjectTask",
     "TimeTrackingRecordSchemaShiftDifferential",
-    "TimeTrackingSetBreakPolicyEmployeesRequest",
     "TimeTrackingSyncTimeTrackingBreakPolicyV1",
     "TimeTrackingTask",
     "TimeTrackingTimeTrackingBreakAssessmentV1",
@@ -258,31 +330,33 @@ __all__ = [
     "TimeTrackingTimeTrackingBreakPolicyV1",
     "TimeTrackingTimeTrackingBreakPolicyWithRelationsV1",
     "TimeTrackingTimeTrackingBreakV1",
-    "TimeTrackingUnassignEmployeesFromBreakPolicyRequest",
     "TimeTrackingUpdateTimeTrackingBreakPolicyV1",
     "TimeTrackingUpdateTimeTrackingBreakV1",
     "TimesheetEntryInfoApiTransformer",
     "TimesheetEntryInfoApiTransformerBreakInfo",
+    "TimezoneListResponse",
+    "TimezoneResource",
     "TrainingCategory",
-    "TrainingCategoryList",
     "TrainingRecord",
-    "TrainingRecordList",
+    "TrainingRecordMap",
+    "TrainingRecordType",
     "TrainingType",
-    "TrainingTypeList",
+    "TrainingTypeCategory",
+    "TrainingTypeDueFromHireDate",
+    "TrainingTypeDueFromHireDateOneOf",
     "TransformedApiEmployeeGoalDetails",
     "TransformedApiEmployeeGoalDetailsGoal",
     "TransformedApiGoal",
-    "TransformedApiGoalGoal",
-    "TransformedApiGoalGoalActions",
-    "TransformedApiGoalGoalMilestonesInner",
-    "Unauthorized",
-    "Unauthorized1",
-    "UnauthorizedErrorsInner",
+    "TransformedApiGoalActions",
+    "TransformedApiGoalMilestonesInner",
+    "UnassignEmployeesFromBreakPolicyRequest",
+    "UpdateApplicantStatusRequest",
+    "UpdateApplicantStatusResponse",
     "UpdateEmployeeTrainingRecordRequest",
     "UpdateTrainingCategoryRequest",
     "UpdateTrainingTypeRequest",
     "UpdateTrainingTypeRequestCategory",
-    "WebHookLogResponse",
+    "UpdateWebhookBadRequestResponse",
     "WebHookPostFieldDataObject",
     "WebHookPostFieldPageDataObject",
     "WebHookPostFieldResponseObject",
@@ -290,20 +364,31 @@ __all__ = [
     "WebHookResponse",
     "Webhook",
     "WebhookBadRequest",
+    "WebhookBadRequestErrorsInner",
     "WebhookError",
     "WebhookErrorErrors",
     "WebhookEventType",
+    "WebhookLogEntry",
+    "WebhookLogListResponse",
+    "WebhookLogRateLimitResponse",
+    "WebhookLogRateLimitResponseError",
     "WebhookSubErrorProperty",
-    "WebhookSubErrorPropertyPostFieldsInner",
+    "WebhookSubErrorPropertyMonitorFieldsInner",
+    "WebhookSubErrorPropertyMonitorFieldsInnerId",
     "WebhookSubErrorPropertyUnknownFieldsInner",
+    "WebhookSubErrorPropertyUnknownFieldsInnerId",
     "WebhooksList",
     "WebhooksListWebhooksInner",
+    "WhosOutEntry",
     "XmlDirectoryEmployee",
     "XmlDirectoryEmployeeEmployees",
     "XmlDirectoryEmployeeEmployeesEmployeeInner",
     "XmlDirectoryEmployeeEmployeesEmployeeInnerFieldInner",
     "XmlDirectoryEmployeeFieldset",
     "XmlDirectoryEmployeeFieldsetFieldInner",
+    "XmlEmployeeFiles",
+    "XmlEmployeeFilesCategoryInner",
+    "XmlEmployeeFilesCategoryInnerFileInner",
 ]
 
 # import apis into sdk package
@@ -311,6 +396,7 @@ from bamboohr_sdk.api.account_information_api import AccountInformationApi as Ac
 from bamboohr_sdk.api.applicant_tracking_api import ApplicantTrackingApi as ApplicantTrackingApi
 from bamboohr_sdk.api.benefits_api import BenefitsApi as BenefitsApi
 from bamboohr_sdk.api.company_files_api import CompanyFilesApi as CompanyFilesApi
+from bamboohr_sdk.api.company_profile_api import CompanyProfileApi as CompanyProfileApi
 from bamboohr_sdk.api.custom_reports_api import CustomReportsApi as CustomReportsApi
 from bamboohr_sdk.api.datasets_api import DatasetsApi as DatasetsApi
 from bamboohr_sdk.api.employee_files_api import EmployeeFilesApi as EmployeeFilesApi
@@ -337,60 +423,86 @@ from bamboohr_sdk.exceptions import ApiValueError as ApiValueError
 from bamboohr_sdk.exceptions import ApiKeyError as ApiKeyError
 from bamboohr_sdk.exceptions import ApiAttributeError as ApiAttributeError
 from bamboohr_sdk.exceptions import ApiException as ApiException
-from bamboohr_sdk.exceptions import ClientException as ClientException
-from bamboohr_sdk.exceptions import ServerException as ServerException
-from bamboohr_sdk.exceptions import BadRequestException as BadRequestException
-from bamboohr_sdk.exceptions import AuthenticationFailedException as AuthenticationFailedException
-from bamboohr_sdk.exceptions import PermissionDeniedException as PermissionDeniedException
-from bamboohr_sdk.exceptions import ResourceNotFoundException as ResourceNotFoundException
-from bamboohr_sdk.exceptions import MethodNotAllowedException as MethodNotAllowedException
-from bamboohr_sdk.exceptions import RequestTimeoutException as RequestTimeoutException
-from bamboohr_sdk.exceptions import ConflictException as ConflictException
-from bamboohr_sdk.exceptions import PayloadTooLargeException as PayloadTooLargeException
-from bamboohr_sdk.exceptions import UnsupportedMediaTypeException as UnsupportedMediaTypeException
-from bamboohr_sdk.exceptions import UnprocessableEntityException as UnprocessableEntityException
-from bamboohr_sdk.exceptions import RateLimitExceededException as RateLimitExceededException
-from bamboohr_sdk.exceptions import InternalServerErrorException as InternalServerErrorException
-from bamboohr_sdk.exceptions import NotImplementedException as NotImplementedException
-from bamboohr_sdk.exceptions import BadGatewayException as BadGatewayException
-from bamboohr_sdk.exceptions import ServiceUnavailableException as ServiceUnavailableException
-from bamboohr_sdk.exceptions import GatewayTimeoutException as GatewayTimeoutException
-from bamboohr_sdk.exceptions import InsufficientStorageException as InsufficientStorageException
-from bamboohr_sdk.exceptions import NetworkReadTimeoutException as NetworkReadTimeoutException
 
 # import models into sdk package
-from bamboohr_sdk.models.add_new_employee_training_record_request import AddNewEmployeeTrainingRecordRequest as AddNewEmployeeTrainingRecordRequest
-from bamboohr_sdk.models.add_new_employee_training_record_request_cost import AddNewEmployeeTrainingRecordRequestCost as AddNewEmployeeTrainingRecordRequestCost
-from bamboohr_sdk.models.add_training_category_request import AddTrainingCategoryRequest as AddTrainingCategoryRequest
-from bamboohr_sdk.models.add_training_type_request import AddTrainingTypeRequest as AddTrainingTypeRequest
-from bamboohr_sdk.models.add_training_type_request_category import AddTrainingTypeRequestCategory as AddTrainingTypeRequestCategory
 from bamboohr_sdk.models.adjust_time_off_balance import AdjustTimeOffBalance as AdjustTimeOffBalance
 from bamboohr_sdk.models.adjust_time_tracking_request_schema import AdjustTimeTrackingRequestSchema as AdjustTimeTrackingRequestSchema
+from bamboohr_sdk.models.alignment_options_response import AlignmentOptionsResponse as AlignmentOptionsResponse
+from bamboohr_sdk.models.alignment_options_response_aligns_with_options_inner import AlignmentOptionsResponseAlignsWithOptionsInner as AlignmentOptionsResponseAlignsWithOptionsInner
+from bamboohr_sdk.models.applicant_status import ApplicantStatus as ApplicantStatus
 from bamboohr_sdk.models.application_details import ApplicationDetails as ApplicationDetails
 from bamboohr_sdk.models.application_details_applicant import ApplicationDetailsApplicant as ApplicationDetailsApplicant
+from bamboohr_sdk.models.application_details_applicant_address import ApplicationDetailsApplicantAddress as ApplicationDetailsApplicantAddress
+from bamboohr_sdk.models.application_details_applicant_education import ApplicationDetailsApplicantEducation as ApplicationDetailsApplicantEducation
+from bamboohr_sdk.models.application_details_applicant_education_level import ApplicationDetailsApplicantEducationLevel as ApplicationDetailsApplicantEducationLevel
+from bamboohr_sdk.models.application_details_attachments_inner import ApplicationDetailsAttachmentsInner as ApplicationDetailsAttachmentsInner
 from bamboohr_sdk.models.application_details_job import ApplicationDetailsJob as ApplicationDetailsJob
+from bamboohr_sdk.models.application_details_job_hiring_lead import ApplicationDetailsJobHiringLead as ApplicationDetailsJobHiringLead
+from bamboohr_sdk.models.application_details_job_hiring_lead_job_title import ApplicationDetailsJobHiringLeadJobTitle as ApplicationDetailsJobHiringLeadJobTitle
+from bamboohr_sdk.models.application_details_job_title import ApplicationDetailsJobTitle as ApplicationDetailsJobTitle
 from bamboohr_sdk.models.application_details_questions_and_answers_inner import ApplicationDetailsQuestionsAndAnswersInner as ApplicationDetailsQuestionsAndAnswersInner
 from bamboohr_sdk.models.application_details_questions_and_answers_inner_answer import ApplicationDetailsQuestionsAndAnswersInnerAnswer as ApplicationDetailsQuestionsAndAnswersInnerAnswer
 from bamboohr_sdk.models.application_details_questions_and_answers_inner_question import ApplicationDetailsQuestionsAndAnswersInnerQuestion as ApplicationDetailsQuestionsAndAnswersInnerQuestion
 from bamboohr_sdk.models.application_details_status import ApplicationDetailsStatus as ApplicationDetailsStatus
+from bamboohr_sdk.models.application_details_status_changed_by_user import ApplicationDetailsStatusChangedByUser as ApplicationDetailsStatusChangedByUser
+from bamboohr_sdk.models.application_details_status_changed_by_user_job_title import ApplicationDetailsStatusChangedByUserJobTitle as ApplicationDetailsStatusChangedByUserJobTitle
 from bamboohr_sdk.models.applications_list import ApplicationsList as ApplicationsList
-from bamboohr_sdk.models.applications_list_applications import ApplicationsListApplications as ApplicationsListApplications
-from bamboohr_sdk.models.applications_list_applications_items_inner import ApplicationsListApplicationsItemsInner as ApplicationsListApplicationsItemsInner
-from bamboohr_sdk.models.applications_list_applications_items_inner_applicant import ApplicationsListApplicationsItemsInnerApplicant as ApplicationsListApplicationsItemsInnerApplicant
-from bamboohr_sdk.models.applications_list_applications_items_inner_job import ApplicationsListApplicationsItemsInnerJob as ApplicationsListApplicationsItemsInnerJob
-from bamboohr_sdk.models.applications_list_applications_items_inner_status import ApplicationsListApplicationsItemsInnerStatus as ApplicationsListApplicationsItemsInnerStatus
+from bamboohr_sdk.models.applications_list_applications_inner import ApplicationsListApplicationsInner as ApplicationsListApplicationsInner
+from bamboohr_sdk.models.applications_list_applications_inner_applicant import ApplicationsListApplicationsInnerApplicant as ApplicationsListApplicationsInnerApplicant
+from bamboohr_sdk.models.applications_list_applications_inner_job import ApplicationsListApplicationsInnerJob as ApplicationsListApplicationsInnerJob
+from bamboohr_sdk.models.applications_list_applications_inner_job_title import ApplicationsListApplicationsInnerJobTitle as ApplicationsListApplicationsInnerJobTitle
+from bamboohr_sdk.models.applications_list_applications_inner_status import ApplicationsListApplicationsInnerStatus as ApplicationsListApplicationsInnerStatus
+from bamboohr_sdk.models.assign_employees_to_break_policy_request import AssignEmployeesToBreakPolicyRequest as AssignEmployeesToBreakPolicyRequest
+from bamboohr_sdk.models.assign_time_off_policies_request_inner import AssignTimeOffPoliciesRequestInner as AssignTimeOffPoliciesRequestInner
+from bamboohr_sdk.models.assigned_time_off_policy import AssignedTimeOffPolicy as AssignedTimeOffPolicy
+from bamboohr_sdk.models.assigned_time_off_policy_v11 import AssignedTimeOffPolicyV11 as AssignedTimeOffPolicyV11
+from bamboohr_sdk.models.available_action import AvailableAction as AvailableAction
 from bamboohr_sdk.models.bad_request import BadRequest as BadRequest
+from bamboohr_sdk.models.bad_request_error import BadRequestError as BadRequestError
+from bamboohr_sdk.models.benefit_coverages_response import BenefitCoveragesResponse as BenefitCoveragesResponse
+from bamboohr_sdk.models.benefit_coverages_response_benefit_coverages_inner import BenefitCoveragesResponseBenefitCoveragesInner as BenefitCoveragesResponseBenefitCoveragesInner
+from bamboohr_sdk.models.benefit_deduction_sub_type import BenefitDeductionSubType as BenefitDeductionSubType
+from bamboohr_sdk.models.benefit_deduction_type import BenefitDeductionType as BenefitDeductionType
+from bamboohr_sdk.models.benefit_deduction_type_id import BenefitDeductionTypeId as BenefitDeductionTypeId
+from bamboohr_sdk.models.can_create_goals_response import CanCreateGoalsResponse as CanCreateGoalsResponse
+from bamboohr_sdk.models.changed_employee_ids_response import ChangedEmployeeIdsResponse as ChangedEmployeeIdsResponse
+from bamboohr_sdk.models.changed_employee_ids_response_employees_value import ChangedEmployeeIdsResponseEmployeesValue as ChangedEmployeeIdsResponseEmployeesValue
+from bamboohr_sdk.models.changed_employee_table_data_response import ChangedEmployeeTableDataResponse as ChangedEmployeeTableDataResponse
+from bamboohr_sdk.models.changed_employee_table_data_response_employees_value import ChangedEmployeeTableDataResponseEmployeesValue as ChangedEmployeeTableDataResponseEmployeesValue
+from bamboohr_sdk.models.changed_employee_table_data_response_employees_value_rows_inner_value import ChangedEmployeeTableDataResponseEmployeesValueRowsInnerValue as ChangedEmployeeTableDataResponseEmployeesValueRowsInnerValue
+from bamboohr_sdk.models.changed_employee_table_data_response_employees_value_rows_inner_value_any_of_inner import ChangedEmployeeTableDataResponseEmployeesValueRowsInnerValueAnyOfInner as ChangedEmployeeTableDataResponseEmployeesValueRowsInnerValueAnyOfInner
 from bamboohr_sdk.models.clock_entries_schema import ClockEntriesSchema as ClockEntriesSchema
 from bamboohr_sdk.models.clock_entry_ids_schema import ClockEntryIdsSchema as ClockEntryIdsSchema
 from bamboohr_sdk.models.clock_entry_schema import ClockEntrySchema as ClockEntrySchema
 from bamboohr_sdk.models.clock_in_request_schema import ClockInRequestSchema as ClockInRequestSchema
 from bamboohr_sdk.models.clock_out_request_schema import ClockOutRequestSchema as ClockOutRequestSchema
-from bamboohr_sdk.models.company_benefit_response import CompanyBenefitResponse as CompanyBenefitResponse
+from bamboohr_sdk.models.company_benefit_summary import CompanyBenefitSummary as CompanyBenefitSummary
+from bamboohr_sdk.models.company_benefits_list_response import CompanyBenefitsListResponse as CompanyBenefitsListResponse
+from bamboohr_sdk.models.company_deleted_webhook_payload import CompanyDeletedWebhookPayload as CompanyDeletedWebhookPayload
 from bamboohr_sdk.models.company_file_update import CompanyFileUpdate as CompanyFileUpdate
+from bamboohr_sdk.models.company_files_response import CompanyFilesResponse as CompanyFilesResponse
+from bamboohr_sdk.models.company_files_response_categories_inner import CompanyFilesResponseCategoriesInner as CompanyFilesResponseCategoriesInner
+from bamboohr_sdk.models.company_files_response_categories_inner_files_inner import CompanyFilesResponseCategoriesInnerFilesInner as CompanyFilesResponseCategoriesInnerFilesInner
 from bamboohr_sdk.models.company_information import CompanyInformation as CompanyInformation
 from bamboohr_sdk.models.company_information_address import CompanyInformationAddress as CompanyInformationAddress
+from bamboohr_sdk.models.company_integrations_updated_webhook_payload import CompanyIntegrationsUpdatedWebhookPayload as CompanyIntegrationsUpdatedWebhookPayload
+from bamboohr_sdk.models.company_integrations_updated_webhook_payload_data import CompanyIntegrationsUpdatedWebhookPayloadData as CompanyIntegrationsUpdatedWebhookPayloadData
+from bamboohr_sdk.models.company_profile_integrations import CompanyProfileIntegrations as CompanyProfileIntegrations
+from bamboohr_sdk.models.company_updated_webhook_payload import CompanyUpdatedWebhookPayload as CompanyUpdatedWebhookPayload
 from bamboohr_sdk.models.country import Country as Country
 from bamboohr_sdk.models.country_schema import CountrySchema as CountrySchema
+from bamboohr_sdk.models.create_application_comment_request import CreateApplicationCommentRequest as CreateApplicationCommentRequest
+from bamboohr_sdk.models.create_candidate_response import CreateCandidateResponse as CreateCandidateResponse
+from bamboohr_sdk.models.create_comment_response import CreateCommentResponse as CreateCommentResponse
+from bamboohr_sdk.models.create_employee_training_record_request import CreateEmployeeTrainingRecordRequest as CreateEmployeeTrainingRecordRequest
+from bamboohr_sdk.models.create_employee_training_record_request_cost import CreateEmployeeTrainingRecordRequestCost as CreateEmployeeTrainingRecordRequestCost
+from bamboohr_sdk.models.create_job_opening_response import CreateJobOpeningResponse as CreateJobOpeningResponse
+from bamboohr_sdk.models.create_training_category_request import CreateTrainingCategoryRequest as CreateTrainingCategoryRequest
+from bamboohr_sdk.models.create_training_type_request import CreateTrainingTypeRequest as CreateTrainingTypeRequest
+from bamboohr_sdk.models.create_training_type_request_category import CreateTrainingTypeRequestCategory as CreateTrainingTypeRequestCategory
+from bamboohr_sdk.models.create_training_type_request_due_from_hire_date import CreateTrainingTypeRequestDueFromHireDate as CreateTrainingTypeRequestDueFromHireDate
+from bamboohr_sdk.models.create_training_type_request_due_from_hire_date_one_of import CreateTrainingTypeRequestDueFromHireDateOneOf as CreateTrainingTypeRequestDueFromHireDateOneOf
+from bamboohr_sdk.models.create_webhook_bad_request_response import CreateWebhookBadRequestResponse as CreateWebhookBadRequestResponse
 from bamboohr_sdk.models.cursor_paged_response_metadata import CursorPagedResponseMetadata as CursorPagedResponseMetadata
 from bamboohr_sdk.models.cursor_pages_response import CursorPagesResponse as CursorPagesResponse
 from bamboohr_sdk.models.cursor_pagination_query_object import CursorPaginationQueryObject as CursorPaginationQueryObject
@@ -405,26 +517,40 @@ from bamboohr_sdk.models.dataset_response import DatasetResponse as DatasetRespo
 from bamboohr_sdk.models.datasets_response import DatasetsResponse as DatasetsResponse
 from bamboohr_sdk.models.datasets_response_datasets_inner import DatasetsResponseDatasetsInner as DatasetsResponseDatasetsInner
 from bamboohr_sdk.models.employee import Employee as Employee
-from bamboohr_sdk.models.employee_benefit import EmployeeBenefit as EmployeeBenefit
 from bamboohr_sdk.models.employee_benefit_filters import EmployeeBenefitFilters as EmployeeBenefitFilters
 from bamboohr_sdk.models.employee_benefit_filters_filters import EmployeeBenefitFiltersFilters as EmployeeBenefitFiltersFilters
+from bamboohr_sdk.models.employee_benefits_list_response import EmployeeBenefitsListResponse as EmployeeBenefitsListResponse
+from bamboohr_sdk.models.employee_benefits_list_response_employee_benefits_inner import EmployeeBenefitsListResponseEmployeeBenefitsInner as EmployeeBenefitsListResponseEmployeeBenefitsInner
+from bamboohr_sdk.models.employee_benefits_list_response_employee_benefits_inner_employee_benefit_inner import EmployeeBenefitsListResponseEmployeeBenefitsInnerEmployeeBenefitInner as EmployeeBenefitsListResponseEmployeeBenefitsInnerEmployeeBenefitInner
 from bamboohr_sdk.models.employee_created_webhook_payload import EmployeeCreatedWebhookPayload as EmployeeCreatedWebhookPayload
 from bamboohr_sdk.models.employee_created_webhook_payload_data import EmployeeCreatedWebhookPayloadData as EmployeeCreatedWebhookPayloadData
 from bamboohr_sdk.models.employee_deleted_webhook_payload import EmployeeDeletedWebhookPayload as EmployeeDeletedWebhookPayload
 from bamboohr_sdk.models.employee_deleted_webhook_payload_data import EmployeeDeletedWebhookPayloadData as EmployeeDeletedWebhookPayloadData
 from bamboohr_sdk.models.employee_dependent import EmployeeDependent as EmployeeDependent
+from bamboohr_sdk.models.employee_dependents_response import EmployeeDependentsResponse as EmployeeDependentsResponse
+from bamboohr_sdk.models.employee_dependents_response_employee_dependents_inner import EmployeeDependentsResponseEmployeeDependentsInner as EmployeeDependentsResponseEmployeeDependentsInner
 from bamboohr_sdk.models.employee_file_update import EmployeeFileUpdate as EmployeeFileUpdate
 from bamboohr_sdk.models.employee_response import EmployeeResponse as EmployeeResponse
 from bamboohr_sdk.models.employee_response_aggregations_inner import EmployeeResponseAggregationsInner as EmployeeResponseAggregationsInner
+from bamboohr_sdk.models.employee_table_row import EmployeeTableRow as EmployeeTableRow
+from bamboohr_sdk.models.employee_table_row_value import EmployeeTableRowValue as EmployeeTableRowValue
+from bamboohr_sdk.models.employee_table_row_value_any_of_inner import EmployeeTableRowValueAnyOfInner as EmployeeTableRowValueAnyOfInner
+from bamboohr_sdk.models.employee_time_off_policy_assignment import EmployeeTimeOffPolicyAssignment as EmployeeTimeOffPolicyAssignment
+from bamboohr_sdk.models.employee_time_off_policy_assignment_v11 import EmployeeTimeOffPolicyAssignmentV11 as EmployeeTimeOffPolicyAssignmentV11
 from bamboohr_sdk.models.employee_timesheet_entry_transformer import EmployeeTimesheetEntryTransformer as EmployeeTimesheetEntryTransformer
 from bamboohr_sdk.models.employee_updated_webhook_payload import EmployeeUpdatedWebhookPayload as EmployeeUpdatedWebhookPayload
 from bamboohr_sdk.models.employee_updated_webhook_payload_data import EmployeeUpdatedWebhookPayloadData as EmployeeUpdatedWebhookPayloadData
+from bamboohr_sdk.models.employee_value import EmployeeValue as EmployeeValue
+from bamboohr_sdk.models.employee_value_any_of_inner import EmployeeValueAnyOfInner as EmployeeValueAnyOfInner
+from bamboohr_sdk.models.field1 import Field1 as Field1
+from bamboohr_sdk.models.field1_id import Field1Id as Field1Id
 from bamboohr_sdk.models.field_list import FieldList as FieldList
 from bamboohr_sdk.models.field_list_fields_inner import FieldListFieldsInner as FieldListFieldsInner
 from bamboohr_sdk.models.field_options_request_schema import FieldOptionsRequestSchema as FieldOptionsRequestSchema
 from bamboohr_sdk.models.field_options_request_schema_dependent_fields_value_inner import FieldOptionsRequestSchemaDependentFieldsValueInner as FieldOptionsRequestSchemaDependentFieldsValueInner
 from bamboohr_sdk.models.field_options_transformer import FieldOptionsTransformer as FieldOptionsTransformer
 from bamboohr_sdk.models.forbidden import Forbidden as Forbidden
+from bamboohr_sdk.models.get_company_report_response import GetCompanyReportResponse as GetCompanyReportResponse
 from bamboohr_sdk.models.get_employees_employee_response import GetEmployeesEmployeeResponse as GetEmployeesEmployeeResponse
 from bamboohr_sdk.models.get_employees_filter_request_object import GetEmployeesFilterRequestObject as GetEmployeesFilterRequestObject
 from bamboohr_sdk.models.get_employees_response_object import GetEmployeesResponseObject as GetEmployeesResponseObject
@@ -432,12 +558,14 @@ from bamboohr_sdk.models.get_employees_response_object_links import GetEmployees
 from bamboohr_sdk.models.get_employees_response_object_links_next import GetEmployeesResponseObjectLinksNext as GetEmployeesResponseObjectLinksNext
 from bamboohr_sdk.models.get_employees_response_object_links_prev import GetEmployeesResponseObjectLinksPrev as GetEmployeesResponseObjectLinksPrev
 from bamboohr_sdk.models.get_employees_response_object_links_self import GetEmployeesResponseObjectLinksSelf as GetEmployeesResponseObjectLinksSelf
-from bamboohr_sdk.models.get_goals_alignment_options_request import GetGoalsAlignmentOptionsRequest as GetGoalsAlignmentOptionsRequest
 from bamboohr_sdk.models.goal import Goal as Goal
 from bamboohr_sdk.models.goal_aggregate import GoalAggregate as GoalAggregate
 from bamboohr_sdk.models.goal_aggregate_aligns_with_options_inner import GoalAggregateAlignsWithOptionsInner as GoalAggregateAlignsWithOptionsInner
 from bamboohr_sdk.models.goal_aggregate_comments_inner import GoalAggregateCommentsInner as GoalAggregateCommentsInner
 from bamboohr_sdk.models.goal_aggregate_persons_inner import GoalAggregatePersonsInner as GoalAggregatePersonsInner
+from bamboohr_sdk.models.goal_comment_response import GoalCommentResponse as GoalCommentResponse
+from bamboohr_sdk.models.goal_comments_response import GoalCommentsResponse as GoalCommentsResponse
+from bamboohr_sdk.models.goal_comments_response_comments_inner import GoalCommentsResponseCommentsInner as GoalCommentsResponseCommentsInner
 from bamboohr_sdk.models.goal_filters_v1 import GoalFiltersV1 as GoalFiltersV1
 from bamboohr_sdk.models.goal_filters_v11 import GoalFiltersV11 as GoalFiltersV11
 from bamboohr_sdk.models.goal_filters_v11_filters_inner import GoalFiltersV11FiltersInner as GoalFiltersV11FiltersInner
@@ -452,23 +580,38 @@ from bamboohr_sdk.models.goals_aggregate_v1_comments_inner import GoalsAggregate
 from bamboohr_sdk.models.goals_aggregate_v1_persons_inner import GoalsAggregateV1PersonsInner as GoalsAggregateV1PersonsInner
 from bamboohr_sdk.models.goals_list import GoalsList as GoalsList
 from bamboohr_sdk.models.hiring_lead import HiringLead as HiringLead
-from bamboohr_sdk.models.hiring_leads_list import HiringLeadsList as HiringLeadsList
 from bamboohr_sdk.models.hour_entries_request_schema import HourEntriesRequestSchema as HourEntriesRequestSchema
 from bamboohr_sdk.models.hour_entry_ids_schema import HourEntryIdsSchema as HourEntryIdsSchema
 from bamboohr_sdk.models.hour_entry_schema import HourEntrySchema as HourEntrySchema
-from bamboohr_sdk.models.internal_server_error import InternalServerError as InternalServerError
 from bamboohr_sdk.models.invalid_request import InvalidRequest as InvalidRequest
 from bamboohr_sdk.models.invalid_request_error import InvalidRequestError as InvalidRequestError
+from bamboohr_sdk.models.job_summary import JobSummary as JobSummary
+from bamboohr_sdk.models.job_summary_department import JobSummaryDepartment as JobSummaryDepartment
+from bamboohr_sdk.models.job_summary_hiring_lead import JobSummaryHiringLead as JobSummaryHiringLead
+from bamboohr_sdk.models.job_summary_location import JobSummaryLocation as JobSummaryLocation
+from bamboohr_sdk.models.job_summary_status import JobSummaryStatus as JobSummaryStatus
 from bamboohr_sdk.models.json_directory_employee import JsonDirectoryEmployee as JsonDirectoryEmployee
 from bamboohr_sdk.models.json_directory_employee_fields_inner import JsonDirectoryEmployeeFieldsInner as JsonDirectoryEmployeeFieldsInner
+from bamboohr_sdk.models.json_employee_files import JsonEmployeeFiles as JsonEmployeeFiles
+from bamboohr_sdk.models.json_employee_files_categories_inner import JsonEmployeeFilesCategoriesInner as JsonEmployeeFilesCategoriesInner
+from bamboohr_sdk.models.json_employee_files_categories_inner_files_inner import JsonEmployeeFilesCategoriesInnerFilesInner as JsonEmployeeFilesCategoriesInnerFilesInner
+from bamboohr_sdk.models.json_employee_files_employee import JsonEmployeeFilesEmployee as JsonEmployeeFilesEmployee
+from bamboohr_sdk.models.list_field_detail import ListFieldDetail as ListFieldDetail
+from bamboohr_sdk.models.list_field_option import ListFieldOption as ListFieldOption
 from bamboohr_sdk.models.list_field_values import ListFieldValues as ListFieldValues
 from bamboohr_sdk.models.list_field_values_options_inner import ListFieldValuesOptionsInner as ListFieldValuesOptionsInner
+from bamboohr_sdk.models.list_users_response_value import ListUsersResponseValue as ListUsersResponseValue
+from bamboohr_sdk.models.list_users_xml_response import ListUsersXmlResponse as ListUsersXmlResponse
+from bamboohr_sdk.models.list_users_xml_response_user_inner import ListUsersXmlResponseUserInner as ListUsersXmlResponseUserInner
 from bamboohr_sdk.models.location import Location as Location
-from bamboohr_sdk.models.locations_list import LocationsList as LocationsList
+from bamboohr_sdk.models.login_failure_response import LoginFailureResponse as LoginFailureResponse
+from bamboohr_sdk.models.login_failure_xml_response import LoginFailureXmlResponse as LoginFailureXmlResponse
+from bamboohr_sdk.models.login_response import LoginResponse as LoginResponse
+from bamboohr_sdk.models.login_xml_response import LoginXmlResponse as LoginXmlResponse
 from bamboohr_sdk.models.member_benefit_event import MemberBenefitEvent as MemberBenefitEvent
-from bamboohr_sdk.models.member_benefit_event_members_inner import MemberBenefitEventMembersInner as MemberBenefitEventMembersInner
-from bamboohr_sdk.models.member_benefit_event_members_inner_coverages_inner import MemberBenefitEventMembersInnerCoveragesInner as MemberBenefitEventMembersInnerCoveragesInner
-from bamboohr_sdk.models.member_benefit_event_members_inner_coverages_inner_events_inner import MemberBenefitEventMembersInnerCoveragesInnerEventsInner as MemberBenefitEventMembersInnerCoveragesInnerEventsInner
+from bamboohr_sdk.models.member_benefit_event_coverages_inner import MemberBenefitEventCoveragesInner as MemberBenefitEventCoveragesInner
+from bamboohr_sdk.models.member_benefit_event_coverages_inner_events_inner import MemberBenefitEventCoveragesInnerEventsInner as MemberBenefitEventCoveragesInnerEventsInner
+from bamboohr_sdk.models.member_benefit_events_response import MemberBenefitEventsResponse as MemberBenefitEventsResponse
 from bamboohr_sdk.models.member_benefits_get_permission_denied_response import MemberBenefitsGetPermissionDeniedResponse as MemberBenefitsGetPermissionDeniedResponse
 from bamboohr_sdk.models.member_benefits_get_success_response import MemberBenefitsGetSuccessResponse as MemberBenefitsGetSuccessResponse
 from bamboohr_sdk.models.member_benefits_get_success_response_data_inner import MemberBenefitsGetSuccessResponseDataInner as MemberBenefitsGetSuccessResponseDataInner
@@ -481,9 +624,11 @@ from bamboohr_sdk.models.member_benefits_get_success_response_meta import Member
 from bamboohr_sdk.models.member_benefits_get_validation_error_response import MemberBenefitsGetValidationErrorResponse as MemberBenefitsGetValidationErrorResponse
 from bamboohr_sdk.models.model_field import ModelField as ModelField
 from bamboohr_sdk.models.new_web_hook import NewWebHook as NewWebHook
+from bamboohr_sdk.models.paged_response import PagedResponse as PagedResponse
 from bamboohr_sdk.models.pagination import Pagination as Pagination
-from bamboohr_sdk.models.post_applicant_status_request import PostApplicantStatusRequest as PostApplicantStatusRequest
-from bamboohr_sdk.models.post_application_comment_request import PostApplicationCommentRequest as PostApplicationCommentRequest
+from bamboohr_sdk.models.pagination_meta_data import PaginationMetaData as PaginationMetaData
+from bamboohr_sdk.models.person_info_api_transformer import PersonInfoApiTransformer as PersonInfoApiTransformer
+from bamboohr_sdk.models.post_goal_comment_request import PostGoalCommentRequest as PostGoalCommentRequest
 from bamboohr_sdk.models.post_goal_request import PostGoalRequest as PostGoalRequest
 from bamboohr_sdk.models.post_goal_request_milestones_inner import PostGoalRequestMilestonesInner as PostGoalRequestMilestonesInner
 from bamboohr_sdk.models.post_new_employee import PostNewEmployee as PostNewEmployee
@@ -492,6 +637,7 @@ from bamboohr_sdk.models.project_create_request_schema import ProjectCreateReque
 from bamboohr_sdk.models.project_info_api_transformer import ProjectInfoApiTransformer as ProjectInfoApiTransformer
 from bamboohr_sdk.models.project_info_api_transformer_project import ProjectInfoApiTransformerProject as ProjectInfoApiTransformerProject
 from bamboohr_sdk.models.project_info_api_transformer_task import ProjectInfoApiTransformerTask as ProjectInfoApiTransformerTask
+from bamboohr_sdk.models.put_goal_comment_request import PutGoalCommentRequest as PutGoalCommentRequest
 from bamboohr_sdk.models.put_goal_milestone_progress_request import PutGoalMilestoneProgressRequest as PutGoalMilestoneProgressRequest
 from bamboohr_sdk.models.put_goal_progress_request import PutGoalProgressRequest as PutGoalProgressRequest
 from bamboohr_sdk.models.put_goal_shared_with_request import PutGoalSharedWithRequest as PutGoalSharedWithRequest
@@ -503,22 +649,34 @@ from bamboohr_sdk.models.request import Request as Request
 from bamboohr_sdk.models.request_custom_report import RequestCustomReport as RequestCustomReport
 from bamboohr_sdk.models.request_custom_report_filters import RequestCustomReportFilters as RequestCustomReportFilters
 from bamboohr_sdk.models.request_custom_report_filters_last_changed import RequestCustomReportFiltersLastChanged as RequestCustomReportFiltersLastChanged
+from bamboohr_sdk.models.request_custom_report_response import RequestCustomReportResponse as RequestCustomReportResponse
+from bamboohr_sdk.models.request_custom_report_response_employees_inner import RequestCustomReportResponseEmployeesInner as RequestCustomReportResponseEmployeesInner
+from bamboohr_sdk.models.request_custom_report_response_fields_inner import RequestCustomReportResponseFieldsInner as RequestCustomReportResponseFieldsInner
+from bamboohr_sdk.models.set_break_policy_employees_request import SetBreakPolicyEmployeesRequest as SetBreakPolicyEmployeesRequest
+from bamboohr_sdk.models.share_options_response import ShareOptionsResponse as ShareOptionsResponse
 from bamboohr_sdk.models.state import State as State
 from bamboohr_sdk.models.state_province_response_schema import StateProvinceResponseSchema as StateProvinceResponseSchema
 from bamboohr_sdk.models.state_province_schema import StateProvinceSchema as StateProvinceSchema
 from bamboohr_sdk.models.table_row_delete_response import TableRowDeleteResponse as TableRowDeleteResponse
 from bamboohr_sdk.models.table_row_update import TableRowUpdate as TableRowUpdate
+from bamboohr_sdk.models.tabular_field import TabularField as TabularField
+from bamboohr_sdk.models.tabular_field_fields_inner import TabularFieldFieldsInner as TabularFieldFieldsInner
 from bamboohr_sdk.models.task_create_schema import TaskCreateSchema as TaskCreateSchema
-from bamboohr_sdk.models.time_off_assign_time_off_policies_for_an_employee_request_inner import TimeOffAssignTimeOffPoliciesForAnEmployeeRequestInner as TimeOffAssignTimeOffPoliciesForAnEmployeeRequestInner
 from bamboohr_sdk.models.time_off_balance_entry import TimeOffBalanceEntry as TimeOffBalanceEntry
 from bamboohr_sdk.models.time_off_history import TimeOffHistory as TimeOffHistory
+from bamboohr_sdk.models.time_off_policy import TimeOffPolicy as TimeOffPolicy
 from bamboohr_sdk.models.time_off_request import TimeOffRequest as TimeOffRequest
+from bamboohr_sdk.models.time_off_request1 import TimeOffRequest1 as TimeOffRequest1
+from bamboohr_sdk.models.time_off_request1_actions import TimeOffRequest1Actions as TimeOffRequest1Actions
+from bamboohr_sdk.models.time_off_request1_amount import TimeOffRequest1Amount as TimeOffRequest1Amount
+from bamboohr_sdk.models.time_off_request1_notes import TimeOffRequest1Notes as TimeOffRequest1Notes
+from bamboohr_sdk.models.time_off_request1_status import TimeOffRequest1Status as TimeOffRequest1Status
+from bamboohr_sdk.models.time_off_request1_type import TimeOffRequest1Type as TimeOffRequest1Type
 from bamboohr_sdk.models.time_off_request_dates_inner import TimeOffRequestDatesInner as TimeOffRequestDatesInner
 from bamboohr_sdk.models.time_off_request_notes_inner import TimeOffRequestNotesInner as TimeOffRequestNotesInner
 from bamboohr_sdk.models.time_off_types_and_default_hours import TimeOffTypesAndDefaultHours as TimeOffTypesAndDefaultHours
 from bamboohr_sdk.models.time_off_types_and_default_hours_default_hours_inner import TimeOffTypesAndDefaultHoursDefaultHoursInner as TimeOffTypesAndDefaultHoursDefaultHoursInner
 from bamboohr_sdk.models.time_off_types_and_default_hours_time_off_types_inner import TimeOffTypesAndDefaultHoursTimeOffTypesInner as TimeOffTypesAndDefaultHoursTimeOffTypesInner
-from bamboohr_sdk.models.time_tracking_assign_employees_to_break_policy_request import TimeTrackingAssignEmployeesToBreakPolicyRequest as TimeTrackingAssignEmployeesToBreakPolicyRequest
 from bamboohr_sdk.models.time_tracking_break_policy_employee_collection_v1_inner import TimeTrackingBreakPolicyEmployeeCollectionV1Inner as TimeTrackingBreakPolicyEmployeeCollectionV1Inner
 from bamboohr_sdk.models.time_tracking_bulk_response_schema import TimeTrackingBulkResponseSchema as TimeTrackingBulkResponseSchema
 from bamboohr_sdk.models.time_tracking_bulk_response_schema_response import TimeTrackingBulkResponseSchemaResponse as TimeTrackingBulkResponseSchemaResponse
@@ -542,7 +700,6 @@ from bamboohr_sdk.models.time_tracking_record_schema import TimeTrackingRecordSc
 from bamboohr_sdk.models.time_tracking_record_schema_project import TimeTrackingRecordSchemaProject as TimeTrackingRecordSchemaProject
 from bamboohr_sdk.models.time_tracking_record_schema_project_task import TimeTrackingRecordSchemaProjectTask as TimeTrackingRecordSchemaProjectTask
 from bamboohr_sdk.models.time_tracking_record_schema_shift_differential import TimeTrackingRecordSchemaShiftDifferential as TimeTrackingRecordSchemaShiftDifferential
-from bamboohr_sdk.models.time_tracking_set_break_policy_employees_request import TimeTrackingSetBreakPolicyEmployeesRequest as TimeTrackingSetBreakPolicyEmployeesRequest
 from bamboohr_sdk.models.time_tracking_sync_time_tracking_break_policy_v1 import TimeTrackingSyncTimeTrackingBreakPolicyV1 as TimeTrackingSyncTimeTrackingBreakPolicyV1
 from bamboohr_sdk.models.time_tracking_task import TimeTrackingTask as TimeTrackingTask
 from bamboohr_sdk.models.time_tracking_time_tracking_break_assessment_v1 import TimeTrackingTimeTrackingBreakAssessmentV1 as TimeTrackingTimeTrackingBreakAssessmentV1
@@ -551,31 +708,33 @@ from bamboohr_sdk.models.time_tracking_time_tracking_break_availability_v1 impor
 from bamboohr_sdk.models.time_tracking_time_tracking_break_policy_v1 import TimeTrackingTimeTrackingBreakPolicyV1 as TimeTrackingTimeTrackingBreakPolicyV1
 from bamboohr_sdk.models.time_tracking_time_tracking_break_policy_with_relations_v1 import TimeTrackingTimeTrackingBreakPolicyWithRelationsV1 as TimeTrackingTimeTrackingBreakPolicyWithRelationsV1
 from bamboohr_sdk.models.time_tracking_time_tracking_break_v1 import TimeTrackingTimeTrackingBreakV1 as TimeTrackingTimeTrackingBreakV1
-from bamboohr_sdk.models.time_tracking_unassign_employees_from_break_policy_request import TimeTrackingUnassignEmployeesFromBreakPolicyRequest as TimeTrackingUnassignEmployeesFromBreakPolicyRequest
 from bamboohr_sdk.models.time_tracking_update_time_tracking_break_policy_v1 import TimeTrackingUpdateTimeTrackingBreakPolicyV1 as TimeTrackingUpdateTimeTrackingBreakPolicyV1
 from bamboohr_sdk.models.time_tracking_update_time_tracking_break_v1 import TimeTrackingUpdateTimeTrackingBreakV1 as TimeTrackingUpdateTimeTrackingBreakV1
 from bamboohr_sdk.models.timesheet_entry_info_api_transformer import TimesheetEntryInfoApiTransformer as TimesheetEntryInfoApiTransformer
 from bamboohr_sdk.models.timesheet_entry_info_api_transformer_break_info import TimesheetEntryInfoApiTransformerBreakInfo as TimesheetEntryInfoApiTransformerBreakInfo
+from bamboohr_sdk.models.timezone_list_response import TimezoneListResponse as TimezoneListResponse
+from bamboohr_sdk.models.timezone_resource import TimezoneResource as TimezoneResource
 from bamboohr_sdk.models.training_category import TrainingCategory as TrainingCategory
-from bamboohr_sdk.models.training_category_list import TrainingCategoryList as TrainingCategoryList
 from bamboohr_sdk.models.training_record import TrainingRecord as TrainingRecord
-from bamboohr_sdk.models.training_record_list import TrainingRecordList as TrainingRecordList
+from bamboohr_sdk.models.training_record_map import TrainingRecordMap as TrainingRecordMap
+from bamboohr_sdk.models.training_record_type import TrainingRecordType as TrainingRecordType
 from bamboohr_sdk.models.training_type import TrainingType as TrainingType
-from bamboohr_sdk.models.training_type_list import TrainingTypeList as TrainingTypeList
+from bamboohr_sdk.models.training_type_category import TrainingTypeCategory as TrainingTypeCategory
+from bamboohr_sdk.models.training_type_due_from_hire_date import TrainingTypeDueFromHireDate as TrainingTypeDueFromHireDate
+from bamboohr_sdk.models.training_type_due_from_hire_date_one_of import TrainingTypeDueFromHireDateOneOf as TrainingTypeDueFromHireDateOneOf
 from bamboohr_sdk.models.transformed_api_employee_goal_details import TransformedApiEmployeeGoalDetails as TransformedApiEmployeeGoalDetails
 from bamboohr_sdk.models.transformed_api_employee_goal_details_goal import TransformedApiEmployeeGoalDetailsGoal as TransformedApiEmployeeGoalDetailsGoal
 from bamboohr_sdk.models.transformed_api_goal import TransformedApiGoal as TransformedApiGoal
-from bamboohr_sdk.models.transformed_api_goal_goal import TransformedApiGoalGoal as TransformedApiGoalGoal
-from bamboohr_sdk.models.transformed_api_goal_goal_actions import TransformedApiGoalGoalActions as TransformedApiGoalGoalActions
-from bamboohr_sdk.models.transformed_api_goal_goal_milestones_inner import TransformedApiGoalGoalMilestonesInner as TransformedApiGoalGoalMilestonesInner
-from bamboohr_sdk.models.unauthorized import Unauthorized as Unauthorized
-from bamboohr_sdk.models.unauthorized1 import Unauthorized1 as Unauthorized1
-from bamboohr_sdk.models.unauthorized_errors_inner import UnauthorizedErrorsInner as UnauthorizedErrorsInner
+from bamboohr_sdk.models.transformed_api_goal_actions import TransformedApiGoalActions as TransformedApiGoalActions
+from bamboohr_sdk.models.transformed_api_goal_milestones_inner import TransformedApiGoalMilestonesInner as TransformedApiGoalMilestonesInner
+from bamboohr_sdk.models.unassign_employees_from_break_policy_request import UnassignEmployeesFromBreakPolicyRequest as UnassignEmployeesFromBreakPolicyRequest
+from bamboohr_sdk.models.update_applicant_status_request import UpdateApplicantStatusRequest as UpdateApplicantStatusRequest
+from bamboohr_sdk.models.update_applicant_status_response import UpdateApplicantStatusResponse as UpdateApplicantStatusResponse
 from bamboohr_sdk.models.update_employee_training_record_request import UpdateEmployeeTrainingRecordRequest as UpdateEmployeeTrainingRecordRequest
 from bamboohr_sdk.models.update_training_category_request import UpdateTrainingCategoryRequest as UpdateTrainingCategoryRequest
 from bamboohr_sdk.models.update_training_type_request import UpdateTrainingTypeRequest as UpdateTrainingTypeRequest
 from bamboohr_sdk.models.update_training_type_request_category import UpdateTrainingTypeRequestCategory as UpdateTrainingTypeRequestCategory
-from bamboohr_sdk.models.web_hook_log_response import WebHookLogResponse as WebHookLogResponse
+from bamboohr_sdk.models.update_webhook_bad_request_response import UpdateWebhookBadRequestResponse as UpdateWebhookBadRequestResponse
 from bamboohr_sdk.models.web_hook_post_field_data_object import WebHookPostFieldDataObject as WebHookPostFieldDataObject
 from bamboohr_sdk.models.web_hook_post_field_page_data_object import WebHookPostFieldPageDataObject as WebHookPostFieldPageDataObject
 from bamboohr_sdk.models.web_hook_post_field_response_object import WebHookPostFieldResponseObject as WebHookPostFieldResponseObject
@@ -583,18 +742,29 @@ from bamboohr_sdk.models.web_hook_post_field_table_data_object import WebHookPos
 from bamboohr_sdk.models.web_hook_response import WebHookResponse as WebHookResponse
 from bamboohr_sdk.models.webhook import Webhook as Webhook
 from bamboohr_sdk.models.webhook_bad_request import WebhookBadRequest as WebhookBadRequest
+from bamboohr_sdk.models.webhook_bad_request_errors_inner import WebhookBadRequestErrorsInner as WebhookBadRequestErrorsInner
 from bamboohr_sdk.models.webhook_error import WebhookError as WebhookError
 from bamboohr_sdk.models.webhook_error_errors import WebhookErrorErrors as WebhookErrorErrors
 from bamboohr_sdk.models.webhook_event_type import WebhookEventType as WebhookEventType
+from bamboohr_sdk.models.webhook_log_entry import WebhookLogEntry as WebhookLogEntry
+from bamboohr_sdk.models.webhook_log_list_response import WebhookLogListResponse as WebhookLogListResponse
+from bamboohr_sdk.models.webhook_log_rate_limit_response import WebhookLogRateLimitResponse as WebhookLogRateLimitResponse
+from bamboohr_sdk.models.webhook_log_rate_limit_response_error import WebhookLogRateLimitResponseError as WebhookLogRateLimitResponseError
 from bamboohr_sdk.models.webhook_sub_error_property import WebhookSubErrorProperty as WebhookSubErrorProperty
-from bamboohr_sdk.models.webhook_sub_error_property_post_fields_inner import WebhookSubErrorPropertyPostFieldsInner as WebhookSubErrorPropertyPostFieldsInner
+from bamboohr_sdk.models.webhook_sub_error_property_monitor_fields_inner import WebhookSubErrorPropertyMonitorFieldsInner as WebhookSubErrorPropertyMonitorFieldsInner
+from bamboohr_sdk.models.webhook_sub_error_property_monitor_fields_inner_id import WebhookSubErrorPropertyMonitorFieldsInnerId as WebhookSubErrorPropertyMonitorFieldsInnerId
 from bamboohr_sdk.models.webhook_sub_error_property_unknown_fields_inner import WebhookSubErrorPropertyUnknownFieldsInner as WebhookSubErrorPropertyUnknownFieldsInner
+from bamboohr_sdk.models.webhook_sub_error_property_unknown_fields_inner_id import WebhookSubErrorPropertyUnknownFieldsInnerId as WebhookSubErrorPropertyUnknownFieldsInnerId
 from bamboohr_sdk.models.webhooks_list import WebhooksList as WebhooksList
 from bamboohr_sdk.models.webhooks_list_webhooks_inner import WebhooksListWebhooksInner as WebhooksListWebhooksInner
+from bamboohr_sdk.models.whos_out_entry import WhosOutEntry as WhosOutEntry
 from bamboohr_sdk.models.xml_directory_employee import XmlDirectoryEmployee as XmlDirectoryEmployee
 from bamboohr_sdk.models.xml_directory_employee_employees import XmlDirectoryEmployeeEmployees as XmlDirectoryEmployeeEmployees
 from bamboohr_sdk.models.xml_directory_employee_employees_employee_inner import XmlDirectoryEmployeeEmployeesEmployeeInner as XmlDirectoryEmployeeEmployeesEmployeeInner
 from bamboohr_sdk.models.xml_directory_employee_employees_employee_inner_field_inner import XmlDirectoryEmployeeEmployeesEmployeeInnerFieldInner as XmlDirectoryEmployeeEmployeesEmployeeInnerFieldInner
 from bamboohr_sdk.models.xml_directory_employee_fieldset import XmlDirectoryEmployeeFieldset as XmlDirectoryEmployeeFieldset
 from bamboohr_sdk.models.xml_directory_employee_fieldset_field_inner import XmlDirectoryEmployeeFieldsetFieldInner as XmlDirectoryEmployeeFieldsetFieldInner
+from bamboohr_sdk.models.xml_employee_files import XmlEmployeeFiles as XmlEmployeeFiles
+from bamboohr_sdk.models.xml_employee_files_category_inner import XmlEmployeeFilesCategoryInner as XmlEmployeeFilesCategoryInner
+from bamboohr_sdk.models.xml_employee_files_category_inner_file_inner import XmlEmployeeFilesCategoryInnerFileInner as XmlEmployeeFilesCategoryInnerFileInner
 

@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**errors** | [**List[UnauthorizedErrorsInner]**](UnauthorizedErrorsInner.md) |  | [optional] 
+**errors** | [**List[WebhookBadRequestErrorsInner]**](WebhookBadRequestErrorsInner.md) |  | [optional] 
 
 ## Example
 

@@ -1,6 +1,6 @@
 # GetEmployeesFilterRequestObject
 
-
+Filter criteria for the employee list endpoint. All filter fields are optional. Multiple fields are combined with AND logic.
 
 ## Properties
 

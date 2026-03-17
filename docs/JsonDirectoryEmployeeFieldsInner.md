@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | Field identifier | [optional] 
-**type** | **str** | Field data type | [optional] 
-**name** | **str** | Field display name | [optional] 
+**id** | **str** | Field identifier used as the key in employee records. | [optional] 
+**type** | **str** | Field data type. | [optional] 
+**name** | **str** | Field display name. | [optional] 
 
 ## Example
 

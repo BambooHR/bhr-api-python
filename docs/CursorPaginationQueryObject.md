@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**before** | **str** |  | [optional] 
-**after** | **str** |  | [optional] 
+**before** | **str** | Cursor pointing to the start of the previous page. Use the &#x60;prevCursor&#x60; value from the last response to paginate backward. | [optional] 
+**after** | **str** | Cursor pointing to the start of the next page. Use the &#x60;nextCursor&#x60; value from the last response to paginate forward. | [optional] 
 **limit** | **int** | Maximum number of items to return. This can be at most 100. | [optional] [default to 50]
 
 ## Example

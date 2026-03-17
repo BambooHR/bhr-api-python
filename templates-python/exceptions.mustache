@@ -134,26 +134,18 @@ class ApiException(OpenApiException):
         body: Optional[str], 
         data: Optional[Any],
     ) -> Self:
-        if http_resp.status == 400:
-            raise BadRequestException(http_resp=http_resp, body=body, data=data)
+        # Mapping is populated after all exception classes are defined.
+        # Use _STATUS_TO_EXCEPTION_CLASS for the lookup.
+        exc_class = _STATUS_TO_EXCEPTION_CLASS.get(http_resp.status)
+        if exc_class is not None:
+            raise exc_class(http_resp=http_resp, body=body, data=data)
 
-        if http_resp.status == 401:
-            raise UnauthorizedException(http_resp=http_resp, body=body, data=data)
-
-        if http_resp.status == 403:
-            raise ForbiddenException(http_resp=http_resp, body=body, data=data)
-
-        if http_resp.status == 404:
-            raise NotFoundException(http_resp=http_resp, body=body, data=data)
-
-        if http_resp.status == 409:
-            raise ConflictException(http_resp=http_resp, body=body, data=data)
-
-        if http_resp.status == 422:
-            raise UnprocessableEntityException(http_resp=http_resp, body=body, data=data)
+        if 400 <= http_resp.status <= 499:
+            raise ClientException(http_resp=http_resp, body=body, data=data)
 
         if 500 <= http_resp.status <= 599:
-            raise ServiceException(http_resp=http_resp, body=body, data=data)
+            raise ServerException(http_resp=http_resp, body=body, data=data)
+
         raise ApiException(http_resp=http_resp, body=body, data=data)
 
     def __str__(self):
@@ -173,34 +165,420 @@ class ApiException(OpenApiException):
         return error_message
 
 
-class BadRequestException(ApiException):
+# ---------------------------------------------------------------------------
+# Base classes for client (4xx) and server (5xx) errors
+# ---------------------------------------------------------------------------
+
+class ClientException(ApiException):
+    """Base class for all client-side (4xx) exceptions."""
     pass
 
 
-class NotFoundException(ApiException):
+class ServerException(ApiException):
+    """Base class for all server-side (5xx) exceptions."""
     pass
 
 
-class UnauthorizedException(ApiException):
-    pass
+# ---------------------------------------------------------------------------
+# Specific client exceptions (4xx)
+# ---------------------------------------------------------------------------
+
+class BadRequestException(ClientException):
+    """Exception for HTTP 400 Bad Request."""
+
+    @staticmethod
+    def potential_causes() -> list[str]:
+        return [
+            "Invalid request syntax or parameters",
+            "Missing required fields",
+            "Malformed JSON in request body",
+        ]
+
+    @staticmethod
+    def debugging_tips() -> list[str]:
+        return [
+            "Check request parameters and ensure they match API documentation",
+            "Validate request body format before sending",
+            "Ensure all required fields are included",
+            "Review API documentation for correct endpoint usage",
+        ]
 
 
-class ForbiddenException(ApiException):
-    pass
+class AuthenticationFailedException(ClientException):
+    """Exception for HTTP 401 Authentication Failed."""
+
+    @staticmethod
+    def potential_causes() -> list[str]:
+        return [
+            "Invalid API key or password",
+            "Expired credentials",
+            "Insufficient permissions for this operation",
+        ]
+
+    @staticmethod
+    def debugging_tips() -> list[str]:
+        return [
+            "Verify your API key and subdomain are correct",
+            "Check that your API key has the necessary permissions",
+            "Ensure your company subdomain is correct",
+            "Try regenerating your API key in the BambooHR system",
+        ]
 
 
-class ServiceException(ApiException):
-    pass
+class PermissionDeniedException(ClientException):
+    """Exception for HTTP 403 Permission Denied."""
+
+    @staticmethod
+    def potential_causes() -> list[str]:
+        return [
+            "API key lacks required permissions",
+            "Account restrictions in place",
+            "IP address restrictions",
+        ]
+
+    @staticmethod
+    def debugging_tips() -> list[str]:
+        return [
+            "Verify your account has access to the requested resource",
+            "Check if your API key has the necessary permissions enabled",
+            "Contact your BambooHR administrator to review access controls",
+            "Ensure you are not trying to access another company's data",
+        ]
 
 
-class ConflictException(ApiException):
+class ResourceNotFoundException(ClientException):
+    """Exception for HTTP 404 Resource Not Found."""
+
+    @staticmethod
+    def potential_causes() -> list[str]:
+        return [
+            "Requested resource does not exist",
+            "Incorrect ID or identifier used",
+            "Resource was deleted or never created",
+            "Incorrect company subdomain",
+        ]
+
+    @staticmethod
+    def debugging_tips() -> list[str]:
+        return [
+            "Verify the resource ID is correct",
+            "Check that the resource exists before requesting it",
+            "Ensure your company subdomain is correct",
+            "Review API documentation for correct endpoint format",
+        ]
+
+
+class MethodNotAllowedException(ClientException):
+    """Exception for HTTP 405 Method Not Allowed."""
+
+    @staticmethod
+    def potential_causes() -> list[str]:
+        return [
+            "Using wrong HTTP method for this endpoint",
+            "Endpoint does not support the requested operation",
+        ]
+
+    @staticmethod
+    def debugging_tips() -> list[str]:
+        return [
+            "Check API documentation for the correct HTTP method",
+            "Verify you are using the correct endpoint",
+        ]
+
+
+class RequestTimeoutException(ClientException):
+    """Exception for HTTP 408 Request Timeout."""
+
+    @staticmethod
+    def potential_causes() -> list[str]:
+        return [
+            "Request took too long to complete",
+            "Network latency or connectivity issues",
+            "Large payload size causing slow processing",
+        ]
+
+    @staticmethod
+    def debugging_tips() -> list[str]:
+        return [
+            "Retry the request",
+            "Check network connectivity",
+            "Reduce payload size if possible",
+            "Consider increasing timeout settings",
+        ]
+
+
+class ConflictException(ClientException):
     """Exception for HTTP 409 Conflict."""
-    pass
+
+    @staticmethod
+    def potential_causes() -> list[str]:
+        return [
+            "Resource already exists",
+            "Conflicting state prevents the operation",
+            "Concurrent modification conflict",
+        ]
+
+    @staticmethod
+    def debugging_tips() -> list[str]:
+        return [
+            "Check if the resource already exists before creating",
+            "Implement optimistic locking if handling concurrent updates",
+            "Retry after resolving the conflict",
+        ]
 
 
-class UnprocessableEntityException(ApiException):
+class PayloadTooLargeException(ClientException):
+    """Exception for HTTP 413 Payload Too Large."""
+
+    @staticmethod
+    def potential_causes() -> list[str]:
+        return [
+            "Request body exceeds server size limit",
+            "File upload is too large",
+        ]
+
+    @staticmethod
+    def debugging_tips() -> list[str]:
+        return [
+            "Reduce the size of the request payload",
+            "Split large uploads into smaller chunks if supported",
+            "Check API documentation for size limits",
+        ]
+
+
+class UnsupportedMediaTypeException(ClientException):
+    """Exception for HTTP 415 Unsupported Media Type."""
+
+    @staticmethod
+    def potential_causes() -> list[str]:
+        return [
+            "Content-Type header is missing or incorrect",
+            "Using XML when only JSON is supported (or vice versa)",
+        ]
+
+    @staticmethod
+    def debugging_tips() -> list[str]:
+        return [
+            "Check that your Content-Type header is set correctly",
+            "Verify the API endpoint supports the format you're sending",
+            "Convert your payload to a supported format (usually JSON)",
+            "Review API documentation for supported media types",
+        ]
+
+
+class UnprocessableEntityException(ClientException):
     """Exception for HTTP 422 Unprocessable Entity."""
-    pass
+
+    @staticmethod
+    def potential_causes() -> list[str]:
+        return [
+            "Request syntax is correct but contains semantic errors",
+            "Validation failures in the request data",
+            "Business rule violations",
+            "Data integrity constraints",
+        ]
+
+    @staticmethod
+    def debugging_tips() -> list[str]:
+        return [
+            "Check the response body for specific validation error details",
+            "Ensure request data meets all business rules and constraints",
+            "Validate data before submitting to the API",
+            "Review API documentation for field requirements and limitations",
+        ]
+
+
+class RateLimitExceededException(ClientException):
+    """Exception for HTTP 429 Rate Limit Exceeded."""
+
+    @staticmethod
+    def potential_causes() -> list[str]:
+        return [
+            "Too many requests in a short time period",
+            "Exceeding API quota limits",
+        ]
+
+    @staticmethod
+    def debugging_tips() -> list[str]:
+        return [
+            "Implement exponential backoff retry strategy",
+            "Reduce frequency of API calls",
+            "Consider caching responses where appropriate",
+            "Check the Retry-After header for guidance on when to retry",
+        ]
+
+
+# ---------------------------------------------------------------------------
+# Specific server exceptions (5xx+)
+# ---------------------------------------------------------------------------
+
+class InternalServerErrorException(ServerException):
+    """Exception for HTTP 500 Internal Server Error."""
+
+    @staticmethod
+    def potential_causes() -> list[str]:
+        return [
+            "Unexpected condition on the server",
+            "Server-side exception or error",
+            "Database issues or connectivity problems",
+        ]
+
+    @staticmethod
+    def debugging_tips() -> list[str]:
+        return [
+            "Retry the request after a short delay",
+            "Contact BambooHR support if the problem persists",
+            "Include request ID or timestamp when reporting issues",
+        ]
+
+
+class NotImplementedException(ServerException):
+    """Exception for HTTP 501 Not Implemented."""
+
+    @staticmethod
+    def potential_causes() -> list[str]:
+        return [
+            "The API endpoint does not support the requested functionality",
+            "The feature is planned but not yet available",
+            "Using a method that is not supported by this resource",
+        ]
+
+    @staticmethod
+    def debugging_tips() -> list[str]:
+        return [
+            "Check API documentation to verify the feature is supported",
+            "Confirm you are using the correct API version",
+            "Consider alternative approaches to achieve your goal",
+            "Contact support to inquire about feature availability",
+        ]
+
+
+class BadGatewayException(ServerException):
+    """Exception for HTTP 502 Bad Gateway."""
+
+    @staticmethod
+    def potential_causes() -> list[str]:
+        return [
+            "The server received an invalid response from an upstream server",
+            "Proxy or gateway configuration issues",
+            "Temporary communication failure between servers",
+        ]
+
+    @staticmethod
+    def debugging_tips() -> list[str]:
+        return [
+            "Retry the request after a delay",
+            "Implement automatic retry logic with backoff",
+            "Check if the service is experiencing known issues",
+            "Verify network connectivity between your client and the API",
+        ]
+
+
+class ServiceUnavailableException(ServerException):
+    """Exception for HTTP 503 Service Unavailable."""
+
+    @staticmethod
+    def potential_causes() -> list[str]:
+        return [
+            "Server is temporarily overloaded",
+            "Server is under maintenance",
+            "Service is temporarily down",
+        ]
+
+    @staticmethod
+    def debugging_tips() -> list[str]:
+        return [
+            "Check the Retry-After header if provided",
+            "Consider adding this status code to retryable_status_codes and increasing retries",
+            "Consider implementing a circuit breaker pattern",
+        ]
+
+
+class GatewayTimeoutException(ServerException):
+    """Exception for HTTP 504 Gateway Timeout."""
+
+    @staticmethod
+    def potential_causes() -> list[str]:
+        return [
+            "The gateway or proxy did not receive a timely response",
+            "BambooHR servers experiencing high load",
+            "Complex query taking too long to process",
+        ]
+
+    @staticmethod
+    def debugging_tips() -> list[str]:
+        return [
+            "Retry the request after a delay",
+            "Simplify complex queries if possible",
+            "Implement circuit breaker pattern to prevent cascading failures",
+        ]
+
+
+class InsufficientStorageException(ServerException):
+    """Exception for HTTP 507 Insufficient Storage."""
+
+    @staticmethod
+    def potential_causes() -> list[str]:
+        return [
+            "Server storage capacity has been reached",
+            "Quota limits exceeded for your account",
+            "Temporary resource constraints on the server",
+        ]
+
+    @staticmethod
+    def debugging_tips() -> list[str]:
+        return [
+            "Remove unnecessary data if possible",
+            "Contact support to discuss storage limitations",
+            "Check if there are unused resources that can be deleted",
+        ]
+
+
+class NetworkReadTimeoutException(ServerException):
+    """Exception for HTTP 598 Network Read Timeout."""
+
+    @staticmethod
+    def potential_causes() -> list[str]:
+        return [
+            "Network connection was dropped while waiting for response",
+            "Proxy or firewall issues",
+            "Incomplete data transmission",
+        ]
+
+    @staticmethod
+    def debugging_tips() -> list[str]:
+        return [
+            "Check network stability and firewall settings",
+            "Increase read timeout values in your HTTP client",
+            "Implement automatic retry logic for idempotent operations",
+            "Consider using a more reliable network connection",
+        ]
+
+
+# ---------------------------------------------------------------------------
+# Status code → exception class mapping (used by ApiException.from_response)
+# ---------------------------------------------------------------------------
+
+_STATUS_TO_EXCEPTION_CLASS: dict[int, type[ApiException]] = {
+    400: BadRequestException,
+    401: AuthenticationFailedException,
+    403: PermissionDeniedException,
+    404: ResourceNotFoundException,
+    405: MethodNotAllowedException,
+    408: RequestTimeoutException,
+    409: ConflictException,
+    413: PayloadTooLargeException,
+    415: UnsupportedMediaTypeException,
+    422: UnprocessableEntityException,
+    429: RateLimitExceededException,
+    500: InternalServerErrorException,
+    501: NotImplementedException,
+    502: BadGatewayException,
+    503: ServiceUnavailableException,
+    504: GatewayTimeoutException,
+    507: InsufficientStorageException,
+    598: NetworkReadTimeoutException,
+}
 
 
 # Common header names that may contain a request ID

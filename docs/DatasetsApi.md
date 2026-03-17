@@ -8,100 +8,58 @@ Method | HTTP request | Description
 [**get_datasets**](DatasetsApi.md#get_datasets) | **GET** /api/v1/datasets | Get Datasets
 [**get_datasets_v12**](DatasetsApi.md#get_datasets_v12) | **GET** /api/v1_2/datasets | Get Datasets v1.2
 [**get_field_options**](DatasetsApi.md#get_field_options) | **POST** /api/v1/datasets/{datasetName}/field-options | Get Field Options
-[**get_field_options_v1_2**](DatasetsApi.md#get_field_options_v1_2) | **POST** /api/v1_2/datasets/{datasetName}/field-options | Get Field Options v1.2
+[**get_field_options_v12**](DatasetsApi.md#get_field_options_v12) | **POST** /api/v1_2/datasets/{datasetName}/field-options | Get Field Options v1.2
 [**get_fields_from_dataset**](DatasetsApi.md#get_fields_from_dataset) | **GET** /api/v1/datasets/{datasetName}/fields | Get Fields from Dataset
-[**get_fields_from_dataset_v1_2**](DatasetsApi.md#get_fields_from_dataset_v1_2) | **GET** /api/v1_2/datasets/{datasetName}/fields | Get Fields from Dataset v1.2
+[**get_fields_from_dataset_v12**](DatasetsApi.md#get_fields_from_dataset_v12) | **GET** /api/v1_2/datasets/{datasetName}/fields | Get Fields from Dataset v1.2
 
 
 # **get_data_from_dataset**
-> EmployeeResponse get_data_from_dataset(dataset_name, data_request)
+> EmployeeResponse get_data_from_dataset(dataset_name, data_request, page=page, page_size=page_size)
 
 Get Data from Dataset
 
-Use this resource to request data from the specified dataset. You must specify a list of fields to show on the report. The list of fields is available here at /api/v1/datasets/{datasetName}/fields.
+Retrieve data from the specified dataset. You must provide a list of fields to return; use GET /api/v1/datasets/{datasetName}/fields to discover available field names. Returns a paginated list of records under the `data` key, along with optional `aggregations` and a `pagination` block.
+
+Results default to 500 records per page. Use the `page` and `page_size` query parameters to paginate through large result sets.
+
+**Deprecation notice:** This endpoint is deprecated. Use POST /api/v2/datasets/{datasetName}/data instead.
 
 ***Field Settings:***
 
-
 **Show History**
-When any of the fields included in your request are historical table fields, you may include the "showHistory" setting. Example: "showHistory":["entityName"]. Entity Name can be found in the get /api/v1/datasets/{datasetName}/fields endpoint.
+When any of the fields included in your request are historical table fields, you may include the `showHistory` setting. Example: `"showHistory":["entityName"]`. Entity Name can be found in the GET /api/v1/datasets/{datasetName}/fields endpoint.
 
 **Sort By:**
-You can pass multiple fields to sort by as an array of objects {field: "fieldName", sort: "asc,desc"}. The order of the fields in the array will determine the order of the sort.
+Pass multiple fields to sort by as an array of objects `{field: "fieldName", sort: "asc"}`. The order of the fields in the array determines the sort priority.
 
 **Group By:**
-Group By is passed as an array of strings but currently grouping by more than one field is not supported.
+Passed as an array of strings. Currently grouping by more than one field is not supported.
 
 **Aggregations:**
 When using aggregations the following aggregates are available based on field type:
-  - **text**
-    - count
-  - **date**
-    - count
-    - min
-    - max
-  - **int**
-    - count
-    - min
-    - max
-    - sum
-    - avg
-  - **bool**
-    - count
-  - **options**
-    - count
-  - **ssnText**
-    - count
+  - **text**: count
+  - **date**: count, min, max
+  - **int**: count, min, max, sum, avg
+  - **bool**: count
+  - **options**: count
+  - **govIdText**: count
 
 **Filters:**
 When using filters, the filtered field does not have to be in the list of fields you want to show on the report.
 
 **Important Filter Notes:**
-  - **List filter values** (for "options" field type using "includes" or "does_not_include" operators) must be enclosed in square brackets [ ]. Example: ["value1", "value2"]
-  - **Future hires**: Future hires have a status of "Inactive" in the datasets API. To include future hires in your results, you must include "Inactive" in your status filter.
+  - **List filter values** (for `options` field type using `includes` or `does_not_include` operators) must be enclosed in square brackets [ ]. Example: `["value1", "value2"]`
+  - **Future hires**: Future hires have a status of `Inactive` in the datasets API. To include future hires in your results, you must include `Inactive` in your status filter.
 
-Use the `/api/v1/datasets/{datasetName}/field-options` endpoint to retrieve possible filter values for fields. Use the "id" returned from the field-options endpoint.
+Use GET /api/v1/datasets/{datasetName}/field-options to retrieve possible filter values for fields. Use the `id` returned from the field-options endpoint.
 
 **Filter Operators by Field Type:**
-  - **text**
-    - contains
-    - does_not_contain
-    - equal
-    - not_equal
-    - empty
-    - not_empty
-  - **date**
-    - lt (less than)
-    - lte (less than or equal)
-    - gt (greater than)
-    - gte (greater than or equal)
-    - last - Uses an object for the value: {"duration": "5", "unit": "years"}. Unit can be "days", "weeks", "months", or "years". Duration is a number as a string.
-    - next - Uses an object for the value: {"duration": "5", "unit": "years"}. Unit can be "days", "weeks", "months", or "years". Duration is a number as a string.
-    - range - Uses an object for the value: {"start": "2023-01-01", "end": "2023-12-31"}. Dates must be in YYYY-MM-DD format.
-    - equal
-    - not_equal
-    - empty
-    - not_empty
-  - **int**
-    - equal
-    - not_equal
-    - gte
-    - gt
-    - lte
-    - lt
-    - empty
-    - not_empty
-  - **bool**
-    - checked
-    - not_checked
-  - **options**
-    - includes
-    - does_not_include
-    - empty
-    - not_empty
-  - **ssnText**:
-    - empty
-    - not_empty
+  - **text**: contains, does_not_contain, equal, not_equal, empty, not_empty
+  - **date**: lt, lte, gt, gte, equal, not_equal, empty, not_empty, last (value: `{"duration": "5", "unit": "years"}`), next, range (value: `{"start": "2023-01-01", "end": "2023-12-31"}`)
+  - **int**: equal, not_equal, gte, gt, lte, lt, empty, not_empty
+  - **bool**: checked, not_checked
+  - **options**: includes, does_not_include, empty, not_empty
+  - **govIdText**: empty, not_empty
 
 
 ### Example
@@ -141,10 +99,12 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
     api_instance = bamboohr_sdk.DatasetsApi(api_client)
     dataset_name = 'dataset_name_example' # str | The name of the dataset you want data from
     data_request = bamboohr_sdk.DataRequest() # DataRequest | 
+    page = 1 # int | The page number to retrieve. Defaults to 1. (optional) (default to 1)
+    page_size = 500 # int | The number of records to retrieve per page. Defaults to 500. Maximum is 1000. (optional) (default to 500)
 
     try:
         # Get Data from Dataset
-        api_response = api_instance.get_data_from_dataset(dataset_name, data_request)
+        api_response = api_instance.get_data_from_dataset(dataset_name, data_request, page=page, page_size=page_size)
         print("The response of DatasetsApi->get_data_from_dataset:\n")
         pprint(api_response)
     except Exception as e:
@@ -160,6 +120,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **dataset_name** | **str**| The name of the dataset you want data from | 
  **data_request** | [**DataRequest**](DataRequest.md)|  | 
+ **page** | **int**| The page number to retrieve. Defaults to 1. | [optional] [default to 1]
+ **page_size** | **int**| The number of records to retrieve per page. Defaults to 500. Maximum is 1000. | [optional] [default to 500]
 
 ### Return type
 
@@ -190,7 +152,9 @@ Name | Type | Description  | Notes
 
 Get Datasets
 
-Use this resource to retrieve the available datasets to query data from.
+Retrieve the list of available datasets that can be queried. Returns each dataset's machine-readable name (used in subsequent dataset API calls) and its human-readable label. Use the returned `name` values with POST /api/v1/datasets/{datasetName} to query data, and GET /api/v1/datasets/{datasetName}/fields to discover available fields.
+
+**Deprecation notice:** This endpoint is deprecated. Use GET /api/v1_2/datasets instead.
 
 ### Example
 
@@ -270,7 +234,7 @@ This endpoint does not need any parameter.
 
 Get Datasets v1.2
 
-Use this resource to retrieve the available datasets to query data from. Each dataset represents a collection of related data that can be filtered, sorted, and retrieved through other dataset endpoints. Returns a list of dataset names and their human-readable labels. V1.2 endpoint with RFC 7807 compliant error responses.
+Retrieve the list of available datasets that can be queried. Returns each dataset's machine-readable name (used in subsequent dataset API calls) and its human-readable label. Use the returned `name` values with POST /api/v1/datasets/{datasetName} to query data, and GET /api/v1_2/datasets/{datasetName}/fields to discover available fields. V1.2 endpoint: error responses use RFC 7807 `application/problem+json`.
 
 ### Example
 
@@ -333,7 +297,7 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/problem+json
 
 ### HTTP response details
 
@@ -346,11 +310,13 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_field_options**
-> List[FieldOptionsTransformer] get_field_options(dataset_name, field_options_request_schema)
+> Dict[str, List[FieldOptionsTransformer]] get_field_options(dataset_name, field_options_request_schema)
 
 Get Field Options
 
-Use this resource to retrieve a list of possible values for a field. For RFC 7807 compliant error responses, use the v1.2 endpoint: POST /api/v1_2/datasets/{datasetName}/field-options
+Retrieve the possible values for one or more dataset fields, for use as filter values in dataset queries. Pass the field names you want options for in the `fields` array. The response is an object keyed by field name, where each value is an array of `{id, value}` objects. Use the `id` values as filter values when querying POST /api/v1/datasets/{datasetName}. Optionally supply `filters` to scope the returned options (e.g., returning only option values that exist for active employees).
+
+**Deprecation notice:** For RFC 7807 compliant error responses, use POST /api/v1_2/datasets/{datasetName}/field-options instead.
 
 ### Example
 
@@ -411,7 +377,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[FieldOptionsTransformer]**](FieldOptionsTransformer.md)
+**Dict[str, List[FieldOptionsTransformer]]**
 
 ### Authorization
 
@@ -426,19 +392,19 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Field options response |  -  |
-**400** | Bad request - invalid fields, filters, or request format |  -  |
+**200** | An object keyed by field name, where each value is an array of available option objects for that field. |  -  |
+**400** | Bad request - missing or invalid fields/filters |  -  |
 **403** | Permissions error - user does not have access to this dataset |  -  |
-**500** | Internal server error |  -  |
+**500** | Internal server error. The response body may be plain text rather than a structured JSON payload. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_field_options_v1_2**
-> List[FieldOptionsTransformer] get_field_options_v1_2(dataset_name, field_options_request_schema)
+# **get_field_options_v12**
+> Dict[str, List[FieldOptionsTransformer]] get_field_options_v12(dataset_name, field_options_request_schema)
 
 Get Field Options v1.2
 
-Use this resource to retrieve a list of possible values for specified fields. V1.2 endpoint with RFC 7807 compliant error responses.
+Retrieve the possible values for one or more dataset fields, for use as filter values in dataset queries. Pass the field names you want options for in the `fields` array. The response is an object keyed by field name, where each value is an array of `{id, value}` objects. Use the `id` values as filter values when querying dataset endpoints. Optionally supply `filters` to scope the returned options. V1.2 endpoint: `400` and `403` error responses use RFC 7807 `application/problem+json`. Note: unrecognised field names may result in a `500` response with a plain-text body rather than a structured error payload.
 
 ### Example
 
@@ -480,11 +446,11 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Get Field Options v1.2
-        api_response = api_instance.get_field_options_v1_2(dataset_name, field_options_request_schema)
-        print("The response of DatasetsApi->get_field_options_v1_2:\n")
+        api_response = api_instance.get_field_options_v12(dataset_name, field_options_request_schema)
+        print("The response of DatasetsApi->get_field_options_v12:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling DatasetsApi->get_field_options_v1_2: %s\n" % e)
+        print("Exception when calling DatasetsApi->get_field_options_v12: %s\n" % e)
 ```
 
 
@@ -499,7 +465,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[FieldOptionsTransformer]**](FieldOptionsTransformer.md)
+**Dict[str, List[FieldOptionsTransformer]]**
 
 ### Authorization
 
@@ -514,10 +480,10 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Field options response |  -  |
+**200** | An object keyed by field name, where each value is an array of available option objects for that field. |  -  |
 **400** | Bad request - invalid fields, filters, or request format |  -  |
 **403** | Permissions error - user does not have access to this dataset |  -  |
-**500** | Internal server error |  -  |
+**500** | Internal server error. The response body may be plain text rather than a structured payload. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -526,7 +492,9 @@ Name | Type | Description  | Notes
 
 Get Fields from Dataset
 
-Use this resource to request the available fields on a dataset.
+Retrieve the available fields for a given dataset. Returns a paginated list of field descriptors, each including the field's machine-readable name, human-readable label, parent section type and name, and the entity name. Use the returned field `name` values in the `fields` array when querying data from POST /api/v1/datasets/{datasetName}.
+
+**Deprecation notice:** This endpoint is deprecated. Use GET /api/v1_2/datasets/{datasetName}/fields instead.
 
 ### Example
 
@@ -563,8 +531,8 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.DatasetsApi(api_client)
     dataset_name = 'dataset_name_example' # str | The name of the dataset you want to see fields for
-    page = 56 # int | The page number to retrieve (optional)
-    page_size = 56 # int | The number of records to retrieve per page. Default is 500 and the Max is 1000 (optional)
+    page = 1 # int | The page number to retrieve. Defaults to 1. (optional) (default to 1)
+    page_size = 500 # int | The number of records to retrieve per page. Defaults to 500. Maximum is 1000. (optional) (default to 500)
 
     try:
         # Get Fields from Dataset
@@ -583,8 +551,8 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **dataset_name** | **str**| The name of the dataset you want to see fields for | 
- **page** | **int**| The page number to retrieve | [optional] 
- **page_size** | **int**| The number of records to retrieve per page. Default is 500 and the Max is 1000 | [optional] 
+ **page** | **int**| The page number to retrieve. Defaults to 1. | [optional] [default to 1]
+ **page_size** | **int**| The number of records to retrieve per page. Defaults to 500. Maximum is 1000. | [optional] [default to 500]
 
 ### Return type
 
@@ -610,12 +578,12 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_fields_from_dataset_v1_2**
-> DatasetFieldsResponse get_fields_from_dataset_v1_2(dataset_name, page=page, page_size=page_size)
+# **get_fields_from_dataset_v12**
+> DatasetFieldsResponse get_fields_from_dataset_v12(dataset_name, page=page, page_size=page_size)
 
 Get Fields from Dataset v1.2
 
-Use this resource to request the available fields on a dataset. V1.2 endpoint with RFC 7807 compliant error responses.
+Retrieve the available fields for a given dataset. Returns a paginated list of field descriptors, each including the field's machine-readable name, human-readable label, parent section type and name, and the entity name. Use the returned field `name` values in the `fields` array when querying data via POST /api/v1/datasets/{datasetName}. V1.2 endpoint: error responses use RFC 7807 `application/problem+json`.
 
 ### Example
 
@@ -652,16 +620,16 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.DatasetsApi(api_client)
     dataset_name = 'dataset_name_example' # str | The name of the dataset you want to see fields for
-    page = 56 # int | The page number to retrieve (optional)
-    page_size = 56 # int | The number of records to retrieve per page. Default is 500 and the Max is 1000 (optional)
+    page = 1 # int | The page number to retrieve. Defaults to 1. (optional) (default to 1)
+    page_size = 500 # int | The number of records to retrieve per page. Defaults to 500. Maximum is 1000. (optional) (default to 500)
 
     try:
         # Get Fields from Dataset v1.2
-        api_response = api_instance.get_fields_from_dataset_v1_2(dataset_name, page=page, page_size=page_size)
-        print("The response of DatasetsApi->get_fields_from_dataset_v1_2:\n")
+        api_response = api_instance.get_fields_from_dataset_v12(dataset_name, page=page, page_size=page_size)
+        print("The response of DatasetsApi->get_fields_from_dataset_v12:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling DatasetsApi->get_fields_from_dataset_v1_2: %s\n" % e)
+        print("Exception when calling DatasetsApi->get_fields_from_dataset_v12: %s\n" % e)
 ```
 
 
@@ -672,8 +640,8 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **dataset_name** | **str**| The name of the dataset you want to see fields for | 
- **page** | **int**| The page number to retrieve | [optional] 
- **page_size** | **int**| The number of records to retrieve per page. Default is 500 and the Max is 1000 | [optional] 
+ **page** | **int**| The page number to retrieve. Defaults to 1. | [optional] [default to 1]
+ **page_size** | **int**| The number of records to retrieve per page. Defaults to 500. Maximum is 1000. | [optional] [default to 500]
 
 ### Return type
 

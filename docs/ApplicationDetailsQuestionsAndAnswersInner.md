@@ -7,6 +7,11 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **question** | [**ApplicationDetailsQuestionsAndAnswersInnerQuestion**](ApplicationDetailsQuestionsAndAnswersInnerQuestion.md) |  | [optional] 
 **answer** | [**ApplicationDetailsQuestionsAndAnswersInnerAnswer**](ApplicationDetailsQuestionsAndAnswersInnerAnswer.md) |  | [optional] 
+**has_revisions** | **bool** | Whether this answer has revision history | [optional] 
+**is_archived** | **bool** | Whether this answer is archived | [optional] 
+**archived_date** | **datetime** | ISO 8601 datetime when the answer was archived, or null | [optional] 
+**edited_date** | **datetime** | ISO 8601 datetime when the answer was last edited, or null | [optional] 
+**edited_end_date** | **datetime** | ISO 8601 datetime for the end date of the edit window, or null | [optional] 
 
 ## Example
 

@@ -1,17 +1,18 @@
 # TableRowUpdate
 
+A dictionary of table field names and values for creating or updating a row in an employee table. The listed properties are common examples, but accepted fields depend on the specific table being targeted. Some string-valued fields are backed by lists or lookups, so callers should use valid option values from BambooHR metadata rather than assuming any free-text string will persist as entered.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**var_date** | **str** |  | [optional] 
-**location** | **str** |  | [optional] 
-**division** | **str** |  | [optional] 
-**department** | **str** |  | [optional] 
-**job_title** | **str** |  | [optional] 
-**reports_to** | **str** |  | [optional] 
-**teams** | **List[str]** |  | [optional] 
+**var_date** | **date** | The effective date for the row in YYYY-MM-DD format. | [optional] 
+**location** | **str** | The employee location value for the row. | [optional] 
+**division** | **str** | The division value for the row. | [optional] 
+**department** | **str** | The department value for the row. | [optional] 
+**job_title** | **str** | The job title value for the row. | [optional] 
+**reports_to** | **str** | The manager or reports-to value for the row. | [optional] 
+**teams** | **List[str]** | Team values associated with the row. | [optional] 
 
 ## Example
 
