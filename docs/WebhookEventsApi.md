@@ -4,10 +4,234 @@ All URIs are relative to *https://companySubDomain.bamboohr.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**company_deleted_webhook**](WebhookEventsApi.md#company_deleted_webhook) | **POST** /company.deleted | Company Deleted
+[**company_integrations_updated_webhook**](WebhookEventsApi.md#company_integrations_updated_webhook) | **POST** /company-integrations.updated | Company Integrations Updated
+[**company_updated_webhook**](WebhookEventsApi.md#company_updated_webhook) | **POST** /company.updated | Company Updated
 [**employee_created_webhook**](WebhookEventsApi.md#employee_created_webhook) | **POST** /employee.created | Employee Created
 [**employee_deleted_webhook**](WebhookEventsApi.md#employee_deleted_webhook) | **POST** /employee.deleted | Employee Deleted
 [**employee_updated_webhook**](WebhookEventsApi.md#employee_updated_webhook) | **POST** /employee.updated | Employee Updated
 
+
+# **company_deleted_webhook**
+> company_deleted_webhook(company_deleted_webhook_payload=company_deleted_webhook_payload)
+
+Company Deleted
+
+
+Triggered when a company status change results in the company being considered deleted/closed.
+
+### Behavior & Constraints
+- This event is emitted when the new company status is `DELETED` or `CANCELLED`.
+- For other company updates and status changes, the system emits `company.updated`.
+
+
+### Example
+
+
+```python
+import bamboohr_sdk
+from bamboohr_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://companySubDomain.bamboohr.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = bamboohr_sdk.Configuration(
+    host = "https://companySubDomain.bamboohr.com"
+)
+
+
+# Enter a context with an instance of the API client
+with bamboohr_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = bamboohr_sdk.WebhookEventsApi(api_client)
+    company_deleted_webhook_payload = bamboohr_sdk.CompanyDeletedWebhookPayload() # CompanyDeletedWebhookPayload | Webhook payload containing information about the company deletion (optional)
+
+    try:
+        # Company Deleted
+        api_instance.company_deleted_webhook(company_deleted_webhook_payload=company_deleted_webhook_payload)
+    except Exception as e:
+        print("Exception when calling WebhookEventsApi->company_deleted_webhook: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **company_deleted_webhook_payload** | [**CompanyDeletedWebhookPayload**](CompanyDeletedWebhookPayload.md)| Webhook payload containing information about the company deletion | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: Not defined
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Webhook received successfully (200-299 status code). |  -  |
+**400** | Client error (400-499 status code) - the webhook endpoint intentionally rejected the request. BambooHR will not retry webhooks that return 4xx status codes. |  -  |
+**500** | Server error (500+ status code). BambooHR will automatically retry this webhook up to 5 times using exponential backoff (5min, 10min, 20min, 40min, 80min intervals). |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **company_integrations_updated_webhook**
+> company_integrations_updated_webhook(company_integrations_updated_webhook_payload=company_integrations_updated_webhook_payload)
+
+Company Integrations Updated
+
+
+Triggered when company integrations are updated.
+
+### Behavior & Constraints
+- **Permission Checking**: This event does **not** enforce permission checking. The webhook will fire for all subscribers regardless of the API token's permissions.
+- **Event Scope**: This event fires when any integration settings are modified for the company, including enabling, disabling, or updating integration configurations.
+
+
+### Example
+
+
+```python
+import bamboohr_sdk
+from bamboohr_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://companySubDomain.bamboohr.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = bamboohr_sdk.Configuration(
+    host = "https://companySubDomain.bamboohr.com"
+)
+
+
+# Enter a context with an instance of the API client
+with bamboohr_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = bamboohr_sdk.WebhookEventsApi(api_client)
+    company_integrations_updated_webhook_payload = bamboohr_sdk.CompanyIntegrationsUpdatedWebhookPayload() # CompanyIntegrationsUpdatedWebhookPayload | Webhook payload containing company integration update information (optional)
+
+    try:
+        # Company Integrations Updated
+        api_instance.company_integrations_updated_webhook(company_integrations_updated_webhook_payload=company_integrations_updated_webhook_payload)
+    except Exception as e:
+        print("Exception when calling WebhookEventsApi->company_integrations_updated_webhook: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **company_integrations_updated_webhook_payload** | [**CompanyIntegrationsUpdatedWebhookPayload**](CompanyIntegrationsUpdatedWebhookPayload.md)| Webhook payload containing company integration update information | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: Not defined
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Webhook received successfully (200-299 status code). |  -  |
+**400** | Client error (400-499 status code) - the webhook endpoint intentionally rejected the request. BambooHR will not retry webhooks that return 4xx status codes. |  -  |
+**500** | Server error (500+ status code). BambooHR will automatically retry this webhook up to 5 times using exponential backoff (5min, 10min, 20min, 40min, 80min intervals). |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **company_updated_webhook**
+> company_updated_webhook(company_updated_webhook_payload=company_updated_webhook_payload)
+
+Company Updated
+
+
+Triggered when company information or company status changes.
+
+### Behavior & Constraints
+- This event is emitted for general company updates.
+- When the underlying change is a company status change, the emitted event depends on the new status:
+  - If the new status is `DELETED` or `CANCELLED`, the system emits `company.deleted` instead.
+  - Otherwise the system emits `company.updated`.
+
+
+### Example
+
+
+```python
+import bamboohr_sdk
+from bamboohr_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://companySubDomain.bamboohr.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = bamboohr_sdk.Configuration(
+    host = "https://companySubDomain.bamboohr.com"
+)
+
+
+# Enter a context with an instance of the API client
+with bamboohr_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = bamboohr_sdk.WebhookEventsApi(api_client)
+    company_updated_webhook_payload = bamboohr_sdk.CompanyUpdatedWebhookPayload() # CompanyUpdatedWebhookPayload | Webhook payload containing information about the company update (optional)
+
+    try:
+        # Company Updated
+        api_instance.company_updated_webhook(company_updated_webhook_payload=company_updated_webhook_payload)
+    except Exception as e:
+        print("Exception when calling WebhookEventsApi->company_updated_webhook: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **company_updated_webhook_payload** | [**CompanyUpdatedWebhookPayload**](CompanyUpdatedWebhookPayload.md)| Webhook payload containing information about the company update | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: Not defined
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Webhook received successfully (200-299 status code). |  -  |
+**400** | Client error (400-499 status code) - the webhook endpoint intentionally rejected the request. BambooHR will not retry webhooks that return 4xx status codes. |  -  |
+**500** | Server error (500+ status code). BambooHR will automatically retry this webhook up to 5 times using exponential backoff (5min, 10min, 20min, 40min, 80min intervals). |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **employee_created_webhook**
 > employee_created_webhook(employee_created_webhook_payload=employee_created_webhook_payload)

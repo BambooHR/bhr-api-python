@@ -5,10 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**page** | **int** | Current page number | [optional] 
-**page_size** | **int** | Number of items per page | [optional] 
-**total_pages** | **int** | Total number of pages | [optional] 
-**total_items** | **int** | Total number of items | [optional] 
+**page** | **int** | The current page number. | [optional] 
+**page_size** | **int** | The number of items per page. | [optional] 
+**total_pages** | **int** | Total number of pages available. | [optional] 
+**total_items** | **int** | Total number of member records across all pages. | [optional] 
 
 ## Example
 

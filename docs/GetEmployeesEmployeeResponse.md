@@ -1,6 +1,6 @@
 # GetEmployeesEmployeeResponse
 
-Employee data response object containing basic employee information and permission-restricted fields. When the `fields` parameter is provided, additional requested fields will be included in the response. Invalid field names are silently ignored. Field values are subject to permission checks - restricted fields will be null or omitted.
+Employee data response object containing basic employee information and permission-restricted fields. When the `fields` parameter is provided, additional requested fields will be included in the response. Invalid field names are silently ignored. Field values are subject to permission checks - restricted fields will be null and their names will appear in `_restrictedFields`. The `_restrictedFields` property is only present when at least one field is restricted; it is omitted entirely on records with no restrictions.
 
 ## Properties
 
@@ -12,8 +12,8 @@ Name | Type | Description | Notes
 **preferred_name** | **str** | Employee&#39;s preferred name | 
 **photo_url** | **str** | URL to employee&#39;s profile photo | 
 **job_title_name** | **str** | Employee&#39;s current job title | 
-**status** | **str** | Employee&#39;s current status (active/inactive) | 
-**restricted_fields** | **List[str]** | Array of field names that are restricted due to permission checks | 
+**status** | **str** | Employee&#39;s current status (Active or Inactive). | 
+**restricted_fields** | **List[str]** | Array of field names that are restricted due to permission checks | [optional] 
 **work_email** | **str** | Employee&#39;s work email address. Only included when requested via the &#x60;fields&#x60; parameter. | [optional] 
 **home_email** | **str** | Employee&#39;s home email address. Only included when requested via the &#x60;fields&#x60; parameter. | [optional] 
 **best_email** | **str** | Employee&#39;s best email address. Only included when requested via the &#x60;fields&#x60; parameter. | [optional] 

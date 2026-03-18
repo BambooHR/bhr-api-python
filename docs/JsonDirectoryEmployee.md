@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**fields** | [**List[JsonDirectoryEmployeeFieldsInner]**](JsonDirectoryEmployeeFieldsInner.md) | Array of field definitions | [optional] 
-**employees** | **List[object]** | Array of employee records. Each employee object contains properties matching the &#39;id&#39; values from the &#39;fields&#39; array. Property names are dynamically determined by company configuration. Property values can be strings, numbers, booleans, or null. Common fields include: id, displayName, firstName, lastName, preferredName, jobTitle, workPhone, mobilePhone, workEmail, department, location, division, twitterFeed, pronouns, workPhoneExtension, photoUploaded, photoUrl, canUploadPhoto. | [optional] 
+**fields** | [**List[JsonDirectoryEmployeeFieldsInner]**](JsonDirectoryEmployeeFieldsInner.md) | Array of field definitions included in this directory response. | [optional] 
+**employees** | **List[Dict[str, object]]** | Array of employee records. Each object contains keys matching the &#39;id&#39; values from the &#39;fields&#39; array. Common keys include: id, displayName, firstName, lastName, preferredName, jobTitle, workPhone, mobilePhone, workEmail, department, location, division, twitterFeed, pronouns, workPhoneExtension, photoUploaded, photoUrl, canUploadPhoto. Actual keys vary by company configuration. | [optional] 
 
 ## Example
 

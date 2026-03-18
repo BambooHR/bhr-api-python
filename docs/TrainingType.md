@@ -9,11 +9,11 @@ Name | Type | Description | Notes
 **name** | **str** | Name of the training type. | [optional] 
 **renewable** | **bool** | If true, training will be renewed based off of frequency. | [optional] 
 **frequency** | **int** | The frequency is the (optional) amount of months between renewing trainings. Not valid if training are not renewable. | [optional] 
-**due_from_hire_date** | **int** | Number of days before the training is due for new hires. Not valid if training is not required. | [optional] 
-**required** | **int** | Is this a required training? | [optional] 
-**category** | [**TrainingCategory**](TrainingCategory.md) |  | [optional] 
-**link_url** | **str** | Optional URL that can be included with a training. | [optional] 
-**description** | **str** | Description for the training. | [optional] 
+**due_from_hire_date** | [**TrainingTypeDueFromHireDate**](TrainingTypeDueFromHireDate.md) |  | [optional] 
+**required** | **bool** | Whether this is a required training. Null when not set. | [optional] 
+**category** | [**TrainingTypeCategory**](TrainingTypeCategory.md) |  | [optional] 
+**link_url** | **str** | Optional URL that can be included with a training. Null when not set. | [optional] 
+**description** | **str** | Description for the training. Null when not set. | [optional] 
 **allow_employees_to_mark_complete** | **bool** | Allows all employees who can view the training to be able to mark it complete. | [optional] 
 
 ## Example

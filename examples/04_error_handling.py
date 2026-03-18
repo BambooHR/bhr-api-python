@@ -29,12 +29,12 @@ from bamboohr_sdk.api_error_helper import (
 from bamboohr_sdk.client import BambooHRClient
 from bamboohr_sdk.exceptions import (
     ApiException,
+    AuthenticationFailedException,
     BadRequestException,
     ConflictException,
-    ForbiddenException,
-    NotFoundException,
-    ServiceException,
-    UnauthorizedException,
+    PermissionDeniedException,
+    ResourceNotFoundException,
+    ServerException,
     UnprocessableEntityException,
 )
 
@@ -66,15 +66,15 @@ def fetch_employee_safely(client: BambooHRClient, employee_id: str) -> None:
         print(f"  Bad request: {bad_request_error.reason}")
         print("  Check that the employee ID and field names are valid.")
 
-    except UnauthorizedException:
+    except AuthenticationFailedException:
         # 401 — invalid or expired credentials
         print("  Authentication failed. Check your API key or OAuth tokens.")
 
-    except ForbiddenException:
+    except PermissionDeniedException:
         # 403 — valid credentials but insufficient permissions
         print("  Permission denied. Your API key cannot access this resource.")
 
-    except NotFoundException:
+    except ResourceNotFoundException:
         # 404 — employee doesn't exist
         print(f"  Employee {employee_id} not found.")
 
@@ -86,7 +86,7 @@ def fetch_employee_safely(client: BambooHRClient, employee_id: str) -> None:
         # 422 — validation failure
         print(f"  Validation error: {validation_error.body}")
 
-    except ServiceException as server_error:
+    except ServerException as server_error:
         # 5xx — server-side error
         print(f"  Server error ({server_error.status}): {server_error.reason}")
         if server_error.request_id:
@@ -187,9 +187,9 @@ class BambooHRErrorHandler:
         prefix = f"[{context}] " if context else ""
 
         # Log with appropriate severity
-        if isinstance(error, (UnauthorizedException, ForbiddenException)):
+        if isinstance(error, (AuthenticationFailedException, PermissionDeniedException)):
             self.logger.error("%sAuth error (%s): %s", prefix, error.status, error.reason)
-        elif isinstance(error, ServiceException):
+        elif isinstance(error, ServerException):
             self.logger.error(
                 "%sServer error (%s): %s [request_id=%s]",
                 prefix,
@@ -197,7 +197,7 @@ class BambooHRErrorHandler:
                 error.reason,
                 error.request_id,
             )
-        elif isinstance(error, NotFoundException):
+        elif isinstance(error, ResourceNotFoundException):
             self.logger.warning("%sNot found: %s", prefix, error.reason)
         else:
             self.logger.error("%sAPI error (%s): %s", prefix, error.status, error.reason)
@@ -241,7 +241,7 @@ def get_employee_photo_url(client: BambooHRClient, employee_id: str) -> str | No
     try:
         client.photos().get_employee_photo(id=employee_id, size="small")
         return f"https://{company}.bamboohr.com/employees/photos/?h={employee_id}"
-    except NotFoundException:
+    except ResourceNotFoundException:
         return None  # No photo uploaded — use placeholder
     except ApiException:
         return None  # Any other error — degrade gracefully
@@ -292,13 +292,18 @@ print("  Request IDs are included in all exception messages.\n")
 #
 # Exception Hierarchy:
 #   ApiException (base)
-#   ├── BadRequestException        (400)
-#   ├── UnauthorizedException      (401)
-#   ├── ForbiddenException         (403)
-#   ├── NotFoundException          (404)
-#   ├── ConflictException          (409)
-#   ├── UnprocessableEntityException (422)
-#   └── ServiceException           (5xx)
+#   ├── ClientException (4xx)
+#   │   ├── BadRequestException           (400)
+#   │   ├── AuthenticationFailedException (401)
+#   │   ├── PermissionDeniedException     (403)
+#   │   ├── ResourceNotFoundException     (404)
+#   │   ├── ConflictException             (409)
+#   │   ├── UnprocessableEntityException  (422)
+#   │   └── RateLimitExceededException    (429)
+#   └── ServerException (5xx)
+#       ├── InternalServerErrorException  (500)
+#       ├── ServiceUnavailableException   (503)
+#       └── GatewayTimeoutException       (504)
 #
 # Best Practices:
 #   1. Catch specific exceptions for error-specific handling

@@ -1,15 +1,16 @@
 # CompanyInformationAddress
 
+The primary address of the company.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**line1** | **str** | The first line of the address | [optional] 
-**line2** | **str** | The second line of the address | [optional] 
-**city** | **str** | The city of the address | [optional] 
-**state** | **str** | The state of the address | [optional] 
-**zip** | **str** | The zip code of the address | [optional] 
+**line1** | **str** | The first line of the address. | [optional] 
+**line2** | **str** | The second line of the address. May be an empty string. | [optional] 
+**city** | **str** | The city. | [optional] 
+**state** | **str** | The state or province abbreviation. | [optional] 
+**zip** | **str** | The ZIP or postal code. | [optional] 
 
 ## Example
 

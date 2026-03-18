@@ -1,16 +1,14 @@
 # ApplicationDetailsJob
 
-Job details
+Information about the job position applied to
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** | Job ID | [optional] 
-**title** | **str** | Job title | [optional] 
-**department** | **object** | Department information | [optional] 
-**location** | **object** | Location information | [optional] 
-**hiring_lead** | **object** | Hiring lead information | [optional] 
+**id** | **int** | Job opening ID | [optional] 
+**title** | [**ApplicationDetailsJobTitle**](ApplicationDetailsJobTitle.md) |  | [optional] 
+**hiring_lead** | [**ApplicationDetailsJobHiringLead**](ApplicationDetailsJobHiringLead.md) |  | [optional] 
 
 ## Example
 

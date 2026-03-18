@@ -28,7 +28,7 @@ import os
 from pathlib import Path
 
 from bamboohr_sdk.client import BambooHRClient
-from bamboohr_sdk.exceptions import ApiException, UnauthorizedException
+from bamboohr_sdk.exceptions import ApiException, AuthenticationFailedException
 
 # ---------------------------------------------------------------------------
 # Token Storage
@@ -162,7 +162,7 @@ try:
             print(f"Token expires in {remaining:.0f} seconds")
         print(f"Needs refresh: {token_mgr.needs_refresh()}")
 
-except UnauthorizedException:
+except AuthenticationFailedException:
     print("Authentication failed. Your tokens may be invalid or expired.")
     print("Run 03_oauth_complete_flow.py to obtain fresh tokens.")
 

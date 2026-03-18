@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** | Page ID | 
-**name** | **str** | Page Name | 
+**id** | **int** | Table ID | 
+**name** | **str** | Table Name | 
 
 ## Example
 

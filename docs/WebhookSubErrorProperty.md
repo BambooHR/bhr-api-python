@@ -7,9 +7,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **error** | **str** |  | [optional] 
 **unknown_fields** | [**List[WebhookSubErrorPropertyUnknownFieldsInner]**](WebhookSubErrorPropertyUnknownFieldsInner.md) |  | [optional] 
-**monitor_fields** | [**List[TimeTrackingRecordSchemaProjectTask]**](TimeTrackingRecordSchemaProjectTask.md) |  | [optional] 
+**monitor_fields** | [**List[WebhookSubErrorPropertyMonitorFieldsInner]**](WebhookSubErrorPropertyMonitorFieldsInner.md) |  | [optional] 
 **duplicate_post_string** | **List[str]** |  | [optional] 
-**post_fields** | [**List[WebhookSubErrorPropertyPostFieldsInner]**](WebhookSubErrorPropertyPostFieldsInner.md) |  | [optional] 
+**post_fields** | [**List[WebhookSubErrorPropertyMonitorFieldsInner]**](WebhookSubErrorPropertyMonitorFieldsInner.md) |  | [optional] 
 
 ## Example
 

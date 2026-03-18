@@ -1,12 +1,17 @@
 # PostNewEmployee
 
+A dictionary of employee field names and their values for the new employee. At minimum, firstName and lastName are required. The properties listed below are commonly used fields, but any valid employee field name can be used as a key. To discover all available field names, call the list-fields endpoint (operationId: list-fields, GET /api/v1/meta/fields). Additional fields may use string, number, boolean, array, object, or null values depending on the field type. Some string-valued fields are backed by lists or lookups, so callers should use valid option values from BambooHR metadata rather than assuming any free-text string will persist as entered.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**first_name** | **str** |  | [optional] 
-**last_name** | **str** |  | [optional] 
+**first_name** | **str** | Legal first name (required). | 
+**last_name** | **str** | Legal last name (required). | 
+**work_email** | **str** | Work email address. | [optional] 
+**job_title** | **str** | Job title. | [optional] 
+**department** | **str** | Department name. | [optional] 
+**hire_date** | **date** | Hire date in YYYY-MM-DD format. | [optional] 
 
 ## Example
 

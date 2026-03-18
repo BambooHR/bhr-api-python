@@ -1,14 +1,14 @@
 # EmployeeBenefitFiltersFilters
 
-At least one filter is required
+Scope filters for the request. At least one of employeeId, companyBenefitId, or enrollmentStatusEffectiveDate must be provided; omitting all three returns a 400 validation error.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**employee_id** | **int** | Employee Id | [optional] 
-**company_benefit_id** | **int** | Company Benefit Id | [optional] 
-**enrollment_status_effective_date** | **str** | Enrollment Status Effective Date | [optional] 
+**employee_id** | **int** | Return benefit enrollments for a specific employee identified by their numeric ID. | [optional] 
+**company_benefit_id** | **int** | Return benefit enrollments for a specific company benefit plan identified by its numeric ID. | [optional] 
+**enrollment_status_effective_date** | **date** | Return benefit enrollments whose enrollment status became effective on this date. Must be in YYYY-MM-DD format. | [optional] 
 
 ## Example
 

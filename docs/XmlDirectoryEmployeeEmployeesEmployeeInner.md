@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | Employee ID (XML attribute) | [optional] 
-**var_field** | [**List[XmlDirectoryEmployeeEmployeesEmployeeInnerFieldInner]**](XmlDirectoryEmployeeEmployeesEmployeeInnerFieldInner.md) | Employee field values | [optional] 
+**id** | **str** | Employee ID on the &#x60;&lt;employee&gt;&#x60; element. | [optional] 
+**var_field** | [**List[XmlDirectoryEmployeeEmployeesEmployeeInnerFieldInner]**](XmlDirectoryEmployeeEmployeesEmployeeInnerFieldInner.md) | Employee field values. Common field ids include: displayName, firstName, lastName, preferredName, jobTitle, workPhone, mobilePhone, workEmail, department, location, division, twitterFeed, pronouns, workPhoneExtension, photoUploaded, photoUrl, canUploadPhoto. | [optional] 
 
 ## Example
 

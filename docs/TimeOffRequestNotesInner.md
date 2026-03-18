@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**var_from** | **str** |  | [optional] 
-**note** | **str** |  | [optional] 
+**var_from** | **str** | Who the note is from. | [optional] 
+**note** | **str** | The note text. | [optional] 
 
 ## Example
 

@@ -8,10 +8,10 @@ Name | Type | Description | Notes
 **time_off_type** | **str** | The ID of the time off type. | [optional] 
 **name** | **str** | The name of the time off type. | [optional] 
 **units** | **str** | The unit of measurement for the balance (e.g. &#39;hours&#39; or &#39;days&#39;). | [optional] 
-**balance** | **str** | The calculated time off balance as of the specified date. | [optional] 
+**balance** | **str** | The calculated time off balance as of the specified date, rounded using &#x60;precision&#x60;. | [optional] 
 **end** | **date** | The date the balance was calculated as of, in YYYY-MM-DD format. | [optional] 
 **policy_type** | **str** | The type of time off policy assigned to the employee for this time off type. | [optional] 
-**used_year_to_date** | **str** | The amount of time off used year-to-date as of the specified date. | [optional] 
+**used_year_to_date** | **str** | The amount of time off used year-to-date as of the specified date, rounded using &#x60;precision&#x60;. | [optional] 
 
 ## Example
 

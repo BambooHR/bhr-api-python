@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | **str** | One of approved, cancelled, denied | [optional] 
-**note** | **str** | A note to attach to the change in status | [optional] 
+**status** | **str** | The new status for the time off request. | 
+**note** | **str** | A note to attach to the change in status. | [optional] 
 
 ## Example
 

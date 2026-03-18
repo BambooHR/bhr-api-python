@@ -4,21 +4,21 @@ All URIs are relative to *https://companySubDomain.bamboohr.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**add_employee_table_row**](TabularDataApi.md#add_employee_table_row) | **POST** /api/v1/employees/{id}/tables/{table} | Create Table Row
-[**add_employee_table_row_v1**](TabularDataApi.md#add_employee_table_row_v1) | **POST** /api/v1_1/employees/{id}/tables/{table} | Create Table Row v1.1
-[**delete_employee_table_row_v1**](TabularDataApi.md#delete_employee_table_row_v1) | **DELETE** /api/v1/employees/{id}/tables/{table}/{rowId} | Delete Table Row
+[**create_table_row**](TabularDataApi.md#create_table_row) | **POST** /api/v1/employees/{id}/tables/{table} | Create Table Row
+[**create_table_row_v11**](TabularDataApi.md#create_table_row_v11) | **POST** /api/v1_1/employees/{id}/tables/{table} | Create Table Row v1.1
+[**delete_employee_table_row**](TabularDataApi.md#delete_employee_table_row) | **DELETE** /api/v1/employees/{id}/tables/{table}/{rowId} | Delete Employee Table Row
 [**get_changed_employee_table_data**](TabularDataApi.md#get_changed_employee_table_data) | **GET** /api/v1/employees/changed/tables/{table} | Get Changed Employee Table Data
-[**get_employee_table_row**](TabularDataApi.md#get_employee_table_row) | **GET** /api/v1/employees/{id}/tables/{table} | Get Employee Table Rows
-[**update_employee_table_row**](TabularDataApi.md#update_employee_table_row) | **POST** /api/v1/employees/{id}/tables/{table}/{rowId} | Update Table Row
-[**update_employee_table_row_v**](TabularDataApi.md#update_employee_table_row_v) | **POST** /api/v1_1/employees/{id}/tables/{table}/{rowId} | Update Table Row v1.1
+[**get_employee_table_data**](TabularDataApi.md#get_employee_table_data) | **GET** /api/v1/employees/{id}/tables/{table} | Get Employee Table Data
+[**update_table_row**](TabularDataApi.md#update_table_row) | **POST** /api/v1/employees/{id}/tables/{table}/{rowId} | Update Table Row
+[**update_table_row_v11**](TabularDataApi.md#update_table_row_v11) | **POST** /api/v1_1/employees/{id}/tables/{table}/{rowId} | Update Table Row v1.1
 
 
-# **add_employee_table_row**
-> add_employee_table_row(id, table, table_row_update)
+# **create_table_row**
+> create_table_row(id, table, table_row_update)
 
 Create Table Row
 
-Adds a table row. If employee is currently on a pay schedule syncing with Trax Payroll, or being added to one, the row cannot be added if they are missing any required fields for that table. If the API user is adding a row on the compensation table, the row cannot be added if they are missing any of the required employee fields (including fields not on that table).
+Add a new row to the specified employee table by submitting field name/value pairs in JSON or XML. Use this endpoint to append records to tabular employee data such as job information or compensation history.
 
 ### Example
 
@@ -54,15 +54,15 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.TabularDataApi(api_client)
-    id = 'id_example' # str | {id} is the employee ID.
-    table = 'table_example' # str | Table name
+    id = 'id_example' # str | The employee ID.
+    table = 'table_example' # str | The name of the table to add a row to (e.g., jobInfo, compensation).
     table_row_update = bamboohr_sdk.TableRowUpdate() # TableRowUpdate | 
 
     try:
         # Create Table Row
-        api_instance.add_employee_table_row(id, table, table_row_update)
+        api_instance.create_table_row(id, table, table_row_update)
     except Exception as e:
-        print("Exception when calling TabularDataApi->add_employee_table_row: %s\n" % e)
+        print("Exception when calling TabularDataApi->create_table_row: %s\n" % e)
 ```
 
 
@@ -72,8 +72,8 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| {id} is the employee ID. | 
- **table** | **str**| Table name | 
+ **id** | **str**| The employee ID. | 
+ **table** | **str**| The name of the table to add a row to (e.g., jobInfo, compensation). | 
  **table_row_update** | [**TableRowUpdate**](TableRowUpdate.md)|  | 
 
 ### Return type
@@ -86,26 +86,29 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/xml, application/json
+ - **Content-Type**: application/json, application/xml, text/xml
+ - **Accept**: Not defined
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Row added successfully. |  -  |
-**400** | Invalid or missing required fields. |  -  |
-**406** | An error with one or more of the fields. |  -  |
+**200** | Row added successfully. No response body is returned. |  -  |
+**400** | The posted JSON or XML is malformed, or required fields are missing. |  -  |
 **403** | Permission denied. |  -  |
+**404** | The employee or table does not exist. |  -  |
+**406** | One or more field values are invalid. |  -  |
+**409** | Conflict. The provided field values conflict with business rules or payroll constraints. |  -  |
+**412** | Precondition failed. The update requires an active pay schedule or other required prerequisite data. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **add_employee_table_row_v1**
-> add_employee_table_row_v1(id, table, table_row_update)
+# **create_table_row_v11**
+> create_table_row_v11(id, table, table_row_update)
 
 Create Table Row v1.1
 
-Adds a table row. Fundamentally the same as version 1 so choose a version and stay with it unless other changes occur. Changes from version 1 are now minor with a few variations limited to ACA, payroll, terminated rehire, gusto, benetrac, and final pay date.
+Add a new row to the specified employee table using the v1.1 table-row creation endpoint. Submit the new row in JSON or XML. This version is largely compatible with v1 and supports the same tabular employee data use cases.
 
 ### Example
 
@@ -141,15 +144,15 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.TabularDataApi(api_client)
-    id = 'id_example' # str | {id} is the employee ID.
-    table = 'table_example' # str | Table name
+    id = 'id_example' # str | The employee ID.
+    table = 'table_example' # str | The name of the table to add a row to (e.g., jobInfo, compensation).
     table_row_update = bamboohr_sdk.TableRowUpdate() # TableRowUpdate | 
 
     try:
         # Create Table Row v1.1
-        api_instance.add_employee_table_row_v1(id, table, table_row_update)
+        api_instance.create_table_row_v11(id, table, table_row_update)
     except Exception as e:
-        print("Exception when calling TabularDataApi->add_employee_table_row_v1: %s\n" % e)
+        print("Exception when calling TabularDataApi->create_table_row_v11: %s\n" % e)
 ```
 
 
@@ -159,8 +162,8 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| {id} is the employee ID. | 
- **table** | **str**| Table name | 
+ **id** | **str**| The employee ID. | 
+ **table** | **str**| The name of the table to add a row to (e.g., jobInfo, compensation). | 
  **table_row_update** | [**TableRowUpdate**](TableRowUpdate.md)|  | 
 
 ### Return type
@@ -173,23 +176,29 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Content-Type**: application/json, application/xml, text/xml
+ - **Accept**: Not defined
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** |  |  -  |
+**200** | Row added successfully. No response body is returned. |  -  |
+**400** | The posted JSON or XML is malformed, or required fields are missing. |  -  |
+**403** | Permission denied. |  -  |
+**404** | The employee or table does not exist. |  -  |
+**406** | One or more field values are invalid. |  -  |
+**409** | Conflict. The provided field values conflict with business rules or payroll constraints. |  -  |
+**412** | Precondition failed. The update requires an active pay schedule or other required prerequisite data. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **delete_employee_table_row_v1**
-> TableRowDeleteResponse delete_employee_table_row_v1(id, table, row_id)
+# **delete_employee_table_row**
+> TableRowDeleteResponse delete_employee_table_row(id, table, row_id)
 
-Delete Table Row
+Delete Employee Table Row
 
-Deletes a table row
+Deletes a specific row from an employee's tabular data. The table name identifies which tabular dataset to target (e.g., jobInfo, compensation, customTabularField). Returns `success: true` if the row was deleted, or `success: false` with an error message if the row was not found or could not be deleted. Deletion will fail with a 409 if the row has pending approval changes, or a 412 if the row is tied to an active pay schedule.
 
 ### Example
 
@@ -225,17 +234,17 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.TabularDataApi(api_client)
-    id = 'id_example' # str | {id} is the employee ID.
-    table = 'table_example' # str | Table name
-    row_id = 'row_id_example' # str | Row ID
+    id = 'id_example' # str | The employee ID.
+    table = 'table_example' # str | The name of the table containing the row to delete (e.g., jobInfo, compensation, customTabularField).
+    row_id = 'row_id_example' # str | The ID of the specific row to delete.
 
     try:
-        # Delete Table Row
-        api_response = api_instance.delete_employee_table_row_v1(id, table, row_id)
-        print("The response of TabularDataApi->delete_employee_table_row_v1:\n")
+        # Delete Employee Table Row
+        api_response = api_instance.delete_employee_table_row(id, table, row_id)
+        print("The response of TabularDataApi->delete_employee_table_row:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling TabularDataApi->delete_employee_table_row_v1: %s\n" % e)
+        print("Exception when calling TabularDataApi->delete_employee_table_row: %s\n" % e)
 ```
 
 
@@ -245,9 +254,9 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| {id} is the employee ID. | 
- **table** | **str**| Table name | 
- **row_id** | **str**| Row ID | 
+ **id** | **str**| The employee ID. | 
+ **table** | **str**| The name of the table containing the row to delete (e.g., jobInfo, compensation, customTabularField). | 
+ **row_id** | **str**| The ID of the specific row to delete. | 
 
 ### Return type
 
@@ -266,19 +275,21 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Respond true if the row was deleted, false if the row was not found. |  -  |
+**200** | Returns &#x60;success: true&#x60; if the row was deleted. Returns &#x60;success: false&#x60; with an error message if the row was not found or could not be deleted. |  -  |
 **400** | Bad request. Invalid employee ID or table name. |  -  |
 **401** | Unauthorized. |  -  |
-**403** | Permission denied. |  -  |
+**403** | Permission denied. The caller lacks write access to this table for the specified employee. |  -  |
+**409** | Conflict. The row has pending approval changes and cannot be deleted until they are resolved. |  -  |
+**412** | Precondition failed. The row cannot be deleted because it is tied to an active pay schedule. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_changed_employee_table_data**
-> get_changed_employee_table_data(table, since)
+> ChangedEmployeeTableDataResponse get_changed_employee_table_data(table, since)
 
 Get Changed Employee Table Data
 
-This API is merely an optimization to avoid downloading all table data for all employees. When you use this API you will provide a timestamp and the results will be limited to just the employees that have changed since the time you provided. This API operates on an employee-last-changed-timestamp, which means that a change in ANY field in the employee record will cause ALL of that employees table rows to show up via this API.
+Returns table data for employees that have changed since the given timestamp. This is an optimization to avoid downloading all table data for all employees. It operates on an employee-last-changed-timestamp, which means that a change in ANY field in the employee record will cause ALL of that employee's table rows to show up via this API. The response includes the table rows grouped by employee ID with their last-changed timestamps.
 
 ### Example
 
@@ -287,6 +298,7 @@ This API is merely an optimization to avoid downloading all table data for all e
 
 ```python
 import bamboohr_sdk
+from bamboohr_sdk.models.changed_employee_table_data_response import ChangedEmployeeTableDataResponse
 from bamboohr_sdk.rest import ApiException
 from pprint import pprint
 
@@ -313,12 +325,14 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.TabularDataApi(api_client)
-    table = 'table_example' # str | Table name
-    since = 'since_example' # str | URL encoded iso8601 timestamp
+    table = 'table_example' # str | The name of the table to retrieve changed data for (e.g., jobInfo, compensation).
+    since = '2013-10-20T19:20:30+01:00' # datetime | ISO 8601 timestamp (URL-encoded). Only employees changed since this timestamp will be returned.
 
     try:
         # Get Changed Employee Table Data
-        api_instance.get_changed_employee_table_data(table, since)
+        api_response = api_instance.get_changed_employee_table_data(table, since)
+        print("The response of TabularDataApi->get_changed_employee_table_data:\n")
+        pprint(api_response)
     except Exception as e:
         print("Exception when calling TabularDataApi->get_changed_employee_table_data: %s\n" % e)
 ```
@@ -330,12 +344,12 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **table** | **str**| Table name | 
- **since** | **str**| URL encoded iso8601 timestamp | 
+ **table** | **str**| The name of the table to retrieve changed data for (e.g., jobInfo, compensation). | 
+ **since** | **datetime**| ISO 8601 timestamp (URL-encoded). Only employees changed since this timestamp will be returned. | 
 
 ### Return type
 
-void (empty response body)
+[**ChangedEmployeeTableDataResponse**](ChangedEmployeeTableDataResponse.md)
 
 ### Authorization
 
@@ -344,22 +358,24 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/xml
+ - **Accept**: application/json, application/xml
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** |  |  -  |
+**200** | Changed table data for the specified table, grouped by employee ID. |  -  |
+**400** | The since parameter is missing or is not a valid ISO 8601 date. |  -  |
+**404** | The specified table does not exist. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_employee_table_row**
-> get_employee_table_row(id, table)
+# **get_employee_table_data**
+> List[EmployeeTableRow] get_employee_table_data(id, table, accept_header_parameter=accept_header_parameter)
 
-Get Employee Table Rows
+Get Employee Table Data
 
-Returns a data structure representing all the table rows for a given employee and table combination. The result is not sorted in any particular order.
+Returns all rows for a given employee and table combination. The result is not sorted in any particular order. Each row contains the fields defined for that table, subject to field-level permission checks. Fields the caller does not have access to are omitted from the response.
 
 ### Example
 
@@ -368,6 +384,7 @@ Returns a data structure representing all the table rows for a given employee an
 
 ```python
 import bamboohr_sdk
+from bamboohr_sdk.models.employee_table_row import EmployeeTableRow
 from bamboohr_sdk.rest import ApiException
 from pprint import pprint
 
@@ -394,14 +411,17 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.TabularDataApi(api_client)
-    id = 'id_example' # str | {id} is the employee ID.
-    table = 'table_example' # str | Table name
+    id = 'id_example' # str | The employee ID. Use the special value \"all\" to retrieve table data for all employees the API user has access to.
+    table = 'table_example' # str | The name of the table to retrieve (e.g., jobInfo, compensation, employmentStatus).
+    accept_header_parameter = 'accept_header_parameter_example' # str | This endpoint can produce either JSON or XML. (optional)
 
     try:
-        # Get Employee Table Rows
-        api_instance.get_employee_table_row(id, table)
+        # Get Employee Table Data
+        api_response = api_instance.get_employee_table_data(id, table, accept_header_parameter=accept_header_parameter)
+        print("The response of TabularDataApi->get_employee_table_data:\n")
+        pprint(api_response)
     except Exception as e:
-        print("Exception when calling TabularDataApi->get_employee_table_row: %s\n" % e)
+        print("Exception when calling TabularDataApi->get_employee_table_data: %s\n" % e)
 ```
 
 
@@ -411,12 +431,13 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| {id} is the employee ID. | 
- **table** | **str**| Table name | 
+ **id** | **str**| The employee ID. Use the special value \&quot;all\&quot; to retrieve table data for all employees the API user has access to. | 
+ **table** | **str**| The name of the table to retrieve (e.g., jobInfo, compensation, employmentStatus). | 
+ **accept_header_parameter** | **str**| This endpoint can produce either JSON or XML. | [optional] 
 
 ### Return type
 
-void (empty response body)
+[**List[EmployeeTableRow]**](EmployeeTableRow.md)
 
 ### Authorization
 
@@ -425,22 +446,23 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/xml
+ - **Accept**: application/json, application/xml
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** |  |  -  |
+**200** | All rows for the specified employee and table. |  -  |
+**404** | The employee or table does not exist. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **update_employee_table_row**
-> update_employee_table_row(id, table, row_id, table_row_update)
+# **update_table_row**
+> update_table_row(id, table, row_id, table_row_update)
 
 Update Table Row
 
-Updates a table row. If employee is currently on a pay schedule syncing with Trax Payroll, or being added to one, the row cannot be added if they are missing any required fields for that table. If the API user is updating a row on the compensation table, the row cannot be updated if they are missing any of the required employee fields (including fields not on that table).
+Update an existing row in the specified employee table by submitting field name/value pairs for the fields to change in JSON or XML.
 
 ### Example
 
@@ -476,16 +498,16 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.TabularDataApi(api_client)
-    id = 'id_example' # str | {id} is the employee ID.
-    table = 'table_example' # str | Table name
-    row_id = 'row_id_example' # str | Row ID
+    id = 'id_example' # str | The employee ID.
+    table = 'table_example' # str | The name of the table containing the row to update (e.g., jobInfo, compensation).
+    row_id = 'row_id_example' # str | The ID of the row to update.
     table_row_update = bamboohr_sdk.TableRowUpdate() # TableRowUpdate | 
 
     try:
         # Update Table Row
-        api_instance.update_employee_table_row(id, table, row_id, table_row_update)
+        api_instance.update_table_row(id, table, row_id, table_row_update)
     except Exception as e:
-        print("Exception when calling TabularDataApi->update_employee_table_row: %s\n" % e)
+        print("Exception when calling TabularDataApi->update_table_row: %s\n" % e)
 ```
 
 
@@ -495,9 +517,9 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| {id} is the employee ID. | 
- **table** | **str**| Table name | 
- **row_id** | **str**| Row ID | 
+ **id** | **str**| The employee ID. | 
+ **table** | **str**| The name of the table containing the row to update (e.g., jobInfo, compensation). | 
+ **row_id** | **str**| The ID of the row to update. | 
  **table_row_update** | [**TableRowUpdate**](TableRowUpdate.md)|  | 
 
 ### Return type
@@ -510,26 +532,29 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/xml, application/json
+ - **Content-Type**: application/json, application/xml, text/xml
+ - **Accept**: Not defined
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | A successful response is possible even if one or more updates were dis-allowed because of permissions. As long as a single field is updated a 200 response will be returned. |  -  |
-**400** | Invalid or missing required fields. |  -  |
-**406** | An error with one or more of the fields. |  -  |
+**200** | Row updated successfully. A 200 response is returned as long as at least one field was updated, even if some fields were skipped due to permissions. No response body is returned. |  -  |
+**400** | The posted JSON or XML is malformed, or required fields are missing. |  -  |
 **403** | Permission denied. |  -  |
+**404** | The employee, table, or row does not exist. |  -  |
+**406** | One or more field values are invalid. |  -  |
+**409** | Conflict. The provided field values conflict with business rules or payroll constraints. |  -  |
+**412** | Precondition failed. The update requires an active pay schedule or other required prerequisite data. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **update_employee_table_row_v**
-> update_employee_table_row_v(id, table, row_id, table_row_update)
+# **update_table_row_v11**
+> update_table_row_v11(id, table, row_id, table_row_update)
 
 Update Table Row v1.1
 
-Updates a table row. Fundamentally the same as version 1 so choose a version and stay with it unless other changes occur. Changes from version 1 are now minor with a few variations limited to ACA, payroll, terminated rehire, gusto, benetrac, and final pay date.
+Update an existing row in the specified employee table using the v1.1 table-row update endpoint. Submit the field changes in JSON or XML. This version is largely compatible with v1 and is intended for the same tabular employee data use cases.
 
 ### Example
 
@@ -565,16 +590,16 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.TabularDataApi(api_client)
-    id = 'id_example' # str | {id} is the employee ID.
-    table = 'table_example' # str | Table name
-    row_id = 'row_id_example' # str | Row ID
+    id = 'id_example' # str | The employee ID.
+    table = 'table_example' # str | The name of the table containing the row to update (e.g., jobInfo, compensation).
+    row_id = 'row_id_example' # str | The ID of the row to update.
     table_row_update = bamboohr_sdk.TableRowUpdate() # TableRowUpdate | 
 
     try:
         # Update Table Row v1.1
-        api_instance.update_employee_table_row_v(id, table, row_id, table_row_update)
+        api_instance.update_table_row_v11(id, table, row_id, table_row_update)
     except Exception as e:
-        print("Exception when calling TabularDataApi->update_employee_table_row_v: %s\n" % e)
+        print("Exception when calling TabularDataApi->update_table_row_v11: %s\n" % e)
 ```
 
 
@@ -584,9 +609,9 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| {id} is the employee ID. | 
- **table** | **str**| Table name | 
- **row_id** | **str**| Row ID | 
+ **id** | **str**| The employee ID. | 
+ **table** | **str**| The name of the table containing the row to update (e.g., jobInfo, compensation). | 
+ **row_id** | **str**| The ID of the row to update. | 
  **table_row_update** | [**TableRowUpdate**](TableRowUpdate.md)|  | 
 
 ### Return type
@@ -599,17 +624,20 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/xml, application/json
+ - **Content-Type**: application/json, application/xml, text/xml
+ - **Accept**: Not defined
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | A successful response is possible even if one or more updates were dis-allowed because of permissions. As long as a single field is updated a 200 response will be returned. |  -  |
-**400** | Invalid or missing required fields. |  -  |
-**406** | An error with one or more of the fields. |  -  |
+**200** | Row updated successfully. A 200 response is returned as long as at least one field was updated, even if some fields were skipped due to permissions. No response body is returned. |  -  |
+**400** | The posted JSON or XML is malformed, or required fields are missing. |  -  |
 **403** | Permission denied. |  -  |
+**404** | The employee, table, or row does not exist. |  -  |
+**406** | One or more field values are invalid. |  -  |
+**409** | Conflict. The provided field values conflict with business rules or payroll constraints. |  -  |
+**412** | Precondition failed. The update requires an active pay schedule or other required prerequisite data. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

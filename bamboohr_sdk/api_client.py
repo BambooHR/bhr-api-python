@@ -41,6 +41,7 @@ from bamboohr_sdk.exceptions import (
     PermissionDeniedException,
     ResourceNotFoundException,
     InternalServerErrorException,
+    ServerException
 )
 
 logger = logging.getLogger("bamboohr_sdk")
@@ -135,6 +136,7 @@ class ApiClient:
     def last_request_id(self) -> Optional[str]:
         """Return the most recent ``x-request-id`` from an API response."""
         return self._request_id_middleware.last_request_id
+
 
     _default = None
 

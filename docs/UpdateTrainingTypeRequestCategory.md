@@ -8,8 +8,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** | Category ID | [optional] 
 **name** | **str** | Category Name | [optional] 
-**accuracy** | **int** | Accuracy in meters of the clock in location | [optional] 
-**address** | **str** | Address... | [optional] 
 
 ## Example
 

@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**plan_id** | **str** | The benefit plan ID | [optional] 
+**plan_id** | **str** | The benefit plan ID. | [optional] 
 **date_ranges** | [**List[MemberBenefitsGetSuccessResponseDataInnerPlansInnerDateRangesInner]**](MemberBenefitsGetSuccessResponseDataInnerPlansInnerDateRangesInner.md) |  | [optional] 
 
 ## Example

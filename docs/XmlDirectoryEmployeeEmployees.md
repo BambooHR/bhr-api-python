@@ -1,6 +1,6 @@
 # XmlDirectoryEmployeeEmployees
 
-Employee records
+Employee records.
 
 ## Properties
 

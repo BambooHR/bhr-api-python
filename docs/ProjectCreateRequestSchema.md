@@ -6,10 +6,10 @@ Schema for creating a new time tracking project with optional tasks
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** | Name of the project. | 
+**name** | **str** | Name of the project. Must be unique and no more than 50 characters. | 
 **billable** | **bool** | Indicates if the project is billable. Defaults to true if not provided. | [optional] 
 **allow_all_employees** | **bool** | Indicates if all employees can log time for this project. Defaults to true if not provided. | [optional] 
-**employee_ids** | **List[int]** | A list of employee IDs that can log time for this project. | [optional] 
+**employee_ids** | **List[int]** | A list of employee IDs that can log time for this project. Only used when &#x60;allowAllEmployees&#x60; is false. | [optional] 
 **has_tasks** | **bool** | Indicates if the project has tasks. Defaults to false if not provided. | [optional] 
 **tasks** | [**List[TaskCreateSchema]**](TaskCreateSchema.md) | List of tasks to create and associate with the project. | [optional] 
 

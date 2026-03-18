@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** |  | [optional] 
-**name** | **str** |  | [optional] 
-**alias** | **str** |  | [optional] 
+**id** | **str** | The field ID, returned as a string. | [optional] 
+**name** | **str** | The human-readable field name. | [optional] 
+**alias** | **str** | The field alias used in the BambooHR API (e.g. &#x60;firstName&#x60;). Null if no alias is defined for this field. | [optional] 
 
 ## Example
 

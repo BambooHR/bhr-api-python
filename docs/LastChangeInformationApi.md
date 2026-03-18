@@ -4,15 +4,15 @@ All URIs are relative to *https://companySubDomain.bamboohr.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_changed_employee_ids**](LastChangeInformationApi.md#get_changed_employee_ids) | **GET** /api/v1/employees/changed | Get Updated Employee IDs
+[**get_changed_employee_ids**](LastChangeInformationApi.md#get_changed_employee_ids) | **GET** /api/v1/employees/changed | Get Changed Employee IDs
 
 
 # **get_changed_employee_ids**
-> get_changed_employee_ids(since, type=type)
+> ChangedEmployeeIdsResponse get_changed_employee_ids(since, type=type)
 
-Get Updated Employee IDs
+Get Changed Employee IDs
 
-This API allows for efficient syncing of employee data. When you use this API you will provide a timestamp and the results will be limited to just the employees that have changed since the time you provided. This API operates on an employee-last-changed-timestamp, which means that a change in ANY individual field in the employee record, as well as any change to the employment status, job info, or compensation tables, will cause that employee to be returned via this API.
+Returns a list of employee IDs that have changed since the given timestamp. This allows for efficient syncing of employee data — rather than downloading all employees, only those that have changed are returned. A change in ANY individual field in the employee record, as well as any change to the employment status, job info, or compensation tables, will cause that employee to be returned. Each entry includes the employee ID, the type of change (Inserted, Updated, or Deleted), and the last-changed timestamp.
 
 ### Example
 
@@ -21,6 +21,7 @@ This API allows for efficient syncing of employee data. When you use this API yo
 
 ```python
 import bamboohr_sdk
+from bamboohr_sdk.models.changed_employee_ids_response import ChangedEmployeeIdsResponse
 from bamboohr_sdk.rest import ApiException
 from pprint import pprint
 
@@ -47,12 +48,14 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.LastChangeInformationApi(api_client)
-    since = 'since_example' # str | URL encoded iso8601 timestamp
-    type = 'type_example' # str | Use one of these in the {type} variable in the URL: \"inserted\", \"updated\", \"deleted\" (optional)
+    since = '2013-10-20T19:20:30+01:00' # datetime | ISO 8601 timestamp (URL-encoded). Only employees changed since this timestamp will be returned.
+    type = 'type_example' # str | Filter by change type. If omitted, all change types are returned. (optional)
 
     try:
-        # Get Updated Employee IDs
-        api_instance.get_changed_employee_ids(since, type=type)
+        # Get Changed Employee IDs
+        api_response = api_instance.get_changed_employee_ids(since, type=type)
+        print("The response of LastChangeInformationApi->get_changed_employee_ids:\n")
+        pprint(api_response)
     except Exception as e:
         print("Exception when calling LastChangeInformationApi->get_changed_employee_ids: %s\n" % e)
 ```
@@ -64,12 +67,12 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **since** | **str**| URL encoded iso8601 timestamp | 
- **type** | **str**| Use one of these in the {type} variable in the URL: \&quot;inserted\&quot;, \&quot;updated\&quot;, \&quot;deleted\&quot; | [optional] 
+ **since** | **datetime**| ISO 8601 timestamp (URL-encoded). Only employees changed since this timestamp will be returned. | 
+ **type** | **str**| Filter by change type. If omitted, all change types are returned. | [optional] 
 
 ### Return type
 
-void (empty response body)
+[**ChangedEmployeeIdsResponse**](ChangedEmployeeIdsResponse.md)
 
 ### Authorization
 
@@ -78,13 +81,14 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/xml
+ - **Accept**: application/json, application/xml
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** |  |  -  |
+**200** | The latest change timestamp in the result set and a map of employees changed since the given timestamp. |  -  |
+**400** | The since parameter is missing, is not a valid ISO 8601 date, or the type parameter is invalid. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

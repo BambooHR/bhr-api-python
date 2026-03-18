@@ -6,8 +6,8 @@ The category ID and name
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** |  | [optional] 
-**name** | **str** |  | [optional] 
+**id** | **int** | The ID of the training category. | [optional] 
+**name** | **str** | The name of the training category. | [optional] 
 
 ## Example
 

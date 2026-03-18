@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**employee_id** | **int** | The employeeId of the potential hiring lead | [optional] 
-**preferred_full_name** | **str** | The preferred full name of the potential hiring lead | [optional] 
+**employee_id** | **int** | The employee ID to use as the &#x60;hiringLead&#x60; value in the Create Job Opening request | [optional] 
+**preferred_full_name** | **str** | The employee&#39;s preferred full name | [optional] 
 
 ## Example
 

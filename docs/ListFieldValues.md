@@ -1,11 +1,12 @@
 # ListFieldValues
 
+Payload for creating, updating, or archiving options on a list field.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**options** | [**List[ListFieldValuesOptionsInner]**](ListFieldValuesOptionsInner.md) |  | [optional] 
+**options** | [**List[ListFieldValuesOptionsInner]**](ListFieldValuesOptionsInner.md) | The list field options to create, update, or archive. | [optional] 
 
 ## Example
 

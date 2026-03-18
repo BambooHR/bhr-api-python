@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**href** | **str** | URL for the next page | [optional] 
+**href** | **str** | URL for the next page of results. Points to the current page when already on the last page. | [optional] 
 
 ## Example
 

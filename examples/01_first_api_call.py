@@ -22,10 +22,10 @@ import os
 from bamboohr_sdk.client import BambooHRClient
 from bamboohr_sdk.exceptions import (
     ApiException,
+    AuthenticationFailedException,
     BadRequestException,
-    ForbiddenException,
-    NotFoundException,
-    UnauthorizedException,
+    PermissionDeniedException,
+    ResourceNotFoundException,
 )
 
 # ---------------------------------------------------------------------------
@@ -76,18 +76,18 @@ try:
 # The SDK raises specific exceptions for each HTTP error type, making it
 # easy to handle different failure modes appropriately.
 
-except UnauthorizedException:
+except AuthenticationFailedException:
     print("Authentication failed!")
     print("  - Verify your API key is correct")
     print("  - Ensure your company subdomain is correct")
     print(f"  - Current subdomain: '{company}'")
 
-except ForbiddenException:
+except PermissionDeniedException:
     print("Permission denied!")
     print("  - Your API key may lack the required permissions")
     print("  - Contact your BambooHR administrator")
 
-except NotFoundException:
+except ResourceNotFoundException:
     print("Resource not found!")
     print(f"  - Verify the company subdomain '{company}' is correct")
 

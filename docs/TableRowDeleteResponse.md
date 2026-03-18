@@ -5,7 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**sucess** | **bool** |  | [optional] 
+**success** | **bool** | Whether the row was successfully deleted. | [optional] 
+**error** | **str** | Error message when success is false. Absent when success is true. | [optional] 
 
 ## Example
 

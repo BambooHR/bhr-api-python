@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **alias** | **str** | Field identifier used in the API | 
 **name** | **str** | Field name | 
 **type** | **str** | Field type | 
-**id** | **int** | Field ID | 
-**page_id** | **int** | ID of the page the field belongs to. This will always be present, as fields without a page id are disabled and not usable in webhooks. | 
+**id** | **int** | Field ID. This may be a standard/custom field ID or a synthetic negative ID for calculated fields. | 
+**page_id** | **int** | ID of the page the field belongs to. Calculated fields may use &#x60;-1&#x60;. Fields without a usable page ID are not available in webhooks. | 
 **table_id** | **int** | ID of the table the field belongs to | 
 
 ## Example

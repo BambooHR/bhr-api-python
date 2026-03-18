@@ -7,8 +7,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** | Status ID | [optional] 
 **label** | **str** | Status name | [optional] 
-**date_changed** | **datetime** | Date when status was last changed | [optional] 
-**changed_by_user** | **int** | ID of the user who changed the status | [optional] 
+**date_changed** | **datetime** | ISO 8601 datetime when status was last changed | [optional] 
+**changed_by_user** | [**ApplicationDetailsStatusChangedByUser**](ApplicationDetailsStatusChangedByUser.md) |  | [optional] 
 
 ## Example
 

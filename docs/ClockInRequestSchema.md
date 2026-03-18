@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **start** | **str** | The time for the clock in. In 24 hour format HH:MM | [optional] 
 **timezone** | **str** | The timezone associated with the clock in. | [optional] 
 **break_id** | **str** | ID of the break that should be associated with the timesheet entry. | [optional] 
+**offline** | **bool** | Whether this is an offline punch. When true, bypasses the shift schedule clock-in restriction. Intended for devices that store punches offline and sync later. | [optional] 
 
 ## Example
 
