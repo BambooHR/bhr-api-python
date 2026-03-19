@@ -1,0 +1,33 @@
+# ServerException
+
+**Module**: `bamboohr_sdk.exceptions`
+**Extends**: `ApiException`
+
+## Description
+
+Base class for all server-side (5xx) exceptions.
+
+## Usage
+
+```python
+from bamboohr_sdk.exceptions import ServerException
+
+try:
+    # API call that might fail with a 5xx status code
+    client.employees().get_employees_directory()
+except ServerException as e:
+    # Handle any server error exception
+    print(f"{type(e).__name__}: {e.status} {e.reason}")
+```
+
+## Server Exception Types
+
+The following specific exception types extend `ServerException`:
+
+- [InternalServerErrorException](InternalServerErrorException.md)
+- [NotImplementedException](NotImplementedException.md)
+- [BadGatewayException](BadGatewayException.md)
+- [ServiceUnavailableException](ServiceUnavailableException.md)
+- [GatewayTimeoutException](GatewayTimeoutException.md)
+- [InsufficientStorageException](InsufficientStorageException.md)
+- [NetworkReadTimeoutException](NetworkReadTimeoutException.md)

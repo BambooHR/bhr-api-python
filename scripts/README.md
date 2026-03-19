@@ -53,3 +53,60 @@ python scripts/cleanup_obsolete_files.py --force
 **First Run:** On the first run there will be no `.openapi-generator/FILES.old` backup,
 so the script will skip cleanup. This is expected. Subsequent runs will properly detect
 and remove obsolete files.
+
+## generate_exceptions.py
+
+**Purpose:** Generates the specific exception classes in `bamboohr_sdk/exceptions.py`
+from the `ERROR_MESSAGES` catalog defined in `bamboohr_sdk/api_error_helper.py`.
+
+**Usage:** Called automatically by `make generate` (via `post_generate.py`). Can also be run manually:
+
+```bash
+python scripts/generate_exceptions.py
+```
+
+## generate_error_docs.py
+
+**Purpose:** Generates exception documentation in `docs/Exceptions/` from the error catalog
+and mustache templates in `templates-python/`.
+
+**Generates:**
+
+- `docs/Exceptions/Exceptions.md` — index of all exception classes
+- `docs/Exceptions/Classes/<Name>Exception.md` — per-exception docs with causes and tips
+- `docs/Exceptions/Classes/ApiException.md` — base exception documentation
+- `docs/Exceptions/Classes/ClientException.md` — client exception base documentation
+- `docs/Exceptions/Classes/ServerException.md` — server exception base documentation
+
+**Templates used** (from `templates-python/`):
+
+- `error_codes_doc.mustache` — index page template
+- `exception_doc.mustache` — per-exception page template
+- `api_exception_doc.mustache` — ApiException page template
+- `client_exception_doc.mustache` — ClientException page template
+- `server_exception_doc.mustache` — ServerException page template
+
+**Usage:** Called automatically by `make generate` (via `post_generate.py`). Can also be run manually:
+
+```bash
+python scripts/generate_error_docs.py
+```
+
+**Dependency:** Requires `chevron` (Mustache renderer). Installed automatically with `pip install -e ".[dev]"`.
+
+## update_error_docs.py
+
+**Purpose:** Orchestrates both exception generation scripts in the correct order:
+
+1. `generate_exceptions.py` — updates exception classes in `bamboohr_sdk/exceptions.py`
+2. `generate_error_docs.py` — generates documentation in `docs/Exceptions/`
+
+**Usage:** Called automatically by `make generate` (via `post_generate.py`). Can also be run manually:
+
+```bash
+python scripts/update_error_docs.py
+# or
+make generate-error-docs
+```
+
+**Reference:** PHP SDK `scripts/update_error_docs.sh`

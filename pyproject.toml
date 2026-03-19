@@ -43,6 +43,7 @@ Repository = "https://github.com/BambooHR/bhr-api-python"
 
 [project.optional-dependencies]
 dev = [
+    "chevron>=0.14",
     "mypy>=1.8",
     "pytest>=8.0",
     "pytest-cov>=4.0",

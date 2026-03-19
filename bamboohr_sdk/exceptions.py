@@ -599,6 +599,11 @@ _STATUS_TO_EXCEPTION_CLASS: dict[int, type[ApiException]] = {
 
 
 
+# ---------------------------------------------------------------------------
+# Backward-compatible aliases
+# ---------------------------------------------------------------------------
+# Add any backward-compatible aliases here if exception classes are renamed.
+
 
 # Common header names that may contain a request ID
 _REQUEST_ID_HEADERS = (

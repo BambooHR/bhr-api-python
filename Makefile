@@ -15,7 +15,7 @@ DEVELOPER_URL = https://github.com/BambooHR/bhr-api-python
 DEVELOPER = BambooHR
 LICENSE_NAME = MIT
 
-.PHONY: help generate clean cleanup-obsolete test lint typecheck format
+.PHONY: help generate clean cleanup-obsolete generate-error-docs test lint typecheck format
 
 help:
 	@echo "BambooHR API Python SDK - Available commands:"
@@ -52,6 +52,11 @@ cleanup-obsolete:
 	@echo "Running cleanup of obsolete files..."
 	$(PYTHON) scripts/cleanup_obsolete_files.py
 	@echo "Cleanup complete!"
+
+generate-error-docs:
+	@echo "Updating exception classes and documentation..."
+	$(PYTHON) scripts/update_error_docs.py
+	@echo "Error docs update complete!"
 
 clean:
 	@echo "Cleaning generated files..."
