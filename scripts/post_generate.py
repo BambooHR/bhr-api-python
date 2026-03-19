@@ -327,6 +327,28 @@ def cleanup_obsolete_files() -> None:
         print(f"  Warning: {result.stderr.strip()}")
 
 
+def update_error_docs() -> None:
+    """Update exception classes and generate exception documentation."""
+    print("Updating exception classes and documentation...")
+
+    update_script = PROJECT_ROOT / "scripts" / "update_error_docs.py"
+    if not update_script.exists():
+        print("  Warning: update_error_docs.py not found, skipping")
+        return
+
+    result = subprocess.run(
+        [sys.executable, str(update_script)],
+        capture_output=True,
+        text=True,
+        cwd=PROJECT_ROOT,
+    )
+    print(result.stdout.strip())
+    if result.returncode != 0:
+        print(f"  Warning: update_error_docs.py returned {result.returncode}")
+        if result.stderr:
+            print(f"  {result.stderr.strip()}")
+
+
 def main() -> int:
     print("Running post-generation pipeline...")
 
@@ -335,6 +357,7 @@ def main() -> int:
     format_generated_code()
     fix_model_types()
     add_custom_headers_to_docs()
+    update_error_docs()
     cleanup_obsolete_files()
 
     print("Post-generation pipeline complete!")

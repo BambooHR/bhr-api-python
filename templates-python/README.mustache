@@ -110,6 +110,95 @@ Class | Method | HTTP request | Description
 {{#models}}{{#model}}- [{{{classname}}}]({{modelDocPath}}{{{classname}}}.md)
 {{/model}}{{/models}}
 
+## Exceptions
+
+- [Exceptions](docs/Exceptions/Exceptions.md) - Information about exceptions, potential causes, and debugging tips
+
+## Troubleshooting
+
+### Common Errors
+
+#### Authentication Errors (401)
+
+**Symptom:** `AuthenticationFailedException` on every request.
+
+**Solutions:**
+- **API key:** Verify your key is correct and not disabled. The SDK sends it as HTTP Basic auth with `"x"` as the password — this is handled automatically.
+- **OAuth:** Check that your access token hasn't expired. Use `with_oauth_refresh()` for automatic token renewal.
+- **Company subdomain:** Ensure `for_company()` matches your BambooHR subdomain exactly (e.g., if your URL is `acme.bamboohr.com`, use `"acme"`).
+
+#### Permission Errors (403)
+
+**Symptom:** `PermissionDeniedException` for specific endpoints.
+
+**Solutions:**
+- Verify the API key or OAuth token has access to the requested resource.
+- Contact your BambooHR administrator to review API access permissions.
+- Check if IP restrictions are in place for API access.
+
+#### Rate Limiting (429)
+
+**Symptom:** `RateLimitExceededException` during batch operations.
+
+**Solutions:**
+- The SDK automatically retries on 429 responses with exponential backoff. Increase retries:
+  ```python
+  client = BambooHRClient().with_retries(5).for_company("acme").build()
+  ```
+- Add delays between batch requests: `time.sleep(0.1)` between calls.
+- Check the `Retry-After` response header for server guidance.
+
+### Network Troubleshooting
+
+#### Connection Timeouts
+
+**Symptom:** Requests hang or fail with timeout errors.
+
+**Solutions:**
+- Configure a timeout:
+  ```python
+  client = BambooHRClient().with_timeout(30.0).for_company("acme").build()
+  ```
+- Check your network connection and firewall settings.
+- Verify that `*.bamboohr.com` is accessible from your network.
+
+#### SSL/TLS Errors
+
+**Symptom:** SSL certificate verification failures.
+
+**Solutions:**
+- Ensure your Python installation has up-to-date CA certificates: `pip install --upgrade certifi`
+- If behind a corporate proxy, your IT team may need to add the proxy's CA certificate to your trust store.
+- **Do not** disable SSL verification in production.
+
+#### Proxy Configuration
+
+If you're behind a corporate proxy, configure it via environment variables:
+
+```bash
+export HTTPS_PROXY=https://proxy.example.com:8080
+```
+
+### Enabling Debug Logging
+
+Enable detailed request/response logging to diagnose issues:
+
+```python
+import logging
+logging.basicConfig(level=logging.DEBUG)
+logging.getLogger("bamboohr_sdk").setLevel(logging.DEBUG)
+```
+
+This will log request URLs, response status codes, retry attempts, and token refresh events. Sensitive data (API keys, tokens, Authorization headers) is automatically redacted.
+
+### Getting Help
+
+When reporting issues, include:
+- The **request ID** from the exception (`e.request_id`) — this helps BambooHR support trace the request.
+- The **HTTP status code** and error message.
+- The **SDK version** (`pip show bamboohr-sdk`).
+- Debug log output (sensitive data is auto-redacted).
+
 ## Project Structure
 
 ```
@@ -196,18 +285,51 @@ specified by the `OPENAPI_SPEC_PATH` environment variable.
 make generate
 ```
 
-If you need to make changes to generated code, update the corresponding template in
-`templates-python/` and run `make generate` to regenerate. To update the README, edit
-`templates-python/README.mustache` and regenerate — do not edit `README.md` directly.
+### Manual changes to the auto-generated code
 
-The following files are **not** auto-generated and are protected from regeneration:
+If you need to make manual changes to the auto-generated code, update the corresponding template in the `templates-python` directory and run `make generate` to regenerate the SDK. We have customized several templates to add SDK-specific features.
 
-- `bamboohr_sdk/client/` — custom API client and authentication
-- `bamboohr_sdk/api_helper.py` — retry logic and logging
-- `bamboohr_sdk/api_error_helper.py` — error catalog and exception factory
-- `bamboohr_sdk/api/manual_api.py` — hand-written API for custom requests
-- `tests/` — hand-written tests
-- `examples/` — usage examples
+The following templates in `templates-python/` have been modified from the OpenAPI Generator defaults:
+
+| Template | Modifications | Rationale |
+|----------|--------------|-----------|
+| `api.mustache` | Custom retry logic, secure logging, request ID extraction, void endpoint handling | Production-ready API calls with automatic retries and debugging support |
+| `api_client.mustache` | HTTPS enforcement, custom User-Agent header, middleware pipeline | Security (HTTPS-only) and observability (request tracing) |
+| `configuration.mustache` | HTTPS URL enforcement, retry configuration, custom defaults | Prevent accidental plaintext HTTP, sane retry defaults |
+| `exceptions.mustache` | Status-specific exception hierarchy, `potential_causes()`/`debugging_tips()` methods, request ID support | Developer-friendly error handling with built-in troubleshooting |
+| `README.mustache` | Complete custom README with troubleshooting and manual change tracking | Developer experience and onboarding |
+| `api_test.mustache` | Test stub customizations | Consistent test structure |
+
+Nearly all files under `bamboohr_sdk/api/`, `bamboohr_sdk/models/`, `test/`, and `docs/` are generated by the `make generate` command, with the following exceptions protected via `.openapi-generator-ignore`:
+
+| File/Directory | Purpose | Why it's protected |
+|---------------|---------|-------------------|
+| `bamboohr_sdk/client/` | Fluent API client, auth builder, token manager, OAuth2 middleware, secure logger | Core SDK experience — all auth, retry, and logging logic lives here |
+| `bamboohr_sdk/api_helper.py` | Retry logic with exponential backoff, secure request/response logging | Heavily customized from generator default — handles retry strategy and log redaction |
+| `bamboohr_sdk/api_error_helper.py` | Error catalog mapping HTTP status codes to exception classes with causes/tips | Hand-written error metadata — regenerate exception classes via `scripts/generate_exceptions.py` |
+| `bamboohr_sdk/api/manual_api.py` | Hand-written API class for endpoints not covered by the OpenAPI spec | Supplements auto-generated APIs |
+| `tests/` | Hand-written unit and integration tests | Protected separately from auto-generated `test/` stubs |
+| `examples/` | Usage examples and getting started code | Documentation — not generated |
+
+Custom descriptions for some API docs are added in the `scripts/post_generate.py` script, which is run as part of the `make generate` command.
+
+*Note: regeneration will not force an overwrite of tests in the `test/` directory, unless tests are deleted first.*
+
+### Generating Error Documentation
+
+The error documentation is automatically generated from the error messages defined in `api_error_helper.py`. To update the documentation when error messages are added or modified, run:
+
+```bash
+make generate-error-docs
+```
+
+Note that this script will also run as part of the `make generate` command.
+
+This will:
+
+1. Regenerate exception classes in `bamboohr_sdk/exceptions.py`
+2. Regenerate the `docs/Exceptions/Exceptions.md` file with the latest error information
+3. Generate exception documentation in `docs/Exceptions/Classes/`
 
 ## Contributing
 
@@ -221,9 +343,20 @@ ruff check bamboohr_sdk/ tests/
 
 ## Support
 
-- **API documentation:** [documentation.bamboohr.com](https://documentation.bamboohr.com/docs/getting-started)
-- **Issues:** [GitHub Issues](https://github.com/BambooHR/bhr-api-python/issues)
-- **BambooHR support:** [support.bamboohr.com](https://support.bamboohr.com)
+If you encounter any issues or need assistance with this SDK, please contact us through one of these channels:
+
+- **Documentation**: Refer to the [official documentation](https://documentation.bamboohr.com/docs/getting-started)
+- **Community**: Check existing issues and discussions for similar problems
+- **Issue Tracker**: Submit bugs and feature requests through our [GitHub issue tracker](https://github.com/BambooHR/bhr-api-python/issues)
+
+## About this package
+
+This Python package is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
+
+- API version: `{{appVersion}}`
+- Package version: `{{packageVersion}}`
+- Generator version: `{{generatorVersion}}`
+- Build package: `{{generatorClass}}`
 
 ## License
 
