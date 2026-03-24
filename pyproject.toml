@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "bamboohr-sdk"
+name = "bamboohr-python"
 version = "1.0.0"
 description = "Official Python SDK for the BambooHR API"
 readme = "README.md"

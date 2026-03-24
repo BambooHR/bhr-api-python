@@ -44,7 +44,7 @@ class WebhookEventsApi:
     @validate_call
     def company_deleted_webhook(
         self,
-        company_deleted_webhook_payload:  = None,
+        company_deleted_webhook_payload: Optional[CompanyDeletedWebhookPayload] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -114,7 +114,7 @@ class WebhookEventsApi:
     @validate_call
     def company_deleted_webhook_with_http_info(
         self,
-        company_deleted_webhook_payload:  = None,
+        company_deleted_webhook_payload: Optional[CompanyDeletedWebhookPayload] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -183,7 +183,7 @@ class WebhookEventsApi:
     @validate_call
     def company_deleted_webhook_without_preload_content(
         self,
-        company_deleted_webhook_payload:  = None,
+        company_deleted_webhook_payload: Optional[CompanyDeletedWebhookPayload] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -317,7 +317,7 @@ class WebhookEventsApi:
     @validate_call
     def company_integrations_updated_webhook(
         self,
-        company_integrations_updated_webhook_payload:  = None,
+        company_integrations_updated_webhook_payload: Optional[CompanyIntegrationsUpdatedWebhookPayload] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -387,7 +387,7 @@ class WebhookEventsApi:
     @validate_call
     def company_integrations_updated_webhook_with_http_info(
         self,
-        company_integrations_updated_webhook_payload:  = None,
+        company_integrations_updated_webhook_payload: Optional[CompanyIntegrationsUpdatedWebhookPayload] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -456,7 +456,7 @@ class WebhookEventsApi:
     @validate_call
     def company_integrations_updated_webhook_without_preload_content(
         self,
-        company_integrations_updated_webhook_payload:  = None,
+        company_integrations_updated_webhook_payload: Optional[CompanyIntegrationsUpdatedWebhookPayload] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -590,7 +590,7 @@ class WebhookEventsApi:
     @validate_call
     def company_updated_webhook(
         self,
-        company_updated_webhook_payload:  = None,
+        company_updated_webhook_payload: Optional[CompanyUpdatedWebhookPayload] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -660,7 +660,7 @@ class WebhookEventsApi:
     @validate_call
     def company_updated_webhook_with_http_info(
         self,
-        company_updated_webhook_payload:  = None,
+        company_updated_webhook_payload: Optional[CompanyUpdatedWebhookPayload] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -729,7 +729,7 @@ class WebhookEventsApi:
     @validate_call
     def company_updated_webhook_without_preload_content(
         self,
-        company_updated_webhook_payload:  = None,
+        company_updated_webhook_payload: Optional[CompanyUpdatedWebhookPayload] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -863,7 +863,7 @@ class WebhookEventsApi:
     @validate_call
     def employee_created_webhook(
         self,
-        employee_created_webhook_payload:  = None,
+        employee_created_webhook_payload: Optional[EmployeeCreatedWebhookPayload] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -933,7 +933,7 @@ class WebhookEventsApi:
     @validate_call
     def employee_created_webhook_with_http_info(
         self,
-        employee_created_webhook_payload:  = None,
+        employee_created_webhook_payload: Optional[EmployeeCreatedWebhookPayload] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1002,7 +1002,7 @@ class WebhookEventsApi:
     @validate_call
     def employee_created_webhook_without_preload_content(
         self,
-        employee_created_webhook_payload:  = None,
+        employee_created_webhook_payload: Optional[EmployeeCreatedWebhookPayload] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1136,7 +1136,7 @@ class WebhookEventsApi:
     @validate_call
     def employee_deleted_webhook(
         self,
-        employee_deleted_webhook_payload:  = None,
+        employee_deleted_webhook_payload: Optional[EmployeeDeletedWebhookPayload] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1206,7 +1206,7 @@ class WebhookEventsApi:
     @validate_call
     def employee_deleted_webhook_with_http_info(
         self,
-        employee_deleted_webhook_payload:  = None,
+        employee_deleted_webhook_payload: Optional[EmployeeDeletedWebhookPayload] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1275,7 +1275,7 @@ class WebhookEventsApi:
     @validate_call
     def employee_deleted_webhook_without_preload_content(
         self,
-        employee_deleted_webhook_payload:  = None,
+        employee_deleted_webhook_payload: Optional[EmployeeDeletedWebhookPayload] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1409,7 +1409,7 @@ class WebhookEventsApi:
     @validate_call
     def employee_updated_webhook(
         self,
-        employee_updated_webhook_payload:  = None,
+        employee_updated_webhook_payload: Optional[EmployeeUpdatedWebhookPayload] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1479,7 +1479,7 @@ class WebhookEventsApi:
     @validate_call
     def employee_updated_webhook_with_http_info(
         self,
-        employee_updated_webhook_payload:  = None,
+        employee_updated_webhook_payload: Optional[EmployeeUpdatedWebhookPayload] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1548,7 +1548,7 @@ class WebhookEventsApi:
     @validate_call
     def employee_updated_webhook_without_preload_content(
         self,
-        employee_updated_webhook_payload:  = None,
+        employee_updated_webhook_payload: Optional[EmployeeUpdatedWebhookPayload] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],

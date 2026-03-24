@@ -18,7 +18,7 @@ Demonstrates:
     - Reusable client across operations
 
 Prerequisites:
-    - pip install bamboohr-sdk
+    - pip install bamboohr-python
 
 Usage:
     export BAMBOO_COMPANY="yourcompany"

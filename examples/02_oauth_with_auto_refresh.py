@@ -10,7 +10,7 @@ proactively 5 minutes before they expire, so your API calls never
 fail due to an expired token.
 
 Prerequisites:
-    - pip install bamboohr-sdk
+    - pip install bamboohr-python
     - An OAuth application registered in BambooHR
     - Valid access and refresh tokens (see 03_oauth_complete_flow.py)
 

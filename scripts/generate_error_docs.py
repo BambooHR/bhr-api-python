@@ -9,7 +9,7 @@ Generates exception documentation in docs/Exceptions/:
   - Classes/ClientException.md — client exception base class documentation
   - Classes/ServerException.md — server exception base class documentation
 
-Templates are read from templates-python/ and rendered with chevron (Mustache).
+Templates are read from templates-python/ and rendered with a built-in Mustache renderer.
 
 Usage:
     python scripts/generate_error_docs.py
@@ -19,7 +19,10 @@ Reference: PHP SDK scripts/generate_error_docs.php + scripts/generate_exceptions
 
 from __future__ import annotations
 
+import importlib.util
+import re
 import sys
+import types
 from pathlib import Path
 
 # ---------------------------------------------------------------------------
@@ -28,9 +31,49 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-import chevron  # noqa: E402
+# Load exceptions.py and api_error_helper.py directly by file path to avoid
+# triggering bamboohr_sdk/__init__.py (which requires dateutil, pydantic, etc.)
+def _load_module(name: str, file_path: Path) -> types.ModuleType:
+    spec = importlib.util.spec_from_file_location(name, file_path)
+    mod = importlib.util.module_from_spec(spec)  # type: ignore[arg-type]
+    sys.modules[name] = mod
+    spec.loader.exec_module(mod)  # type: ignore[union-attr]
+    return mod
 
-from bamboohr_sdk.api_error_helper import ERROR_MESSAGES  # noqa: E402
+_load_module("bamboohr_sdk.exceptions", PROJECT_ROOT / "bamboohr_sdk" / "exceptions.py")
+_api_error_helper = _load_module(
+    "bamboohr_sdk.api_error_helper",
+    PROJECT_ROOT / "bamboohr_sdk" / "api_error_helper.py",
+)
+ERROR_MESSAGES = _api_error_helper.ERROR_MESSAGES
+
+
+class _Mustache:
+    """Minimal Mustache renderer — supports {{var}}, {{#list}}...{{/list}}, {{.}}."""
+
+    _SECTION = re.compile(r"\{\{#(\w+)\}\}(.*?)\{\{/\1\}\}", re.DOTALL)
+    _VAR = re.compile(r"\{\{(\w+|\.)\}\}")
+
+    @classmethod
+    def render(cls, template: str, data: dict) -> str:
+        def replace_section(m: re.Match) -> str:
+            key, body = m.group(1), m.group(2)
+            items = data.get(key, [])
+            if not items:
+                return ""
+            inner = body.strip("\n")
+            parts = []
+            for item in items:
+                ctx = item if isinstance(item, dict) else {".": item}
+                parts.append(cls._render_vars(inner, ctx))
+            return "\n".join(parts)
+
+        result = cls._SECTION.sub(replace_section, template)
+        return cls._render_vars(result, data)
+
+    @classmethod
+    def _render_vars(cls, text: str, data: dict) -> str:
+        return cls._VAR.sub(lambda m: str(data.get(m.group(1), m.group(0))), text)
 
 TEMPLATE_DIR = PROJECT_ROOT / "templates-python"
 DOCS_DIR = PROJECT_ROOT / "docs" / "Exceptions"
@@ -44,7 +87,7 @@ def render_template(template_name: str, data: dict) -> str:
 		print(f"Error: Template file not found at {template_path}", file=sys.stderr)
 		sys.exit(1)
 	template = template_path.read_text()
-	return chevron.render(template, data)
+	return _Mustache.render(template, data)
 
 
 def main() -> None:
