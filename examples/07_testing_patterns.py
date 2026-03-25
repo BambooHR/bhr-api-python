@@ -15,7 +15,7 @@ All examples use Python's built-in ``unittest`` and ``unittest.mock`` —
 no additional test dependencies required (though pytest works too).
 
 Prerequisites:
-    - pip install bamboohr-sdk
+    - pip install bamboohr-python
 
 Usage:
     python -m pytest examples/07_testing_patterns.py -v

@@ -7,7 +7,7 @@ API call using the Python SDK with API key authentication.
 
 Prerequisites:
     - Python 3.10+
-    - pip install bamboohr-sdk
+    - pip install bamboohr-python
     - A BambooHR account with an API key
       (See: https://documentation.bamboohr.com/docs/getting-started#authentication)
 

@@ -16,7 +16,7 @@ This guide walks you through installing the SDK, configuring authentication, and
 Install the SDK from PyPI:
 
 ```bash
-pip install bamboohr-sdk
+pip install bamboohr-python
 ```
 
 **Requirements:** Python 3.10+
@@ -27,7 +27,7 @@ The SDK depends on `httpx` (HTTP client) and `pydantic` (model validation). Thes
 > ```bash
 > python3 -m venv .venv
 > source .venv/bin/activate
-> pip install bamboohr-sdk
+> pip install bamboohr-python
 > ```
 
 ---

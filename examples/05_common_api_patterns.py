@@ -15,7 +15,7 @@ Practical examples of the most common BambooHR API operations:
 Each pattern shows the SDK call, response handling, and error handling.
 
 Prerequisites:
-    - pip install bamboohr-sdk
+    - pip install bamboohr-python
     - BambooHR API key or OAuth tokens
 
 Usage:

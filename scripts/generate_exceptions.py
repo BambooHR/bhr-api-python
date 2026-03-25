@@ -13,8 +13,10 @@ Reference: PHP SDK scripts/generate_exceptions.php
 
 from __future__ import annotations
 
+import importlib.util
 import sys
 import textwrap
+import types
 from pathlib import Path
 
 # ---------------------------------------------------------------------------
@@ -23,7 +25,21 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from bamboohr_sdk.api_error_helper import ERROR_MESSAGES  # noqa: E402
+# Load exceptions.py and api_error_helper.py directly by file path to avoid
+# triggering bamboohr_sdk/__init__.py (which requires dateutil, pydantic, etc.)
+def _load_module(name: str, file_path: Path) -> types.ModuleType:
+    spec = importlib.util.spec_from_file_location(name, file_path)
+    mod = importlib.util.module_from_spec(spec)  # type: ignore[arg-type]
+    sys.modules[name] = mod
+    spec.loader.exec_module(mod)  # type: ignore[union-attr]
+    return mod
+
+_load_module("bamboohr_sdk.exceptions", PROJECT_ROOT / "bamboohr_sdk" / "exceptions.py")
+_api_error_helper = _load_module(
+    "bamboohr_sdk.api_error_helper",
+    PROJECT_ROOT / "bamboohr_sdk" / "api_error_helper.py",
+)
+ERROR_MESSAGES = _api_error_helper.ERROR_MESSAGES
 
 EXCEPTIONS_FILE = PROJECT_ROOT / "bamboohr_sdk" / "exceptions.py"
 
