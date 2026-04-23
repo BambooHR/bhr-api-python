@@ -214,6 +214,15 @@ else
     PASS=$((PASS + 1))
 fi
 
+# oasdiff process error (exit code > 1) is not silently treated as a breaking change
+if bash "$CLASSIFY" --changelog-json "$FIXTURES/empty.json" --breaking-exit 2 > /dev/null 2>&1; then
+    echo "  FAIL: breaking-exit > 1 should exit non-zero (oasdiff error, not a breaking change)"
+    FAIL=$((FAIL + 1))
+else
+    echo "  PASS: breaking-exit > 1 exits non-zero (oasdiff error distinguished from breaking change)"
+    PASS=$((PASS + 1))
+fi
+
 # --- Summary ---
 echo ""
 echo "================================"
