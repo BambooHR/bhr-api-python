@@ -15,7 +15,7 @@ DEVELOPER_URL = https://github.com/BambooHR/bhr-api-python
 DEVELOPER = BambooHR
 LICENSE_NAME = MIT
 
-.PHONY: help generate clean cleanup-obsolete generate-error-docs test lint typecheck format
+.PHONY: help generate clean cleanup-obsolete generate-error-docs test lint typecheck format classify-semver
 
 help:
 	@echo "BambooHR API Python SDK - Available commands:"
@@ -27,6 +27,7 @@ help:
 	@echo "  make lint              - Run ruff linter"
 	@echo "  make format            - Run ruff formatter"
 	@echo "  make typecheck         - Run mypy type checker"
+	@echo "  make classify-semver OLD=old.yaml NEW=new.yaml [APPLY=true] - Classify semver bump"
 
 generate:
 	@echo "Generating Python SDK from OpenAPI spec at $(OPENAPI_SPEC_PATH)..."
@@ -80,6 +81,8 @@ clean:
 test:
 	@echo "Running tests..."
 	$(PYTHON) -m pytest
+	@echo "Running classify_semver.sh unit tests..."
+	@bash scripts/tests/test_classify_semver.sh
 	@echo "Tests complete!"
 
 lint:
@@ -97,3 +100,12 @@ typecheck:
 	@echo "Running mypy type checker..."
 	$(PYTHON) -m mypy bamboohr_sdk/
 	@echo "Type check complete!"
+
+classify-semver:
+	@if [ -z "$(OLD)" ] || [ -z "$(NEW)" ]; then \
+		echo "Usage: make classify-semver OLD=old.yaml NEW=new.yaml [APPLY=true]"; \
+		exit 1; \
+	fi
+	@APPLY_FLAG=""; \
+	if [ "$(APPLY)" = "true" ]; then APPLY_FLAG="--apply"; fi; \
+	bash scripts/classify_semver.sh $$APPLY_FLAG $(OLD) $(NEW)
