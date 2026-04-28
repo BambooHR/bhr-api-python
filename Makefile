@@ -46,6 +46,7 @@ generate:
 	@# Resolve spec path for Docker mount (absolute path)
 	$(eval SPEC_ABS := $(shell realpath $(OPENAPI_SPEC_PATH)))
 	docker run --rm \
+		--user "$(shell id -u):$(shell id -g)" \
 		-v "$(PWD):/local" \
 		-v "$(SPEC_ABS):/tmp/spec.yaml:ro" \
 		$(OPENAPI_GENERATOR_IMAGE) generate \
