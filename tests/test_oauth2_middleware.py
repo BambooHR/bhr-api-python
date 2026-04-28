@@ -1,6 +1,6 @@
 """Tests for bamboohr_sdk.client.middleware.oauth2_middleware module."""
 
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
 
 import pytest
 
@@ -9,7 +9,6 @@ from bamboohr_sdk.client.auth.token_refresh_provider import BambooHRTokenRefresh
 from bamboohr_sdk.client.middleware.oauth2_middleware import OAuth2Middleware
 from bamboohr_sdk.configuration import Configuration
 from bamboohr_sdk.exceptions import ApiException
-
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -90,7 +89,7 @@ class TestProactiveRefresh:
         assert config.access_token == "refreshed-at"
 
     def test_proceeds_if_proactive_refresh_fails(self):
-        mw, config, provider = _make_middleware(expires_in=60)
+        mw, _, provider = _make_middleware(expires_in=60)
         provider.refresh_token.side_effect = ApiException(status=500, reason="fail")
 
         response = MagicMock()
@@ -100,7 +99,7 @@ class TestProactiveRefresh:
         assert result is response
 
     def test_no_proactive_refresh_when_not_near_expiry(self):
-        mw, config, provider = _make_middleware(expires_in=3600)
+        mw, _, provider = _make_middleware(expires_in=3600)
 
         response = MagicMock()
         mw.handle(lambda: response)
@@ -136,7 +135,7 @@ class TestReactiveRefresh:
         assert result.status == 200
 
     def test_raises_if_refresh_fails_on_401(self):
-        mw, config, provider = _make_middleware(expires_in=3600)
+        mw, _, provider = _make_middleware(expires_in=3600)
         provider.refresh_token.side_effect = ApiException(status=500, reason="fail")
 
         def send_request():
@@ -148,7 +147,7 @@ class TestReactiveRefresh:
         assert exc_info.value.status == 401
 
     def test_non_401_exception_propagates(self):
-        mw, config, provider = _make_middleware(expires_in=3600)
+        mw, _, provider = _make_middleware(expires_in=3600)
 
         def send_request():
             raise ApiException(status=403, reason="Forbidden")
@@ -168,7 +167,7 @@ class TestRecursiveRefreshGuard:
     """Middleware does not retry refresh if already refreshing."""
 
     def test_does_not_loop(self):
-        mw, config, provider = _make_middleware(expires_in=3600)
+        mw, _, _ = _make_middleware(expires_in=3600)
 
         # Simulate: first request → 401 → refresh succeeds → retry → 401 again
         call_count = 0
@@ -197,12 +196,12 @@ class TestConfigSync:
     """Configuration.access_token stays in sync after refresh."""
 
     def test_config_updated_on_proactive_refresh(self):
-        mw, config, provider = _make_middleware(expires_in=10)
+        mw, config, _ = _make_middleware(expires_in=10)
         mw.handle(lambda: MagicMock())
         assert config.access_token == "refreshed-at"
 
     def test_config_updated_on_reactive_refresh(self):
-        mw, config, provider = _make_middleware(expires_in=3600)
+        mw, config, _ = _make_middleware(expires_in=3600)
 
         first_call = True
 
@@ -226,7 +225,7 @@ class TestTokenManagerUpdate:
     """TokenManager tokens are updated after refresh."""
 
     def test_token_manager_updated_on_refresh(self):
-        mw, config, provider = _make_middleware(expires_in=10)
+        mw, _, _ = _make_middleware(expires_in=10)
         mw.handle(lambda: MagicMock())
         assert mw.token_manager.access_token == "refreshed-at"
         assert mw.token_manager.refresh_token == "refreshed-rt"

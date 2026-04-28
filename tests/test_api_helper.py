@@ -1,6 +1,5 @@
 """Tests for bamboohr_sdk.api_helper module."""
 
-import time
 from unittest.mock import MagicMock, patch
 
 import pytest
@@ -97,9 +96,7 @@ class TestSendWithRetries:
         response = self._make_response(200)
         fn = MagicMock(return_value=response)
 
-        result = send_with_retries(
-            fn, method="GET", url="https://example.com", max_retries=0
-        )
+        result = send_with_retries(fn, method="GET", url="https://example.com", max_retries=0)
 
         assert result is response
         fn.assert_called_once()

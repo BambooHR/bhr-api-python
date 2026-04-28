@@ -1,7 +1,5 @@
 """Tests for BambooHR SDK Configuration customizations."""
 
-import pytest
-
 from bamboohr_sdk.configuration import Configuration
 
 

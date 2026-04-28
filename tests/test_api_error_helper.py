@@ -3,33 +3,32 @@
 import pytest
 
 from bamboohr_sdk.api_error_helper import (
-    ERROR_MESSAGES,
     create_exception,
     format_detailed_error_message,
     get_error_info,
 )
 from bamboohr_sdk.exceptions import (
     ApiException,
-    ClientException,
-    ServerException,
-    BadRequestException,
     AuthenticationFailedException,
-    PermissionDeniedException,
-    ResourceNotFoundException,
-    MethodNotAllowedException,
-    RequestTimeoutException,
-    ConflictException,
-    PayloadTooLargeException,
-    UnsupportedMediaTypeException,
-    UnprocessableEntityException,
-    RateLimitExceededException,
-    InternalServerErrorException,
-    NotImplementedException,
     BadGatewayException,
-    ServiceUnavailableException,
+    BadRequestException,
+    ClientException,
+    ConflictException,
     GatewayTimeoutException,
     InsufficientStorageException,
+    InternalServerErrorException,
+    MethodNotAllowedException,
     NetworkReadTimeoutException,
+    NotImplementedException,
+    PayloadTooLargeException,
+    PermissionDeniedException,
+    RateLimitExceededException,
+    RequestTimeoutException,
+    ResourceNotFoundException,
+    ServerException,
+    ServiceUnavailableException,
+    UnprocessableEntityException,
+    UnsupportedMediaTypeException,
 )
 
 
@@ -129,9 +128,7 @@ class TestFormatDetailedErrorMessage:
         assert "req-123" in msg
 
     def test_with_causes(self):
-        msg = format_detailed_error_message(
-            "Error", causes=["Cause A", "Cause B"]
-        )
+        msg = format_detailed_error_message("Error", causes=["Cause A", "Cause B"])
         assert "This could be due to:" in msg
         assert "- Cause A" in msg
         assert "- Cause B" in msg
@@ -143,9 +140,7 @@ class TestFormatDetailedErrorMessage:
         assert "- Try Y" in msg
 
     def test_with_tips_and_request_id(self):
-        msg = format_detailed_error_message(
-            "Error", tips=["Try X"], request_id="req-456"
-        )
+        msg = format_detailed_error_message("Error", tips=["Try X"], request_id="req-456")
         assert "Include this Request ID (req-456)" in msg
 
     def test_full_message(self):

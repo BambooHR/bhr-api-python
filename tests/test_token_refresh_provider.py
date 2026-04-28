@@ -10,9 +10,11 @@ from bamboohr_sdk.exceptions import ApiException
 
 def _fake_send(status_code, body_dict=None, body_str=None):
     """Return a fake http_send callable that returns a fixed response."""
+
     def send(req):
         b = body_str if body_str is not None else json.dumps(body_dict or {})
         return (status_code, {"Content-Type": "application/json"}, b)
+
     return send
 
 
@@ -46,11 +48,14 @@ class TestSuccessfulRefresh:
     """Tests for successful token refresh responses."""
 
     def test_returns_token_response(self):
-        send = _fake_send(200, {
-            "access_token": "new-at",
-            "refresh_token": "new-rt",
-            "expires_in": 3600,
-        })
+        send = _fake_send(
+            200,
+            {
+                "access_token": "new-at",
+                "refresh_token": "new-rt",
+                "expires_in": 3600,
+            },
+        )
         p = BambooHRTokenRefreshProvider("cid", "cs", http_send=send)
         tr = p.refresh_token("old-rt")
         assert tr.access_token == "new-at"
@@ -82,9 +87,7 @@ class TestSuccessfulRefresh:
             captured["headers"] = dict(req.headers)
             return (200, {}, json.dumps({"access_token": "at"}))
 
-        p = BambooHRTokenRefreshProvider(
-            "my-cid", "my-secret", "https://acme.bamboohr.com", http_send=send
-        )
+        p = BambooHRTokenRefreshProvider("my-cid", "my-secret", "https://acme.bamboohr.com", http_send=send)
         p.refresh_token("my-refresh-token")
 
         assert captured["method"] == "POST"

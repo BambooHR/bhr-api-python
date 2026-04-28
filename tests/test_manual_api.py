@@ -1,23 +1,20 @@
 """Tests for bamboohr_sdk.api.manual_api module."""
 
 import json
-from unittest.mock import MagicMock, patch, PropertyMock
+from unittest.mock import MagicMock, patch
 
 import pytest
 
 from bamboohr_sdk.api.manual_api import ManualApi
-from bamboohr_sdk.api_client import ApiClient
 from bamboohr_sdk.api_response import ApiResponse
 from bamboohr_sdk.client.bamboohr_client import BambooHRClient
 from bamboohr_sdk.exceptions import (
-    ApiException,
-    BadRequestException,
     AuthenticationFailedException,
+    BadRequestException,
+    InternalServerErrorException,
     PermissionDeniedException,
     ResourceNotFoundException,
-    InternalServerErrorException,
 )
-
 
 # ---------------------------------------------------------------------------
 # Helpers

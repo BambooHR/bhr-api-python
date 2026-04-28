@@ -3,29 +3,29 @@
 import pytest
 
 from bamboohr_sdk.exceptions import (
+    _STATUS_TO_EXCEPTION_CLASS,
     ApiException,
-    ClientException,
-    ServerException,
-    BadRequestException,
     AuthenticationFailedException,
-    PermissionDeniedException,
-    ResourceNotFoundException,
-    MethodNotAllowedException,
-    RequestTimeoutException,
-    ConflictException,
-    PayloadTooLargeException,
-    UnsupportedMediaTypeException,
-    UnprocessableEntityException,
-    RateLimitExceededException,
-    InternalServerErrorException,
-    NotImplementedException,
     BadGatewayException,
-    ServiceUnavailableException,
+    BadRequestException,
+    ClientException,
+    ConflictException,
     GatewayTimeoutException,
     InsufficientStorageException,
+    InternalServerErrorException,
+    MethodNotAllowedException,
     NetworkReadTimeoutException,
+    NotImplementedException,
+    PayloadTooLargeException,
+    PermissionDeniedException,
+    RateLimitExceededException,
+    RequestTimeoutException,
+    ResourceNotFoundException,
+    ServerException,
+    ServiceUnavailableException,
+    UnprocessableEntityException,
+    UnsupportedMediaTypeException,
     _extract_request_id,
-    _STATUS_TO_EXCEPTION_CLASS,
 )
 
 
@@ -55,6 +55,7 @@ class TestRequestIdSupport:
             status = 500
             reason = "Error"
             data = b""
+
             def getheaders(self):
                 return {"x-request-id": "auto-123"}
 
@@ -66,6 +67,7 @@ class TestRequestIdSupport:
             status = 500
             reason = "Error"
             data = b""
+
             def getheaders(self):
                 return {"x-bamboohr-request-id": "bhr-456"}
 
@@ -77,6 +79,7 @@ class TestRequestIdSupport:
             status = 500
             reason = "Error"
             data = b""
+
             def getheaders(self):
                 return {"request-id": "plain-789"}
 
@@ -88,12 +91,11 @@ class TestRequestIdSupport:
             status = 500
             reason = "Error"
             data = b""
+
             def getheaders(self):
                 return {"x-request-id": "from-header"}
 
-        exc = ApiException(
-            http_resp=FakeResp(), request_id="explicit-id"
-        )
+        exc = ApiException(http_resp=FakeResp(), request_id="explicit-id")
         assert exc.request_id == "explicit-id"
 
     def test_no_request_id_when_header_missing(self):
@@ -101,6 +103,7 @@ class TestRequestIdSupport:
             status = 500
             reason = "Error"
             data = b""
+
             def getheaders(self):
                 return {"content-type": "text/plain"}
 
@@ -108,15 +111,11 @@ class TestRequestIdSupport:
         assert exc.request_id is None
 
     def test_subclass_inherits_request_id(self):
-        exc = BadRequestException(
-            status=400, reason="Bad", request_id="sub-123"
-        )
+        exc = BadRequestException(status=400, reason="Bad", request_id="sub-123")
         assert exc.request_id == "sub-123"
 
     def test_server_exception_request_id(self):
-        exc = InternalServerErrorException(
-            status=503, reason="Unavailable", request_id="svc-456"
-        )
+        exc = InternalServerErrorException(status=503, reason="Unavailable", request_id="svc-456")
         assert exc.request_id == "svc-456"
         assert "Request ID: svc-456" in str(exc)
 
@@ -256,8 +255,10 @@ class TestFromResponse:
                 self.status = s
                 self.reason = "Test"
                 self.data = b""
+
             def getheaders(self):
                 return {}
+
         return FakeResp(status)
 
     @pytest.mark.parametrize(

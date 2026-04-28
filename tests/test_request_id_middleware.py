@@ -3,8 +3,6 @@
 import threading
 from unittest.mock import MagicMock
 
-import pytest
-
 from bamboohr_sdk.client.middleware.request_id_middleware import (
     REQUEST_ID_HEADER,
     RequestIdMiddleware,
