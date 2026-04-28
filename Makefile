@@ -1,7 +1,10 @@
 # Makefile for BambooHR API Python SDK
 
-# Default OpenAPI spec path - override with environment variable
-OPENAPI_SPEC_PATH ?= $(shell echo ~/repos/main/docs/openapi/generated/public.yaml)
+# Default OpenAPI spec path - defaults to the committed spec; override with OPENAPI_SPEC_PATH=...
+OPENAPI_SPEC_PATH ?= specs/public.yaml
+
+# OpenAPI Generator Docker image
+OPENAPI_GENERATOR_IMAGE ?= openapitools/openapi-generator-cli:v7.16.0
 
 # Python interpreter
 PYTHON ?= python3
@@ -15,7 +18,7 @@ DEVELOPER_URL = https://github.com/BambooHR/bhr-api-python
 DEVELOPER = BambooHR
 LICENSE_NAME = MIT
 
-.PHONY: help generate clean cleanup-obsolete generate-error-docs test lint typecheck format classify-semver
+.PHONY: help generate clean cleanup-obsolete generate-error-docs test lint typecheck format classify-semver smoke-test
 
 help:
 	@echo "BambooHR API Python SDK - Available commands:"
@@ -40,10 +43,16 @@ generate:
 	@if [ -f ".openapi-generator/FILES" ]; then \
 		cp .openapi-generator/FILES .openapi-generator/FILES.old; \
 	fi
-	openapi-generator generate \
-		-i $(OPENAPI_SPEC_PATH) \
+	@# Resolve spec path for Docker mount (absolute path)
+	$(eval SPEC_ABS := $(shell realpath $(OPENAPI_SPEC_PATH)))
+	docker run --rm \
+		-v "$(PWD):/local" \
+		-v "$(SPEC_ABS):/local/spec.yaml:ro" \
+		$(OPENAPI_GENERATOR_IMAGE) generate \
+		-i /local/spec.yaml \
 		-g python \
-		-t ./templates-python \
+		-t /local/templates-python \
+		-o /local \
 		--global-property modelTests=false \
 		--additional-properties=packageName=$(PACKAGE_NAME),packageVersion=$(PACKAGE_VERSION),projectName=$(PROJECT_NAME),packageUrl=$(PACKAGE_URL),developerOrganization=$(DEVELOPER),developerOrganizationUrl=$(DEVELOPER_URL),licenseName=$(LICENSE_NAME)
 	$(PYTHON) scripts/post_generate.py
@@ -109,3 +118,8 @@ classify-semver:
 	@APPLY_FLAG=""; \
 	if [ "$(APPLY)" = "true" ]; then APPLY_FLAG="--apply"; fi; \
 	bash scripts/classify_semver.sh $$APPLY_FLAG $(OLD) $(NEW)
+
+smoke-test:
+	@echo "Running import smoke test..."
+	$(PYTHON) scripts/smoke_test.py
+	@echo "Smoke test complete!"
