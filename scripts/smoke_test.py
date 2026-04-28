@@ -7,38 +7,43 @@ Run after `make generate` to confirm the generated output is structurally sound.
 import sys
 import traceback
 
-errors = []
-loaded = 0
+errors: list[tuple[str, str]] = []
+attrs_checked = 0
 
 
-def try_import(module_path: str) -> None:
-    global loaded
+def fail(name: str) -> None:
+    errors.append((name, traceback.format_exc()))
+
+
+for pkg_name in ("bamboohr_sdk", "bamboohr_sdk.api", "bamboohr_sdk.models"):
     try:
-        __import__(module_path)
-        loaded += 1
+        __import__(pkg_name)
     except Exception:
-        errors.append((module_path, traceback.format_exc()))
+        fail(pkg_name)
 
-
-try_import("bamboohr_sdk.api")
-try_import("bamboohr_sdk.models")
-
-# Wildcard-style: import all names exported from each package
-for pkg in ("bamboohr_sdk.api", "bamboohr_sdk.models"):
+# Verify each name exported by the api/models packages resolves to something
+# (catches broken __init__.py re-exports).
+for pkg_name in ("bamboohr_sdk.api", "bamboohr_sdk.models"):
     try:
-        mod = __import__(pkg, fromlist=["*"])
-        names = getattr(mod, "__all__", [n for n in dir(mod) if not n.startswith("_")])
-        for name in names:
-            full = f"{pkg}.{name}" if "." not in name else name
-            try_import(full)
+        mod = sys.modules.get(pkg_name) or __import__(pkg_name, fromlist=["*"])
     except Exception:
-        errors.append((pkg, traceback.format_exc()))
+        fail(pkg_name)
+        continue
+    names = getattr(mod, "__all__", None) or [
+        n for n in dir(mod) if not n.startswith("_")
+    ]
+    for name in names:
+        try:
+            getattr(mod, name)
+            attrs_checked += 1
+        except Exception:
+            fail(f"{pkg_name}.{name}")
 
 if errors:
     print(f"Smoke test FAILED — {len(errors)} error(s):", file=sys.stderr)
-    for module_path, tb in errors:
-        print(f"  {module_path}:\n{tb}", file=sys.stderr)
+    for name, tb in errors:
+        print(f"  {name}:\n{tb}", file=sys.stderr)
     sys.exit(1)
 
-print(f"Smoke test passed — {loaded} modules loaded successfully.")
+print(f"Smoke test passed — {attrs_checked} exports resolved successfully.")
 sys.exit(0)

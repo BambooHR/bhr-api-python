@@ -47,9 +47,9 @@ generate:
 	$(eval SPEC_ABS := $(shell realpath $(OPENAPI_SPEC_PATH)))
 	docker run --rm \
 		-v "$(PWD):/local" \
-		-v "$(SPEC_ABS):/local/spec.yaml:ro" \
+		-v "$(SPEC_ABS):/tmp/spec.yaml:ro" \
 		$(OPENAPI_GENERATOR_IMAGE) generate \
-		-i /local/spec.yaml \
+		-i /tmp/spec.yaml \
 		-g python \
 		-t /local/templates-python \
 		-o /local \
