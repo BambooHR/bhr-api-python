@@ -95,7 +95,9 @@ class TestOnTokenRefresh:
     """Tests for the token refresh callback."""
 
     def test_registers_callback(self):
-        cb = lambda *a: None
+        def cb(*_a):
+            return None
+
         ab = AuthBuilder().with_api_key("k").on_token_refresh(cb)
         assert ab.token_refresh_callback is cb
 
@@ -151,9 +153,7 @@ class TestGetSanitizedInfo:
 
     def test_oauth_refresh_includes_client_id(self):
         info = (
-            AuthBuilder()
-            .with_oauth_refresh("a-long-token", "r-long-token", "my-client", "secret")
-            .get_sanitized_info()
+            AuthBuilder().with_oauth_refresh("a-long-token", "r-long-token", "my-client", "secret").get_sanitized_info()
         )
         assert info["client_id"] == "my-client"
         assert info["has_callback"] is False

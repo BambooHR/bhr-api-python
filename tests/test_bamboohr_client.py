@@ -8,7 +8,6 @@ import pytest
 from bamboohr_sdk.client.auth_builder import AuthBuilder
 from bamboohr_sdk.client.bamboohr_client import BambooHRClient
 
-
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
@@ -23,9 +22,9 @@ def _build_client(**kwargs) -> BambooHRClient:
     defaults.update(kwargs)
 
     c = BambooHRClient()
-    if "api_key" in defaults and defaults["api_key"]:
+    if defaults.get("api_key"):
         c.with_api_key(defaults["api_key"])
-    if "domain" in defaults and defaults["domain"]:
+    if defaults.get("domain"):
         c.for_company(defaults["domain"])
     return c.build()
 
@@ -52,7 +51,9 @@ class TestAuthDelegation:
         assert c.auth_builder.has_oauth_refresh is True
 
     def test_on_token_refresh(self):
-        cb = lambda *a: None
+        def cb(*_a):
+            return None
+
         c = BambooHRClient().with_api_key("k").on_token_refresh(cb)
         assert c.auth_builder.token_refresh_callback is cb
 
@@ -101,23 +102,11 @@ class TestConfiguration:
         c = _build_client()
         assert c.configuration.timeout is None  # no timeout by default
 
-        c2 = (
-            BambooHRClient()
-            .with_api_key("k")
-            .for_company("acme")
-            .with_timeout(15.0)
-            .build()
-        )
+        c2 = BambooHRClient().with_api_key("k").for_company("acme").with_timeout(15.0).build()
         assert c2.configuration.timeout == 15.0
 
     def test_with_timeout_tuple_propagates_to_configuration(self):
-        c = (
-            BambooHRClient()
-            .with_api_key("k")
-            .for_company("acme")
-            .with_timeout((5.0, 30.0))
-            .build()
-        )
+        c = BambooHRClient().with_api_key("k").for_company("acme").with_timeout((5.0, 30.0)).build()
         assert c.configuration.timeout == (5.0, 30.0)
 
     def test_with_debug(self):
@@ -134,9 +123,8 @@ class TestConfiguration:
         assert c.api_client is mock_client
 
     def test_with_logging(self):
-        c = BambooHRClient().with_logging(level=logging.DEBUG)
+        BambooHRClient().with_logging(level=logging.DEBUG)
         # Should not raise; just configures the logger
-        assert True
 
 
 # ===========================================================================
@@ -167,12 +155,7 @@ class TestBuild:
             c.build()
 
     def test_build_with_oauth(self):
-        client = (
-            BambooHRClient()
-            .with_oauth("token")
-            .for_company("acme")
-            .build()
-        )
+        client = BambooHRClient().with_oauth("token").for_company("acme").build()
         assert client.api_client is not None
         assert client.configuration.access_token == "token"
 
@@ -193,24 +176,12 @@ class TestBuild:
 
     def test_chaining_returns_self(self):
         c = BambooHRClient()
-        result = (
-            c.with_api_key("k")
-            .for_company("acme")
-            .with_retries(2)
-            .with_timeout(10.0)
-            .with_debug(False)
-        )
+        result = c.with_api_key("k").for_company("acme").with_retries(2).with_timeout(10.0).with_debug(False)
         assert result is c
 
     def test_build_with_injected_http_client(self):
         mock_client = MagicMock()
-        client = (
-            BambooHRClient()
-            .with_api_key("k")
-            .for_company("acme")
-            .with_http_client(mock_client)
-            .build()
-        )
+        client = BambooHRClient().with_api_key("k").for_company("acme").with_http_client(mock_client).build()
         # The injected client should be used, not a new one
         assert client.api_client is mock_client
 
@@ -230,97 +201,116 @@ class TestAPIAccessors:
 
     def test_employees(self):
         from bamboohr_sdk.api.employees_api import EmployeesApi
+
         client = _build_client()
         api = client.employees()
         assert isinstance(api, EmployeesApi)
 
     def test_time_off(self):
         from bamboohr_sdk.api.time_off_api import TimeOffApi
+
         client = _build_client()
         assert isinstance(client.time_off(), TimeOffApi)
 
     def test_benefits(self):
         from bamboohr_sdk.api.benefits_api import BenefitsApi
+
         client = _build_client()
         assert isinstance(client.benefits(), BenefitsApi)
 
     def test_reports(self):
         from bamboohr_sdk.api.reports_api import ReportsApi
+
         client = _build_client()
         assert isinstance(client.reports(), ReportsApi)
 
     def test_tabular_data(self):
         from bamboohr_sdk.api.tabular_data_api import TabularDataApi
+
         client = _build_client()
         assert isinstance(client.tabular_data(), TabularDataApi)
 
     def test_photos(self):
         from bamboohr_sdk.api.photos_api import PhotosApi
+
         client = _build_client()
         assert isinstance(client.photos(), PhotosApi)
 
     def test_webhooks(self):
         from bamboohr_sdk.api.webhooks_api import WebhooksApi
+
         client = _build_client()
         assert isinstance(client.webhooks(), WebhooksApi)
 
     def test_goals(self):
         from bamboohr_sdk.api.goals_api import GoalsApi
+
         client = _build_client()
         assert isinstance(client.goals(), GoalsApi)
 
     def test_training(self):
         from bamboohr_sdk.api.training_api import TrainingApi
+
         client = _build_client()
         assert isinstance(client.training(), TrainingApi)
 
     def test_time_tracking(self):
         from bamboohr_sdk.api.time_tracking_api import TimeTrackingApi
+
         client = _build_client()
         assert isinstance(client.time_tracking(), TimeTrackingApi)
 
     def test_account_information(self):
         from bamboohr_sdk.api.account_information_api import AccountInformationApi
+
         client = _build_client()
         assert isinstance(client.account_information(), AccountInformationApi)
 
     def test_applicant_tracking(self):
         from bamboohr_sdk.api.applicant_tracking_api import ApplicantTrackingApi
+
         client = _build_client()
         assert isinstance(client.applicant_tracking(), ApplicantTrackingApi)
 
     def test_company_files(self):
         from bamboohr_sdk.api.company_files_api import CompanyFilesApi
+
         client = _build_client()
         assert isinstance(client.company_files(), CompanyFilesApi)
 
     def test_employee_files(self):
         from bamboohr_sdk.api.employee_files_api import EmployeeFilesApi
+
         client = _build_client()
         assert isinstance(client.employee_files(), EmployeeFilesApi)
 
     def test_custom_reports(self):
         from bamboohr_sdk.api.custom_reports_api import CustomReportsApi
+
         client = _build_client()
         assert isinstance(client.custom_reports(), CustomReportsApi)
 
     def test_datasets(self):
         from bamboohr_sdk.api.datasets_api import DatasetsApi
+
         client = _build_client()
         assert isinstance(client.datasets(), DatasetsApi)
 
     def test_hours(self):
         from bamboohr_sdk.api.hours_api import HoursApi
+
         client = _build_client()
         assert isinstance(client.hours(), HoursApi)
 
     def test_last_change_information(self):
         from bamboohr_sdk.api.last_change_information_api import LastChangeInformationApi
+
         client = _build_client()
         assert isinstance(client.last_change_information(), LastChangeInformationApi)
 
     def test_login(self):
         from bamboohr_sdk.api.login_api import LoginApi
+
         client = _build_client()
         assert isinstance(client.login(), LoginApi)
 
@@ -342,6 +332,7 @@ class TestAPIAccessorCaching:
 
     def test_get_api_generic(self):
         from bamboohr_sdk.api.employees_api import EmployeesApi
+
         client = _build_client()
         api = client.get_api(EmployeesApi)
         assert isinstance(api, EmployeesApi)
@@ -358,13 +349,7 @@ class TestTimeoutCoalesce:
     """Tests that ApiClient.call_api uses config timeout as default."""
 
     def test_config_timeout_used_when_no_per_request_timeout(self):
-        client = (
-            BambooHRClient()
-            .with_api_key("k")
-            .for_company("acme")
-            .with_timeout(15.0)
-            .build()
-        )
+        client = BambooHRClient().with_api_key("k").for_company("acme").with_timeout(15.0).build()
         api_client = client.api_client
         with patch.object(api_client.rest_client, "request") as mock_req:
             mock_resp = MagicMock()
@@ -377,13 +362,7 @@ class TestTimeoutCoalesce:
             assert kwargs["_request_timeout"] == 15.0
 
     def test_per_request_timeout_overrides_config(self):
-        client = (
-            BambooHRClient()
-            .with_api_key("k")
-            .for_company("acme")
-            .with_timeout(15.0)
-            .build()
-        )
+        client = BambooHRClient().with_api_key("k").for_company("acme").with_timeout(15.0).build()
         api_client = client.api_client
         with patch.object(api_client.rest_client, "request") as mock_req:
             mock_resp = MagicMock()

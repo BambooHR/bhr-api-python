@@ -1,18 +1,16 @@
 """Tests for bamboohr_sdk.client.logger.secure_log_filter."""
 
 import logging
-from unittest.mock import MagicMock
 
 import pytest
 
 from bamboohr_sdk.client.logger.secure_log_filter import (
     SecureLogFilter,
+    _is_sensitive_key,
     mask_value,
     redact_context,
     redact_string,
-    _is_sensitive_key,
 )
-
 
 # ===========================================================================
 # mask_value
@@ -64,33 +62,39 @@ class TestMaskValue:
 class TestIsSensitiveKey:
     """Tests for _is_sensitive_key()."""
 
-    @pytest.mark.parametrize("key", [
-        "password",
-        "api_key",
-        "apikey",
-        "access_token",
-        "authorization",
-        "Authorization",
-        "secret",
-        "credential",
-        "X-Auth-Token",
-        "x-api-key",
-        "cookie",
-        "set-cookie",
-        "my_password_field",
-        "oauth_token",
-    ])
+    @pytest.mark.parametrize(
+        "key",
+        [
+            "password",
+            "api_key",
+            "apikey",
+            "access_token",
+            "authorization",
+            "Authorization",
+            "secret",
+            "credential",
+            "X-Auth-Token",
+            "x-api-key",
+            "cookie",
+            "set-cookie",
+            "my_password_field",
+            "oauth_token",
+        ],
+    )
     def test_sensitive_keys_detected(self, key):
         assert _is_sensitive_key(key) is True
 
-    @pytest.mark.parametrize("key", [
-        "method",
-        "url",
-        "status_code",
-        "duration_ms",
-        "Content-Type",
-        "Accept",
-    ])
+    @pytest.mark.parametrize(
+        "key",
+        [
+            "method",
+            "url",
+            "status_code",
+            "duration_ms",
+            "Content-Type",
+            "Accept",
+        ],
+    )
     def test_non_sensitive_keys_pass_through(self, key):
         assert _is_sensitive_key(key) is False
 

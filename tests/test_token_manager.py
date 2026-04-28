@@ -11,7 +11,6 @@ from bamboohr_sdk.client.auth.token_manager import (
     TokenResponse,
 )
 
-
 # ===========================================================================
 # TokenResponse
 # ===========================================================================
@@ -105,9 +104,7 @@ class TestNeedsRefresh:
         assert tm.needs_refresh() is False
 
     def test_false_when_not_near_expiry(self):
-        tm = TokenManager(
-            access_token="at", refresh_token="rt", expires_in=EXPIRY_BUFFER_SECONDS + 600
-        )
+        tm = TokenManager(access_token="at", refresh_token="rt", expires_in=EXPIRY_BUFFER_SECONDS + 600)
         assert tm.needs_refresh() is False
 
     def test_true_within_buffer(self):
