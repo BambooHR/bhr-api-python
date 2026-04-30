@@ -1,0 +1,290 @@
+name: SDK Update
+
+# Phase 1: workflow_dispatch only. Cron is intentionally commented out
+# until we've verified the workflow end-to-end against the production
+# CloudFront sidecars (depends on SPN-2925).
+#
+# schedule:
+#   - cron: "0 14 * * 1-5"  # weekdays 14:00 UTC = 8am MT
+on:
+  workflow_dispatch:
+    inputs:
+      spec_url:
+        description: "Override URL for public-openapi.yaml (CloudFront docs host or file:// only)"
+        required: false
+      sha256_url:
+        description: "Override URL for the .sha256 sidecar"
+        required: false
+      metadata_url:
+        description: "Override URL for spec-metadata.json"
+        required: false
+
+concurrency:
+  group: sdk-generation
+  cancel-in-progress: true
+
+jobs:
+  update:
+    name: Fetch, regenerate, open PR
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Generate a GitHub App token
+        # Bot PR is opened with this token so SPN-2930's generate.yml
+        # workflow_dispatch trigger and any future PR-event workflows fire on
+        # the resulting PR. The default GITHUB_TOKEN does NOT trigger
+        # downstream workflows.
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: |
+            bhr-api-python
+
+      - name: Check out main
+        uses: actions/checkout@v6
+        with:
+          ref: main
+          token: ${{ steps.app-token.outputs.token }}
+          fetch-depth: 0  # need history so we can diff vs auto/sdk-update
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dev dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Install oasdiff
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/oasdiff/oasdiff/main/install.sh | sh
+
+      - name: Pull OpenAPI Generator Docker image
+        run: docker pull openapitools/openapi-generator-cli:v7.16.0
+
+      # ----- Fetch and validate ---------------------------------------------
+      - name: Fetch spec + sidecars
+        id: fetch
+        run: |
+          ARGS=()
+          [ -n "${{ inputs.spec_url }}" ] && ARGS+=(--spec-url "${{ inputs.spec_url }}")
+          [ -n "${{ inputs.sha256_url }}" ] && ARGS+=(--sha256-url "${{ inputs.sha256_url }}")
+          [ -n "${{ inputs.metadata_url }}" ] && ARGS+=(--metadata-url "${{ inputs.metadata_url }}")
+          python scripts/fetch_spec.py "${ARGS[@]}"
+
+      # If steps.fetch.outputs.changed != 'true', every subsequent step's
+      # `if:` guard short-circuits and the job exits cleanly with success.
+
+      # ----- Analyze --------------------------------------------------------
+      - name: Run oasdiff analysis
+        if: steps.fetch.outputs.changed == 'true'
+        id: analyze
+        run: |
+          mkdir -p .sdk-update/analysis
+          bash scripts/analyze_spec.sh \
+            specs/public.yaml \
+            "${{ steps.fetch.outputs.staged_spec_path }}" \
+            .sdk-update/analysis
+          BREAKING=$(cat .sdk-update/analysis/breaking-exit)
+          echo "breaking_exit=$BREAKING" >> "$GITHUB_OUTPUT"
+          if [ "$BREAKING" = "1" ]; then
+            echo "has_breaking=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_breaking=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Classify semver bump
+        if: steps.fetch.outputs.changed == 'true'
+        id: classify
+        run: |
+          bash scripts/classify_semver.sh \
+            --changelog-json .sdk-update/analysis/changelog.json \
+            --breaking-exit "${{ steps.analyze.outputs.breaking_exit }}" \
+            > .sdk-update/classification.txt
+          LEVEL=$(head -1 .sdk-update/classification.txt)
+          echo "level=$LEVEL" >> "$GITHUB_OUTPUT"
+
+      # ----- Replace committed spec + metadata ------------------------------
+      - name: Update committed spec + metadata
+        if: steps.fetch.outputs.changed == 'true'
+        run: |
+          cp "${{ steps.fetch.outputs.staged_spec_path }}" specs/public.yaml
+          python -c '
+          import json, pathlib
+          path = pathlib.Path("specs/spec-source.json")
+          data = json.loads(path.read_text()) if path.exists() else {}
+          data["source_commit"] = "${{ steps.fetch.outputs.source_commit }}"
+          data["checksum_sha256"] = "${{ steps.fetch.outputs.checksum_sha256 }}"
+          data["generated_at"] = "${{ steps.fetch.outputs.generated_at }}"
+          data.setdefault("url", "https://d40bgjb2zs35x.cloudfront.net/main/latest/docs/openapi/public-openapi.yaml")
+          path.write_text(json.dumps(data, indent=2) + "\n")
+          '
+
+      # ----- Generate (each step continue-on-error so we can still PR) ------
+      - name: make generate
+        if: steps.fetch.outputs.changed == 'true'
+        id: generate
+        continue-on-error: true
+        run: make generate
+
+      - name: make format
+        if: steps.fetch.outputs.changed == 'true' && steps.generate.outcome == 'success'
+        id: format
+        continue-on-error: true
+        run: make format
+
+      - name: make lint
+        if: steps.fetch.outputs.changed == 'true' && steps.format.outcome == 'success'
+        id: lint
+        continue-on-error: true
+        run: make lint
+
+      - name: make smoke-test
+        if: steps.fetch.outputs.changed == 'true' && steps.lint.outcome == 'success'
+        id: smoke
+        continue-on-error: true
+        run: make smoke-test
+
+      - name: make test
+        if: steps.fetch.outputs.changed == 'true' && steps.smoke.outcome == 'success'
+        id: test
+        continue-on-error: true
+        run: make test
+
+      - name: Determine generation status
+        if: steps.fetch.outputs.changed == 'true'
+        id: status
+        run: |
+          if [ "${{ steps.generate.outcome }}" = "success" ] \
+             && [ "${{ steps.format.outcome }}" = "success" ] \
+             && [ "${{ steps.lint.outcome }}" = "success" ] \
+             && [ "${{ steps.smoke.outcome }}" = "success" ] \
+             && [ "${{ steps.test.outcome }}" = "success" ]; then
+            echo "result=success" >> "$GITHUB_OUTPUT"
+          else
+            echo "result=failed" >> "$GITHUB_OUTPUT"
+          fi
+
+      # ----- Skip-if-no-meaningful-changes ----------------------------------
+      - name: Check git diff for meaningful changes
+        if: steps.fetch.outputs.changed == 'true'
+        id: diff
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Working tree clean after generation — no meaningful changes to publish."
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      # ----- Bump version (skip on major or generation-failed) --------------
+      - name: Bump version
+        if: |
+          steps.fetch.outputs.changed == 'true'
+          && steps.diff.outputs.has_changes == 'true'
+          && steps.classify.outputs.level != 'major'
+          && steps.status.outputs.result == 'success'
+        id: bump
+        run: python scripts/bump_version.py "${{ steps.classify.outputs.level }}"
+
+      # ----- Compute "since last review" delta ------------------------------
+      - name: Compute delta vs existing auto/sdk-update branch
+        if: steps.fetch.outputs.changed == 'true' && steps.diff.outputs.has_changes == 'true'
+        id: delta
+        run: |
+          # Stage current changes so `git diff` includes them.
+          git add -A
+          if git ls-remote --exit-code --heads origin auto/sdk-update >/dev/null 2>&1; then
+            git fetch origin auto/sdk-update:refs/remotes/origin/auto-sdk-update
+            git diff --stat refs/remotes/origin/auto-sdk-update -- > .sdk-update/since-last-review.txt
+          else
+            : > .sdk-update/since-last-review.txt
+          fi
+          echo "path=.sdk-update/since-last-review.txt" >> "$GITHUB_OUTPUT"
+
+      # ----- Build PR body --------------------------------------------------
+      - name: Stage spec metadata for PR body
+        if: steps.fetch.outputs.changed == 'true' && steps.diff.outputs.has_changes == 'true'
+        run: |
+          cat > .sdk-update/metadata.json <<EOF
+          {
+            "source_commit": "${{ steps.fetch.outputs.source_commit }}",
+            "generated_at": "${{ steps.fetch.outputs.generated_at }}",
+            "url": "https://d40bgjb2zs35x.cloudfront.net/main/latest/docs/openapi/public-openapi.yaml"
+          }
+          EOF
+
+      - name: Build PR body
+        if: steps.fetch.outputs.changed == 'true' && steps.diff.outputs.has_changes == 'true'
+        id: body
+        run: |
+          python scripts/build_pr_body.py \
+            --classification .sdk-update/classification.txt \
+            --changelog-md .sdk-update/analysis/changelog.md \
+            --spec-metadata .sdk-update/metadata.json \
+            --since-last-review .sdk-update/since-last-review.txt \
+            --generation-status "${{ steps.status.outputs.result }}" \
+            --old-version "${{ steps.bump.outputs.old_version }}" \
+            --new-version "${{ steps.bump.outputs.new_version }}" \
+            > .sdk-update/pr-body.md
+
+      # ----- Force-push to auto/sdk-update ----------------------------------
+      - name: Configure git identity
+        if: steps.fetch.outputs.changed == 'true' && steps.diff.outputs.has_changes == 'true'
+        run: |
+          git config user.name "bhr-sdk-bot"
+          git config user.email "bhr-sdk-bot@users.noreply.github.com"
+
+      - name: Commit changes
+        if: steps.fetch.outputs.changed == 'true' && steps.diff.outputs.has_changes == 'true'
+        run: |
+          git add -A
+          MSG_TITLE="[auto] SDK update — spec ${{ steps.fetch.outputs.source_commit }}"
+          git commit -m "$MSG_TITLE" || echo "Nothing to commit"
+
+      - name: Force-push to auto/sdk-update
+        if: steps.fetch.outputs.changed == 'true' && steps.diff.outputs.has_changes == 'true'
+        run: git push --force origin HEAD:refs/heads/auto/sdk-update
+
+      # ----- Open or update PR ---------------------------------------------
+      - name: Create or update PR
+        if: steps.fetch.outputs.changed == 'true' && steps.diff.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          TITLE="[auto] SDK update (${{ steps.classify.outputs.level }}) — spec ${{ steps.fetch.outputs.source_commit }}"
+          LABELS="auto-generated"
+          if [ "${{ steps.analyze.outputs.has_breaking }}" = "true" ]; then
+            LABELS="$LABELS,breaking"
+          fi
+          if [ "${{ steps.status.outputs.result }}" = "failed" ]; then
+            LABELS="$LABELS,generation-failed"
+          fi
+
+          # Check for an existing open PR on the auto/sdk-update branch.
+          EXISTING_PR="$(gh pr list --head auto/sdk-update --state open --json number --jq '.[0].number' || true)"
+          if [ -n "$EXISTING_PR" ]; then
+            gh pr edit "$EXISTING_PR" \
+              --title "$TITLE" \
+              --body-file .sdk-update/pr-body.md \
+              --add-label "$LABELS"
+          else
+            gh pr create \
+              --base main \
+              --head auto/sdk-update \
+              --title "$TITLE" \
+              --body-file .sdk-update/pr-body.md \
+              --label "$LABELS" \
+              --reviewer "BambooHR/platapi"
+          fi
