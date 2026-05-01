@@ -118,16 +118,21 @@ jobs:
       # ----- Replace committed spec + metadata ------------------------------
       - name: Update committed spec + metadata
         if: steps.fetch.outputs.changed == 'true'
+        env:
+          RESOLVED_SPEC_URL: ${{ steps.fetch.outputs.resolved_spec_url }}
+          SOURCE_COMMIT: ${{ steps.fetch.outputs.source_commit }}
+          CHECKSUM_SHA256: ${{ steps.fetch.outputs.checksum_sha256 }}
+          GENERATED_AT: ${{ steps.fetch.outputs.generated_at }}
         run: |
           cp "${{ steps.fetch.outputs.staged_spec_path }}" specs/public.yaml
           python -c '
-          import json, pathlib
+          import json, os, pathlib
           path = pathlib.Path("specs/spec-source.json")
           data = json.loads(path.read_text()) if path.exists() else {}
-          data["source_commit"] = "${{ steps.fetch.outputs.source_commit }}"
-          data["checksum_sha256"] = "${{ steps.fetch.outputs.checksum_sha256 }}"
-          data["generated_at"] = "${{ steps.fetch.outputs.generated_at }}"
-          data.setdefault("url", "https://d40bgjb2zs35x.cloudfront.net/main/latest/docs/openapi/public-openapi.yaml")
+          data["source_commit"] = os.environ["SOURCE_COMMIT"]
+          data["checksum_sha256"] = os.environ["CHECKSUM_SHA256"]
+          data["generated_at"] = os.environ["GENERATED_AT"]
+          data["url"] = os.environ["RESOLVED_SPEC_URL"]
           path.write_text(json.dumps(data, indent=2) + "\n")
           '
 
@@ -216,14 +221,19 @@ jobs:
       # ----- Build PR body --------------------------------------------------
       - name: Stage spec metadata for PR body
         if: steps.fetch.outputs.changed == 'true' && steps.diff.outputs.has_changes == 'true'
+        env:
+          RESOLVED_SPEC_URL: ${{ steps.fetch.outputs.resolved_spec_url }}
+          SOURCE_COMMIT: ${{ steps.fetch.outputs.source_commit }}
+          GENERATED_AT: ${{ steps.fetch.outputs.generated_at }}
         run: |
-          cat > .sdk-update/metadata.json <<EOF
-          {
-            "source_commit": "${{ steps.fetch.outputs.source_commit }}",
-            "generated_at": "${{ steps.fetch.outputs.generated_at }}",
-            "url": "https://d40bgjb2zs35x.cloudfront.net/main/latest/docs/openapi/public-openapi.yaml"
-          }
-          EOF
+          python -c '
+          import json, os, pathlib
+          pathlib.Path(".sdk-update/metadata.json").write_text(json.dumps({
+              "source_commit": os.environ["SOURCE_COMMIT"],
+              "generated_at": os.environ["GENERATED_AT"],
+              "url": os.environ["RESOLVED_SPEC_URL"],
+          }, indent=2) + "\n")
+          '
 
       - name: Build PR body
         if: steps.fetch.outputs.changed == 'true' && steps.diff.outputs.has_changes == 'true'
@@ -264,13 +274,23 @@ jobs:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           TITLE="[auto] SDK update (${{ steps.classify.outputs.level }}) — spec ${{ steps.fetch.outputs.source_commit }}"
-          LABELS="auto-generated"
+
+          # Build the exact label set for this run. `auto-generated` is
+          # always present; `breaking` and `generation-failed` are toggled.
+          ADD_LABELS=("auto-generated")
+          REMOVE_LABELS=()
           if [ "${{ steps.analyze.outputs.has_breaking }}" = "true" ]; then
-            LABELS="$LABELS,breaking"
+            ADD_LABELS+=("breaking")
+          else
+            REMOVE_LABELS+=("breaking")
           fi
           if [ "${{ steps.status.outputs.result }}" = "failed" ]; then
-            LABELS="$LABELS,generation-failed"
+            ADD_LABELS+=("generation-failed")
+          else
+            REMOVE_LABELS+=("generation-failed")
           fi
+
+          ADD_LABELS_CSV="$(IFS=,; echo "${ADD_LABELS[*]}")"
 
           # Check for an existing open PR on the auto/sdk-update branch.
           EXISTING_PR="$(gh pr list --head auto/sdk-update --state open --json number --jq '.[0].number' || true)"
@@ -278,13 +298,18 @@ jobs:
             gh pr edit "$EXISTING_PR" \
               --title "$TITLE" \
               --body-file .sdk-update/pr-body.md \
-              --add-label "$LABELS"
+              --add-label "$ADD_LABELS_CSV"
+            # Reconcile stale conditional labels. --remove-label is a no-op
+            # if the label isn't present, so this is safe to run unconditionally.
+            for label in "${REMOVE_LABELS[@]}"; do
+              gh pr edit "$EXISTING_PR" --remove-label "$label" || true
+            done
           else
             gh pr create \
               --base main \
               --head auto/sdk-update \
               --title "$TITLE" \
               --body-file .sdk-update/pr-body.md \
-              --label "$LABELS" \
+              --label "$ADD_LABELS_CSV" \
               --reviewer "BambooHR/platapi"
           fi

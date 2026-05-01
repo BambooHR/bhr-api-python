@@ -22,6 +22,7 @@ Outputs (written to $GITHUB_OUTPUT if set, also printed to stdout):
     generated_at=<timestamp> — from spec-metadata.json
     checksum_sha256=<hash>   — from the .sha256 sidecar
     staged_spec_path=<path>  — absolute path of the staged spec on disk
+    resolved_spec_url=<url>  — the spec URL actually used (override or default)
 
 Exit codes:
     0  Success (regardless of `changed` value).
@@ -151,6 +152,7 @@ def main() -> int:
     emit_output("generated_at", generated_at)
     emit_output("checksum_sha256", expected_hash)
     emit_output("staged_spec_path", str(staged_spec.resolve()))
+    emit_output("resolved_spec_url", args.spec_url)
 
     if not changed:
         print("fetch_spec: spec unchanged from committed copy; downstream steps should skip.")
