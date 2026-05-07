@@ -39,11 +39,18 @@ jobs:
         # workflow_dispatch trigger and any future PR-event workflows fire on
         # the resulting PR. The default GITHUB_TOKEN does NOT trigger
         # downstream workflows.
+        #
+        # Per the BambooHR "Access other repos with your GitHub Action" doc
+        # (https://bamboohr.slite.com/app/docs/9BqBAxIM14DJ-O), REPO_RO_APP_ID
+        # is the documented org-wide credential pair. The "RO" suffix in the
+        # name is misleading — the App actually has write permissions in
+        # practice (see BambooHR/agent-actions/.github/workflows/sdk-release.yaml
+        # which uses it with `permissions: contents: write, pull-requests: write`).
         id: app-token
         uses: actions/create-github-app-token@v1
         with:
-          app-id: ${{ vars.APP_ID }}
-          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          app-id: ${{ vars.REPO_RO_APP_ID }}
+          private-key: ${{ secrets.REPO_RO_APP_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
           repositories: |
             bhr-api-python
