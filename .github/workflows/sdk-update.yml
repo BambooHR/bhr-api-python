@@ -34,32 +34,23 @@ jobs:
       pull-requests: write
 
     steps:
-      - name: Generate a GitHub App token
-        # Bot PR is opened with this token so SPN-2930's generate.yml
-        # workflow_dispatch trigger and any future PR-event workflows fire on
-        # the resulting PR. The default GITHUB_TOKEN does NOT trigger
-        # downstream workflows.
-        #
-        # Per the BambooHR "Access other repos with your GitHub Action" doc
-        # (https://bamboohr.slite.com/app/docs/9BqBAxIM14DJ-O), REPO_RO_APP_ID
-        # is the documented org-wide credential pair. The "RO" suffix in the
-        # name is misleading — the App actually has write permissions in
-        # practice (see BambooHR/agent-actions/.github/workflows/sdk-release.yaml
-        # which uses it with `permissions: contents: write, pull-requests: write`).
-        id: app-token
-        uses: actions/create-github-app-token@v1
-        with:
-          app-id: ${{ vars.REPO_RO_APP_ID }}
-          private-key: ${{ secrets.REPO_RO_APP_PRIVATE_KEY }}
-          owner: ${{ github.repository_owner }}
-          repositories: |
-            bhr-api-python
-
+      # Auth model:
+      #   - actions/checkout's default GITHUB_TOKEN is enough for same-repo
+      #     git push (the bot's force-push to auto/sdk-update) and for the
+      #     gh pr create/edit/list calls below.
+      #   - We previously tried a GitHub App token here so the bot PR would
+      #     trigger downstream workflows, but org-level App vars don't scope
+      #     to public repos. Since generate.yml is workflow_dispatch only and
+      #     we have no PR-event workflows, the downstream-trigger gap doesn't
+      #     hurt us today — if we add PR-event workflows later, we'll need a
+      #     non-GITHUB_TOKEN identity (App token or PAT) for the gh pr step.
+      #   - The GHM-375 deploy key is scoped to BambooHR/phpcs (PHP SDK's
+      #     composer dep). Python has no private cross-repo deps, so it's
+      #     unused here even though the secret is available on this repo.
       - name: Check out main
         uses: actions/checkout@v6
         with:
           ref: main
-          token: ${{ steps.app-token.outputs.token }}
           fetch-depth: 0  # need history so we can diff vs auto/sdk-update
 
       - name: Set up Python
@@ -278,7 +269,7 @@ jobs:
       - name: Create or update PR
         if: steps.fetch.outputs.changed == 'true' && steps.diff.outputs.has_changes == 'true'
         env:
-          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           TITLE="[auto] SDK update (${{ steps.classify.outputs.level }}) — spec ${{ steps.fetch.outputs.source_commit }}"
 
