@@ -34,22 +34,23 @@ jobs:
       pull-requests: write
 
     steps:
-      # Check out via the deploy key issued by GHM-375 (registered on this
-      # repo with write access) so the bot's `git push` later in this job
-      # is authorized via SSH. We deliberately avoid using a GitHub App
-      # token here because org-level App vars are not scoped to public
-      # repos — the deploy key sidesteps that limitation entirely.
-      #
-      # Caveat: PRs opened via GITHUB_TOKEN don't trigger downstream
-      # workflows. Today that's fine — generate.yml is workflow_dispatch
-      # only and we have no PR-event workflows. If we add any later, we'd
-      # need to switch the `gh pr` step below to a token that can trigger
-      # downstream runs.
+      # Auth model:
+      #   - actions/checkout's default GITHUB_TOKEN is enough for same-repo
+      #     git push (the bot's force-push to auto/sdk-update) and for the
+      #     gh pr create/edit/list calls below.
+      #   - We previously tried a GitHub App token here so the bot PR would
+      #     trigger downstream workflows, but org-level App vars don't scope
+      #     to public repos. Since generate.yml is workflow_dispatch only and
+      #     we have no PR-event workflows, the downstream-trigger gap doesn't
+      #     hurt us today — if we add PR-event workflows later, we'll need a
+      #     non-GITHUB_TOKEN identity (App token or PAT) for the gh pr step.
+      #   - The GHM-375 deploy key is scoped to BambooHR/phpcs (PHP SDK's
+      #     composer dep). Python has no private cross-repo deps, so it's
+      #     unused here even though the secret is available on this repo.
       - name: Check out main
         uses: actions/checkout@v6
         with:
           ref: main
-          ssh-key: ${{ secrets.GHM_375_PRIVATE_REPO_DEPLOY_KEY }}
           fetch-depth: 0  # need history so we can diff vs auto/sdk-update
 
       - name: Set up Python
