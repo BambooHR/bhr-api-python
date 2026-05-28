@@ -989,7 +989,7 @@ This will:
 
 ## Contributing
 
-Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines, and the [Releasing](CONTRIBUTING.md#releasing) section for the publish-to-PyPI procedure.
 
 ## Data Handling
 
