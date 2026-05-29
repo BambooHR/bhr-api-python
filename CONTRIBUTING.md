@@ -33,6 +33,41 @@ ruff check bamboohr_sdk/ tests/
 
 8. Open a pull request with a clear description of the change.
 
+## Releasing
+
+Publishing is automated via GitHub Actions using PyPI [Trusted Publishing](https://docs.pypi.org/trusted-publishers/) (OIDC). No API tokens are stored in the repo.
+
+### TestPyPI (automatic)
+
+Every merge to `main` triggers [`publish-testpypi.yml`](.github/workflows/publish-testpypi.yml), which builds the package and publishes to [TestPyPI](https://test.pypi.org/project/bamboohr-sdk/). Re-merges without a version bump are skipped (not failed) via `skip-existing`.
+
+Verify a TestPyPI release locally:
+
+```bash
+pip install --index-url https://test.pypi.org/simple/ \
+            --extra-index-url https://pypi.org/simple/ \
+            bamboohr-sdk
+```
+
+### PyPI (tag-driven)
+
+1. Bump `version` in `pyproject.toml` via PR and merge to `main`. The `classify-semver` make target can determine the appropriate bump:
+   ```bash
+   make classify-semver OLD=specs/public.yaml NEW=/tmp/new.yaml APPLY=true
+   ```
+2. After the TestPyPI publish completes, validate the package against a real consumer.
+3. Tag the release commit and push:
+   ```bash
+   git tag v1.2.3
+   git push origin v1.2.3
+   ```
+4. [`publish-pypi.yml`](.github/workflows/publish-pypi.yml) runs. It verifies the tag matches `pyproject.toml`, then waits for approval on the `pypi` GitHub environment before publishing.
+5. Approve the deployment in the GitHub Actions UI. The package will appear at https://pypi.org/project/bamboohr-sdk/.
+
+### PyPI / TestPyPI account credentials
+
+Day-to-day publishing does not need credentials — OIDC handles auth. Credentials are only needed to manage the project in the PyPI web UI (e.g., updating the trusted publisher config or managing maintainers). The shared BambooHR PyPI and TestPyPI account credentials are stored in **Vault**.
+
 ## Terms
 
 Use of the BambooHR API is subject to the [BambooHR Developer Terms of Service](https://www.bamboohr.com/legal/developer-terms-of-service).
