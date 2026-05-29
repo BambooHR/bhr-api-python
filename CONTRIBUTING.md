@@ -39,7 +39,7 @@ Publishing is automated via GitHub Actions using PyPI [Trusted Publishing](https
 
 ### TestPyPI (automatic)
 
-Every merge to `master` triggers [`publish-testpypi.yml`](.github/workflows/publish-testpypi.yml), which builds the package and publishes to [TestPyPI](https://test.pypi.org/project/bamboohr-sdk/). Re-merges without a version bump are skipped (not failed) via `skip-existing`.
+Every merge to `main` triggers [`publish-testpypi.yml`](.github/workflows/publish-testpypi.yml), which builds the package and publishes to [TestPyPI](https://test.pypi.org/project/bamboohr-sdk/). Re-merges without a version bump are skipped (not failed) via `skip-existing`.
 
 Verify a TestPyPI release locally:
 
@@ -51,7 +51,7 @@ pip install --index-url https://test.pypi.org/simple/ \
 
 ### PyPI (tag-driven)
 
-1. Bump `version` in `pyproject.toml` via PR and merge to `master`. The `classify-semver` make target can determine the appropriate bump:
+1. Bump `version` in `pyproject.toml` via PR and merge to `main`. The `classify-semver` make target can determine the appropriate bump:
    ```bash
    make classify-semver OLD=specs/public.yaml NEW=/tmp/new.yaml APPLY=true
    ```
