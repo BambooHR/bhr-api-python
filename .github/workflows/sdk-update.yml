@@ -65,8 +65,17 @@ jobs:
           pip install -e ".[dev]"
 
       - name: Install oasdiff
+        # PINNED to v1.16.0: v1.17.0 introduced a "media-type walker" refactor
+        # (commit 21e8eb4, PR #943, part of #936) that migrated the response
+        # min/max checks to a new path which dereferences propertyDiff.Revision
+        # without a nil guard. Our public spec triggers a SIGSEGV panic during
+        # `oasdiff breaking` analysis. v1.16.0 predates the migration of those
+        # checks and is the last known-good version. Revisit once an upstream
+        # fix lands — search the oasdiff repo for the panic in
+        # check_response_property_max_increased.go.
         run: |
-          curl -fsSL https://raw.githubusercontent.com/oasdiff/oasdiff/main/install.sh | sh
+          curl -fsSL https://raw.githubusercontent.com/oasdiff/oasdiff/main/install.sh \
+            | version=1.16.0 sh
 
       - name: Pull OpenAPI Generator Docker image
         run: docker pull openapitools/openapi-generator-cli:v7.16.0
