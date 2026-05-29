@@ -16,7 +16,7 @@ use the SDK. Once you have tokens, use with_oauth_refresh() as shown
 in 02_oauth_with_auto_refresh.py.
 
 Prerequisites:
-    - pip install bamboohr-python httpx
+    - pip install bamboohr-sdk httpx
     - An OAuth application registered in BambooHR
     - A redirect URI configured in your app settings
 

@@ -11,7 +11,7 @@ The SDK provides:
     - An error catalog with potential causes and debugging tips
 
 Prerequisites:
-    - pip install bamboohr-python
+    - pip install bamboohr-sdk
 
 Usage:
     export BAMBOO_COMPANY="yourcompany"

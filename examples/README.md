@@ -182,7 +182,7 @@ python -m pytest examples/07_testing_patterns.py -v
 
 2. **Install the SDK**
    ```bash
-   pip install bamboohr-python
+   pip install bamboohr-sdk
    ```
 
 3. **Set environment variables**
@@ -262,7 +262,7 @@ Ensure `BAMBOO_COMPANY` is set to your BambooHR subdomain (the part before `.bam
 ### Import errors
 Ensure the SDK is installed:
 ```bash
-pip install bamboohr-python
+pip install bamboohr-sdk
 ```
 
 ## Additional Resources
