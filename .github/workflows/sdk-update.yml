@@ -32,6 +32,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      issues: write  # required so `gh label create` can manage repo labels
 
     steps:
       # Auth model:
@@ -295,6 +296,27 @@ jobs:
         run: git push --force origin HEAD:refs/heads/auto/sdk-update
 
       # ----- Open or update PR ---------------------------------------------
+      # Make sure every label the next step might add or remove actually
+      # exists on the repo. `gh pr edit --add-label "a,b,c"` validates all
+      # names up-front and fails the whole call if any one is missing —
+      # which would silently kill the workflow when we introduce a new
+      # label name in code without remembering to pre-create it in the UI.
+      # `gh label create --force` is the idempotent equivalent: creates if
+      # missing, updates color/description if present, exits 0 either way.
+      - name: Ensure workflow labels exist
+        if: steps.fetch.outputs.changed == 'true' && steps.diff.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh label create "auto-generated"    --color "c9f7b1" --force \
+            --description "PR opened automatically by the sdk-update workflow"
+          gh label create "breaking"          --color "b60205" --force \
+            --description "Contains breaking API changes (semver major)"
+          gh label create "generation-failed" --color "b60205" --force \
+            --description "make generate did not succeed on the latest run"
+          gh label create "quality-issues"    --color "fbca04" --force \
+            --description "Generation succeeded but format/lint/smoke/test reported issues"
+
       - name: Create or update PR
         if: steps.fetch.outputs.changed == 'true' && steps.diff.outputs.has_changes == 'true'
         env:
