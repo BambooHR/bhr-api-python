@@ -143,7 +143,14 @@ jobs:
           path.write_text(json.dumps(data, indent=2) + "\n")
           '
 
-      # ----- Generate (each step continue-on-error so we can still PR) ------
+      # ----- Generate + quality checks --------------------------------------
+      # `make generate` is the only step the others truly depend on (they all
+      # need the regenerated tree). Format / lint / smoke / test all run
+      # independently after generate so reviewers see every signal on a single
+      # run instead of just "the first thing that broke." Each is
+      # continue-on-error so the workflow proceeds to open the bot PR
+      # regardless, and the "Determine generation status" step tiers the
+      # outcomes into one of three states.
       - name: make generate
         if: steps.fetch.outputs.changed == 'true'
         id: generate
@@ -157,35 +164,48 @@ jobs:
         run: make format
 
       - name: make lint
-        if: steps.fetch.outputs.changed == 'true' && steps.format.outcome == 'success'
+        if: steps.fetch.outputs.changed == 'true' && steps.generate.outcome == 'success'
         id: lint
         continue-on-error: true
         run: make lint
 
       - name: make smoke-test
-        if: steps.fetch.outputs.changed == 'true' && steps.lint.outcome == 'success'
+        if: steps.fetch.outputs.changed == 'true' && steps.generate.outcome == 'success'
         id: smoke
         continue-on-error: true
         run: make smoke-test
 
       - name: make test
-        if: steps.fetch.outputs.changed == 'true' && steps.smoke.outcome == 'success'
+        if: steps.fetch.outputs.changed == 'true' && steps.generate.outcome == 'success'
         id: test
         continue-on-error: true
         run: make test
 
+      # Three-tier status so reviewers can tell apart the structural failure
+      # ("the SDK isn't buildable, don't merge") from the quality failure
+      # ("the SDK is buildable but has lint/test issues to look at"):
+      #
+      #   generation-failed  — `make generate` itself didn't succeed; the
+      #                        regenerated tree is missing or broken. PR opens
+      #                        with the spec update committed but no usable
+      #                        SDK; reviewer needs to investigate before merge.
+      #   quality-issues     — generate succeeded but one or more of
+      #                        format/lint/smoke/test failed. SDK is structurally
+      #                        valid; the issues are usually small and fixable.
+      #   success            — everything green; safe to merge once reviewed.
       - name: Determine generation status
         if: steps.fetch.outputs.changed == 'true'
         id: status
         run: |
-          if [ "${{ steps.generate.outcome }}" = "success" ] \
-             && [ "${{ steps.format.outcome }}" = "success" ] \
-             && [ "${{ steps.lint.outcome }}" = "success" ] \
-             && [ "${{ steps.smoke.outcome }}" = "success" ] \
-             && [ "${{ steps.test.outcome }}" = "success" ]; then
+          if [ "${{ steps.generate.outcome }}" != "success" ]; then
+            echo "result=generation-failed" >> "$GITHUB_OUTPUT"
+          elif [ "${{ steps.format.outcome }}" = "success" ] \
+               && [ "${{ steps.lint.outcome }}" = "success" ] \
+               && [ "${{ steps.smoke.outcome }}" = "success" ] \
+               && [ "${{ steps.test.outcome }}" = "success" ]; then
             echo "result=success" >> "$GITHUB_OUTPUT"
           else
-            echo "result=failed" >> "$GITHUB_OUTPUT"
+            echo "result=quality-issues" >> "$GITHUB_OUTPUT"
           fi
 
       # ----- Skip-if-no-meaningful-changes ----------------------------------
@@ -283,7 +303,9 @@ jobs:
           TITLE="[auto] SDK update (${{ steps.classify.outputs.level }}) — spec ${{ steps.fetch.outputs.source_commit }}"
 
           # Build the exact label set for this run. `auto-generated` is
-          # always present; `breaking` and `generation-failed` are toggled.
+          # always present; `breaking`, `generation-failed`, and
+          # `quality-issues` are toggled based on this run's outcomes.
+          # See the "Determine generation status" step for tier definitions.
           ADD_LABELS=("auto-generated")
           REMOVE_LABELS=()
           if [ "${{ steps.analyze.outputs.has_breaking }}" = "true" ]; then
@@ -291,11 +313,19 @@ jobs:
           else
             REMOVE_LABELS+=("breaking")
           fi
-          if [ "${{ steps.status.outputs.result }}" = "failed" ]; then
-            ADD_LABELS+=("generation-failed")
-          else
-            REMOVE_LABELS+=("generation-failed")
-          fi
+          case "${{ steps.status.outputs.result }}" in
+            generation-failed)
+              ADD_LABELS+=("generation-failed")
+              REMOVE_LABELS+=("quality-issues")
+              ;;
+            quality-issues)
+              ADD_LABELS+=("quality-issues")
+              REMOVE_LABELS+=("generation-failed")
+              ;;
+            success)
+              REMOVE_LABELS+=("generation-failed" "quality-issues")
+              ;;
+          esac
 
           ADD_LABELS_CSV="$(IFS=,; echo "${ADD_LABELS[*]}")"
 

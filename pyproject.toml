@@ -105,27 +105,33 @@ known-first-party = ["bamboohr_sdk"]
 # the upstream templates and aren't worth fixing in our fork.
 # Hand-written code lives under bamboohr_sdk/client/ and stays under the
 # default rule set.
+#
+# RUF001/RUF002/RUF003 (ambiguous unicode in strings/docstrings/comments) are
+# all ignored on generated paths — they fire on smart-quote characters (’, “”)
+# that come straight from spec description text written by API designers. The
+# characters aren't ambiguous in context; ruff is being pedantic about source
+# we don't own.
 [tool.ruff.lint.per-file-ignores]
 "bamboohr_sdk/api/*.py" = [
-    "B028", "B904", "F841", "N805", "RUF002", "RUF012", "RUF059",
+    "B028", "B904", "F841", "N805", "RUF001", "RUF002", "RUF003", "RUF012", "RUF059",
     "SIM101", "SIM105", "SIM108", "SIM118", "TC001", "TC003", "UP030", "UP031",
 ]
 "bamboohr_sdk/models/*.py" = [
-    "F841", "N805", "N818", "RUF002", "RUF012", "SIM118", "TC001", "TC003",
+    "F841", "N805", "N818", "RUF001", "RUF002", "RUF003", "RUF012", "SIM118", "TC001", "TC003",
 ]
 "bamboohr_sdk/api_client.py" = [
-    "B028", "B904", "F841", "RUF002", "RUF012", "RUF059",
+    "B028", "B904", "F841", "RUF001", "RUF002", "RUF003", "RUF012", "RUF059",
     "SIM101", "SIM105", "SIM108", "TC001", "TC003", "UP030", "UP031",
 ]
 "bamboohr_sdk/api_helper.py" = ["TC001", "TC003"]
 "bamboohr_sdk/api_response.py" = ["TC001", "TC003"]
-"bamboohr_sdk/configuration.py" = ["B028", "B904", "RUF002", "UP030", "UP031"]
+"bamboohr_sdk/configuration.py" = ["B028", "B904", "RUF001", "RUF002", "RUF003", "UP030", "UP031"]
 "bamboohr_sdk/exceptions.py" = ["N818", "SIM105"]
-"bamboohr_sdk/rest.py" = ["B028", "B904", "RUF002", "SIM101", "SIM108"]
+"bamboohr_sdk/rest.py" = ["B028", "B904", "RUF001", "RUF002", "RUF003", "SIM101", "SIM108"]
 # Hand-written client code: relax rules for type-only imports and
 # docstring-only stylistic noise. Real bugs would still surface via
 # mypy and the test suite.
-"bamboohr_sdk/client/**/*.py" = ["B904", "RUF002", "RUF059", "TC001", "TC003"]
+"bamboohr_sdk/client/**/*.py" = ["B904", "RUF001", "RUF002", "RUF003", "RUF059", "TC001", "TC003"]
 
 [tool.ruff.format]
 quote-style = "double"
