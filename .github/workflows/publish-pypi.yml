@@ -1,9 +1,12 @@
 name: Publish to PyPI
 
+# TODO: Re-enable the tag trigger once the TestPyPI workflow has been validated end-to-end.
+# on:
+#   push:
+#     tags:
+#       - "v*"
 on:
-  push:
-    tags:
-      - "v*"
+  workflow_dispatch:
 
 jobs:
   build:
@@ -14,12 +17,22 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: pip
+
+      - name: Verify tag is reachable from master
+        run: |
+          if ! git merge-base --is-ancestor "$GITHUB_SHA" origin/master; then
+            echo "Tag commit $GITHUB_SHA is not an ancestor of origin/master." >&2
+            echo "Only commits merged to master may be released." >&2
+            exit 1
+          fi
 
       - name: Verify tag version matches pyproject.toml
         run: |
