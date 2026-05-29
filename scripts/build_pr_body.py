@@ -17,7 +17,9 @@ Inputs (all optional, but most produce richer output when provided):
     --since-last-review Path to a pre-computed delta-vs-existing-branch text
                         file. Pass --since-last-review="" (or omit) to
                         render the "Initial PR" placeholder.
-    --generation-status One of: success, failed. Adds a banner if failed.
+    --generation-status One of: success, quality-issues, generation-failed.
+                        Each tier shows a different banner (or none) at the
+                        top of the PR body.
     --old-version       Previous version (e.g. 1.0.0).
     --new-version       Bumped version (e.g. 1.1.0); pass equal to old to
                         skip the version-bump section.
@@ -59,14 +61,24 @@ def parse_classification(text: str) -> tuple[str, str]:
 def build(args: argparse.Namespace) -> str:
     sections: list[str] = []
 
-    # --- Banner for generation failures ------------------------------------
-    if args.generation_status == "failed":
+    # --- Banner keyed off the three-tier generation status -----------------
+    if args.generation_status == "generation-failed":
+        sections.append(
+            "> [!CAUTION]\n"
+            "> **`make generate` failed on this run.**\n"
+            "> The committed tree contains the spec update but no regenerated\n"
+            "> SDK — the package is not buildable as-is. Reproduce locally\n"
+            "> with `make generate` and resolve the underlying error before\n"
+            "> merging."
+        )
+    elif args.generation_status == "quality-issues":
         sections.append(
             "> [!WARNING]\n"
-            "> **Generation, lint, or tests failed on this run.**\n"
-            "> The committed tree contains the spec update but may not contain\n"
-            "> a clean regenerated SDK. Reproduce locally with `make generate`\n"
-            "> then `make format && make lint && make test` before merging."
+            "> **Generation succeeded, but one or more quality checks failed.**\n"
+            "> The regenerated SDK is structurally valid; one or more of\n"
+            "> `make format` / `make lint` / `make smoke-test` / `make test`\n"
+            "> reported issues. See the workflow run for per-step details and\n"
+            "> reproduce locally with the failing target before merging."
         )
 
     # --- Spec source metadata ----------------------------------------------
@@ -167,7 +179,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--since-last-review", default="")
     parser.add_argument(
         "--generation-status",
-        choices=["success", "failed"],
+        choices=["success", "quality-issues", "generation-failed"],
         default="success",
     )
     parser.add_argument("--old-version", default="")
