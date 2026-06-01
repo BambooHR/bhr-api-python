@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **id** | **str** | The ID of the webhook. | [optional] 
 **name** | **str** | The name of the webhook. | [optional] 
 **created** | **str** | Datetime when the webhook was created (UTC, format: YYYY-MM-DD HH:MM:SS). | [optional] 
-**last_sent** | **str** | Datetime when the webhook was last fired (UTC, format: YYYY-MM-DD HH:MM:SS). Null if the webhook has never fired. | [optional] 
+**last_sent** | **str** |  | [optional] 
 **monitor_fields** | **List[str]** |  | [optional] 
 **post_fields** | **object** | An object map of field ID or alias to the external name used in the webhook payload. | [optional] 
 **url** | **str** | The URL the webhook sends data to. | [optional] 

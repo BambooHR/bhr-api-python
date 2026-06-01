@@ -55,7 +55,7 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.TabularDataApi(api_client)
     id = 'id_example' # str | The employee ID.
-    table = 'table_example' # str | The name of the table to add a row to (e.g., jobInfo, compensation).
+    table = 'table_example' # str | The API name of the table to add a row to. See the TableName schema for valid standard values; custom tables use a `custom` prefix. Use GET /api/v1/meta/tables to discover the complete list.
     table_row_update = bamboohr_sdk.TableRowUpdate() # TableRowUpdate | 
 
     try:
@@ -73,7 +73,7 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The employee ID. | 
- **table** | **str**| The name of the table to add a row to (e.g., jobInfo, compensation). | 
+ **table** | **str**| The API name of the table to add a row to. See the TableName schema for valid standard values; custom tables use a &#x60;custom&#x60; prefix. Use GET /api/v1/meta/tables to discover the complete list. | 
  **table_row_update** | [**TableRowUpdate**](TableRowUpdate.md)|  | 
 
 ### Return type
@@ -145,7 +145,7 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.TabularDataApi(api_client)
     id = 'id_example' # str | The employee ID.
-    table = 'table_example' # str | The name of the table to add a row to (e.g., jobInfo, compensation).
+    table = 'table_example' # str | The API name of the table to add a row to. See the TableName schema for valid standard values; custom tables use a `custom` prefix. Use GET /api/v1/meta/tables to discover the complete list.
     table_row_update = bamboohr_sdk.TableRowUpdate() # TableRowUpdate | 
 
     try:
@@ -163,7 +163,7 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The employee ID. | 
- **table** | **str**| The name of the table to add a row to (e.g., jobInfo, compensation). | 
+ **table** | **str**| The API name of the table to add a row to. See the TableName schema for valid standard values; custom tables use a &#x60;custom&#x60; prefix. Use GET /api/v1/meta/tables to discover the complete list. | 
  **table_row_update** | [**TableRowUpdate**](TableRowUpdate.md)|  | 
 
 ### Return type
@@ -198,7 +198,7 @@ void (empty response body)
 
 Delete Employee Table Row
 
-Deletes a specific row from an employee's tabular data. The table name identifies which tabular dataset to target (e.g., jobInfo, compensation, customTabularField). Returns `success: true` if the row was deleted, or `success: false` with an error message if the row was not found or could not be deleted. Deletion will fail with a 409 if the row has pending approval changes, or a 412 if the row is tied to an active pay schedule.
+Deletes a specific row from an employee's tabular data. The table name identifies which tabular dataset to target (e.g., jobInfo, compensation, customTabularField). Returns `success: true` if the row was deleted, or `success: false` with an error message if the row was not found or could not be deleted. Deletion will fail with a 409 if the row has pending approval changes, or a 412 if the row is tied to an active pay schedule. Per-table field schemas are available as named OpenAPI components (e.g., `JobInfoTableRowRequest`, `CompensationTableRowRequest`). See the components/schemas section of this spec for the full list.
 
 ### Example
 
@@ -235,7 +235,7 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.TabularDataApi(api_client)
     id = 'id_example' # str | The employee ID.
-    table = 'table_example' # str | The name of the table containing the row to delete (e.g., jobInfo, compensation, customTabularField).
+    table = 'table_example' # str | The API name of the table containing the row to delete. See the TableName schema for valid standard values; custom tables use a `custom` prefix (e.g., `customTabularField`). Use the `list-tabular-fields` tool (GET /api/v1/meta/tables) to discover the complete list.
     row_id = 'row_id_example' # str | The ID of the specific row to delete.
 
     try:
@@ -255,7 +255,7 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The employee ID. | 
- **table** | **str**| The name of the table containing the row to delete (e.g., jobInfo, compensation, customTabularField). | 
+ **table** | **str**| The API name of the table containing the row to delete. See the TableName schema for valid standard values; custom tables use a &#x60;custom&#x60; prefix (e.g., &#x60;customTabularField&#x60;). Use the &#x60;list-tabular-fields&#x60; tool (GET /api/v1/meta/tables) to discover the complete list. | 
  **row_id** | **str**| The ID of the specific row to delete. | 
 
 ### Return type
@@ -325,7 +325,7 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.TabularDataApi(api_client)
-    table = 'table_example' # str | The name of the table to retrieve changed data for (e.g., jobInfo, compensation).
+    table = 'table_example' # str | The API name of the table to retrieve changed data for. See the TableName schema for valid standard values; custom tables use a `custom` prefix. Use GET /api/v1/meta/tables to discover the complete list.
     since = '2013-10-20T19:20:30+01:00' # datetime | ISO 8601 timestamp (URL-encoded). Only employees changed since this timestamp will be returned.
 
     try:
@@ -344,7 +344,7 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **table** | **str**| The name of the table to retrieve changed data for (e.g., jobInfo, compensation). | 
+ **table** | **str**| The API name of the table to retrieve changed data for. See the TableName schema for valid standard values; custom tables use a &#x60;custom&#x60; prefix. Use GET /api/v1/meta/tables to discover the complete list. | 
  **since** | **datetime**| ISO 8601 timestamp (URL-encoded). Only employees changed since this timestamp will be returned. | 
 
 ### Return type
@@ -412,7 +412,7 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.TabularDataApi(api_client)
     id = 'id_example' # str | The employee ID. Use the special value \"all\" to retrieve table data for all employees the API user has access to.
-    table = 'table_example' # str | The name of the table to retrieve (e.g., jobInfo, compensation, employmentStatus).
+    table = 'table_example' # str | The API name of the table to retrieve. See the TableName schema for standard values; custom tables also accepted (e.g., `custom1`, `custom42`). Use the `list-tabular-fields` tool (GET /api/v1/meta/tables) to discover custom table names.
     accept_header_parameter = 'accept_header_parameter_example' # str | This endpoint can produce either JSON or XML. (optional)
 
     try:
@@ -432,7 +432,7 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The employee ID. Use the special value \&quot;all\&quot; to retrieve table data for all employees the API user has access to. | 
- **table** | **str**| The name of the table to retrieve (e.g., jobInfo, compensation, employmentStatus). | 
+ **table** | **str**| The API name of the table to retrieve. See the TableName schema for standard values; custom tables also accepted (e.g., &#x60;custom1&#x60;, &#x60;custom42&#x60;). Use the &#x60;list-tabular-fields&#x60; tool (GET /api/v1/meta/tables) to discover custom table names. | 
  **accept_header_parameter** | **str**| This endpoint can produce either JSON or XML. | [optional] 
 
 ### Return type
@@ -499,7 +499,7 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.TabularDataApi(api_client)
     id = 'id_example' # str | The employee ID.
-    table = 'table_example' # str | The name of the table containing the row to update (e.g., jobInfo, compensation).
+    table = 'table_example' # str | The API name of the table containing the row to update. See the TableName schema for valid standard values; custom tables use a `custom` prefix. Use GET /api/v1/meta/tables to discover the complete list.
     row_id = 'row_id_example' # str | The ID of the row to update.
     table_row_update = bamboohr_sdk.TableRowUpdate() # TableRowUpdate | 
 
@@ -518,7 +518,7 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The employee ID. | 
- **table** | **str**| The name of the table containing the row to update (e.g., jobInfo, compensation). | 
+ **table** | **str**| The API name of the table containing the row to update. See the TableName schema for valid standard values; custom tables use a &#x60;custom&#x60; prefix. Use GET /api/v1/meta/tables to discover the complete list. | 
  **row_id** | **str**| The ID of the row to update. | 
  **table_row_update** | [**TableRowUpdate**](TableRowUpdate.md)|  | 
 
@@ -591,7 +591,7 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.TabularDataApi(api_client)
     id = 'id_example' # str | The employee ID.
-    table = 'table_example' # str | The name of the table containing the row to update (e.g., jobInfo, compensation).
+    table = 'table_example' # str | The API name of the table containing the row to update. See the TableName schema for valid standard values; custom tables use a `custom` prefix. Use GET /api/v1/meta/tables to discover the complete list.
     row_id = 'row_id_example' # str | The ID of the row to update.
     table_row_update = bamboohr_sdk.TableRowUpdate() # TableRowUpdate | 
 
@@ -610,7 +610,7 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The employee ID. | 
- **table** | **str**| The name of the table containing the row to update (e.g., jobInfo, compensation). | 
+ **table** | **str**| The API name of the table containing the row to update. See the TableName schema for valid standard values; custom tables use a &#x60;custom&#x60; prefix. Use GET /api/v1/meta/tables to discover the complete list. | 
  **row_id** | **str**| The ID of the row to update. | 
  **table_row_update** | [**TableRowUpdate**](TableRowUpdate.md)|  | 
 

@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**integrations** | **List[str]** | List of installed integration identifiers. | [optional] 
+**integrations** | **List[Optional[str]]** | List of installed integration identifiers. | [optional] 
 
 ## Example
 

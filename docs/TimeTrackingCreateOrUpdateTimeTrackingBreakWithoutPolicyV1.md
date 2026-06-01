@@ -6,15 +6,15 @@ Data contract for creating or updating a break
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | The unique identifier of the break. If not included, a new break will be created. | [optional] 
+**id** | **str** |  | [optional] 
 **name** | **str** | The name of the break | [optional] 
 **paid** | **bool** | Whether the break is paid | [optional] 
 **duration** | **int** | Duration of the break in minutes | [optional] 
 **availability_type** | **str** | When the break is available to be taken | [optional] 
-**availability_min_hours_worked** | **float** | Minimum hours that must be worked before the break can be taken | [optional] 
-**availability_max_hours_worked** | **float** | Maximum hours that can be worked before the break must be taken | [optional] 
-**availability_start_time** | **str** | Earliest time the break can be taken (HH:MM format) | [optional] 
-**availability_end_time** | **str** | Latest time the break can be taken (HH:MM format) | [optional] 
+**availability_min_hours_worked** | **float** |  | [optional] 
+**availability_max_hours_worked** | **float** |  | [optional] 
+**availability_start_time** | **str** |  | [optional] 
+**availability_end_time** | **str** |  | [optional] 
 
 ## Example
 

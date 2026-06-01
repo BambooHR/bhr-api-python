@@ -241,7 +241,6 @@ Create a new job opening. The owner of the API key used must have access to ATS 
 ### Example
 
 * Basic Authentication (basic):
-* OAuth Authentication (oauth):
 
 ```python
 import bamboohr_sdk
@@ -265,8 +264,6 @@ configuration = bamboohr_sdk.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with bamboohr_sdk.ApiClient(configuration) as api_client:
@@ -340,7 +337,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basic](../README.md#basic), [oauth](../README.md#oauth)
+[basic](../README.md#basic)
 
 ### HTTP request headers
 
@@ -636,7 +633,6 @@ Get the list of employees who can be assigned as a hiring lead when creating a n
 ### Example
 
 * Basic Authentication (basic):
-* OAuth Authentication (oauth):
 
 ```python
 import bamboohr_sdk
@@ -660,8 +656,6 @@ configuration = bamboohr_sdk.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with bamboohr_sdk.ApiClient(configuration) as api_client:
@@ -689,7 +683,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[basic](../README.md#basic), [oauth](../README.md#oauth)
+[basic](../README.md#basic)
 
 ### HTTP request headers
 

@@ -21,12 +21,12 @@ Usage::
 from __future__ import annotations
 
 import logging
-from typing import Any, Callable, Dict, Optional, Type, TypeVar, Union
+from typing import Any, TypeVar
 
 from bamboohr_sdk.api_client import ApiClient
-from bamboohr_sdk.client.auth_builder import AuthBuilder, TokenRefreshCallback
 from bamboohr_sdk.client.auth.token_manager import TokenManager
 from bamboohr_sdk.client.auth.token_refresh_provider import BambooHRTokenRefreshProvider
+from bamboohr_sdk.client.auth_builder import AuthBuilder, TokenRefreshCallback
 from bamboohr_sdk.client.middleware.oauth2_middleware import OAuth2Middleware
 from bamboohr_sdk.configuration import Configuration
 
@@ -47,20 +47,20 @@ class BambooHRClient:
     :param auth_builder: Optional pre-configured :class:`AuthBuilder`.
     """
 
-    def __init__(self, auth_builder: Optional[AuthBuilder] = None) -> None:
+    def __init__(self, auth_builder: AuthBuilder | None = None) -> None:
         self._config = Configuration()
         self._auth_builder = auth_builder or AuthBuilder()
-        self._api_client: Optional[ApiClient] = None
-        self._timeout: Optional[Union[float, tuple]] = None
+        self._api_client: ApiClient | None = None
+        self._timeout: float | tuple | None = None
         self._built = False
 
         # OAuth refresh components (created in build() when applicable)
-        self._token_manager: Optional[TokenManager] = None
-        self._refresh_provider: Optional[BambooHRTokenRefreshProvider] = None
-        self._oauth2_middleware: Optional[OAuth2Middleware] = None
+        self._token_manager: TokenManager | None = None
+        self._refresh_provider: BambooHRTokenRefreshProvider | None = None
+        self._oauth2_middleware: OAuth2Middleware | None = None
 
         # Cache for API accessor instances
-        self._api_cache: Dict[type, Any] = {}
+        self._api_cache: dict[type, Any] = {}
 
     # ------------------------------------------------------------------
     # Authentication (delegated to AuthBuilder)
@@ -92,7 +92,7 @@ class BambooHRClient:
         refresh_token: str,
         client_id: str,
         client_secret: str,
-        expires_in: Optional[int] = None,
+        expires_in: int | None = None,
     ) -> BambooHRClient:
         """Configure OAuth with automatic token refresh.
 
@@ -103,9 +103,7 @@ class BambooHRClient:
         :param expires_in: Seconds until the access token expires (optional).
         :return: self for chaining.
         """
-        self._auth_builder.with_oauth_refresh(
-            access_token, refresh_token, client_id, client_secret, expires_in
-        )
+        self._auth_builder.with_oauth_refresh(access_token, refresh_token, client_id, client_secret, expires_in)
         logger.debug(
             "Configured OAuth with automatic refresh (has_expiry=%s)",
             expires_in is not None,
@@ -157,13 +155,11 @@ class BambooHRClient:
         :raises ValueError: If *retries* is outside the 0–5 range.
         """
         if not 0 <= retries <= 5:
-            raise ValueError(
-                f"Retries must be between 0 and 5, got {retries}"
-            )
+            raise ValueError(f"Retries must be between 0 and 5, got {retries}")
         self._config.retries = retries
         return self
 
-    def with_timeout(self, seconds: Union[float, tuple]) -> BambooHRClient:
+    def with_timeout(self, seconds: float | tuple) -> BambooHRClient:
         """Configure the request timeout.
 
         :param seconds: Timeout in seconds. Pass a ``float`` for a single
@@ -198,7 +194,7 @@ class BambooHRClient:
 
     def with_logging(
         self,
-        log_logger: Optional[logging.Logger] = None,
+        log_logger: logging.Logger | None = None,
         level: int = logging.INFO,
         secure: bool = True,
     ) -> BambooHRClient:
@@ -221,9 +217,7 @@ class BambooHRClient:
         target.setLevel(level)
         if not target.handlers:
             handler = logging.StreamHandler()
-            handler.setFormatter(
-                logging.Formatter("%(asctime)s %(levelname)s %(name)s: %(message)s")
-            )
+            handler.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(name)s: %(message)s"))
             target.addHandler(handler)
 
         # Attach the secure redaction filter (idempotent — won't double-add)
@@ -277,7 +271,7 @@ class BambooHRClient:
     # Generic API accessor
     # ------------------------------------------------------------------
 
-    def get_api(self, api_class: Type[T]) -> T:
+    def get_api(self, api_class: type[T]) -> T:
         """Get an instance of any generated API class.
 
         Instances are cached for the lifetime of this client; the same
@@ -303,96 +297,115 @@ class BambooHRClient:
     def employees(self):
         """Access the Employees API."""
         from bamboohr_sdk.api.employees_api import EmployeesApi
+
         return self.get_api(EmployeesApi)
 
     def time_off(self):
         """Access the Time Off API."""
         from bamboohr_sdk.api.time_off_api import TimeOffApi
+
         return self.get_api(TimeOffApi)
 
     def benefits(self):
         """Access the Benefits API."""
         from bamboohr_sdk.api.benefits_api import BenefitsApi
+
         return self.get_api(BenefitsApi)
 
     def reports(self):
         """Access the Reports API."""
         from bamboohr_sdk.api.reports_api import ReportsApi
+
         return self.get_api(ReportsApi)
 
     def tabular_data(self):
         """Access the Tabular Data API."""
         from bamboohr_sdk.api.tabular_data_api import TabularDataApi
+
         return self.get_api(TabularDataApi)
 
     def photos(self):
         """Access the Photos API."""
         from bamboohr_sdk.api.photos_api import PhotosApi
+
         return self.get_api(PhotosApi)
 
     def webhooks(self):
         """Access the Webhooks API."""
         from bamboohr_sdk.api.webhooks_api import WebhooksApi
+
         return self.get_api(WebhooksApi)
 
     def goals(self):
         """Access the Goals API."""
         from bamboohr_sdk.api.goals_api import GoalsApi
+
         return self.get_api(GoalsApi)
 
     def training(self):
         """Access the Training API."""
         from bamboohr_sdk.api.training_api import TrainingApi
+
         return self.get_api(TrainingApi)
 
     def time_tracking(self):
         """Access the Time Tracking API."""
         from bamboohr_sdk.api.time_tracking_api import TimeTrackingApi
+
         return self.get_api(TimeTrackingApi)
 
     def account_information(self):
         """Access the Account Information API."""
         from bamboohr_sdk.api.account_information_api import AccountInformationApi
+
         return self.get_api(AccountInformationApi)
 
     def applicant_tracking(self):
         """Access the Applicant Tracking API."""
         from bamboohr_sdk.api.applicant_tracking_api import ApplicantTrackingApi
+
         return self.get_api(ApplicantTrackingApi)
 
     def company_files(self):
         """Access the Company Files API."""
         from bamboohr_sdk.api.company_files_api import CompanyFilesApi
+
         return self.get_api(CompanyFilesApi)
 
     def employee_files(self):
         """Access the Employee Files API."""
         from bamboohr_sdk.api.employee_files_api import EmployeeFilesApi
+
         return self.get_api(EmployeeFilesApi)
 
     def custom_reports(self):
         """Access the Custom Reports API."""
         from bamboohr_sdk.api.custom_reports_api import CustomReportsApi
+
         return self.get_api(CustomReportsApi)
 
     def datasets(self):
         """Access the Datasets API."""
         from bamboohr_sdk.api.datasets_api import DatasetsApi
+
         return self.get_api(DatasetsApi)
 
     def hours(self):
         """Access the Hours API."""
         from bamboohr_sdk.api.hours_api import HoursApi
+
         return self.get_api(HoursApi)
 
     def last_change_information(self):
         """Access the Last Change Information API."""
         from bamboohr_sdk.api.last_change_information_api import LastChangeInformationApi
+
         return self.get_api(LastChangeInformationApi)
 
     def login(self):
         """Access the Login API."""
         from bamboohr_sdk.api.login_api import LoginApi
+
         return self.get_api(LoginApi)
 
     def manual(self):
@@ -408,6 +421,7 @@ class BambooHRClient:
             resp = client.manual().post("/api/gateway.php/acme/v1/employees", body={...})
         """
         from bamboohr_sdk.api.manual_api import ManualApi
+
         return self.get_api(ManualApi)
 
     # ------------------------------------------------------------------
@@ -425,27 +439,27 @@ class BambooHRClient:
         return self._auth_builder
 
     @property
-    def api_client(self) -> Optional[ApiClient]:
+    def api_client(self) -> ApiClient | None:
         """Return the generated :class:`ApiClient`, or ``None`` before build."""
         return self._api_client
 
     @property
-    def timeout(self) -> Optional[Union[float, tuple]]:
+    def timeout(self) -> float | tuple | None:
         """Return the configured timeout."""
         return self._timeout
 
     @property
-    def token_manager(self) -> Optional[TokenManager]:
+    def token_manager(self) -> TokenManager | None:
         """Return the :class:`TokenManager`, or ``None`` if OAuth refresh is not configured."""
         return self._token_manager
 
     @property
-    def oauth2_middleware(self) -> Optional[OAuth2Middleware]:
+    def oauth2_middleware(self) -> OAuth2Middleware | None:
         """Return the :class:`OAuth2Middleware`, or ``None`` if OAuth refresh is not configured."""
         return self._oauth2_middleware
 
     @property
-    def last_request_id(self) -> Optional[str]:
+    def last_request_id(self) -> str | None:
         """Return the most recent ``x-request-id`` from an API response.
 
         Convenience proxy for ``api_client.last_request_id``.
@@ -463,9 +477,7 @@ class BambooHRClient:
     def _ensure_built(self) -> None:
         """Raise if :meth:`build` has not been called."""
         if not self._built:
-            raise RuntimeError(
-                "Client has not been built. Call .build() before accessing APIs."
-            )
+            raise RuntimeError("Client has not been built. Call .build() before accessing APIs.")
 
     def _setup_oauth_refresh(self) -> None:
         """Create TokenManager, RefreshProvider, and OAuth2Middleware."""
@@ -478,9 +490,7 @@ class BambooHRClient:
         access_token = self._config.access_token
 
         if not refresh_token or not client_id or not client_secret:
-            logger.warning(
-                "OAuth refresh configured but missing required parameters"
-            )
+            logger.warning("OAuth refresh configured but missing required parameters")
             return
 
         self._token_manager = TokenManager(
@@ -520,15 +530,9 @@ class BambooHRClient:
         has_oauth = bool(self._config.access_token)
 
         if not has_api_key and not has_oauth:
-            raise ValueError(
-                "Authentication is required. "
-                "Use with_api_key() or with_oauth() before calling build()."
-            )
+            raise ValueError("Authentication is required. Use with_api_key() or with_oauth() before calling build().")
 
         # Company domain check
         host = self._config.host
         if not host or host == _DEFAULT_HOST:
-            raise ValueError(
-                "Company domain is required. "
-                "Use for_company() to set your company subdomain."
-            )
+            raise ValueError("Company domain is required. Use for_company() to set your company subdomain.")

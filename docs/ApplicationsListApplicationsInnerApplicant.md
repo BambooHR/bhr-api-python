@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **id** | **int** | Applicant ID | [optional] 
 **first_name** | **str** | Applicant&#39;s first name | [optional] 
 **last_name** | **str** | Applicant&#39;s last name | [optional] 
-**avatar** | **str** | URL to applicant&#39;s avatar image, or null | [optional] 
+**avatar** | **str** |  | [optional] 
 **email** | **str** | Applicant&#39;s email address | [optional] 
 **source** | **str** | Source of the application | [optional] 
 

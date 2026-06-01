@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **company_id** | **str** | The company ID | [optional] 
 **employee_id** | **str** | The employee ID that was updated | [optional] 
-**changed_fields** | **List[str]** | Array of API aliases for fields that changed and are monitored by this webhook | [optional] 
+**changed_fields** | **List[Optional[str]]** | Array of API aliases for fields that changed and are monitored by this webhook | [optional] 
 
 ## Example
 

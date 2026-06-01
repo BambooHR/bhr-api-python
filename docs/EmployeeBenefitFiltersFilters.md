@@ -1,14 +1,14 @@
 # EmployeeBenefitFiltersFilters
 
-Scope filters for the request. At least one of employeeId, companyBenefitId, or enrollmentStatusEffectiveDate must be provided; omitting all three returns a 400 validation error.
+Scope filters for the request. At least one of `employeeId`, `companyBenefitId`, or `enrollmentStatusEffectiveDate` must be provided; none of the three is individually required, but omitting all three returns a 400 validation error. Any combination of the three is accepted.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**employee_id** | **int** | Return benefit enrollments for a specific employee identified by their numeric ID. | [optional] 
-**company_benefit_id** | **int** | Return benefit enrollments for a specific company benefit plan identified by its numeric ID. | [optional] 
-**enrollment_status_effective_date** | **date** | Return benefit enrollments whose enrollment status became effective on this date. Must be in YYYY-MM-DD format. | [optional] 
+**employee_id** | **int** | Return benefit enrollments for a specific employee identified by their numeric ID. Optional unless neither &#x60;companyBenefitId&#x60; nor &#x60;enrollmentStatusEffectiveDate&#x60; is supplied. | [optional] 
+**company_benefit_id** | **int** | Return benefit enrollments for a specific company benefit plan identified by its numeric ID. Optional unless neither &#x60;employeeId&#x60; nor &#x60;enrollmentStatusEffectiveDate&#x60; is supplied. | [optional] 
+**enrollment_status_effective_date** | **date** | Return benefit enrollments whose enrollment status became effective on this date. Must be in &#x60;YYYY-MM-DD&#x60; format. Optional unless neither &#x60;employeeId&#x60; nor &#x60;companyBenefitId&#x60; is supplied. | [optional] 
 
 ## Example
 

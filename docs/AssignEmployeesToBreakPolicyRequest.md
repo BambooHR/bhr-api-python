@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**employee_ids** | **List[int]** | Array of employee IDs to assign to the break policy | 
+**employee_ids** | **List[Optional[int]]** | Array of employee IDs to assign to the break policy | 
 
 ## Example
 

@@ -7,7 +7,7 @@ Data contract for updating a break policy
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** | Name of the break policy | [optional] 
-**description** | **str** | Optional description of the break policy | [optional] 
+**description** | **str** |  | [optional] 
 **all_employees_assigned** | **bool** | Whether all employees are assigned to this break policy | [optional] 
 
 ## Example

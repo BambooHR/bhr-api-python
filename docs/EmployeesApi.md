@@ -5,21 +5,24 @@ All URIs are relative to *https://companySubDomain.bamboohr.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**create_employee**](EmployeesApi.md#create_employee) | **POST** /api/v1/employees | Create Employee
+[**delete_employee**](EmployeesApi.md#delete_employee) | **DELETE** /api/v1/employees/{id} | Delete employee
 [**get_company_information**](EmployeesApi.md#get_company_information) | **GET** /api/v1/company_information | Get Company Information
 [**get_employee**](EmployeesApi.md#get_employee) | **GET** /api/v1/employees/{id} | Get Employee
-[**get_employees_directory**](EmployeesApi.md#get_employees_directory) | **GET** /api/v1/employees/directory | Get Employee Directory
+[**get_employees_directory**](EmployeesApi.md#get_employees_directory) | **GET** /api/v1/employees/directory | Get Employees Directory
 [**list_employees**](EmployeesApi.md#list_employees) | **GET** /api/v1/employees | List Employees
 [**update_employee**](EmployeesApi.md#update_employee) | **POST** /api/v1/employees/{id} | Update Employee
 
 
 # **create_employee**
-> create_employee(post_new_employee)
+> GetEmployeeResponse create_employee(post_new_employee)
 
 Create Employee
 
-Create a new employee. At minimum, provide a first name and last name in a JSON object or XML document. The request body schema lists commonly used fields, but any valid employee field name may be included as a key. To discover available field names, call the list-fields endpoint (operationId: list-fields, GET /api/v1/meta/fields).
+Create a new employee. At minimum, provide a first name and last name in a JSON object or XML document. The request body schema lists commonly used fields, but any valid writable employee field name may be included as a key. To discover available field names, call the List Fields endpoint (operationId: list-fields, GET /api/v1/meta/fields).
 
-Trax Payroll note: Employees added to a pay schedule synced with Trax Payroll must include the required payroll-related employee fields: employeeNumber, firstName, lastName, dateOfBirth, ssn or ein, gender, maritalStatus, hireDate, address1, city, state, country, employmentHistoryStatus, exempt, payType, payRate, payPer, location, department, and division.
+This endpoint does not upload, set, or remove the employee profile photo. Photo-related keys (e.g. `photo`, `photoUrl`) included in the body are silently ignored: the request still creates the employee and returns 201, but no photo is attached. After creating the employee, use the Upload Employee Photo endpoint (operationId: upload-employee-photo, POST /api/v1/employees/{employeeId}/photo) to set the photo.
+
+Trax Payroll note: Employees added to a pay schedule synced with Trax Payroll must include the required payroll-related employee fields: employeeNumber (unless the company has automatic employee numbers enabled), firstName, lastName, dateOfBirth, ssn or ein, gender, maritalStatus, hireDate, address1, city, state, zipcode, country, employmentHistoryStatus, exempt, payType, payRate, payPer, overtimeRate, and location.
 
 ### Example
 
@@ -28,6 +31,7 @@ Trax Payroll note: Employees added to a pay schedule synced with Trax Payroll mu
 
 ```python
 import bamboohr_sdk
+from bamboohr_sdk.models.get_employee_response import GetEmployeeResponse
 from bamboohr_sdk.models.post_new_employee import PostNewEmployee
 from bamboohr_sdk.rest import ApiException
 from pprint import pprint
@@ -59,7 +63,9 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Create Employee
-        api_instance.create_employee(post_new_employee)
+        api_response = api_instance.create_employee(post_new_employee)
+        print("The response of EmployeesApi->create_employee:\n")
+        pprint(api_response)
     except Exception as e:
         print("Exception when calling EmployeesApi->create_employee: %s\n" % e)
 ```
@@ -75,7 +81,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**GetEmployeeResponse**](GetEmployeeResponse.md)
 
 ### Authorization
 
@@ -84,16 +90,91 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: application/json, application/xml, text/xml
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Employee created successfully. |  * Location - The URL to view the employee in the web app. The ID of the employee will be included. <br>  |
+**400** | If the posted XML or JSON is invalid or the minimum fields are not provided. |  -  |
+**403** | If the API user does not have permission to add an employee. |  -  |
+**409** | If an employee field was given an invalid value. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **delete_employee**
+> delete_employee(id)
+
+Delete employee
+
+Permanently deletes an employee record and all associated data.
+
+### Example
+
+* OAuth Authentication (oauth):
+
+```python
+import bamboohr_sdk
+from bamboohr_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://companySubDomain.bamboohr.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = bamboohr_sdk.Configuration(
+    host = "https://companySubDomain.bamboohr.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with bamboohr_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = bamboohr_sdk.EmployeesApi(api_client)
+    id = 56 # int | ID of the employee to delete.
+
+    try:
+        # Delete employee
+        api_instance.delete_employee(id)
+    except Exception as e:
+        print("Exception when calling EmployeesApi->delete_employee: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**| ID of the employee to delete. | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[oauth](../README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: Not defined
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | Employee created successfully. No response body is returned. The Location header points to the new employee resource. |  * Location - The URL to view the employee in the web app. The ID of the employee will be included. <br>  |
-**400** | If the posted XML or JSON is invalid or the minimum fields are not provided. |  -  |
-**403** | If the API user does not have permission to add an employee. |  -  |
-**409** | If an employee field was given an invalid value. |  -  |
+**204** | Employee deleted successfully. |  -  |
+**403** | Insufficient permissions. |  -  |
+**500** | Internal server error. |  -  |
+**404** | Employee not found. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -177,13 +258,11 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_employee**
-> Dict[str, EmployeeValue] get_employee(id, fields=fields, only_current=only_current, accept_header_parameter=accept_header_parameter)
+> GetEmployeeResponse get_employee(id, fields=fields, only_current=only_current, accept_header_parameter=accept_header_parameter)
 
 Get Employee
 
-Returns employee data for the specified employee ID. Specify which fields to return using the `fields` query parameter (comma-separated list of field names). See the List Fields endpoint (operationId: list-fields, GET /api/v1/meta/fields) for available field names. This endpoint is suitable for retrieving basic employee information, including current values from historical tables such as job title or compensation. By default only current values are returned; set `onlyCurrent` to false to include future-dated values from historical table fields.
-
-Usage note: The maximum number of fields per request is 400.
+Returns a single employee record as a JSON object (or XML when `Accept: application/xml`). The `id` field is always present and is returned as a string; every other field is included only when explicitly named in the `fields` query parameter. With no `fields` parameter, the response contains only `id` — there is no implicit default field set. Field names come from List Fields (`list-fields`), which also exposes custom-field aliases usable here. By default only currently effective values from historical tables (job title, compensation, employment status, etc.) are returned; pass `onlyCurrent=false` to include future-dated values. Field-level permissions are applied silently: any requested field the authenticated caller cannot view is omitted from the response with no marker — an absent field may indicate either that it was not requested or that the caller lacks permission to view it. The maximum number of fields per request is 400. Use this for fetching arbitrary fields on a single known employee. For batch lookups or directory-style listings across employees, use List Employees (`list-employees`) instead. For complex filtering, multi-field predicates, or tabular reports, use Get Data from Dataset (v2) (`get-data-from-dataset-v2`) instead.
 
 ### Example
 
@@ -192,7 +271,7 @@ Usage note: The maximum number of fields per request is 400.
 
 ```python
 import bamboohr_sdk
-from bamboohr_sdk.models.employee_value import EmployeeValue
+from bamboohr_sdk.models.get_employee_response import GetEmployeeResponse
 from bamboohr_sdk.rest import ApiException
 from pprint import pprint
 
@@ -219,9 +298,9 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.EmployeesApi(api_client)
-    id = 'id_example' # str | The employee ID. The special employee ID of zero (0) means to use the employee ID associated with the API key (if any).
-    fields = 'firstName,lastName' # str | Comma-separated list of field names to include in the response. See the List Fields endpoint for valid field names. (optional) (default to 'firstName,lastName')
-    only_current = True # bool | Setting to false will return future-dated values from history table fields. Defaults to true. (optional) (default to True)
+    id = 'id_example' # str | The employee ID. The sentinel value `0` resolves to the employee record bound to the authenticated user, when one exists; if the credentials are not bound to an employee (for example an integration-style account), `0` returns only `{\"id\": \"0\"}` with no other fields. List Employees (`list-employees`) does not accept this sentinel.
+    fields = 'fields_example' # str | Comma-separated list of fields to include in the response. Three reference forms are accepted and may be mixed in a single request: standard field names (e.g. `firstName`, `workEmail`), numeric field IDs (e.g. `1349`), and custom-field aliases (e.g. `customStartDate`). Discover all three via List Fields (`list-fields`) — its response includes `id`, `name`, and `alias` for every available field. Example mixing all three: `firstName,1349,customStartDate`. When omitted, the response includes only `id`. Bracket-array (`fields[]=...`) and repeated-key (`fields=a&fields=b`) forms are not supported on this endpoint — use the comma-separated form. Unknown or unauthorized fields are silently dropped from the response. (optional)
+    only_current = True # bool | When `true` (the default), returns only currently effective values from historical tables (job, compensation, employment status, etc.). When `false`, future-dated history rows are also returned. (optional) (default to True)
     accept_header_parameter = 'accept_header_parameter_example' # str | This endpoint can produce either JSON or XML. (optional)
 
     try:
@@ -240,14 +319,14 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| The employee ID. The special employee ID of zero (0) means to use the employee ID associated with the API key (if any). | 
- **fields** | **str**| Comma-separated list of field names to include in the response. See the List Fields endpoint for valid field names. | [optional] [default to &#39;firstName,lastName&#39;]
- **only_current** | **bool**| Setting to false will return future-dated values from history table fields. Defaults to true. | [optional] [default to True]
+ **id** | **str**| The employee ID. The sentinel value &#x60;0&#x60; resolves to the employee record bound to the authenticated user, when one exists; if the credentials are not bound to an employee (for example an integration-style account), &#x60;0&#x60; returns only &#x60;{\&quot;id\&quot;: \&quot;0\&quot;}&#x60; with no other fields. List Employees (&#x60;list-employees&#x60;) does not accept this sentinel. | 
+ **fields** | **str**| Comma-separated list of fields to include in the response. Three reference forms are accepted and may be mixed in a single request: standard field names (e.g. &#x60;firstName&#x60;, &#x60;workEmail&#x60;), numeric field IDs (e.g. &#x60;1349&#x60;), and custom-field aliases (e.g. &#x60;customStartDate&#x60;). Discover all three via List Fields (&#x60;list-fields&#x60;) — its response includes &#x60;id&#x60;, &#x60;name&#x60;, and &#x60;alias&#x60; for every available field. Example mixing all three: &#x60;firstName,1349,customStartDate&#x60;. When omitted, the response includes only &#x60;id&#x60;. Bracket-array (&#x60;fields[]&#x3D;...&#x60;) and repeated-key (&#x60;fields&#x3D;a&amp;fields&#x3D;b&#x60;) forms are not supported on this endpoint — use the comma-separated form. Unknown or unauthorized fields are silently dropped from the response. | [optional] 
+ **only_current** | **bool**| When &#x60;true&#x60; (the default), returns only currently effective values from historical tables (job, compensation, employment status, etc.). When &#x60;false&#x60;, future-dated history rows are also returned. | [optional] [default to True]
  **accept_header_parameter** | **str**| This endpoint can produce either JSON or XML. | [optional] 
 
 ### Return type
 
-[**Dict[str, EmployeeValue]**](EmployeeValue.md)
+[**GetEmployeeResponse**](GetEmployeeResponse.md)
 
 ### Authorization
 
@@ -262,19 +341,20 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | A dictionary of the requested employee fields and their values. Fields the caller does not have permission to view are omitted. |  -  |
-**400** | The request exceeded the maximum number of allowed fields (400). |  -  |
-**403** | The API user does not have permission to see the requested employee. |  -  |
-**404** | The employee does not exist. |  -  |
+**200** | An object keyed by field name with the requested employee&#39;s values. &#x60;id&#x60; is always present and is a string. Fields the authenticated caller cannot view are silently omitted. When &#x60;Accept: application/xml&#x60;, the body is an &#x60;&lt;employee id&#x3D;\&quot;...\&quot;&gt;&#x60; element with one &#x60;&lt;field id&#x3D;\&quot;...\&quot;&gt;&#x60; child per returned field. |  -  |
+**400** | The &#x60;fields&#x60; parameter contained more than 400 entries. |  -  |
+**401** | Unauthorized. |  -  |
+**403** | The authenticated user does not have permission to view this employee. |  -  |
+**404** | No employee was found for the supplied ID. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_employees_directory**
-> JsonDirectoryEmployee get_employees_directory(accept_header_parameter=accept_header_parameter, only_current=only_current)
+> EmployeesDirectoryJsonResponse get_employees_directory(accept_header_parameter=accept_header_parameter, only_current=only_current)
 
-Get Employee Directory
+Get Employees Directory
 
-Returns the company employee directory, including a fieldset definition and an array of employee records. By default only current (active) employees are returned; pass onlyCurrent=false to include terminated employees. If the caller has org-chart access but not full directory access, a reduced fieldset is returned. Returns 403 if neither directory nor org-chart sharing is enabled for the company. Returns 404 if the directory is empty. The response format is controlled by the Accept header.
+Returns the company's published employee directory: a fieldset definition plus an array of employee records whose keys match the field ids. Coverage is intentionally incomplete — companies can hide individual employees (commonly contractors) from the directory, and those employees are silently absent from the response with no indicator that they exist. The fieldset is also fixed by company directory configuration; callers cannot request additional fields. Use this endpoint only when you specifically want the company's curated directory subset (for example, an org-style listing that respects the company's directory settings). For complete or general-purpose employee listings, batch lookups by ID, or filtering by name/status, use **List Employees** (`list-employees`) instead. For tabular reporting, custom field selection, or analytical queries across many employees, use **Get Data from Dataset (v2)** (`get-data-from-dataset-v2`) instead. Response format follows the `Accept` header: `application/json` returns a JSON object with `fields` and `employees` arrays; `application/xml` (the default when `Accept` is missing or any non-JSON value) returns a `<directory>` document with `<fieldset>` and `<employees>` children. Employee `id` values are returned as strings in both formats. The response shape varies by caller permission and per-company configuration: when neither company-wide directory sharing nor org-chart sharing is enabled the endpoint returns 403; when only org-chart sharing is enabled the response uses a reduced fieldset (limited to the fields exposed by the org chart); when the resulting directory has no employees the endpoint returns 404 rather than an empty list.
 
 ### Example
 
@@ -283,7 +363,7 @@ Returns the company employee directory, including a fieldset definition and an a
 
 ```python
 import bamboohr_sdk
-from bamboohr_sdk.models.json_directory_employee import JsonDirectoryEmployee
+from bamboohr_sdk.models.employees_directory_json_response import EmployeesDirectoryJsonResponse
 from bamboohr_sdk.rest import ApiException
 from pprint import pprint
 
@@ -311,10 +391,10 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.EmployeesApi(api_client)
     accept_header_parameter = 'accept_header_parameter_example' # str | This endpoint can produce either JSON or XML. (optional)
-    only_current = True # bool | When true (the default), only active employees are returned. Set to false to include terminated employees. (optional) (default to True)
+    only_current = True # bool | When true (the default), only employees whose hire date and employment-status effective date are on or before today are returned. Set to false to also include employees with a future hire date or future employment-status effective date (typically pre-boarding hires). The fieldset is unaffected. (optional) (default to True)
 
     try:
-        # Get Employee Directory
+        # Get Employees Directory
         api_response = api_instance.get_employees_directory(accept_header_parameter=accept_header_parameter, only_current=only_current)
         print("The response of EmployeesApi->get_employees_directory:\n")
         pprint(api_response)
@@ -330,11 +410,11 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accept_header_parameter** | **str**| This endpoint can produce either JSON or XML. | [optional] 
- **only_current** | **bool**| When true (the default), only active employees are returned. Set to false to include terminated employees. | [optional] [default to True]
+ **only_current** | **bool**| When true (the default), only employees whose hire date and employment-status effective date are on or before today are returned. Set to false to also include employees with a future hire date or future employment-status effective date (typically pre-boarding hires). The fieldset is unaffected. | [optional] [default to True]
 
 ### Return type
 
-[**JsonDirectoryEmployee**](JsonDirectoryEmployee.md)
+[**EmployeesDirectoryJsonResponse**](EmployeesDirectoryJsonResponse.md)
 
 ### Authorization
 
@@ -349,10 +429,11 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Employee directory with fieldset definitions and employee data. |  -  |
-**403** | The company directory is not shared company-wide and the caller does not have org-chart access. |  -  |
-**404** | The directory is empty. |  -  |
-**500** | An internal server error occurred while generating the directory report. |  -  |
+**200** | Directory fieldset and matching employee records, encoded per the &#x60;Accept&#x60; header. |  -  |
+**401** | Unauthorized. |  -  |
+**403** | The authenticated user&#39;s company has neither company-wide directory sharing nor org-chart sharing enabled, so no directory is available. |  -  |
+**404** | The resulting directory is empty (no employees matched the filter for this company configuration). |  -  |
+**500** | Internal server error. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -361,15 +442,16 @@ Name | Type | Description  | Notes
 
 List Employees
 
-Returns a paginated list of employees with optional filtering and sorting. Each employee record always includes: `employeeId`, `firstName`, `lastName`, `preferredName`, `photoUrl`, `jobTitleName`, and `status`. The `_restrictedFields` property is only present when at least one requested field is restricted by permissions — it is omitted entirely on unrestricted records. Use the `fields` parameter to request up to 14 additional contact/social fields. The `status` field is returned as title-case (e.g., `Active`, `Inactive`). For richer employee field data, use the Get Employee endpoint or the Datasets API.
+Returns a cursor-paginated collection of employees for the authenticated caller's company. The response is a JSON object with `data` (an array of employee records), `meta.total` (count of all employees matching the filter, not just the current page), `meta.page` (cursor pagination state), and `_links` (`self`, plus `next` / `prev` when more pages exist). Each employee record always includes the default identity and job fields, plus any additional fields requested via `fields`. `employeeId` is returned as a string. Field values the caller cannot read are returned as `null`, and the names of those suppressed fields are listed on the record in `_restrictedFields`; if the caller cannot read a field used in `filter` or `sort`, the affected employee is dropped from the result set entirely to avoid leaking presence. IDs for `filter[ids]` come from prior responses of this endpoint. Use this for lightweight directory-style listings and batch lookups by ID. For a single employee with the full set of fields, use Get Employee (`get-employee`) instead. For complex filtering (date ranges, multi-field predicates, OR/IN logic), arbitrary sorting, or tabular reports across many fields, use Get Data from Dataset (v2) (`get-data-from-dataset-v2`) instead.
 
 ### Example
 
+* Basic Authentication (basic):
 * OAuth Authentication (oauth):
 
 ```python
 import bamboohr_sdk
-from bamboohr_sdk.models.cursor_pagination_query_object import CursorPaginationQueryObject
+from bamboohr_sdk.models.employee_optional_field import EmployeeOptionalField
 from bamboohr_sdk.models.get_employees_filter_request_object import GetEmployeesFilterRequestObject
 from bamboohr_sdk.models.get_employees_response_object import GetEmployeesResponseObject
 from bamboohr_sdk.rest import ApiException
@@ -386,16 +468,22 @@ configuration = bamboohr_sdk.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
+# Configure HTTP basic authorization: basic
+configuration = bamboohr_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.EmployeesApi(api_client)
-    filter = bamboohr_sdk.GetEmployeesFilterRequestObject() # GetEmployeesFilterRequestObject | Filters used to match employees. Encode filter properties using deepObject style. If the caller does not have access to the filtered field on a matching employee, that employee is excluded from the results to avoid leaking sensitive data. (optional)
-    sort = 'sort_example' # str | Comma-separated list of sortable fields. Prefix a field with \"-\" for descending order. Allowed fields: `employeeId`, `firstName`, `lastName`, `preferredName`, `jobTitleName`, `status`. Nulls sort first in ascending order and last in descending order. If the caller does not have access to the sort field for an employee, that employee is excluded from the final result set to avoid leaking sensitive information. (optional)
-    fields = 'workEmail,mobilePhone' # str | Comma-separated list of additional fields to include in the response beyond the default set. Supported values: `workEmail`, `homeEmail`, `bestEmail`, `middleName`, `workPhone`, `workPhoneExtension`, `mobilePhone`, `homePhone`, `skypeUsername`, `linkedinUrl`, `facebookUrl`, `instagramUrl`, `twitterUrl`, `pinterestUrl`. Unrecognized field names are silently ignored. Field values are subject to permission checks — restricted fields will be null or omitted and the field name will appear in `_restrictedFields`. (optional)
-    page = bamboohr_sdk.CursorPaginationQueryObject() # CursorPaginationQueryObject | Cursor-based pagination parameters (`limit`, `after`, `before`). (optional)
+    filter = bamboohr_sdk.GetEmployeesFilterRequestObject() # GetEmployeesFilterRequestObject | Filters used to match employees. Encode filter properties using deepObject style (`filter[firstName]=Ava`). Multiple filter fields are combined with AND. `filter[ids]` accepts either repeated keys (`filter[ids][]=123&filter[ids][]=124`) or a single comma-separated string (`filter[ids]=123,124`); both forms are supported. (optional)
+    sort = '-lastName,firstName' # str | Comma-separated list of sortable fields. Prefix a field with `-` for descending order. Allowed fields: `employeeId`, `firstName`, `lastName`, `preferredName`, `jobTitleName`, `status`. Nulls sort first in ascending order and last in descending order. An invalid sort field returns a `BadRequest` error. (optional)
+    fields = [bamboohr_sdk.EmployeeOptionalField()] # List[EmployeeOptionalField] | Additional fields to include in each employee record beyond the default set. The canonical form is a comma-separated list (`fields=workEmail,mobilePhone`); for backward compatibility the endpoint also accepts the bracket-array form (`fields[]=workEmail&fields[]=mobilePhone`). Note: plain repeated keys without brackets (`fields=workEmail&fields=mobilePhone`) are unreliable — most HTTP stacks keep only the last value, silently dropping earlier ones; use the comma-separated form instead. Unrecognized field names are silently ignored. Returned values are subject to permission checks — fields the caller cannot read are returned as `null` and their names are listed in the record's `_restrictedFields` array. (optional)
+    page = {'key': bamboohr_sdk.EmployeeCursorPaginationQueryObject()} # EmployeeCursorPaginationQueryObject | Cursor-based pagination parameters. `page[limit]` controls page size (default 250, maximum 2500). `page[after]` and `page[before]` accept opaque cursors returned in the previous response's `meta.page.nextCursor` / `prevCursor`; do not specify both at once. The response's `_links.next` / `_links.prev` are pre-built URLs that already encode the correct cursor for the next or previous page. (optional)
 
     try:
         # List Employees
@@ -413,10 +501,10 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filter** | [**GetEmployeesFilterRequestObject**](.md)| Filters used to match employees. Encode filter properties using deepObject style. If the caller does not have access to the filtered field on a matching employee, that employee is excluded from the results to avoid leaking sensitive data. | [optional] 
- **sort** | **str**| Comma-separated list of sortable fields. Prefix a field with \&quot;-\&quot; for descending order. Allowed fields: &#x60;employeeId&#x60;, &#x60;firstName&#x60;, &#x60;lastName&#x60;, &#x60;preferredName&#x60;, &#x60;jobTitleName&#x60;, &#x60;status&#x60;. Nulls sort first in ascending order and last in descending order. If the caller does not have access to the sort field for an employee, that employee is excluded from the final result set to avoid leaking sensitive information. | [optional] 
- **fields** | **str**| Comma-separated list of additional fields to include in the response beyond the default set. Supported values: &#x60;workEmail&#x60;, &#x60;homeEmail&#x60;, &#x60;bestEmail&#x60;, &#x60;middleName&#x60;, &#x60;workPhone&#x60;, &#x60;workPhoneExtension&#x60;, &#x60;mobilePhone&#x60;, &#x60;homePhone&#x60;, &#x60;skypeUsername&#x60;, &#x60;linkedinUrl&#x60;, &#x60;facebookUrl&#x60;, &#x60;instagramUrl&#x60;, &#x60;twitterUrl&#x60;, &#x60;pinterestUrl&#x60;. Unrecognized field names are silently ignored. Field values are subject to permission checks — restricted fields will be null or omitted and the field name will appear in &#x60;_restrictedFields&#x60;. | [optional] 
- **page** | [**CursorPaginationQueryObject**](.md)| Cursor-based pagination parameters (&#x60;limit&#x60;, &#x60;after&#x60;, &#x60;before&#x60;). | [optional] 
+ **filter** | [**GetEmployeesFilterRequestObject**](.md)| Filters used to match employees. Encode filter properties using deepObject style (&#x60;filter[firstName]&#x3D;Ava&#x60;). Multiple filter fields are combined with AND. &#x60;filter[ids]&#x60; accepts either repeated keys (&#x60;filter[ids][]&#x3D;123&amp;filter[ids][]&#x3D;124&#x60;) or a single comma-separated string (&#x60;filter[ids]&#x3D;123,124&#x60;); both forms are supported. | [optional] 
+ **sort** | **str**| Comma-separated list of sortable fields. Prefix a field with &#x60;-&#x60; for descending order. Allowed fields: &#x60;employeeId&#x60;, &#x60;firstName&#x60;, &#x60;lastName&#x60;, &#x60;preferredName&#x60;, &#x60;jobTitleName&#x60;, &#x60;status&#x60;. Nulls sort first in ascending order and last in descending order. An invalid sort field returns a &#x60;BadRequest&#x60; error. | [optional] 
+ **fields** | [**List[EmployeeOptionalField]**](EmployeeOptionalField.md)| Additional fields to include in each employee record beyond the default set. The canonical form is a comma-separated list (&#x60;fields&#x3D;workEmail,mobilePhone&#x60;); for backward compatibility the endpoint also accepts the bracket-array form (&#x60;fields[]&#x3D;workEmail&amp;fields[]&#x3D;mobilePhone&#x60;). Note: plain repeated keys without brackets (&#x60;fields&#x3D;workEmail&amp;fields&#x3D;mobilePhone&#x60;) are unreliable — most HTTP stacks keep only the last value, silently dropping earlier ones; use the comma-separated form instead. Unrecognized field names are silently ignored. Returned values are subject to permission checks — fields the caller cannot read are returned as &#x60;null&#x60; and their names are listed in the record&#39;s &#x60;_restrictedFields&#x60; array. | [optional] 
+ **page** | [**EmployeeCursorPaginationQueryObject**](.md)| Cursor-based pagination parameters. &#x60;page[limit]&#x60; controls page size (default 250, maximum 2500). &#x60;page[after]&#x60; and &#x60;page[before]&#x60; accept opaque cursors returned in the previous response&#39;s &#x60;meta.page.nextCursor&#x60; / &#x60;prevCursor&#x60;; do not specify both at once. The response&#39;s &#x60;_links.next&#x60; / &#x60;_links.prev&#x60; are pre-built URLs that already encode the correct cursor for the next or previous page. | [optional] 
 
 ### Return type
 
@@ -424,7 +512,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth](../README.md#oauth)
+[basic](../README.md#basic), [oauth](../README.md#oauth)
 
 ### HTTP request headers
 
@@ -435,22 +523,24 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Employees retrieved successfully |  -  |
-**400** | Bad Request — invalid parameters provided. |  -  |
-**401** | Unauthorized |  -  |
-**429** | Too Many Requests |  -  |
-**500** | Internal Server Error |  -  |
+**200** | Paginated list of employees. |  -  |
+**400** | Invalid request parameters. The &#x60;error.code&#x60; is &#x60;BadRequest&#x60; for filter, sort, or field validation failures (for example an unknown sort field, or &#x60;filter[status]&#x60; outside &#x60;active&#x60; / &#x60;inactive&#x60;) and &#x60;BadPage&#x60; when the &#x60;page&#x60; cursor is malformed, the wrong cursor direction is supplied, or the boundary employee changed between calls (for example, was deleted or no longer matches the filter). |  -  |
+**401** | Unauthorized. |  -  |
+**429** | Too many requests. |  -  |
+**500** | Internal server error. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_employee**
-> update_employee(id, employee)
+> GetEmployeeResponse update_employee(id, employee)
 
 Update Employee
 
-Update an employee's fields by submitting a JSON object or XML document containing field name/value pairs. The request body schema lists commonly used fields, but any valid employee field name may be used as a key. To discover available field names, call the list-fields endpoint (operationId: list-fields, GET /api/v1/meta/fields).
+Update an employee's fields by submitting a JSON object or XML document containing field name/value pairs. The request body schema lists commonly used fields, but any valid writable employee field name may be used as a key. To discover available field names, call the List Fields endpoint (operationId: list-fields, GET /api/v1/meta/fields).
 
-Trax Payroll note: If the employee is currently on a pay schedule syncing with Trax Payroll, or is being added to one, the request must include the required payroll-related employee fields: employeeNumber, firstName, lastName, dateOfBirth, ssn or ein, gender, maritalStatus, hireDate, address1, city, state, country, employmentHistoryStatus, exempt, payType, payRate, payPer, location, department, and division.
+This endpoint does not upload, replace, or remove the employee profile photo, and does not accept any binary or file uploads in general. Photo-related keys (e.g. `photo`, `photoUrl`) included in the body are silently ignored: the request still returns 200, but no photo change is made. To change a photo, use the Upload Employee Photo endpoint (operationId: upload-employee-photo, POST /api/v1/employees/{employeeId}/photo).
+
+Trax Payroll note: If the employee is currently on a pay schedule syncing with Trax Payroll, or is being added to one, the request must include the required payroll-related employee fields: employeeNumber (unless the company has automatic employee numbers enabled), firstName, lastName, dateOfBirth, ssn or ein, gender, maritalStatus, hireDate, address1, city, state, zipcode, country, employmentHistoryStatus, exempt, payType, payRate, payPer, overtimeRate, and location.
 
 ### Example
 
@@ -460,6 +550,7 @@ Trax Payroll note: If the employee is currently on a pay schedule syncing with T
 ```python
 import bamboohr_sdk
 from bamboohr_sdk.models.employee import Employee
+from bamboohr_sdk.models.get_employee_response import GetEmployeeResponse
 from bamboohr_sdk.rest import ApiException
 from pprint import pprint
 
@@ -491,7 +582,9 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Update Employee
-        api_instance.update_employee(id, employee)
+        api_response = api_instance.update_employee(id, employee)
+        print("The response of EmployeesApi->update_employee:\n")
+        pprint(api_response)
     except Exception as e:
         print("Exception when calling EmployeesApi->update_employee: %s\n" % e)
 ```
@@ -508,7 +601,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**GetEmployeeResponse**](GetEmployeeResponse.md)
 
 ### Authorization
 
@@ -517,13 +610,13 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: application/json, application/xml, text/xml
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Employee updated successfully. No response body is returned. |  -  |
+**200** | Employee updated successfully. |  -  |
 **400** | Provided JSON is malformed, or required fields are missing. |  -  |
 **403** | The API user does not have permission to see the employee or to update any of the requested fields. |  -  |
 **404** | The employee does not exist. |  -  |

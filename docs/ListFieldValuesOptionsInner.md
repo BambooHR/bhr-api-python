@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** | The existing option ID. Omit this field to create a new option. | [optional] 
-**value** | **str** | The display value for the option. | [optional] 
-**archived** | **str** | Whether the option should be archived. Use &#x60;yes&#x60; to archive an option or &#x60;no&#x60; to keep it active. | [optional] 
+**id** | **int** | The existing option ID. Omit this field to create a new option. Required when archiving an existing option. | [optional] 
+**value** | **str** | The display value for the option. Required when creating a new option (i.e., when id is omitted). | [optional] 
+**archived** | **str** | Whether the option should be archived. Use &#x60;yes&#x60; to soft-delete an option or &#x60;no&#x60; to reactivate a previously archived option. Archived options continue to appear in GET responses for historical data integrity. | [optional] 
 **adp_code** | **str** | Optional payroll-mapping code associated with the option. | [optional] 
 
 ## Example

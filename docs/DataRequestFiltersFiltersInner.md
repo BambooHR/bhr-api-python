@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**var_field** | **str** |  | [optional] 
-**operator** | **str** |  | [optional] 
+**var_field** | **str** | Field name to filter on. | [optional] 
+**operator** | **str** | Comparison operator. Available operators depend on field type (see endpoint description). | [optional] 
 **value** | **object** |  | [optional] 
 
 ## Example

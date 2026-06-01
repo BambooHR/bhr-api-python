@@ -6,9 +6,9 @@ Pagination information for employee list responses including limit and cursor-ba
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**limit** | **int** | Maximum number of items per page | 
-**next_cursor** | **str** | Cursor for the next page of results, null if no more pages. This should be used with the after pagination parameter. | 
-**prev_cursor** | **str** | Cursor for the previous page of results, null if on first page. This should be used with the before pagination parameter. | 
+**limit** | **int** |  | 
+**next_cursor** | **str** |  | 
+**prev_cursor** | **str** |  | 
 
 ## Example
 

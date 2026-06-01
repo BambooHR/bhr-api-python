@@ -5,8 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**var_field** | **str** |  | [optional] 
-**sort** | **str** |  | [optional] 
+**var_field** | **str** | Field name to sort by. | [optional] 
+**sort** | **str** | Sort direction. | [optional] 
+**aggregation_type** | **str** | Optional. Use when sorting by an aggregated value; must match the requested aggregation for this field. | [optional] 
 
 ## Example
 

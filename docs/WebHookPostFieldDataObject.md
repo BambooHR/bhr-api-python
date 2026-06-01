@@ -5,12 +5,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**alias** | **str** | Field identifier used in the API | 
+**alias** | **str** |  | 
 **name** | **str** | Field name | 
-**type** | **str** | Field type | 
+**type** | **str** |  | 
 **id** | **int** | Field ID. This may be a standard/custom field ID or a synthetic negative ID for calculated fields. | 
 **page_id** | **int** | ID of the page the field belongs to. Calculated fields may use &#x60;-1&#x60;. Fields without a usable page ID are not available in webhooks. | 
-**table_id** | **int** | ID of the table the field belongs to | 
+**table_id** | **int** |  | 
 
 ## Example
 

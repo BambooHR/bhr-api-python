@@ -4,7 +4,7 @@ All URIs are relative to *https://companySubDomain.bamboohr.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**add_company_file_category**](CompanyFilesApi.md#add_company_file_category) | **POST** /api/v1/files/categories | Create Company File Category
+[**create_company_file_category**](CompanyFilesApi.md#create_company_file_category) | **POST** /api/v1/files/categories | Create Company File Category
 [**delete_company_file**](CompanyFilesApi.md#delete_company_file) | **DELETE** /api/v1/files/{fileId} | Delete Company File
 [**get_company_file**](CompanyFilesApi.md#get_company_file) | **GET** /api/v1/files/{fileId} | Get Company File
 [**list_company_files**](CompanyFilesApi.md#list_company_files) | **GET** /api/v1/files/view | Get Company Files and Categories
@@ -12,8 +12,8 @@ Method | HTTP request | Description
 [**upload_company_file**](CompanyFilesApi.md#upload_company_file) | **POST** /api/v1/files | Upload Company File
 
 
-# **add_company_file_category**
-> add_company_file_category(request_body)
+# **create_company_file_category**
+> create_company_file_category(request_body)
 
 Create Company File Category
 
@@ -56,9 +56,9 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Create Company File Category
-        api_instance.add_company_file_category(request_body)
+        api_instance.create_company_file_category(request_body)
     except Exception as e:
-        print("Exception when calling CompanyFilesApi->add_company_file_category: %s\n" % e)
+        print("Exception when calling CompanyFilesApi->create_company_file_category: %s\n" % e)
 ```
 
 
@@ -100,7 +100,7 @@ void (empty response body)
 
 Delete Company File
 
-Deletes the specified company file. Requires the caller to have company file write access. Returns 404 if the file does not exist, 403 if the caller lacks permission, and 500 on an internal error.
+Permanently removes a company file and its associated storage. The company must have the Files tool enabled; otherwise the file is treated as not found. Read-only file types (e.g. e-signature templates) are silently skipped. No response body is returned on success. Use "Company Files > List Company Files" to obtain file IDs.
 
 ### Example
 
@@ -170,9 +170,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | The company file was deleted successfully. |  -  |
+**200** | The company file was deleted successfully. No response body is returned. |  -  |
 **403** | The API user does not have permission to delete the requested file. |  -  |
-**404** | The requested file was not found. |  -  |
+**404** | The requested file was not found, or the Files tool is not enabled for the company. |  -  |
 **500** | An internal server error occurred. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

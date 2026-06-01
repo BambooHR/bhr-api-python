@@ -7,7 +7,7 @@ Project information data representation
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **project** | [**ProjectInfoApiTransformerProject**](ProjectInfoApiTransformerProject.md) |  | [optional] 
-**task** | [**ProjectInfoApiTransformerTask**](ProjectInfoApiTransformerTask.md) |  | [optional] 
+**task** | **object** |  | [optional] 
 
 ## Example
 

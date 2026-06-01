@@ -9,21 +9,30 @@ Method | HTTP request | Description
 [**create_break_policy**](TimeTrackingApi.md#create_break_policy) | **POST** /api/v1/time-tracking/break-policies | Create Break Policy
 [**create_or_update_timesheet_clock_entries**](TimeTrackingApi.md#create_or_update_timesheet_clock_entries) | **POST** /api/v1/time_tracking/clock_entries/store | Create or Update Timesheet Clock Entries
 [**create_or_update_timesheet_hour_entries**](TimeTrackingApi.md#create_or_update_timesheet_hour_entries) | **POST** /api/v1/time_tracking/hour_entries/store | Create or Update Timesheet Hour Entries
+[**create_project**](TimeTrackingApi.md#create_project) | **POST** /api/v1/time-tracking/projects | Create Time Tracking Project
+[**create_project_task**](TimeTrackingApi.md#create_project_task) | **POST** /api/v1/time-tracking/projects/{projectId}/tasks | Create Time Tracking Project Task
 [**create_time_tracking_project**](TimeTrackingApi.md#create_time_tracking_project) | **POST** /api/v1/time_tracking/projects | Create Time Tracking Project
 [**create_timesheet_clock_in_entry**](TimeTrackingApi.md#create_timesheet_clock_in_entry) | **POST** /api/v1/time_tracking/employees/{employeeId}/clock_in | Create Timesheet Clock-In Entry
 [**create_timesheet_clock_out_entry**](TimeTrackingApi.md#create_timesheet_clock_out_entry) | **POST** /api/v1/time_tracking/employees/{employeeId}/clock_out | Create Timesheet Clock-Out Entry
 [**delete_break**](TimeTrackingApi.md#delete_break) | **DELETE** /api/v1/time-tracking/breaks/{id} | Delete Break
 [**delete_break_policy**](TimeTrackingApi.md#delete_break_policy) | **DELETE** /api/v1/time-tracking/break-policies/{id} | Delete Break Policy
+[**delete_project**](TimeTrackingApi.md#delete_project) | **DELETE** /api/v1/time-tracking/projects/{id} | Delete Time Tracking Project
+[**delete_task**](TimeTrackingApi.md#delete_task) | **DELETE** /api/v1/time-tracking/tasks/{id} | Delete Time Tracking Task
 [**delete_timesheet_clock_entries_via_post**](TimeTrackingApi.md#delete_timesheet_clock_entries_via_post) | **POST** /api/v1/time_tracking/clock_entries/delete | Delete Timesheet Clock Entries
 [**delete_timesheet_hour_entries_via_post**](TimeTrackingApi.md#delete_timesheet_hour_entries_via_post) | **POST** /api/v1/time_tracking/hour_entries/delete | Delete Timesheet Hour Entries
 [**get_break**](TimeTrackingApi.md#get_break) | **GET** /api/v1/time-tracking/breaks/{id} | Get Break
 [**get_break_policy**](TimeTrackingApi.md#get_break_policy) | **GET** /api/v1/time-tracking/break-policies/{id} | Get Break Policy
+[**get_break_policy_suggestions**](TimeTrackingApi.md#get_break_policy_suggestions) | **POST** /api/v1/time-tracking/break-policies/suggestions | Get Break Policy Suggestions
+[**get_project**](TimeTrackingApi.md#get_project) | **GET** /api/v1/time-tracking/projects/{projectId} | Get Time Tracking Project
+[**get_task**](TimeTrackingApi.md#get_task) | **GET** /api/v1/time-tracking/tasks/{id} | Get Time Tracking Task
 [**list_break_assessments**](TimeTrackingApi.md#list_break_assessments) | **GET** /api/v1/time-tracking/break-assessments | List Break Assessments
 [**list_break_policies**](TimeTrackingApi.md#list_break_policies) | **GET** /api/v1/time-tracking/break-policies | List Break Policies
 [**list_break_policy_breaks**](TimeTrackingApi.md#list_break_policy_breaks) | **GET** /api/v1/time-tracking/break-policies/{id}/breaks | List Breaks for Break Policy
 [**list_break_policy_employees**](TimeTrackingApi.md#list_break_policy_employees) | **GET** /api/v1/time-tracking/break-policies/{id}/employees | List Break Policy Employees
 [**list_employee_break_availabilities**](TimeTrackingApi.md#list_employee_break_availabilities) | **GET** /api/v1/time-tracking/employees/{id}/break-availabilities | List Employee Break Availabilities
 [**list_employee_break_policies**](TimeTrackingApi.md#list_employee_break_policies) | **GET** /api/v1/time-tracking/employees/{id}/break-policies | List Employee Break Policies
+[**list_project_tasks**](TimeTrackingApi.md#list_project_tasks) | **GET** /api/v1/time-tracking/projects/{projectId}/tasks | List Time Tracking Project Tasks
+[**list_projects**](TimeTrackingApi.md#list_projects) | **GET** /api/v1/time-tracking/projects | List Time Tracking Projects
 [**list_timesheet_entries**](TimeTrackingApi.md#list_timesheet_entries) | **GET** /api/v1/time_tracking/timesheet_entries | List Timesheet Entries
 [**replace_breaks_for_break_policy**](TimeTrackingApi.md#replace_breaks_for_break_policy) | **PUT** /api/v1/time-tracking/break-policies/{id}/breaks | Replace Breaks for Break Policy
 [**set_break_policy_employees**](TimeTrackingApi.md#set_break_policy_employees) | **PUT** /api/v1/time-tracking/break-policies/{id}/assign | Set Employees for Break Policy
@@ -31,6 +40,8 @@ Method | HTTP request | Description
 [**unassign_employees_from_break_policy**](TimeTrackingApi.md#unassign_employees_from_break_policy) | **POST** /api/v1/time-tracking/break-policies/{id}/unassign | Unassign Employees from Break Policy
 [**update_break**](TimeTrackingApi.md#update_break) | **PATCH** /api/v1/time-tracking/breaks/{id} | Update Break
 [**update_break_policy**](TimeTrackingApi.md#update_break_policy) | **PATCH** /api/v1/time-tracking/break-policies/{id} | Update Break Policy
+[**update_project**](TimeTrackingApi.md#update_project) | **PATCH** /api/v1/time-tracking/projects/{id} | Update Time Tracking Project
+[**update_task**](TimeTrackingApi.md#update_task) | **PATCH** /api/v1/time-tracking/tasks/{id} | Update Time Tracking Task
 
 
 # **assign_employees_to_break_policy**
@@ -470,6 +481,183 @@ Name | Type | Description  | Notes
 **409** | Timesheet type conflict. |  -  |
 **412** | Precondition failed - invalid company configuration or timezone. |  -  |
 **500** | Internal server error. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **create_project**
+> ProjectTimeTrackingProjectV1 create_project(project_create_time_tracking_project_v1)
+
+Create Time Tracking Project
+
+Creates a new time tracking project. Returns the newly created project resource on success.
+
+### Example
+
+* Basic Authentication (basic):
+* OAuth Authentication (oauth):
+
+```python
+import bamboohr_sdk
+from bamboohr_sdk.models.project_create_time_tracking_project_v1 import ProjectCreateTimeTrackingProjectV1
+from bamboohr_sdk.models.project_time_tracking_project_v1 import ProjectTimeTrackingProjectV1
+from bamboohr_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://companySubDomain.bamboohr.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = bamboohr_sdk.Configuration(
+    host = "https://companySubDomain.bamboohr.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basic
+configuration = bamboohr_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with bamboohr_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = bamboohr_sdk.TimeTrackingApi(api_client)
+    project_create_time_tracking_project_v1 = bamboohr_sdk.ProjectCreateTimeTrackingProjectV1() # ProjectCreateTimeTrackingProjectV1 | 
+
+    try:
+        # Create Time Tracking Project
+        api_response = api_instance.create_project(project_create_time_tracking_project_v1)
+        print("The response of TimeTrackingApi->create_project:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling TimeTrackingApi->create_project: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_create_time_tracking_project_v1** | [**ProjectCreateTimeTrackingProjectV1**](ProjectCreateTimeTrackingProjectV1.md)|  | 
+
+### Return type
+
+[**ProjectTimeTrackingProjectV1**](ProjectTimeTrackingProjectV1.md)
+
+### Authorization
+
+[basic](../README.md#basic), [oauth](../README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Project created successfully. |  -  |
+**400** | Malformed request body. |  -  |
+**401** | Unauthorized. Missing or invalid authentication. |  -  |
+**403** | Forbidden. Insufficient permissions. |  -  |
+**409** | Conflict. A project with this name already exists. |  -  |
+**422** | Validation error (e.g. missing &#x60;name&#x60;, invalid &#x60;employeeIds&#x60;, name too long). |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **create_project_task**
+> ProjectTimeTrackingTaskV1 create_project_task(project_id, project_create_time_tracking_project_task_v1)
+
+Create Time Tracking Project Task
+
+Creates a new task on the specified time tracking project.
+
+### Example
+
+* Basic Authentication (basic):
+* OAuth Authentication (oauth):
+
+```python
+import bamboohr_sdk
+from bamboohr_sdk.models.project_create_time_tracking_project_task_v1 import ProjectCreateTimeTrackingProjectTaskV1
+from bamboohr_sdk.models.project_time_tracking_task_v1 import ProjectTimeTrackingTaskV1
+from bamboohr_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://companySubDomain.bamboohr.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = bamboohr_sdk.Configuration(
+    host = "https://companySubDomain.bamboohr.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basic
+configuration = bamboohr_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with bamboohr_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = bamboohr_sdk.TimeTrackingApi(api_client)
+    project_id = 'project_id_example' # str | The project ID.
+    project_create_time_tracking_project_task_v1 = bamboohr_sdk.ProjectCreateTimeTrackingProjectTaskV1() # ProjectCreateTimeTrackingProjectTaskV1 | 
+
+    try:
+        # Create Time Tracking Project Task
+        api_response = api_instance.create_project_task(project_id, project_create_time_tracking_project_task_v1)
+        print("The response of TimeTrackingApi->create_project_task:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling TimeTrackingApi->create_project_task: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The project ID. | 
+ **project_create_time_tracking_project_task_v1** | [**ProjectCreateTimeTrackingProjectTaskV1**](ProjectCreateTimeTrackingProjectTaskV1.md)|  | 
+
+### Return type
+
+[**ProjectTimeTrackingTaskV1**](ProjectTimeTrackingTaskV1.md)
+
+### Authorization
+
+[basic](../README.md#basic), [oauth](../README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Task created. |  -  |
+**403** | Forbidden. |  -  |
+**404** | Project not found. |  -  |
+**409** | Duplicate task name within the project. |  -  |
+**422** | Validation error. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -915,6 +1103,172 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **delete_project**
+> delete_project(id)
+
+Delete Time Tracking Project
+
+Deletes a time tracking project by its ID.
+
+### Example
+
+* Basic Authentication (basic):
+* OAuth Authentication (oauth):
+
+```python
+import bamboohr_sdk
+from bamboohr_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://companySubDomain.bamboohr.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = bamboohr_sdk.Configuration(
+    host = "https://companySubDomain.bamboohr.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basic
+configuration = bamboohr_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with bamboohr_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = bamboohr_sdk.TimeTrackingApi(api_client)
+    id = 56 # int | The project ID.
+
+    try:
+        # Delete Time Tracking Project
+        api_instance.delete_project(id)
+    except Exception as e:
+        print("Exception when calling TimeTrackingApi->delete_project: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**| The project ID. | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[basic](../README.md#basic), [oauth](../README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Project deleted successfully. |  -  |
+**401** | Unauthorized. Missing or invalid authentication. |  -  |
+**403** | Forbidden. Insufficient permissions. |  -  |
+**404** | Project not found. |  -  |
+**422** | The provided project ID is not a valid integer. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **delete_task**
+> delete_task(id)
+
+Delete Time Tracking Task
+
+Deletes a time tracking task by its ID.
+
+### Example
+
+* Basic Authentication (basic):
+* OAuth Authentication (oauth):
+
+```python
+import bamboohr_sdk
+from bamboohr_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://companySubDomain.bamboohr.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = bamboohr_sdk.Configuration(
+    host = "https://companySubDomain.bamboohr.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basic
+configuration = bamboohr_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with bamboohr_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = bamboohr_sdk.TimeTrackingApi(api_client)
+    id = 56 # int | The task ID.
+
+    try:
+        # Delete Time Tracking Task
+        api_instance.delete_task(id)
+    except Exception as e:
+        print("Exception when calling TimeTrackingApi->delete_task: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**| The task ID. | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[basic](../README.md#basic), [oauth](../README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | The task was deleted successfully. |  -  |
+**401** | Unauthorized. Missing or invalid authentication. |  -  |
+**403** | Forbidden. Insufficient permissions. |  -  |
+**404** | Task not found. |  -  |
+**422** | The provided &#x60;id&#x60; is not a valid integer. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **delete_timesheet_clock_entries_via_post**
 > delete_timesheet_clock_entries_via_post(clock_entry_ids_schema)
 
@@ -1261,6 +1615,263 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_break_policy_suggestions**
+> TimeTrackingBreakPolicySuggestionsResponseV1 get_break_policy_suggestions(get_break_policy_suggestions_request)
+
+Get Break Policy Suggestions
+
+Uses an AI agent to analyze existing break policies and company context, then returns structured meal and rest break policy recommendations ready for form pre-fill.
+
+### Example
+
+* Basic Authentication (basic):
+* OAuth Authentication (oauth):
+
+```python
+import bamboohr_sdk
+from bamboohr_sdk.models.get_break_policy_suggestions_request import GetBreakPolicySuggestionsRequest
+from bamboohr_sdk.models.time_tracking_break_policy_suggestions_response_v1 import TimeTrackingBreakPolicySuggestionsResponseV1
+from bamboohr_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://companySubDomain.bamboohr.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = bamboohr_sdk.Configuration(
+    host = "https://companySubDomain.bamboohr.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basic
+configuration = bamboohr_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with bamboohr_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = bamboohr_sdk.TimeTrackingApi(api_client)
+    get_break_policy_suggestions_request = bamboohr_sdk.GetBreakPolicySuggestionsRequest() # GetBreakPolicySuggestionsRequest | 
+
+    try:
+        # Get Break Policy Suggestions
+        api_response = api_instance.get_break_policy_suggestions(get_break_policy_suggestions_request)
+        print("The response of TimeTrackingApi->get_break_policy_suggestions:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling TimeTrackingApi->get_break_policy_suggestions: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **get_break_policy_suggestions_request** | [**GetBreakPolicySuggestionsRequest**](GetBreakPolicySuggestionsRequest.md)|  | 
+
+### Return type
+
+[**TimeTrackingBreakPolicySuggestionsResponseV1**](TimeTrackingBreakPolicySuggestionsResponseV1.md)
+
+### Authorization
+
+[basic](../README.md#basic), [oauth](../README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Suggestions returned successfully |  -  |
+**422** | Invalid request — prompt is missing or empty |  -  |
+**500** | Internal server error — agent workflow failed |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_project**
+> ProjectTimeTrackingProjectV1 get_project(project_id)
+
+Get Time Tracking Project
+
+Retrieves a single time tracking project by its ID, including the list of employees assigned to it.
+
+### Example
+
+* Basic Authentication (basic):
+* OAuth Authentication (oauth):
+
+```python
+import bamboohr_sdk
+from bamboohr_sdk.models.project_time_tracking_project_v1 import ProjectTimeTrackingProjectV1
+from bamboohr_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://companySubDomain.bamboohr.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = bamboohr_sdk.Configuration(
+    host = "https://companySubDomain.bamboohr.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basic
+configuration = bamboohr_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with bamboohr_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = bamboohr_sdk.TimeTrackingApi(api_client)
+    project_id = 56 # int | The project ID.
+
+    try:
+        # Get Time Tracking Project
+        api_response = api_instance.get_project(project_id)
+        print("The response of TimeTrackingApi->get_project:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling TimeTrackingApi->get_project: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **int**| The project ID. | 
+
+### Return type
+
+[**ProjectTimeTrackingProjectV1**](ProjectTimeTrackingProjectV1.md)
+
+### Authorization
+
+[basic](../README.md#basic), [oauth](../README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successfully retrieved the project. |  -  |
+**401** | Unauthorized. Missing or invalid authentication. |  -  |
+**403** | Forbidden. Insufficient permissions. |  -  |
+**404** | Project not found. |  -  |
+**422** | The provided &#x60;projectId&#x60; is not a valid integer. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_task**
+> ProjectTimeTrackingTaskV1 get_task(id)
+
+Get Time Tracking Task
+
+Retrieves a single time tracking task by its ID.
+
+### Example
+
+* Basic Authentication (basic):
+* OAuth Authentication (oauth):
+
+```python
+import bamboohr_sdk
+from bamboohr_sdk.models.project_time_tracking_task_v1 import ProjectTimeTrackingTaskV1
+from bamboohr_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://companySubDomain.bamboohr.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = bamboohr_sdk.Configuration(
+    host = "https://companySubDomain.bamboohr.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basic
+configuration = bamboohr_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with bamboohr_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = bamboohr_sdk.TimeTrackingApi(api_client)
+    id = 56 # int | The task ID.
+
+    try:
+        # Get Time Tracking Task
+        api_response = api_instance.get_task(id)
+        print("The response of TimeTrackingApi->get_task:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling TimeTrackingApi->get_task: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**| The task ID. | 
+
+### Return type
+
+[**ProjectTimeTrackingTaskV1**](ProjectTimeTrackingTaskV1.md)
+
+### Authorization
+
+[basic](../README.md#basic), [oauth](../README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successfully retrieved the task. |  -  |
+**401** | Unauthorized. Missing or invalid authentication. |  -  |
+**403** | Forbidden. Insufficient permissions. |  -  |
+**404** | Task not found. |  -  |
+**422** | The provided &#x60;id&#x60; is not a valid integer. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **list_break_assessments**
 > TimeTrackingPaginatedBreakAssessmentsResponseV1 list_break_assessments(offset=offset, limit=limit, filter=filter)
 
@@ -1304,7 +1915,7 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
     api_instance = bamboohr_sdk.TimeTrackingApi(api_client)
     offset = 0 # int | Number of items to skip before returning results. Defaults to 0. (optional) (default to 0)
     limit = 100 # int | Maximum number of items to return. Defaults to 100. Maximum is 500. (optional) (default to 100)
-    filter = '' # str | OData v4 filter expression. Filterable fields: `id`, `breakId`, `employeeId`, `employeeTimesheetId`, `date`, `result`, `availableYmdt`, `unavailableYmdt`, `createdAt`, `updatedAt`, `expectedDuration`, `recordedDuration`, `durationDifference`. (optional) (default to '')
+    filter = '' # str | OData filter expression applied to break assessments. Supported operators: `eq` (equals, use `eq null` to match NULL), `ne` (not equals, use `ne null` to match NOT NULL), `lt` (less than), `le` (less than or equal), `gt` (greater than), `ge` (greater than or equal), `in` (value in list), `and` (combine clauses). Not supported: `or`, `not`, parenthesized grouping. Filterable fields: `id`, `breakId`, `employeeId`, `employeeTimesheetId`, `date`, `result`, `availableYmdt`, `unavailableYmdt`, `expectedDuration`, `recordedDuration`, `durationDifference`, `createdAt`, `updatedAt`. Examples: `employeeId eq 614`, `employeeId in (614, 615, 616)`, `breakId eq 'abc-123' and employeeId eq 614`. (optional) (default to '')
 
     try:
         # List Break Assessments
@@ -1324,7 +1935,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **offset** | **int**| Number of items to skip before returning results. Defaults to 0. | [optional] [default to 0]
  **limit** | **int**| Maximum number of items to return. Defaults to 100. Maximum is 500. | [optional] [default to 100]
- **filter** | **str**| OData v4 filter expression. Filterable fields: &#x60;id&#x60;, &#x60;breakId&#x60;, &#x60;employeeId&#x60;, &#x60;employeeTimesheetId&#x60;, &#x60;date&#x60;, &#x60;result&#x60;, &#x60;availableYmdt&#x60;, &#x60;unavailableYmdt&#x60;, &#x60;createdAt&#x60;, &#x60;updatedAt&#x60;, &#x60;expectedDuration&#x60;, &#x60;recordedDuration&#x60;, &#x60;durationDifference&#x60;. | [optional] [default to &#39;&#39;]
+ **filter** | **str**| OData filter expression applied to break assessments. Supported operators: &#x60;eq&#x60; (equals, use &#x60;eq null&#x60; to match NULL), &#x60;ne&#x60; (not equals, use &#x60;ne null&#x60; to match NOT NULL), &#x60;lt&#x60; (less than), &#x60;le&#x60; (less than or equal), &#x60;gt&#x60; (greater than), &#x60;ge&#x60; (greater than or equal), &#x60;in&#x60; (value in list), &#x60;and&#x60; (combine clauses). Not supported: &#x60;or&#x60;, &#x60;not&#x60;, parenthesized grouping. Filterable fields: &#x60;id&#x60;, &#x60;breakId&#x60;, &#x60;employeeId&#x60;, &#x60;employeeTimesheetId&#x60;, &#x60;date&#x60;, &#x60;result&#x60;, &#x60;availableYmdt&#x60;, &#x60;unavailableYmdt&#x60;, &#x60;expectedDuration&#x60;, &#x60;recordedDuration&#x60;, &#x60;durationDifference&#x60;, &#x60;createdAt&#x60;, &#x60;updatedAt&#x60;. Examples: &#x60;employeeId eq 614&#x60;, &#x60;employeeId in (614, 615, 616)&#x60;, &#x60;breakId eq &#39;abc-123&#39; and employeeId eq 614&#x60;. | [optional] [default to &#39;&#39;]
 
 ### Return type
 
@@ -1392,7 +2003,7 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
     api_instance = bamboohr_sdk.TimeTrackingApi(api_client)
     offset = 0 # int | The offset of items to retrieve (optional) (default to 0)
     limit = 100 # int | The maximum items to retrieve (optional) (default to 100)
-    filter = '' # str | Filter by an OData (Open Data Protocol) v4 specification (optional) (default to '')
+    filter = '' # str | OData filter expression applied to break policies. Supported operators: `eq` (equals, use `eq null` to match NULL), `ne` (not equals, use `ne null` to match NOT NULL), `lt` (less than), `le` (less than or equal), `gt` (greater than), `ge` (greater than or equal), `in` (value in list), `and` (combine clauses). Not supported: `or`, `not`, parenthesized grouping. Filterable fields: `id`, `name`, `description`, `allEmployeesAssigned`, `createdAt`, `updatedAt`, `deletedAt`. Examples: `name eq 'Standard Lunch'`, `description eq null`, `allEmployeesAssigned eq true and name ne 'Legacy'`. (optional) (default to '')
     include_counts = False # bool | Include employee and break counts (optional) (default to False)
 
     try:
@@ -1413,7 +2024,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **offset** | **int**| The offset of items to retrieve | [optional] [default to 0]
  **limit** | **int**| The maximum items to retrieve | [optional] [default to 100]
- **filter** | **str**| Filter by an OData (Open Data Protocol) v4 specification | [optional] [default to &#39;&#39;]
+ **filter** | **str**| OData filter expression applied to break policies. Supported operators: &#x60;eq&#x60; (equals, use &#x60;eq null&#x60; to match NULL), &#x60;ne&#x60; (not equals, use &#x60;ne null&#x60; to match NOT NULL), &#x60;lt&#x60; (less than), &#x60;le&#x60; (less than or equal), &#x60;gt&#x60; (greater than), &#x60;ge&#x60; (greater than or equal), &#x60;in&#x60; (value in list), &#x60;and&#x60; (combine clauses). Not supported: &#x60;or&#x60;, &#x60;not&#x60;, parenthesized grouping. Filterable fields: &#x60;id&#x60;, &#x60;name&#x60;, &#x60;description&#x60;, &#x60;allEmployeesAssigned&#x60;, &#x60;createdAt&#x60;, &#x60;updatedAt&#x60;, &#x60;deletedAt&#x60;. Examples: &#x60;name eq &#39;Standard Lunch&#39;&#x60;, &#x60;description eq null&#x60;, &#x60;allEmployeesAssigned eq true and name ne &#39;Legacy&#39;&#x60;. | [optional] [default to &#39;&#39;]
  **include_counts** | **bool**| Include employee and break counts | [optional] [default to False]
 
 ### Return type
@@ -1483,7 +2094,7 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
     id = 'id_example' # str | The break policy ID.
     offset = 0 # int | The offset of items to retrieve (optional) (default to 0)
     limit = 100 # int | The maximum items to retrieve (optional) (default to 100)
-    filter = '' # str | Filter by an OData (Open Data Protocol) v4 specification (optional) (default to '')
+    filter = '' # str | OData filter expression applied to breaks within the policy. Supported operators: `eq` (equals, use `eq null` to match NULL), `ne` (not equals, use `ne null` to match NOT NULL), `lt` (less than), `le` (less than or equal), `gt` (greater than), `ge` (greater than or equal), `in` (value in list), `and` (combine clauses). Not supported: `or`, `not`, parenthesized grouping. Filterable fields: `id`, `name`, `paid`, `duration`, `availabilityType`, `availabilityMinHoursWorked`, `availabilityMaxHoursWorked`, `availabilityStartTime`, `availabilityEndTime`, `createdAt`, `updatedAt`, `deletedAt`. Examples: `name eq 'Lunch'`, `paid eq true`, `paid eq false and name ne 'Quick Break'`. (optional) (default to '')
 
     try:
         # List Breaks for Break Policy
@@ -1504,7 +2115,7 @@ Name | Type | Description  | Notes
  **id** | **str**| The break policy ID. | 
  **offset** | **int**| The offset of items to retrieve | [optional] [default to 0]
  **limit** | **int**| The maximum items to retrieve | [optional] [default to 100]
- **filter** | **str**| Filter by an OData (Open Data Protocol) v4 specification | [optional] [default to &#39;&#39;]
+ **filter** | **str**| OData filter expression applied to breaks within the policy. Supported operators: &#x60;eq&#x60; (equals, use &#x60;eq null&#x60; to match NULL), &#x60;ne&#x60; (not equals, use &#x60;ne null&#x60; to match NOT NULL), &#x60;lt&#x60; (less than), &#x60;le&#x60; (less than or equal), &#x60;gt&#x60; (greater than), &#x60;ge&#x60; (greater than or equal), &#x60;in&#x60; (value in list), &#x60;and&#x60; (combine clauses). Not supported: &#x60;or&#x60;, &#x60;not&#x60;, parenthesized grouping. Filterable fields: &#x60;id&#x60;, &#x60;name&#x60;, &#x60;paid&#x60;, &#x60;duration&#x60;, &#x60;availabilityType&#x60;, &#x60;availabilityMinHoursWorked&#x60;, &#x60;availabilityMaxHoursWorked&#x60;, &#x60;availabilityStartTime&#x60;, &#x60;availabilityEndTime&#x60;, &#x60;createdAt&#x60;, &#x60;updatedAt&#x60;, &#x60;deletedAt&#x60;. Examples: &#x60;name eq &#39;Lunch&#39;&#x60;, &#x60;paid eq true&#x60;, &#x60;paid eq false and name ne &#39;Quick Break&#39;&#x60;. | [optional] [default to &#39;&#39;]
 
 ### Return type
 
@@ -1788,6 +2399,189 @@ Name | Type | Description  | Notes
 **200** | A list of break policies |  -  |
 **403** | Forbidden |  -  |
 **422** | Invalid input |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **list_project_tasks**
+> ProjectPaginatedTasksResponseV1 list_project_tasks(project_id, statuses=statuses, page=page, page_size=page_size)
+
+List Time Tracking Project Tasks
+
+Returns a paginated list of tasks for the specified time tracking project. Tasks are filtered by `statuses[]`, which defaults to `active`.
+
+### Example
+
+* Basic Authentication (basic):
+* OAuth Authentication (oauth):
+
+```python
+import bamboohr_sdk
+from bamboohr_sdk.models.project_paginated_tasks_response_v1 import ProjectPaginatedTasksResponseV1
+from bamboohr_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://companySubDomain.bamboohr.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = bamboohr_sdk.Configuration(
+    host = "https://companySubDomain.bamboohr.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basic
+configuration = bamboohr_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with bamboohr_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = bamboohr_sdk.TimeTrackingApi(api_client)
+    project_id = 56 # int | The project ID.
+    statuses = ["active"] # List[str] | Statuses to include. Defaults to `active` (excludes deleted tasks). Use both values to include active and deleted tasks. (optional) (default to ["active"])
+    page = 1 # int | The page number to retrieve (1-indexed). (optional) (default to 1)
+    page_size = 25 # int | The maximum number of items per page. (optional) (default to 25)
+
+    try:
+        # List Time Tracking Project Tasks
+        api_response = api_instance.list_project_tasks(project_id, statuses=statuses, page=page, page_size=page_size)
+        print("The response of TimeTrackingApi->list_project_tasks:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling TimeTrackingApi->list_project_tasks: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **int**| The project ID. | 
+ **statuses** | [**List[str]**](str.md)| Statuses to include. Defaults to &#x60;active&#x60; (excludes deleted tasks). Use both values to include active and deleted tasks. | [optional] [default to [&quot;active&quot;]]
+ **page** | **int**| The page number to retrieve (1-indexed). | [optional] [default to 1]
+ **page_size** | **int**| The maximum number of items per page. | [optional] [default to 25]
+
+### Return type
+
+[**ProjectPaginatedTasksResponseV1**](ProjectPaginatedTasksResponseV1.md)
+
+### Authorization
+
+[basic](../README.md#basic), [oauth](../README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successfully retrieved tasks for the project. |  -  |
+**401** | Unauthorized. Missing or invalid authentication. |  -  |
+**403** | Forbidden. Insufficient permissions. |  -  |
+**404** | Project not found. |  -  |
+**422** | A query parameter is invalid. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **list_projects**
+> ProjectPaginatedTimeTrackingProjectsResponseV1 list_projects(filter=filter, sort=sort, page=page, page_size=page_size)
+
+List Time Tracking Projects
+
+Returns a paginated list of time tracking projects. Supports OData-style `filter` and `sort` query parameters. Pagination is page-based via `page` and `pageSize` (defaults: page 1, pageSize 100, max 500).
+
+### Example
+
+* Basic Authentication (basic):
+* OAuth Authentication (oauth):
+
+```python
+import bamboohr_sdk
+from bamboohr_sdk.models.project_paginated_time_tracking_projects_response_v1 import ProjectPaginatedTimeTrackingProjectsResponseV1
+from bamboohr_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://companySubDomain.bamboohr.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = bamboohr_sdk.Configuration(
+    host = "https://companySubDomain.bamboohr.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basic
+configuration = bamboohr_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with bamboohr_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = bamboohr_sdk.TimeTrackingApi(api_client)
+    filter = 'filter_example' # str | OData v4 filter expression. Filterable fields: `id`, `name`, `billable`, `includeInPayroll`, `allEmployeesAssigned`, `archived`, `createdAt`, `updatedAt`. (optional)
+    sort = 'sort_example' # str | Sort expression like `name asc, createdAt desc`. Allowed fields: `name`, `createdAt`, `updatedAt`. (optional)
+    page = 1 # int | The starting page for pagination. Defaults to 1. (optional) (default to 1)
+    page_size = 100 # int | The number of items per page. Defaults to 100, maximum 500. (optional) (default to 100)
+
+    try:
+        # List Time Tracking Projects
+        api_response = api_instance.list_projects(filter=filter, sort=sort, page=page, page_size=page_size)
+        print("The response of TimeTrackingApi->list_projects:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling TimeTrackingApi->list_projects: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **filter** | **str**| OData v4 filter expression. Filterable fields: &#x60;id&#x60;, &#x60;name&#x60;, &#x60;billable&#x60;, &#x60;includeInPayroll&#x60;, &#x60;allEmployeesAssigned&#x60;, &#x60;archived&#x60;, &#x60;createdAt&#x60;, &#x60;updatedAt&#x60;. | [optional] 
+ **sort** | **str**| Sort expression like &#x60;name asc, createdAt desc&#x60;. Allowed fields: &#x60;name&#x60;, &#x60;createdAt&#x60;, &#x60;updatedAt&#x60;. | [optional] 
+ **page** | **int**| The starting page for pagination. Defaults to 1. | [optional] [default to 1]
+ **page_size** | **int**| The number of items per page. Defaults to 100, maximum 500. | [optional] [default to 100]
+
+### Return type
+
+[**ProjectPaginatedTimeTrackingProjectsResponseV1**](ProjectPaginatedTimeTrackingProjectsResponseV1.md)
+
+### Authorization
+
+[basic](../README.md#basic), [oauth](../README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | A paginated list of projects. |  -  |
+**401** | Unauthorized. Missing or invalid authentication. |  -  |
+**403** | Forbidden. Insufficient permissions. |  -  |
+**422** | Invalid query parameters (e.g., invalid &#x60;page&#x60;, &#x60;pageSize&#x60;, &#x60;filter&#x60;, or &#x60;sort&#x60;). |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2404,6 +3198,186 @@ Name | Type | Description  | Notes
 **404** | Break policy not found |  -  |
 **422** | Invalid uuid format |  -  |
 **500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **update_project**
+> ProjectTimeTrackingProjectV1 update_project(id, project_update_time_tracking_project_v1)
+
+Update Time Tracking Project
+
+Partially updates a time tracking project identified by its ID. Only fields provided in the request body are updated; omitted fields are left unchanged.
+
+### Example
+
+* Basic Authentication (basic):
+* OAuth Authentication (oauth):
+
+```python
+import bamboohr_sdk
+from bamboohr_sdk.models.project_time_tracking_project_v1 import ProjectTimeTrackingProjectV1
+from bamboohr_sdk.models.project_update_time_tracking_project_v1 import ProjectUpdateTimeTrackingProjectV1
+from bamboohr_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://companySubDomain.bamboohr.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = bamboohr_sdk.Configuration(
+    host = "https://companySubDomain.bamboohr.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basic
+configuration = bamboohr_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with bamboohr_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = bamboohr_sdk.TimeTrackingApi(api_client)
+    id = 56 # int | The project ID.
+    project_update_time_tracking_project_v1 = bamboohr_sdk.ProjectUpdateTimeTrackingProjectV1() # ProjectUpdateTimeTrackingProjectV1 | 
+
+    try:
+        # Update Time Tracking Project
+        api_response = api_instance.update_project(id, project_update_time_tracking_project_v1)
+        print("The response of TimeTrackingApi->update_project:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling TimeTrackingApi->update_project: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**| The project ID. | 
+ **project_update_time_tracking_project_v1** | [**ProjectUpdateTimeTrackingProjectV1**](ProjectUpdateTimeTrackingProjectV1.md)|  | 
+
+### Return type
+
+[**ProjectTimeTrackingProjectV1**](ProjectTimeTrackingProjectV1.md)
+
+### Authorization
+
+[basic](../README.md#basic), [oauth](../README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successfully updated the project. |  -  |
+**400** | Malformed request body. |  -  |
+**401** | Unauthorized. Missing or invalid authentication. |  -  |
+**403** | Forbidden. Insufficient permissions. |  -  |
+**404** | Project not found. |  -  |
+**409** | A project with the supplied name already exists. |  -  |
+**422** | Validation error (e.g., invalid &#x60;projectId&#x60;, no fields provided, invalid types, or setting &#x60;hasTasks&#x3D;true&#x60; on a project with no active tasks). |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **update_task**
+> ProjectTimeTrackingTaskV1 update_task(id, project_update_time_tracking_project_task_v1)
+
+Update Time Tracking Task
+
+Partially updates a time tracking task identified by its ID. Only fields provided in the request body are updated; at least one field must be provided.
+
+### Example
+
+* Basic Authentication (basic):
+* OAuth Authentication (oauth):
+
+```python
+import bamboohr_sdk
+from bamboohr_sdk.models.project_time_tracking_task_v1 import ProjectTimeTrackingTaskV1
+from bamboohr_sdk.models.project_update_time_tracking_project_task_v1 import ProjectUpdateTimeTrackingProjectTaskV1
+from bamboohr_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://companySubDomain.bamboohr.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = bamboohr_sdk.Configuration(
+    host = "https://companySubDomain.bamboohr.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basic
+configuration = bamboohr_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with bamboohr_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = bamboohr_sdk.TimeTrackingApi(api_client)
+    id = 56 # int | The task ID.
+    project_update_time_tracking_project_task_v1 = bamboohr_sdk.ProjectUpdateTimeTrackingProjectTaskV1() # ProjectUpdateTimeTrackingProjectTaskV1 | 
+
+    try:
+        # Update Time Tracking Task
+        api_response = api_instance.update_task(id, project_update_time_tracking_project_task_v1)
+        print("The response of TimeTrackingApi->update_task:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling TimeTrackingApi->update_task: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**| The task ID. | 
+ **project_update_time_tracking_project_task_v1** | [**ProjectUpdateTimeTrackingProjectTaskV1**](ProjectUpdateTimeTrackingProjectTaskV1.md)|  | 
+
+### Return type
+
+[**ProjectTimeTrackingTaskV1**](ProjectTimeTrackingTaskV1.md)
+
+### Authorization
+
+[basic](../README.md#basic), [oauth](../README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Task updated. |  -  |
+**403** | Forbidden. |  -  |
+**404** | Task not found. |  -  |
+**409** | Duplicate task name within the project. |  -  |
+**422** | Validation error. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

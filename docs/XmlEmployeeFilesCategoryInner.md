@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** | Category ID on the &#x60;&lt;category&gt;&#x60; element. | [optional] 
+**id** | **str** | Category ID on the &#x60;&lt;category&gt;&#x60; element. | [optional] 
 **name** | **str** |  | [optional] 
 **can_rename_category** | **str** |  | [optional] 
 **can_delete_category** | **str** |  | [optional] 

@@ -4,7 +4,7 @@ All URIs are relative to *https://companySubDomain.bamboohr.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**add_employee_file_category**](EmployeeFilesApi.md#add_employee_file_category) | **POST** /api/v1/employees/files/categories | Create Employee File Category
+[**create_employee_file_category**](EmployeeFilesApi.md#create_employee_file_category) | **POST** /api/v1/employees/files/categories | Create Employee File Category
 [**delete_employee_file**](EmployeeFilesApi.md#delete_employee_file) | **DELETE** /api/v1/employees/{id}/files/{fileId} | Delete Employee File
 [**get_employee_file**](EmployeeFilesApi.md#get_employee_file) | **GET** /api/v1/employees/{id}/files/{fileId} | Get Employee File
 [**list_employee_files**](EmployeeFilesApi.md#list_employee_files) | **GET** /api/v1/employees/{id}/files/view | List Employee Files
@@ -12,12 +12,12 @@ Method | HTTP request | Description
 [**upload_employee_file**](EmployeeFilesApi.md#upload_employee_file) | **POST** /api/v1/employees/{id}/files | Upload Employee File
 
 
-# **add_employee_file_category**
-> add_employee_file_category(request_body)
+# **create_employee_file_category**
+> create_employee_file_category(request_body)
 
 Create Employee File Category
 
-Creates one or more employee file categories. Accepts a JSON array of category name strings or an equivalent XML document. An empty payload returns 200 without creating anything. Returns 400 if a name is empty or already exists, and 403 if the caller lacks permission.
+Creates one or more employee file categories (not company file categories). The request body is a JSON array of category name strings or an equivalent XML document with `<category>` elements. Each name must be non-empty and unique among existing employee file categories. An empty array returns 200 without creating anything. On success, returns 201 with no body. The admin user group is automatically granted edit permission on each new category.
 
 ### Example
 
@@ -56,9 +56,9 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Create Employee File Category
-        api_instance.add_employee_file_category(request_body)
+        api_instance.create_employee_file_category(request_body)
     except Exception as e:
-        print("Exception when calling EmployeeFilesApi->add_employee_file_category: %s\n" % e)
+        print("Exception when calling EmployeeFilesApi->create_employee_file_category: %s\n" % e)
 ```
 
 
@@ -88,7 +88,7 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | The request was processed but no categories were created (empty payload). |  -  |
-**201** | All specified categories were created successfully. |  -  |
+**201** | All specified categories were created successfully. No response body is returned. |  -  |
 **400** | The request body contains malformed JSON or XML, an empty category name, or a category name that already exists. |  -  |
 **403** | The API user does not have permission to create employee file categories. |  -  |
 **500** | An internal server error occurred. |  -  |
@@ -100,7 +100,7 @@ void (empty response body)
 
 Delete Employee File
 
-Deletes the specified employee file. The special employee ID of zero (0) resolves to the employee associated with the API key. Successful deletions are idempotent: if the file was already deleted for that employee, the endpoint may still return 200. Returns 404 when the file is not associated with the specified employee, 403 if the caller lacks permission or the file is managed by BambooPayroll, and 500 on an internal error.
+Permanently deletes an employee file. This action cannot be undone and removes the file from storage. The special employee ID of 0 resolves to the employee associated with the API key. Returns 200 even if the file was already deleted (idempotent). Returns 403 if the caller lacks permission or the file belongs to a BambooPayroll-managed section. Returns 404 if the file does not exist for the specified employee or the Files tool is not enabled for the company. Use 'List Employee Files' to obtain file IDs.
 
 ### Example
 
@@ -135,7 +135,7 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.EmployeeFilesApi(api_client)
-    id = 0 # int | The ID of the employee whose file is being deleted. Pass 0 to use the employee associated with the API key. (default to 0)
+    id = 56 # int | The ID of the employee whose file is being deleted. Use 0 to default to the employee associated with the API key.
     file_id = 56 # int | The ID of the employee file to delete.
 
     try:
@@ -152,7 +152,7 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **int**| The ID of the employee whose file is being deleted. Pass 0 to use the employee associated with the API key. | [default to 0]
+ **id** | **int**| The ID of the employee whose file is being deleted. Use 0 to default to the employee associated with the API key. | 
  **file_id** | **int**| The ID of the employee file to delete. | 
 
 ### Return type
@@ -173,8 +173,8 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | The employee file was deleted successfully, or had already been deleted for this employee. |  -  |
-**403** | The API user does not have permission to delete the requested employee&#39;s file, or the file is managed by BambooPayroll. |  -  |
-**404** | The requested file was not found for the specified employee. |  -  |
+**403** | The caller does not have permission to delete this employee&#39;s file, or the file belongs to a BambooPayroll-managed section and the caller is not a payroll admin. |  -  |
+**404** | The file was not found for the specified employee, or the Files tool is not enabled for this company. |  -  |
 **500** | An internal server error occurred. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -184,7 +184,9 @@ void (empty response body)
 
 Get Employee File
 
-Downloads the binary content of an employee file. The special employee ID of zero (0) resolves to the employee associated with the API key. The response is sent as an attachment and the Content-Type header reflects the stored file's MIME type. Returns 403 if the caller cannot access the employee or the file's section, and 404 if the file does not exist or is archived.
+Downloads the binary content of an employee file as an attachment. The response Content-Type header reflects the file's stored MIME type (e.g. application/pdf) and includes a Content-Disposition header with the original filename. The special employee ID of 0 resolves to the employee associated with the API key.
+
+Use "List Employee Files" to discover file IDs and their categories for a given employee. Archived or soft-deleted files are excluded and return 404.
 
 ### Example
 
@@ -219,7 +221,7 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.EmployeeFilesApi(api_client)
-    id = 0 # int | The ID of the employee whose file is being retrieved. Pass 0 to use the employee associated with the API key. (default to 0)
+    id = 56 # int | The ID of the employee whose file is being retrieved. Use 0 to resolve to the employee associated with the API key.
     file_id = 56 # int | The ID of the employee file to download.
 
     try:
@@ -238,7 +240,7 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **int**| The ID of the employee whose file is being retrieved. Pass 0 to use the employee associated with the API key. | [default to 0]
+ **id** | **int**| The ID of the employee whose file is being retrieved. Use 0 to resolve to the employee associated with the API key. | 
  **file_id** | **int**| The ID of the employee file to download. | 
 
 ### Return type
@@ -258,9 +260,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | The employee file content streamed as a binary download. The response Content-Type matches the file&#39;s stored MIME type. |  -  |
-**403** | The API user does not have permission to access the requested employee or the employee&#39;s file section. |  -  |
-**404** | The requested employee file was not found. |  -  |
+**200** | The employee file content streamed as a binary download. The Content-Type matches the file&#39;s stored MIME type and a Content-Disposition header provides the original filename. |  -  |
+**403** | The API user does not have permission to access the requested employee or the file&#39;s section. |  -  |
+**404** | The requested employee file was not found, or it has been archived or soft-deleted. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -269,7 +271,7 @@ Name | Type | Description  | Notes
 
 List Employee Files
 
-Lists the file categories and files visible to the caller for the specified employee. The response format is controlled by the Accept header: send 'application/json' for JSON or omit/send anything else for XML. Only categories and files the caller is permitted to see are included; employees viewing their own profile also see files shared with them.
+Lists the file categories and files visible to the caller for the specified employee. This is a metadata listing (names, sizes, permissions); to download a file's content use `get-employee-file`. The response format is controlled by the Accept header: send `application/json` for JSON or omit/send anything else for XML. Only categories and files the caller is permitted to see are included; employees viewing their own profile also see files shared with them. Returns 404 when the employee has no accessible categories.
 
 ### Example
 
@@ -306,7 +308,7 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.EmployeeFilesApi(api_client)
     id = 56 # int | The ID of the employee whose files are being listed.
-    accept = 'application/xml' # str | Set to 'application/json' to receive a JSON response. Any other value (or omitted) returns XML. (optional) (default to 'application/xml')
+    accept = 'application/xml' # str | Set to `application/json` to receive a JSON response. Any other value (or omitted) returns XML. (optional) (default to 'application/xml')
 
     try:
         # List Employee Files
@@ -325,7 +327,7 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The ID of the employee whose files are being listed. | 
- **accept** | **str**| Set to &#39;application/json&#39; to receive a JSON response. Any other value (or omitted) returns XML. | [optional] [default to &#39;application/xml&#39;]
+ **accept** | **str**| Set to &#x60;application/json&#x60; to receive a JSON response. Any other value (or omitted) returns XML. | [optional] [default to &#39;application/xml&#39;]
 
 ### Return type
 
@@ -344,7 +346,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | The employee&#39;s file categories and files. |  -  |
+**200** | The employee&#39;s file categories and files. Each category contains permission flags and an array of file metadata. |  -  |
 **403** | The API user does not have permission to access the requested employee&#39;s files. |  -  |
 **404** | The requested employee was not found, or the employee has no accessible file categories. |  -  |
 
@@ -355,7 +357,7 @@ Name | Type | Description  | Notes
 
 Update Employee File
 
-Updates metadata for an existing employee file. Supports renaming the file, moving it to a different category, and toggling employee visibility. Accepts JSON or XML; only fields present in the request body are updated. An empty XML document no-ops successfully, while an empty JSON body is treated as malformed JSON.
+Updates metadata for an existing employee file. Supports renaming the file, moving it to a different category, and toggling employee visibility. Accepts JSON or XML; only fields present in the request body are updated. An empty XML document no-ops successfully, while an empty JSON body returns 400. The `categoryId` field is silently ignored when the caller authenticated as the file creator but lacks full file permissions. Moving a file to a new category requires view/edit access to both the current and target category. Returns 403 if the file belongs to a read-only file section. Use 'List Employee Files' to obtain file IDs and category IDs.
 
 ### Example
 
@@ -430,9 +432,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | The employee file was updated successfully. |  -  |
+**200** | The employee file metadata was updated successfully. No response body is returned. |  -  |
 **400** | The request body contains malformed JSON or XML. |  -  |
-**403** | The API user does not have permission to modify the requested employee&#39;s file or its category. |  -  |
+**403** | The API user does not have permission to modify the requested employee&#39;s file, its category, or the file belongs to a read-only section. |  -  |
 **404** | The requested employee file or target category was not found. |  -  |
 **500** | An internal server error occurred. |  -  |
 

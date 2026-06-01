@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** | Employee ID on the root &#x60;&lt;employee&gt;&#x60; element. | [optional] 
+**id** | **str** | Employee ID on the root &#x60;&lt;employee&gt;&#x60; element. | [optional] 
 **category** | [**List[XmlEmployeeFilesCategoryInner]**](XmlEmployeeFilesCategoryInner.md) |  | [optional] 
 
 ## Example
