@@ -31,3 +31,12 @@ scripts/**
 # Protect custom tests and examples
 tests/**
 examples/**
+
+# Protect our own CI workflows + CODEOWNERS. The Python openapi-generator
+# template writes a default .github/workflows/python.yml on every regen,
+# and post_generate.py used to `shutil.rmtree('.github')` to clean it up —
+# which collateral-deleted our entire .github/ tree (generate.yml,
+# publish-pypi.yml, publish-testpypi.yml, sdk-update.yml, CODEOWNERS).
+# Adding the directory here means the generator never writes there in the
+# first place, so there's nothing for the cleanup step to nuke.
+.github/**
