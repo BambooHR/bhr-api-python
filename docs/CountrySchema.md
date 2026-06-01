@@ -1,14 +1,14 @@
 # CountrySchema
 
-Schema for country data
+A country in the list returned by the Get Countries endpoint
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | Unique identifier for the country | [optional] 
-**name** | **str** | Full name of the country | [optional] 
-**iso_code** | **str** | ISO 3166-1 alpha-2 code for the country, or null if no ISO code is defined. | [optional] 
+**id** | **int** | Internal country identifier. Use the same value as the &#x60;countryId&#x60; path parameter for Get States by Country ID (this endpoint returns JSON numbers, not stringified digits). | [optional] 
+**name** | **str** | Full display name of the country | [optional] 
+**iso_code** | **str** |  | [optional] 
 
 ## Example
 

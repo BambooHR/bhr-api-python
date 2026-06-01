@@ -8,11 +8,11 @@ Name | Type | Description | Notes
 **id** | **int** | The ID of the training record. | [optional] 
 **employee_id** | **str** | The ID of the employee associated with the training, returned as a string. | [optional] 
 **completed** | **date** | Completed is a date in the format yyyy-mm-dd. | [optional] 
-**notes** | **str** | Notes left on the training record. Null when not set. | [optional] 
-**instructor** | **str** | Name of the instructor. Null when not set or when disabled by company training settings. | [optional] 
-**credits** | **str** | Credits earned for the training record, returned as a string. Null when not set or when disabled by company training settings. | [optional] 
-**hours** | **str** | Hours associated with the training record, returned as a string. Null when not set or when disabled by company training settings. | [optional] 
-**cost** | **str** | The cost in the format &#39;{amount} {currency}&#39;, e.g. &#39;50.00 USD&#39;. May be null or empty string when not set. | [optional] 
+**notes** | **str** |  | [optional] 
+**instructor** | **str** |  | [optional] 
+**credits** | **str** |  | [optional] 
+**hours** | **str** |  | [optional] 
+**cost** | **str** |  | [optional] 
 **type** | [**TrainingRecordType**](TrainingRecordType.md) |  | [optional] 
 
 ## Example

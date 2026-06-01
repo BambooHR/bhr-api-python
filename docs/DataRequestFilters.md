@@ -1,12 +1,13 @@
 # DataRequestFilters
 
+Filter configuration. Combine multiple conditions with a `match` strategy.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**match** | **str** |  | [optional] 
-**filters** | [**List[DataRequestFiltersFiltersInner]**](DataRequestFiltersFiltersInner.md) |  | [optional] 
+**match** | **str** | Logical operator for combining filters: &#x60;all&#x60; (AND) or &#x60;any&#x60; (OR). | [optional] 
+**filters** | [**List[DataRequestFiltersFiltersInner]**](DataRequestFiltersFiltersInner.md) | Array of filter conditions. Filter fields do not need to appear in the top-level &#x60;fields&#x60; array. | [optional] 
 
 ## Example
 

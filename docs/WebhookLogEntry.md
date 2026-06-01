@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **last_success** | **str** | Datetime of the last successful delivery (UTC, format: YYYY-MM-DD HH:MM:SS), or a status string such as \&quot;Webhook Not Found\&quot; when no successful delivery has been recorded. | [optional] 
 **status_code** | **str** | HTTP status code returned by the webhook endpoint on the last delivery attempt. | [optional] 
 **format** | **str** | The payload format used for this delivery. | [optional] 
-**employee_ids** | **List[str]** | Array of employee IDs included in the webhook payload, returned as strings. | [optional] 
+**employee_ids** | **List[Optional[str]]** | Array of employee IDs included in the webhook payload, returned as strings. | [optional] 
 
 ## Example
 

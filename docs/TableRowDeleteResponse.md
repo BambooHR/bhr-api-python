@@ -1,5 +1,6 @@
 # TableRowDeleteResponse
 
+Response from deleting an employee table row.
 
 ## Properties
 

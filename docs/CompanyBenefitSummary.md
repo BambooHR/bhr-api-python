@@ -9,13 +9,13 @@ Name | Type | Description | Notes
 **id** | **str** | The unique identifier of the company benefit plan. | [optional] 
 **name** | **str** | The name of the company benefit plan. | [optional] 
 **type** | **str** | The benefit category type. | [optional] 
-**benefit_vendor_id** | **str** | The ID of the benefit vendor associated with this plan, or null if none. | [optional] 
-**deduction_type_id** | **str** | The deduction type ID for this plan, or null if not applicable. | [optional] 
-**company_deduction_id** | **str** | The company-level deduction record ID linked to this plan, or null if not set. | [optional] 
-**start_date** | **date** | The date the benefit plan becomes effective (YYYY-MM-DD), or null if not set. | [optional] 
-**end_date** | **date** | The date the benefit plan ends (YYYY-MM-DD), or null if ongoing. | [optional] 
-**allows_catch_up** | **bool** | Whether the plan allows catch-up contributions (e.g., for HSA plans for employees 55+), or null if not applicable to this plan type. | [optional] 
-**allows_super_catch_up** | **bool** | Whether the plan allows super catch-up contributions, or null if not applicable to this plan type. | [optional] 
+**benefit_vendor_id** | **str** |  | [optional] 
+**deduction_type_id** | **str** |  | [optional] 
+**company_deduction_id** | **str** |  | [optional] 
+**start_date** | **date** |  | [optional] 
+**end_date** | **date** |  | [optional] 
+**allows_catch_up** | **bool** |  | [optional] 
+**allows_super_catch_up** | **bool** |  | [optional] 
 
 ## Example
 

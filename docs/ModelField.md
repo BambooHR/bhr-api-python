@@ -5,11 +5,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** |  | [optional] 
-**label** | **str** |  | [optional] 
-**parent_type** | **str** |  | [optional] 
-**parent_name** | **str** |  | [optional] 
-**entity_name** | **str** |  | [optional] 
+**name** | **str** | Machine-readable field identifier. Use this value in the &#x60;fields&#x60; array when querying data. | [optional] 
+**label** | **str** | Human-readable display name for the field. | [optional] 
+**parent_type** | **str** | The type of the parent section (e.g. &#x60;page&#x60;, &#x60;table&#x60;). | [optional] 
+**parent_name** | **str** | The name of the parent section this field belongs to. | [optional] 
+**entity_name** | **str** | The entity name for the field, used in &#x60;showHistory&#x60; when querying historical table fields. | [optional] 
 
 ## Example
 

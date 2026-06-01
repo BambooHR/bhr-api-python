@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | The ID of the field option | [optional] 
-**value** | **str** | The value of the field option | [optional] 
+**id** | [**FieldOptionsTransformerId**](FieldOptionsTransformerId.md) |  | [optional] 
+**value** | **str** | The human-readable label of the field option | [optional] 
 
 ## Example
 

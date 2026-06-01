@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **type** | [**TimeOffRequest1Type**](TimeOffRequest1Type.md) |  | [optional] 
 **amount** | [**TimeOffRequest1Amount**](TimeOffRequest1Amount.md) |  | [optional] 
 **actions** | [**TimeOffRequest1Actions**](TimeOffRequest1Actions.md) |  | [optional] 
-**dates** | **Dict[str, float]** | A map of dates (YYYY-MM-DD) to daily amounts. | [optional] 
+**dates** | **Dict[str, Optional[float]]** | A map of dates (YYYY-MM-DD) to daily amounts. | [optional] 
 **notes** | [**TimeOffRequest1Notes**](TimeOffRequest1Notes.md) |  | [optional] 
 
 ## Example

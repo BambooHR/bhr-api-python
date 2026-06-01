@@ -5,10 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** | File ID on the &#x60;&lt;file&gt;&#x60; element. | [optional] 
+**id** | **str** | File ID on the &#x60;&lt;file&gt;&#x60; element. | [optional] 
 **name** | **str** |  | [optional] 
 **original_file_name** | **str** |  | [optional] 
-**size** | **int** |  | [optional] 
+**size** | **str** | File size in bytes (serialized as string in XML). | [optional] 
 **date_created** | **str** | UTC creation timestamp in &#x60;YYYY-MM-DD HH:MM:SS&#x60; format. | [optional] 
 **created_by** | **str** |  | [optional] 
 **share_with_employee** | **str** |  | [optional] 

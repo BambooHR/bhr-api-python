@@ -374,11 +374,11 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_time_off_request**
-> create_time_off_request(employee_id, time_off_request)
+> CreatedTimeOffRequest create_time_off_request(employee_id, time_off_request)
 
 Create Time Off Request
 
-Creates a time off request for an employee. The request can be submitted with a status of `approved`, `denied`, or `requested`. Approved and denied requests are recorded directly without triggering approval notifications. A `previousRequest` ID supersedes an existing request, cancelling the original. Accepts both JSON and XML request bodies.
+Creates a time off request for an employee. The request can be submitted with a status of `approved`, `denied`, or `requested`. Submitting `approved` or `denied` is only honored when the caller is an owner/admin or has view/edit access to the time off type field for the target employee; other callers receive 403. When honored, these statuses record the request directly and suppress approval notifications. Supplying a `previousRequest` ID performs a destructive supersede: the prior request's status is set to `superceded`, all approvals on its workflow are removed and the workflow is marked deleted, and any home-page notifications tied to that workflow are deleted. Accepts both JSON and XML request bodies.
 
 ### Example
 
@@ -387,6 +387,7 @@ Creates a time off request for an employee. The request can be submitted with a 
 
 ```python
 import bamboohr_sdk
+from bamboohr_sdk.models.created_time_off_request import CreatedTimeOffRequest
 from bamboohr_sdk.models.time_off_request import TimeOffRequest
 from bamboohr_sdk.rest import ApiException
 from pprint import pprint
@@ -419,7 +420,9 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Create Time Off Request
-        api_instance.create_time_off_request(employee_id, time_off_request)
+        api_response = api_instance.create_time_off_request(employee_id, time_off_request)
+        print("The response of TimeOffApi->create_time_off_request:\n")
+        pprint(api_response)
     except Exception as e:
         print("Exception when calling TimeOffApi->create_time_off_request: %s\n" % e)
 ```
@@ -436,7 +439,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**CreatedTimeOffRequest**](CreatedTimeOffRequest.md)
 
 ### Authorization
 
@@ -451,7 +454,7 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | Request created. The &#x60;Location&#x60; header contains the URL of the new request. When &#x60;Accept: application/json&#x60; is set, the response body contains the created request. |  -  |
+**201** | Request created. The &#x60;Location&#x60; header contains the URL of the new request. When &#x60;Accept: application/json&#x60; is set, the response body contains the full created request — use the &#x60;id&#x60; field to chain follow-up operations (e.g. approve, cancel, supersede) without a separate lookup. |  -  |
 **400** | Malformed JSON or XML, an invalid time off type, an invalid previous request ID, or other invalid request data. |  -  |
 **401** | Unauthorized. Invalid API credentials. |  -  |
 **403** | Forbidden. The caller does not have permission to create or record this request for the employee, time off type, or requested status. |  -  |
@@ -639,7 +642,7 @@ Name | Type | Description  | Notes
 
 List Employee Time Off Policies v1.1
 
-Returns the time off policies currently assigned to the specified employee, including manual and unlimited policy types that v1 excludes.
+Returns the time off policies currently assigned to a specific employee, as a list of `{timeOffPolicyId, timeOffTypeId, accrualStartDate}` records. Use this to find which policy governs each time off type for this employee and when their accruals began. This is the per-employee assignment view; use `list-time-off-policies` for the company-wide policy catalog. Includes all policy types (accruing, manual, and unlimited); the v1 form of this endpoint excluded manual and unlimited types — v1.1 includes them.
 
 ### Example
 
@@ -843,8 +846,8 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.TimeOffApi(api_client)
-    start = '2013-10-20' # date | Only include requests that end on or after this date. YYYY-MM-DD format.
-    end = '2013-10-20' # date | Only include requests that start on or before this date. YYYY-MM-DD format.
+    start = '2013-10-20' # date | The left boundary of the search window, in YYYY-MM-DD format. Returns any request whose end date falls on or after this date — i.e., requests that are still active at the start of your window. To find all requests overlapping a date range, pass your range start here. Note: this parameter filters on each request's *end* date, not its start date.
+    end = '2013-10-20' # date | The right boundary of the search window, in YYYY-MM-DD format. Returns any request whose start date falls on or before this date — i.e., requests that have begun by the end of your window. To find all requests overlapping a date range, pass your range end here. Note: this parameter filters on each request's *start* date, not its end date.
     accept_header_parameter = 'accept_header_parameter_example' # str | This endpoint can produce either JSON or XML. (optional)
     id = 56 # int | A particular request ID to limit the response to. (optional)
     action = view # str | Limit to requests the caller can `view`, requests they can `approve`, or only their own requests via `myRequests`. Defaults to `view`. (optional) (default to view)
@@ -869,8 +872,8 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **start** | **date**| Only include requests that end on or after this date. YYYY-MM-DD format. | 
- **end** | **date**| Only include requests that start on or before this date. YYYY-MM-DD format. | 
+ **start** | **date**| The left boundary of the search window, in YYYY-MM-DD format. Returns any request whose end date falls on or after this date — i.e., requests that are still active at the start of your window. To find all requests overlapping a date range, pass your range start here. Note: this parameter filters on each request&#39;s *end* date, not its start date. | 
+ **end** | **date**| The right boundary of the search window, in YYYY-MM-DD format. Returns any request whose start date falls on or before this date — i.e., requests that have begun by the end of your window. To find all requests overlapping a date range, pass your range end here. Note: this parameter filters on each request&#39;s *start* date, not its end date. | 
  **accept_header_parameter** | **str**| This endpoint can produce either JSON or XML. | [optional] 
  **id** | **int**| A particular request ID to limit the response to. | [optional] 
  **action** | **str**| Limit to requests the caller can &#x60;view&#x60;, requests they can &#x60;approve&#x60;, or only their own requests via &#x60;myRequests&#x60;. Defaults to &#x60;view&#x60;. | [optional] [default to view]
@@ -992,7 +995,7 @@ Name | Type | Description  | Notes
 
 List Who’s Out
 
-Returns a date-sorted list of employees who are out and company holidays for the specified period. Defaults to today through 14 days out when dates are omitted. Results include both time off entries and holidays, each identified by type.
+Returns a date-sorted list of employees who are out and company holidays for the specified period. Defaults to today through 14 days out when dates are omitted. Results include both `timeOff` entries (employee requests) and `holiday` entries, each identified by `type`. An empty array may mean no one is out, or that no holidays have been configured in the BambooHR company calendar — holidays must be set up there before they appear here. The `filter: off` parameter applies only to employee time-off entries; holidays are independently filtered per-employee based on holiday visibility settings, and that filter is not disabled by `filter: off`.
 
 ### Example
 
@@ -1031,7 +1034,7 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
     accept_header_parameter = 'accept_header_parameter_example' # str | This endpoint can produce either JSON or XML. (optional)
     start = '2013-10-20' # date | Start date in YYYY-MM-DD format. Defaults to today. (optional)
     end = '2013-10-20' # date | End date in YYYY-MM-DD format. Defaults to 14 days after the start date. (optional)
-    filter = 'filter_example' # str | Set to `off` to disable the Who's Out visibility filter and return the unfiltered feed. Any other value leaves filtering enabled. (optional)
+    filter = 'filter_example' # str | Controls the Who's Out calendar filter. By default (parameter omitted), results are limited to the set of employees defined by the authenticated user's saved Who's Out calendar filter (the same filter applied to their in-app Who's Out view). A user with no filter configured sees all employees; a user with a saved filter (e.g. by department, location, division) sees only the configured subset. Set to `off` to ignore the saved filter and return employee time-off entries for everyone — useful for admins or integrations that need the complete company-wide view, or to diagnose whether incomplete results are caused by the saved filter. Note: this parameter applies to employee `timeOff` entries only. `holiday` entries are filtered separately on a per-employee basis (holidays can be configured as visible to specific employees) and that filter is not affected by `filter: off`. (optional)
 
     try:
         # List Who’s Out
@@ -1052,7 +1055,7 @@ Name | Type | Description  | Notes
  **accept_header_parameter** | **str**| This endpoint can produce either JSON or XML. | [optional] 
  **start** | **date**| Start date in YYYY-MM-DD format. Defaults to today. | [optional] 
  **end** | **date**| End date in YYYY-MM-DD format. Defaults to 14 days after the start date. | [optional] 
- **filter** | **str**| Set to &#x60;off&#x60; to disable the Who&#39;s Out visibility filter and return the unfiltered feed. Any other value leaves filtering enabled. | [optional] 
+ **filter** | **str**| Controls the Who&#39;s Out calendar filter. By default (parameter omitted), results are limited to the set of employees defined by the authenticated user&#39;s saved Who&#39;s Out calendar filter (the same filter applied to their in-app Who&#39;s Out view). A user with no filter configured sees all employees; a user with a saved filter (e.g. by department, location, division) sees only the configured subset. Set to &#x60;off&#x60; to ignore the saved filter and return employee time-off entries for everyone — useful for admins or integrations that need the complete company-wide view, or to diagnose whether incomplete results are caused by the saved filter. Note: this parameter applies to employee &#x60;timeOff&#x60; entries only. &#x60;holiday&#x60; entries are filtered separately on a per-employee basis (holidays can be configured as visible to specific employees) and that filter is not affected by &#x60;filter: off&#x60;. | [optional] 
 
 ### Return type
 
@@ -1155,7 +1158,7 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | The status has been updated. |  -  |
+**200** | The status has been updated successfully. The response body is intentionally empty — no content is returned. Treat any empty body on a 200 response as a success indicator; do not attempt to parse the body as JSON. |  -  |
 **400** | If the posted XML is invalid or the status is not \&quot;approved\&quot;, \&quot;denied\&quot;, \&quot;canceled\&quot;, or \&quot;declined\&quot;. |  -  |
 **401** | Unauthorized. Invalid API credentials. |  -  |
 **403** | If the current user doesn\\&#39;t have access to change the status in this way. |  -  |

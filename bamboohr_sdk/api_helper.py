@@ -10,16 +10,16 @@ from __future__ import annotations
 import logging
 import re
 import time
-from typing import Any, Callable, Dict, List, Optional, Set, Tuple
+from collections.abc import Callable
+from typing import Any
 from urllib.parse import urlparse, urlunparse
 
-from bamboohr_sdk.api_error_helper import create_exception, get_error_info
 from bamboohr_sdk.exceptions import ApiException
 
 logger = logging.getLogger("bamboohr_sdk")
 
 # Headers whose values should be redacted in logs
-SENSITIVE_HEADERS: Set[str] = {
+SENSITIVE_HEADERS: set[str] = {
     "authorization",
     "cookie",
     "set-cookie",
@@ -35,14 +35,14 @@ SENSITIVE_HEADERS: Set[str] = {
 }
 
 # Path segments that contain potentially sensitive IDs
-_SENSITIVE_PATH_PATTERNS: List[Tuple[str, str]] = [
+_SENSITIVE_PATH_PATTERNS: list[tuple[str, str]] = [
     (r"(/users/)[^/]+(/|$)", r"\1[ID_REDACTED]\2"),
     (r"(/employees/)[^/]+(/|$)", r"\1[ID_REDACTED]\2"),
     (r"(/companies/)[^/]+(/|$)", r"\1[ID_REDACTED]\2"),
 ]
 
 
-def redact_headers(headers: Optional[Dict[str, str]]) -> Dict[str, str]:
+def redact_headers(headers: dict[str, str] | None) -> dict[str, str]:
     """Redact sensitive header values for safe logging.
 
     :param headers: Original request/response headers.
@@ -51,7 +51,7 @@ def redact_headers(headers: Optional[Dict[str, str]]) -> Dict[str, str]:
     if not headers:
         return {}
 
-    redacted: Dict[str, str] = {}
+    redacted: dict[str, str] = {}
     for name, value in headers.items():
         if name.lower() in SENSITIVE_HEADERS:
             redacted[name] = "[REDACTED]"
@@ -76,14 +76,16 @@ def redact_url(url: str) -> str:
 
     query = "[QUERY_PARAMS_REDACTED]" if parsed.query else ""
 
-    return urlunparse((
-        parsed.scheme,
-        parsed.netloc,
-        path,
-        "",  # params
-        query.lstrip("?") if query else "",
-        "",  # fragment
-    ))
+    return urlunparse(
+        (
+            parsed.scheme,
+            parsed.netloc,
+            path,
+            "",  # params
+            query.lstrip("?") if query else "",
+            "",  # fragment
+        )
+    )
 
 
 def send_with_retries(
@@ -91,9 +93,9 @@ def send_with_retries(
     *,
     method: str,
     url: str,
-    headers: Optional[Dict[str, str]] = None,
+    headers: dict[str, str] | None = None,
     max_retries: int = 1,
-    retryable_status_codes: Optional[List[int]] = None,
+    retryable_status_codes: list[int] | None = None,
 ) -> Any:
     """Execute an HTTP request with retry logic and exponential backoff.
 
@@ -150,10 +152,7 @@ def send_with_retries(
             )
 
             # Check if we got a retryable status code from a "successful" urllib3 response
-            if (
-                response.status in retryable_status_codes
-                and attempt <= max_retries
-            ):
+            if response.status in retryable_status_codes and attempt <= max_retries:
                 delay = 0.1 * (2 ** (attempt - 1))  # 100ms, 200ms, 400ms, ...
                 logger.warning(
                     "Retryable status %d, retrying in %.1fs (attempt %d/%d)",
@@ -171,9 +170,7 @@ def send_with_retries(
             status_code = exc.status or 0
             total_ms = (time.monotonic() - start_time) * 1000
             attempt_ms = (time.monotonic() - attempt_start) * 1000
-            will_retry = (
-                status_code in retryable_status_codes and attempt <= max_retries
-            )
+            will_retry = status_code in retryable_status_codes and attempt <= max_retries
 
             logger.error(
                 "API Error Response",

@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**employee_id** | **int** | Employee ID | [optional] 
-**user_id** | **int** | User ID | [optional] 
+**employee_id** | **int** |  | [optional] 
+**user_id** | **int** |  | [optional] 
 **display_first_name** | **str** | Display first name | [optional] 
 **last_name** | **str** | Last name | [optional] 
 **photo_url** | **str** | Photo URL | [optional] 

@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **data** | **List[object]** | The data for the current page. | [optional] 
 **meta** | [**PaginationMetaData**](PaginationMetaData.md) | The pagination metadata for the response. | [optional] 
-**links** | [**Dict[str, AvailableAction]**](AvailableAction.md) | Hypermedia links for collection navigation (next, prev) and available collection actions (e.g., create). Actions are permission-based and may vary. | [optional] 
+**links** | [**Dict[str, AvailableAction]**](AvailableAction.md) |  | [optional] 
 
 ## Example
 

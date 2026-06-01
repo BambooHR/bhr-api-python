@@ -6,15 +6,15 @@ including OAuth with automatic token refresh.
 
 from __future__ import annotations
 
-from typing import Any, Callable, Dict, Optional
+from collections.abc import Callable
+from typing import Any
 
 from bamboohr_sdk.client.logger.secure_log_filter import mask_value
 from bamboohr_sdk.configuration import Configuration
 
-
 # Type alias for the token refresh callback:
 #   (new_access_token, new_refresh_token, old_access_token, old_refresh_token) -> None
-TokenRefreshCallback = Callable[[str, Optional[str], str, Optional[str]], None]
+TokenRefreshCallback = Callable[[str, str | None, str, str | None], None]
 
 
 class AuthBuilder:
@@ -46,14 +46,14 @@ class AuthBuilder:
     """
 
     def __init__(self) -> None:
-        self._auth_type: Optional[str] = None
-        self._api_key: Optional[str] = None
-        self._oauth_token: Optional[str] = None
-        self._refresh_token: Optional[str] = None
-        self._client_id: Optional[str] = None
-        self._client_secret: Optional[str] = None
-        self._expires_in: Optional[int] = None
-        self._on_token_refresh: Optional[TokenRefreshCallback] = None
+        self._auth_type: str | None = None
+        self._api_key: str | None = None
+        self._oauth_token: str | None = None
+        self._refresh_token: str | None = None
+        self._client_id: str | None = None
+        self._client_secret: str | None = None
+        self._expires_in: int | None = None
+        self._on_token_refresh: TokenRefreshCallback | None = None
 
     # ------------------------------------------------------------------
     # Fluent configuration methods
@@ -89,7 +89,7 @@ class AuthBuilder:
         refresh_token: str,
         client_id: str,
         client_secret: str,
-        expires_in: Optional[int] = None,
+        expires_in: int | None = None,
     ) -> AuthBuilder:
         """Configure OAuth with automatic token refresh.
 
@@ -147,7 +147,7 @@ class AuthBuilder:
         return self._auth_type is not None
 
     @property
-    def auth_type(self) -> Optional[str]:
+    def auth_type(self) -> str | None:
         """Return the configured authentication type."""
         return self._auth_type
 
@@ -157,23 +157,23 @@ class AuthBuilder:
         return self._auth_type == "oauth_refresh"
 
     @property
-    def refresh_token(self) -> Optional[str]:
+    def refresh_token(self) -> str | None:
         return self._refresh_token
 
     @property
-    def client_id(self) -> Optional[str]:
+    def client_id(self) -> str | None:
         return self._client_id
 
     @property
-    def client_secret(self) -> Optional[str]:
+    def client_secret(self) -> str | None:
         return self._client_secret
 
     @property
-    def expires_in(self) -> Optional[int]:
+    def expires_in(self) -> int | None:
         return self._expires_in
 
     @property
-    def token_refresh_callback(self) -> Optional[TokenRefreshCallback]:
+    def token_refresh_callback(self) -> TokenRefreshCallback | None:
         return self._on_token_refresh
 
     # ------------------------------------------------------------------
@@ -203,10 +203,7 @@ class AuthBuilder:
         :raises ValueError: If the configuration is invalid or incomplete.
         """
         if self._auth_type is None:
-            raise ValueError(
-                "No authentication method configured. "
-                "Use with_api_key() or with_oauth()"
-            )
+            raise ValueError("No authentication method configured. Use with_api_key() or with_oauth()")
 
         if self._auth_type == "api_key":
             if not self._api_key:
@@ -230,7 +227,7 @@ class AuthBuilder:
     # Logging / debugging
     # ------------------------------------------------------------------
 
-    def get_sanitized_info(self) -> Dict[str, Any]:
+    def get_sanitized_info(self) -> dict[str, Any]:
         """Return a dict of auth info safe for logging (secrets masked).
 
         :return: Dictionary with sanitized authentication details.
@@ -238,7 +235,7 @@ class AuthBuilder:
         if self._auth_type is None:
             return {"type": "none", "configured": False}
 
-        info: Dict[str, Any] = {
+        info: dict[str, Any] = {
             "type": self._auth_type,
             "configured": True,
         }
@@ -269,5 +266,3 @@ class AuthBuilder:
         self._expires_in = None
         self._on_token_refresh = None
         return self
-
-

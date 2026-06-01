@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **id** | **int** | Time off type ID | 
 **name** | **str** | Time off type name | 
 **units** | **str** | Units for time off | 
-**color** | **str** | Hex color code | 
-**icon** | **str** | Icon identifier for the time off type | 
+**color** | **str** |  | 
+**icon** | **str** |  | 
 **source** | **str** | Source of the time off type | 
 
 ## Example

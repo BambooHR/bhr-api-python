@@ -7,7 +7,7 @@ Represents an action that can be performed on a resource based on permissions an
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **href** | **str** | The URL for this action | [optional] 
-**fields** | **List[object]** | Fields that can be modified with this action | [optional] 
+**fields** | **List[object]** |  | [optional] 
 
 ## Example
 

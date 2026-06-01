@@ -9,16 +9,16 @@ Name | Type | Description | Notes
 **employee_id** | **int** | Employee ID | [optional] 
 **type** | **str** | Entry type | [optional] 
 **var_date** | **date** | Date of the timesheet | [optional] 
-**start** | **datetime** | Start time | [optional] 
-**end** | **datetime** | End time | [optional] 
-**timezone** | **str** | Timezone | [optional] 
-**hours** | **float** | Hours worked | [optional] 
-**note** | **str** | Note | [optional] 
+**start** | **datetime** |  | [optional] 
+**end** | **datetime** |  | [optional] 
+**timezone** | **str** |  | [optional] 
+**hours** | **float** |  | [optional] 
+**note** | **str** |  | [optional] 
 **project_info** | [**ProjectInfoApiTransformer**](ProjectInfoApiTransformer.md) |  | [optional] 
-**approved_at** | **datetime** | Approved time | [optional] 
+**approved_at** | **datetime** |  | [optional] 
 **approved** | **bool** | Whether the timesheet entry is approved | [optional] 
 **created_at** | **datetime** | Created time | [optional] 
-**updated_at** | **datetime** | Updated time | [optional] 
+**updated_at** | **datetime** |  | [optional] 
 
 ## Example
 

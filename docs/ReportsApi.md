@@ -9,11 +9,11 @@ Method | HTTP request | Description
 
 
 # **get_company_report**
-> GetCompanyReportResponse get_company_report(id, accept_header_parameter=accept_header_parameter, format=format, fd=fd, only_current=only_current)
+> GetCompanyReportResponse get_company_report(id, accept=accept, format=format, fd=fd, only_current=only_current)
 
 Get Company Report
 
-**Warning: This endpoint will soon be deprecated and replaced with Custom Reports - Get Report by ID.**
+**Deprecated. Use Custom Reports > Get Report by ID instead.**
 
 Returns the data from an existing saved custom report. Non-admins can find these reports in My Reports. Admins can find them in Custom Reports under the My Reports and Company Reports tabs. The report ID can be found by hovering over the report name in BambooHR and noting the ID in the URL. Standard Reports are not available via this endpoint, and report IDs are company-specific.
 
@@ -54,14 +54,14 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.ReportsApi(api_client)
     id = 56 # int | The integer ID of the saved custom report to run. Find this ID by hovering over the report name in the BambooHR Reports tab and noting the ID in the URL.
-    accept_header_parameter = 'accept_header_parameter_example' # str | This endpoint can produce either JSON or XML. (optional)
+    accept = 'accept_example' # str | The desired response content type when `format` is omitted. Accepted values: `application/json`, `text/xml`, `text/csv`, `application/pdf`, `application/vnd.ms-excel`. Any other value returns 404. (optional)
     format = 'format_example' # str | The output format for the report. Case-insensitive. If omitted, format is inferred from the `Accept` header — only `application/json`, `text/xml`, `text/csv`, `application/pdf`, and `application/vnd.ms-excel` are accepted; any other value returns 404. (optional)
     fd = 'fd_example' # str | Controls duplicate row filtering. `yes` applies standard deduplication (default for JSON and XML formats). `no` returns raw results without filtering (default for CSV and XLS formats). (optional)
-    only_current = True # bool | Whether to restrict results to current (non-future-dated) field values. Set to false to include future-dated history field values. Defaults to true. (optional) (default to True)
+    only_current = True # bool | Whether to restrict historical fields to current values only. Set to false to include future-dated history values in the report output. Defaults to true. (optional) (default to True)
 
     try:
         # Get Company Report
-        api_response = api_instance.get_company_report(id, accept_header_parameter=accept_header_parameter, format=format, fd=fd, only_current=only_current)
+        api_response = api_instance.get_company_report(id, accept=accept, format=format, fd=fd, only_current=only_current)
         print("The response of ReportsApi->get_company_report:\n")
         pprint(api_response)
     except Exception as e:
@@ -76,10 +76,10 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The integer ID of the saved custom report to run. Find this ID by hovering over the report name in the BambooHR Reports tab and noting the ID in the URL. | 
- **accept_header_parameter** | **str**| This endpoint can produce either JSON or XML. | [optional] 
+ **accept** | **str**| The desired response content type when &#x60;format&#x60; is omitted. Accepted values: &#x60;application/json&#x60;, &#x60;text/xml&#x60;, &#x60;text/csv&#x60;, &#x60;application/pdf&#x60;, &#x60;application/vnd.ms-excel&#x60;. Any other value returns 404. | [optional] 
  **format** | **str**| The output format for the report. Case-insensitive. If omitted, format is inferred from the &#x60;Accept&#x60; header — only &#x60;application/json&#x60;, &#x60;text/xml&#x60;, &#x60;text/csv&#x60;, &#x60;application/pdf&#x60;, and &#x60;application/vnd.ms-excel&#x60; are accepted; any other value returns 404. | [optional] 
  **fd** | **str**| Controls duplicate row filtering. &#x60;yes&#x60; applies standard deduplication (default for JSON and XML formats). &#x60;no&#x60; returns raw results without filtering (default for CSV and XLS formats). | [optional] 
- **only_current** | **bool**| Whether to restrict results to current (non-future-dated) field values. Set to false to include future-dated history field values. Defaults to true. | [optional] [default to True]
+ **only_current** | **bool**| Whether to restrict historical fields to current values only. Set to false to include future-dated history values in the report output. Defaults to true. | [optional] [default to True]
 
 ### Return type
 
@@ -105,11 +105,11 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **request_custom_report**
-> RequestCustomReportResponse request_custom_report(request_custom_report, format=format, only_current=only_current)
+> RequestCustomReportResponse request_custom_report(request_custom_report, accept=accept, format=format, only_current=only_current)
 
 Request Custom Report
 
-**Warning: This endpoint will soon be deprecated and replaced with Datasets - Get Data from Dataset.**
+**Deprecated. Use Datasets > Get Data from Dataset instead.**
 
 Generates an ad-hoc employee report based on a caller-specified list of fields and optional filters. Returns report data in the requested format (JSON, XML, CSV, XLS, or PDF). The report includes all employees regardless of status (both Active and Inactive), unlike the BambooHR UI which filters to Active employees by default.
 
@@ -117,7 +117,7 @@ The request body may be submitted as JSON or XML. To submit JSON, set `Content-T
 
 The `format` query parameter is case-insensitive (`json`, `JSON`, `Json` are all accepted). If `format` is omitted, the output format is inferred from the `Accept` header, but only these exact values are supported: `application/json`, `text/xml`, `text/csv`, `application/pdf`, `application/vnd.ms-excel`. Any other `Accept` value (including `application/xml` and `*/*`) will return 404.
 
-Field IDs in the request that are unknown or that the caller does not have permission to view are silently omitted from the report — the endpoint still returns 200. The `filters` object supports `lastChanged` (ISO 8601 date-time to filter by last-modified date) and `employeeIds` (restrict results to specific employee IDs). The maximum number of fields per request is 400.
+Field IDs in the request that are unknown or that the caller does not have permission to view are silently omitted from the report — the endpoint still returns 200. The `filters` object supports `lastChanged` (ISO 8601 date-time to filter employees by last-modified date, with optional `includeNull` control) and `employeeIds` (restrict results to specific employee IDs). The maximum number of fields per request is 400.
 
 ### Example
 
@@ -155,12 +155,13 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.ReportsApi(api_client)
     request_custom_report = bamboohr_sdk.RequestCustomReport() # RequestCustomReport | 
+    accept = 'accept_example' # str | The desired response content type when `format` is omitted. Accepted values: `application/json`, `text/xml`, `text/csv`, `application/pdf`, `application/vnd.ms-excel`. Any other value returns 404. (optional)
     format = 'format_example' # str | The output format for the report. Case-insensitive. If omitted, format is inferred from the `Accept` header — only `application/json`, `text/xml`, `text/csv`, `application/pdf`, and `application/vnd.ms-excel` are accepted; any other value returns 404. (optional)
-    only_current = True # bool | Limits the report to only current employees. Set to false to include future-dated employees. Defaults to true. (optional) (default to True)
+    only_current = True # bool | Whether to restrict historical fields to current values only. Set to false to include future-dated history values in the report output. Defaults to true. (optional) (default to True)
 
     try:
         # Request Custom Report
-        api_response = api_instance.request_custom_report(request_custom_report, format=format, only_current=only_current)
+        api_response = api_instance.request_custom_report(request_custom_report, accept=accept, format=format, only_current=only_current)
         print("The response of ReportsApi->request_custom_report:\n")
         pprint(api_response)
     except Exception as e:
@@ -175,8 +176,9 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **request_custom_report** | [**RequestCustomReport**](RequestCustomReport.md)|  | 
+ **accept** | **str**| The desired response content type when &#x60;format&#x60; is omitted. Accepted values: &#x60;application/json&#x60;, &#x60;text/xml&#x60;, &#x60;text/csv&#x60;, &#x60;application/pdf&#x60;, &#x60;application/vnd.ms-excel&#x60;. Any other value returns 404. | [optional] 
  **format** | **str**| The output format for the report. Case-insensitive. If omitted, format is inferred from the &#x60;Accept&#x60; header — only &#x60;application/json&#x60;, &#x60;text/xml&#x60;, &#x60;text/csv&#x60;, &#x60;application/pdf&#x60;, and &#x60;application/vnd.ms-excel&#x60; are accepted; any other value returns 404. | [optional] 
- **only_current** | **bool**| Limits the report to only current employees. Set to false to include future-dated employees. Defaults to true. | [optional] [default to True]
+ **only_current** | **bool**| Whether to restrict historical fields to current values only. Set to false to include future-dated history values in the report output. Defaults to true. | [optional] [default to True]
 
 ### Return type
 

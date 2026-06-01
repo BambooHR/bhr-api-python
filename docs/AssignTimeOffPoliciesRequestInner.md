@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **time_off_policy_id** | **int** | The ID of the time off policy to assign. | 
-**accrual_start_date** | **date** | The date accruals should start in YYYY-MM-DD format. Set to null to remove an existing assignment. | 
+**accrual_start_date** | **date** |  | 
 
 ## Example
 

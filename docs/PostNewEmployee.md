@@ -1,6 +1,6 @@
 # PostNewEmployee
 
-A dictionary of employee field names and their values for the new employee. At minimum, firstName and lastName are required. The properties listed below are commonly used fields, but any valid employee field name can be used as a key. To discover all available field names, call the list-fields endpoint (operationId: list-fields, GET /api/v1/meta/fields). Additional fields may use string, number, boolean, array, object, or null values depending on the field type. Some string-valued fields are backed by lists or lookups, so callers should use valid option values from BambooHR metadata rather than assuming any free-text string will persist as entered.
+A dictionary of employee field names and their values for the new employee. At minimum, firstName and lastName are required. The properties listed below are commonly used fields, but any valid writable employee field name can be used as a key. To discover all available field names, call the List Fields endpoint (operationId: list-fields, GET /api/v1/meta/fields). Additional fields may use string, number, boolean, array, object, or null values depending on the field type. Some string-valued fields are backed by lists or lookups, so callers should use valid option values from BambooHR metadata rather than assuming any free-text string will persist as entered. Photo data is not writable through this schema: photo-related keys are silently ignored. After creation, use the Upload Employee Photo endpoint (operationId: upload-employee-photo) to attach a profile photo.
 
 ## Properties
 

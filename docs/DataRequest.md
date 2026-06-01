@@ -5,12 +5,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**fields** | **List[str]** |  | 
-**aggregations** | [**List[DataRequestAggregationsInner]**](DataRequestAggregationsInner.md) |  | [optional] 
-**sort_by** | [**List[DataRequestSortByInner]**](DataRequestSortByInner.md) |  | [optional] 
+**fields** | **List[str]** | Field names to include in each returned record. Use \&quot;Get Fields from Dataset\&quot; to discover available names. | 
+**aggregations** | [**DataRequestAggregations**](DataRequestAggregations.md) |  | [optional] 
+**sort_by** | [**List[DataRequestSortByInner]**](DataRequestSortByInner.md) | Ordered list of sort rules. Priority follows array order. Include aggregationType when sorting by an aggregated value in a grouped request; it must match an aggregation requested for the same field. | [optional] 
 **filters** | [**DataRequestFilters**](DataRequestFilters.md) |  | [optional] 
-**group_by** | **List[str]** |  | [optional] 
-**show_history** | **List[str]** |  | [optional] 
+**group_by** | **List[str]** | Field names to group results by. Currently supports only one field. When grouping is active, the &#x60;data&#x60; key in the response becomes an object keyed by group value instead of an array. | [optional] 
+**show_history** | **List[str]** | Entity names of historical table fields whose history rows should be included. Entity names are returned by \&quot;Get Fields from Dataset\&quot;. | [optional] 
 
 ## Example
 

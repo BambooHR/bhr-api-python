@@ -3,4 +3,4 @@
 from bamboohr_sdk.client.auth.token_manager import TokenManager, TokenResponse
 from bamboohr_sdk.client.auth.token_refresh_provider import BambooHRTokenRefreshProvider
 
-__all__ = ["TokenManager", "TokenResponse", "BambooHRTokenRefreshProvider"]
+__all__ = ["BambooHRTokenRefreshProvider", "TokenManager", "TokenResponse"]
