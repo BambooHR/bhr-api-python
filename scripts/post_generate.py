@@ -31,9 +31,16 @@ def cleanup_generator_artifacts() -> None:
     """Remove unwanted files the generator may leave at the project root."""
     print("Cleaning up generator artifacts...")
 
+    # NOTE: do NOT add ".github" to this list. The Python openapi-generator
+    # template used to write a default .github/workflows/python.yml, and an
+    # earlier version of this script `shutil.rmtree`'d the whole .github/
+    # dir to clean that up — which collateral-deleted our own workflows
+    # (generate.yml, publish-pypi.yml, publish-testpypi.yml, sdk-update.yml)
+    # and CODEOWNERS on every regen. We now block the generator from writing
+    # to .github/ via .openapi-generator-ignore instead, so there's nothing
+    # to clean up here.
     for unwanted in [
         ".gitlab-ci.yml",
-        ".github",
         "test-requirements.txt",
     ]:
         path = PROJECT_ROOT / unwanted
