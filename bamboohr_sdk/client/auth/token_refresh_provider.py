@@ -8,7 +8,8 @@ from __future__ import annotations
 
 import json
 import logging
-from typing import Any, Callable, Dict, Optional
+from collections.abc import Callable
+from typing import Any
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
@@ -43,7 +44,7 @@ class BambooHRTokenRefreshProvider:
         client_id: str,
         client_secret: str,
         api_host: str = "https://example.bamboohr.com",
-        http_send: Optional[HttpSendFunc] = None,
+        http_send: HttpSendFunc | None = None,
     ) -> None:
         self._client_id = client_id
         self._client_secret = client_secret
@@ -97,7 +98,7 @@ class BambooHRTokenRefreshProvider:
             )
 
         try:
-            data: Dict[str, Any] = json.loads(response_body)
+            data: dict[str, Any] = json.loads(response_body)
         except (json.JSONDecodeError, TypeError) as exc:
             raise ApiException(
                 status=500,
@@ -121,9 +122,7 @@ class BambooHRTokenRefreshProvider:
         return TokenResponse(
             access_token=data["access_token"],
             refresh_token=data.get("refresh_token"),
-            expires_in=(
-                int(data["expires_in"]) if "expires_in" in data else None
-            ),
+            expires_in=(int(data["expires_in"]) if "expires_in" in data else None),
         )
 
     # ------------------------------------------------------------------

@@ -44,13 +44,25 @@ Documentation = "https://documentation.bamboohr.com"
 Repository = "https://github.com/BambooHR/bhr-api-python"
 
 [project.optional-dependencies]
+# Dev tooling is pinned to compatible ranges, NOT left open-ended.
+#
+# These bounds exist because the SDK-update pipeline lints and tests
+# freshly *generated* code. When a linter stabilizes a new rule, or a
+# type checker ships a major version, the pipeline fails on output we
+# don't hand-write and can't fix at review time. That is exactly what
+# happened with `ruff>=0.3`: CI resolved ruff 0.16.5, which stabilized
+# RUF036, and `make lint` failed with 1059 errors in bamboohr_sdk/api/
+# on a signature that comes straight from the upstream template.
+#
+# Bump these deliberately (and regenerate) rather than letting a
+# transitive resolution decide the toolchain on a random Tuesday.
 dev = [
-    "chevron>=0.14",
-    "mypy>=1.8",
-    "pytest>=8.0",
-    "pytest-cov>=4.0",
-    "pytest-asyncio>=0.23",
-    "ruff>=0.3",
+    "chevron>=0.14,<1",
+    "mypy>=1.19,<2",
+    "pytest>=8.0,<10",
+    "pytest-cov>=4.0,<8",
+    "pytest-asyncio>=0.23,<2",
+    "ruff>=0.16,<0.17",
 ]
 
 [tool.hatch.build.targets.wheel]
@@ -111,16 +123,23 @@ known-first-party = ["bamboohr_sdk"]
 # that come straight from spec description text written by API designers. The
 # characters aren't ambiguous in context; ruff is being pedantic about source
 # we don't own.
+#
+# RUF036 (`None` not at the end of the type union) is ignored for the same
+# reason: every generated operation takes
+#     _request_timeout: None | Annotated[StrictFloat, ...] | tuple[...] = None
+# with `None` leading the union. That ordering comes from the openapi-generator
+# Python template, ruff offers no safe autofix for it, and rewriting it would
+# mean forking the template for a purely cosmetic gain.
 [tool.ruff.lint.per-file-ignores]
 "bamboohr_sdk/api/*.py" = [
-    "B028", "B904", "F841", "N805", "RUF001", "RUF002", "RUF003", "RUF012", "RUF059",
+    "B028", "B904", "F841", "N805", "RUF001", "RUF002", "RUF003", "RUF012", "RUF036", "RUF059",
     "SIM101", "SIM105", "SIM108", "SIM118", "TC001", "TC003", "UP030", "UP031",
 ]
 "bamboohr_sdk/models/*.py" = [
     "F841", "N805", "N818", "RUF001", "RUF002", "RUF003", "RUF012", "SIM118", "TC001", "TC003",
 ]
 "bamboohr_sdk/api_client.py" = [
-    "B028", "B904", "F841", "RUF001", "RUF002", "RUF003", "RUF012", "RUF059",
+    "B028", "B904", "F841", "RUF001", "RUF002", "RUF003", "RUF012", "RUF036", "RUF059",
     "SIM101", "SIM105", "SIM108", "TC001", "TC003", "UP030", "UP031",
 ]
 "bamboohr_sdk/api_helper.py" = ["TC001", "TC003"]

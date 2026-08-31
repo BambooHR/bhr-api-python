@@ -13,7 +13,8 @@ The middleware guards against recursive refresh attempts.
 from __future__ import annotations
 
 import logging
-from typing import Any, Callable, Optional
+from collections.abc import Callable
+from typing import Any
 
 from bamboohr_sdk.client.auth.token_manager import TokenManager
 from bamboohr_sdk.client.auth.token_refresh_provider import BambooHRTokenRefreshProvider

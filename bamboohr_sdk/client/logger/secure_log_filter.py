@@ -19,7 +19,7 @@ from __future__ import annotations
 
 import logging
 import re
-from typing import Any, Dict, Optional, Set, Tuple
+from typing import Any
 
 # ---------------------------------------------------------------------------
 # Sensitive-key detection
@@ -27,7 +27,7 @@ from typing import Any, Dict, Optional, Set, Tuple
 
 #: Keys whose *values* should be redacted when they appear in a log record's
 #: extra attributes (matched by substring, case-insensitive).
-SENSITIVE_KEYS: Set[str] = {
+SENSITIVE_KEYS: set[str] = {
     "password",
     "api_key",
     "apikey",
@@ -58,7 +58,7 @@ SENSITIVE_KEYS: Set[str] = {
 # ---------------------------------------------------------------------------
 
 #: Regex patterns that match inline credential values in log messages.
-_STRING_PATTERNS: list[Tuple[re.Pattern, str]] = [
+_STRING_PATTERNS: list[tuple[re.Pattern, str]] = [
     # Bearer tokens
     (re.compile(r"Bearer\s+[a-zA-Z0-9\-._~+/]+=*", re.IGNORECASE), "Bearer [REDACTED]"),
     # Basic auth
@@ -129,7 +129,7 @@ def redact_context(data: Any) -> Any:
     :return: A copy with sensitive values masked.
     """
     if isinstance(data, dict):
-        redacted: Dict[str, Any] = {}
+        redacted: dict[str, Any] = {}
         for k, v in data.items():
             if _is_sensitive_key(str(k)):
                 redacted[k] = mask_value(v)
@@ -222,9 +222,7 @@ class SecureLogFilter(logging.Filter):
                 record.args = redact_context(record.args)
             elif isinstance(record.args, tuple):
                 record.args = tuple(
-                    redact_context(a) if isinstance(a, dict)
-                    else redact_string(a) if isinstance(a, str)
-                    else a
+                    redact_context(a) if isinstance(a, dict) else redact_string(a) if isinstance(a, str) else a
                     for a in record.args
                 )
 

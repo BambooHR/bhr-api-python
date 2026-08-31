@@ -8,7 +8,8 @@ Performs the following steps:
     3. Strip PublicAPIApi references from FILES manifest and __init__.py files
     4. Format generated code with ruff
     5. Add custom headers to API documentation
-    6. Clean up obsolete files (compare old vs new FILES manifest)
+    6. Sync BambooHRClient convenience accessors with the generated API set
+    7. Clean up obsolete files (compare old vs new FILES manifest)
 
 Usage:
     python scripts/post_generate.py
@@ -314,6 +315,38 @@ def fix_model_types() -> None:
     print(f"  {applied}/{total} model patches applied")
 
 
+def sync_accessors() -> None:
+    """Regenerate BambooHRClient's convenience accessors from the new API set.
+
+    This MUST run after the generator (which decides what API classes exist)
+    and before the obsolete-file cleanup deletes the modules the old accessors
+    referenced. Without it, a spec that renames a tag leaves the hand-written
+    client importing a module that no longer exists.
+    """
+    print("Syncing client API accessors...")
+
+    sync_script = PROJECT_ROOT / "scripts" / "sync_accessors.py"
+    if not sync_script.exists():
+        print("  Warning: sync_accessors.py not found, skipping")
+        return
+
+    result = subprocess.run(
+        [sys.executable, str(sync_script)],
+        capture_output=True,
+        text=True,
+        cwd=PROJECT_ROOT,
+    )
+    if result.stdout.strip():
+        print(f"  {result.stdout.strip()}")
+    if result.returncode != 0:
+        # Loud but non-fatal: the workflow's tiered status will still flag
+        # this via the lint/test steps, and a partial tree is more useful to
+        # a reviewer than no tree at all.
+        print(f"  Warning: sync_accessors.py returned {result.returncode}")
+        if result.stderr:
+            print(f"  {result.stderr.strip()}")
+
+
 def cleanup_obsolete_files() -> None:
     """Run the cleanup obsolete files script in force mode."""
     print("Cleaning up obsolete files...")
@@ -364,6 +397,7 @@ def main() -> int:
     format_generated_code()
     fix_model_types()
     add_custom_headers_to_docs()
+    sync_accessors()
     update_error_docs()
     cleanup_obsolete_files()
 
