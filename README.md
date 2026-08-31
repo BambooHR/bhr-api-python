@@ -102,14 +102,28 @@ All URIs are relative to *https://companySubDomain.bamboohr.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*AccountInformationApi* | [**baa7162824294d030115568d1d8e6ca7**](docs/AccountInformationApi.md#baa7162824294d030115568d1d8e6ca7) | **GET** /api/v1/meta/timezones/{id} | Get timezone by ID
+*AccountInformationApi* | [**call_10d66d8561dd7dac50ff9c21ef63d83b**](docs/AccountInformationApi.md#call_10d66d8561dd7dac50ff9c21ef63d83b) | **GET** /api/v1/meta/timezones/by-zip/{zip} | Get timezone by ZIP code
 *AccountInformationApi* | [**call_5c5fb0f1211ae1c9451753f92f1053b6**](docs/AccountInformationApi.md#call_5c5fb0f1211ae1c9451753f92f1053b6) | **GET** /api/v1/meta/timezones | List timezones
+*AccountInformationApi* | [**get_all_currency_types**](docs/AccountInformationApi.md#get_all_currency_types) | **GET** /api/v1/meta/currency/types | Get all currency types
+*AccountInformationApi* | [**get_all_provinces**](docs/AccountInformationApi.md#get_all_provinces) | **GET** /api/v1/meta/provinces | Get All Provinces
 *AccountInformationApi* | [**get_countries_options**](docs/AccountInformationApi.md#get_countries_options) | **GET** /api/v1/meta/countries/options | Get Countries
-*AccountInformationApi* | [**get_states_by_country_id**](docs/AccountInformationApi.md#get_states_by_country_id) | **GET** /api/v1/meta/provinces/{countryId} | Get States by Country ID
+*AccountInformationApi* | [**get_country_by_id**](docs/AccountInformationApi.md#get_country_by_id) | **GET** /api/v1/meta/countries/{id} | Get Country by ID
+*AccountInformationApi* | [**get_currency_conversions**](docs/AccountInformationApi.md#get_currency_conversions) | **GET** /api/v1/meta/currency-conversions | Get Currency Conversion Rates
+*AccountInformationApi* | [**get_meta_company**](docs/AccountInformationApi.md#get_meta_company) | **GET** /api/v1/meta/company | Get company properties
+*AccountInformationApi* | [**get_states_by_country_id**](docs/AccountInformationApi.md#get_states_by_country_id) | **GET** /api/v1/meta/provinces/{countryId} | List states and provinces for a country by Country ID
+*AccountInformationApi* | [**list_bank_holidays**](docs/AccountInformationApi.md#list_bank_holidays) | **GET** /api/v1/meta/bank-holidays | List Bank Holidays
 *AccountInformationApi* | [**list_fields**](docs/AccountInformationApi.md#list_fields) | **GET** /api/v1/meta/fields | List Fields
+*AccountInformationApi* | [**list_industries**](docs/AccountInformationApi.md#list_industries) | **GET** /api/v1/meta/industries | List Industries
 *AccountInformationApi* | [**list_list_fields**](docs/AccountInformationApi.md#list_list_fields) | **GET** /api/v1/meta/lists | List List Fields
 *AccountInformationApi* | [**list_tabular_fields**](docs/AccountInformationApi.md#list_tabular_fields) | **GET** /api/v1/meta/tables | List Tabular Fields
 *AccountInformationApi* | [**list_users**](docs/AccountInformationApi.md#list_users) | **GET** /api/v1/meta/users | List Users
 *AccountInformationApi* | [**update_list_field_values**](docs/AccountInformationApi.md#update_list_field_values) | **PUT** /api/v1/meta/lists/{listFieldId} | Update List Field Values
+*AlertsApi* | [**create_alert_configuration**](docs/AlertsApi.md#create_alert_configuration) | **POST** /api/v1/alert-configurations | Create Alert Configuration
+*AlertsApi* | [**get_alert_configuration**](docs/AlertsApi.md#get_alert_configuration) | **GET** /api/v1/alert-configurations/{id} | Get Alert Configuration
+*AlertsApi* | [**list_alert_configurations**](docs/AlertsApi.md#list_alert_configurations) | **GET** /api/v1/alert-configurations | List Alert Configurations
+*AlertsApi* | [**list_alert_templates**](docs/AlertsApi.md#list_alert_templates) | **GET** /api/v1/alerts | List Alert Templates
+*AlertsApi* | [**replace_alert_configuration**](docs/AlertsApi.md#replace_alert_configuration) | **PUT** /api/v1/alert-configurations/{id} | Replace Alert Configuration
 *ApplicantTrackingApi* | [**create_application_comment**](docs/ApplicantTrackingApi.md#create_application_comment) | **POST** /api/v1/applicant_tracking/applications/{applicationId}/comments | Create Job Application Comment
 *ApplicantTrackingApi* | [**create_candidate**](docs/ApplicantTrackingApi.md#create_candidate) | **POST** /api/v1/applicant_tracking/application | Create Candidate
 *ApplicantTrackingApi* | [**create_job_opening**](docs/ApplicantTrackingApi.md#create_job_opening) | **POST** /api/v1/applicant_tracking/job_opening | Create Job Opening
@@ -122,282 +136,650 @@ Class | Method | HTTP request | Description
 *ApplicantTrackingApi* | [**update_applicant_status**](docs/ApplicantTrackingApi.md#update_applicant_status) | **POST** /api/v1/applicant_tracking/applications/{applicationId}/status | Update Applicant Status
 *BenefitsApi* | [**create_employee_dependent**](docs/BenefitsApi.md#create_employee_dependent) | **POST** /api/v1/employeedependents | Create Employee Dependent
 *BenefitsApi* | [**get_employee_dependent**](docs/BenefitsApi.md#get_employee_dependent) | **GET** /api/v1/employeedependents/{id} | Get Employee Dependent
-*BenefitsApi* | [**get_member_benefits**](docs/BenefitsApi.md#get_member_benefits) | **GET** /api/v1/benefits/member-benefits | Get Member Benefits
 *BenefitsApi* | [**list_benefit_coverages**](docs/BenefitsApi.md#list_benefit_coverages) | **GET** /api/v1/benefitcoverages | List Benefit Coverages
 *BenefitsApi* | [**list_benefit_deduction_types**](docs/BenefitsApi.md#list_benefit_deduction_types) | **GET** /api/v1/benefits/settings/deduction_types/all | List Benefit Deduction Types
 *BenefitsApi* | [**list_company_benefits**](docs/BenefitsApi.md#list_company_benefits) | **GET** /api/v1/benefit/company_benefit | List Company Benefits
 *BenefitsApi* | [**list_employee_benefits**](docs/BenefitsApi.md#list_employee_benefits) | **GET** /api/v1/benefit/employee_benefit | List Employee Benefits
 *BenefitsApi* | [**list_employee_dependents**](docs/BenefitsApi.md#list_employee_dependents) | **GET** /api/v1/employeedependents | List Employee Dependents
 *BenefitsApi* | [**list_member_benefit_events**](docs/BenefitsApi.md#list_member_benefit_events) | **GET** /api/v1/benefit/member_benefit | List Member Benefit Events
+*BenefitsApi* | [**list_member_benefits**](docs/BenefitsApi.md#list_member_benefits) | **GET** /api/v1/benefits/member-benefits | List Member Benefits
 *BenefitsApi* | [**update_employee_dependent**](docs/BenefitsApi.md#update_employee_dependent) | **PUT** /api/v1/employeedependents/{id} | Update Employee Dependent
-*CompanyFilesApi* | [**add_company_file_category**](docs/CompanyFilesApi.md#add_company_file_category) | **POST** /api/v1/files/categories | Create Company File Category
+*CalendarEventsApi* | [**list_calendar_events**](docs/CalendarEventsApi.md#list_calendar_events) | **GET** /api/v1/calendar-events | List Calendar Events
+*ChangeTrackingApi* | [**get_changed_employee_ids**](docs/ChangeTrackingApi.md#get_changed_employee_ids) | **GET** /api/v1/employees/changed | Get Changed Employee IDs
+*ChangeTrackingApi* | [**get_changed_employee_table_data**](docs/ChangeTrackingApi.md#get_changed_employee_table_data) | **GET** /api/v1/employees/changed/tables/{table} | Get Changed Employee Table Data
+*CompanyApi* | [**put_company_industry_codes**](docs/CompanyApi.md#put_company_industry_codes) | **PUT** /api/v1/company-profile-data/industry-codes | Update Company Industry Codes
+*CompanyFilesApi* | [**create_company_file_category**](docs/CompanyFilesApi.md#create_company_file_category) | **POST** /api/v1/files/categories | Create Company File Category
 *CompanyFilesApi* | [**delete_company_file**](docs/CompanyFilesApi.md#delete_company_file) | **DELETE** /api/v1/files/{fileId} | Delete Company File
 *CompanyFilesApi* | [**get_company_file**](docs/CompanyFilesApi.md#get_company_file) | **GET** /api/v1/files/{fileId} | Get Company File
 *CompanyFilesApi* | [**list_company_files**](docs/CompanyFilesApi.md#list_company_files) | **GET** /api/v1/files/view | Get Company Files and Categories
 *CompanyFilesApi* | [**update_company_file**](docs/CompanyFilesApi.md#update_company_file) | **POST** /api/v1/files/{fileId} | Update Company File
 *CompanyFilesApi* | [**upload_company_file**](docs/CompanyFilesApi.md#upload_company_file) | **POST** /api/v1/files | Upload Company File
 *CompanyProfileApi* | [**get_company_profile_integrations**](docs/CompanyProfileApi.md#get_company_profile_integrations) | **GET** /api/v1/company-profile-integrations | Get Company Profile Integrations
-*CustomReportsApi* | [**get_by_report_id**](docs/CustomReportsApi.md#get_by_report_id) | **GET** /api/v1/custom-reports/{reportId} | Get Report by ID
+*CompanyProfileApi* | [**patch_company_profile_company_information**](docs/CompanyProfileApi.md#patch_company_profile_company_information) | **PATCH** /api/v1/company-profile-data/company-information | Update company information (phone, address, legal name)
+*CompanyProfileApi* | [**put_company_profile_display_name**](docs/CompanyProfileApi.md#put_company_profile_display_name) | **PUT** /api/v1/company-profile-data/display-name | Update company display name
+*CompensationApi* | [**c5880b509783cd9d7fce9ddf5d6af1be**](docs/CompensationApi.md#c5880b509783cd9d7fce9ddf5d6af1be) | **PUT** /api/v1/compensation/equity/settings | Update company equity settings
+*CompensationApi* | [**call_9f398e2652ea47a6dc5121ce5184222a**](docs/CompensationApi.md#call_9f398e2652ea47a6dc5121ce5184222a) | **GET** /api/v1/compensation/tools | List available compensation tools
+*CompensationApi* | [**db49fb29f9f04d59afad7c01ce860418**](docs/CompensationApi.md#db49fb29f9f04d59afad7c01ce860418) | **GET** /api/v1/compensation/equity/settings | Get company equity settings
+*CompensationBenchmarkingApi* | [**create_compensation_benchmark**](docs/CompensationBenchmarkingApi.md#create_compensation_benchmark) | **POST** /api/v1/compensation/benchmarks | Create Compensation Benchmark
+*CompensationBenchmarkingApi* | [**create_compensation_benchmark_source**](docs/CompensationBenchmarkingApi.md#create_compensation_benchmark_source) | **POST** /api/v1/compensation/benchmarks/sources | Create Compensation Benchmark Source
+*CompensationBenchmarkingApi* | [**delete_compensation_benchmark**](docs/CompensationBenchmarkingApi.md#delete_compensation_benchmark) | **DELETE** /api/v1/compensation/benchmarks/{id} | Delete Compensation Benchmark
+*CompensationBenchmarkingApi* | [**delete_compensation_benchmark_source**](docs/CompensationBenchmarkingApi.md#delete_compensation_benchmark_source) | **DELETE** /api/v1/compensation/benchmarks/sources | Delete Compensation Benchmark Source
+*CompensationBenchmarkingApi* | [**export_compensation_benchmark_details**](docs/CompensationBenchmarkingApi.md#export_compensation_benchmark_details) | **GET** /api/v1/compensation/benchmarks/details/export | Export Compensation Benchmark Details
+*CompensationBenchmarkingApi* | [**get_compensation_benchmark_details**](docs/CompensationBenchmarkingApi.md#get_compensation_benchmark_details) | **GET** /api/v1/compensation/benchmarks/details | Get Compensation Benchmark Details
+*CompensationBenchmarkingApi* | [**import_compensation_benchmarks**](docs/CompensationBenchmarkingApi.md#import_compensation_benchmarks) | **POST** /api/v1/compensation/benchmarks/import | Import Compensation Benchmarks From CSV
+*CompensationBenchmarkingApi* | [**list_compensation_benchmark_sources**](docs/CompensationBenchmarkingApi.md#list_compensation_benchmark_sources) | **GET** /api/v1/compensation/benchmarks/sources | List Compensation Benchmark Sources
+*CompensationBenchmarkingApi* | [**list_compensation_benchmarks**](docs/CompensationBenchmarkingApi.md#list_compensation_benchmarks) | **GET** /api/v1/compensation/benchmarks | List Compensation Benchmarks
+*CompensationBenchmarkingApi* | [**update_compensation_benchmark**](docs/CompensationBenchmarkingApi.md#update_compensation_benchmark) | **PUT** /api/v1/compensation/benchmarks | Update Compensation Benchmark
+*CompensationBenchmarkingApi* | [**update_compensation_benchmark_sources**](docs/CompensationBenchmarkingApi.md#update_compensation_benchmark_sources) | **PUT** /api/v1/compensation/benchmarks/sources | Update Compensation Benchmark Sources
+*CompensationPlanningApi* | [**a05b6d5f564f805d688ff2c1e37c3990**](docs/CompensationPlanningApi.md#a05b6d5f564f805d688ff2c1e37c3990) | **POST** /api/v1/compensation/planning_cycles/{id}/recommendations/send | Send recommendations to next stage
+*CompensationPlanningApi* | [**a6b8da1348a3151fe95adc03aaf64447**](docs/CompensationPlanningApi.md#a6b8da1348a3151fe95adc03aaf64447) | **GET** /api/v1/compensation/planning_cycles/{id}/employees | List employees in compensation planning cycle
+*CompensationPlanningApi* | [**b1e467e0eef72350eec61fcfeaf4e19d**](docs/CompensationPlanningApi.md#b1e467e0eef72350eec61fcfeaf4e19d) | **DELETE** /api/v1/compensation/planning_cycles/{id}/approvals/employee/{employeeId} | Remove from approval flow
+*CompensationPlanningApi* | [**b3c51254de6918637a971fe4af382a53**](docs/CompensationPlanningApi.md#b3c51254de6918637a971fe4af382a53) | **GET** /api/v1/compensation/planning_cycles/{id}/admins | List compensation planning cycle admins
+*CompensationPlanningApi* | [**b65f246186b41a9783a9397c11c703b4**](docs/CompensationPlanningApi.md#b65f246186b41a9783a9397c11c703b4) | **GET** /api/v1/compensation/planning_cycles | List compensation planning cycles
+*CompensationPlanningApi* | [**c79f9c5950f983e59d2626faa30c00a1**](docs/CompensationPlanningApi.md#c79f9c5950f983e59d2626faa30c00a1) | **PUT** /api/v1/compensation/planning_cycles/{id}/change_comm/template | Save change comm template
+*CompensationPlanningApi* | [**c7c32ed5278ac67e2e518bf7484a75dc**](docs/CompensationPlanningApi.md#c7c32ed5278ac67e2e518bf7484a75dc) | **POST** /api/v1/compensation/planning_cycles/{id}/admins | Add cycle admins
+*CompensationPlanningApi* | [**call_100b0cf8c5207b35697ff10370fd5fe1**](docs/CompensationPlanningApi.md#call_100b0cf8c5207b35697ff10370fd5fe1) | **PUT** /api/v1/compensation/planning_cycles/{id} | Update compensation planning cycle
+*CompensationPlanningApi* | [**call_1d1fc0f164cb51973a0206b8e2fb2d2d**](docs/CompensationPlanningApi.md#call_1d1fc0f164cb51973a0206b8e2fb2d2d) | **POST** /api/v1/compensation/planning_cycles/{id}/budgets/import | Import budget breakdown
+*CompensationPlanningApi* | [**call_1d64402ee192568adbd5e3179a91e6e2**](docs/CompensationPlanningApi.md#call_1d64402ee192568adbd5e3179a91e6e2) | **PUT** /api/v1/compensation/planning_cycles/{id}/budgets/breakdown | Save budget breakdown
+*CompensationPlanningApi* | [**call_22ad75be25455279e2987c80851af5fc**](docs/CompensationPlanningApi.md#call_22ad75be25455279e2987c80851af5fc) | **DELETE** /api/v1/compensation/planning_cycles/{id} | Delete compensation planning cycle
+*CompensationPlanningApi* | [**call_329acecaa6df729733d0752aa9f6b204**](docs/CompensationPlanningApi.md#call_329acecaa6df729733d0752aa9f6b204) | **GET** /api/v1/compensation/planning_cycles/{id}/worksheet | Get compensation planning cycle worksheet
+*CompensationPlanningApi* | [**call_3958585c861325ea7a2cd30a8c74f042**](docs/CompensationPlanningApi.md#call_3958585c861325ea7a2cd30a8c74f042) | **POST** /api/v1/compensation/planning_cycles/{id}/employees | Add employees to cycle
+*CompensationPlanningApi* | [**call_3a19f07aa737dc826ba43b9a1c1cd257**](docs/CompensationPlanningApi.md#call_3a19f07aa737dc826ba43b9a1c1cd257) | **PUT** /api/v1/compensation/planning_cycles/{id}/launch | Launch compensation planning cycle
+*CompensationPlanningApi* | [**call_4e886b18264480611f380805301c49c4**](docs/CompensationPlanningApi.md#call_4e886b18264480611f380805301c49c4) | **GET** /api/v1/compensation/planning_cycles/{id}/approvals | Get compensation planning approval flows
+*CompensationPlanningApi* | [**call_593d5bff120edf2a218a92022a682728**](docs/CompensationPlanningApi.md#call_593d5bff120edf2a218a92022a682728) | **GET** /api/v1/compensation/planning_cycles/{id}/worksheet/export | Export compensation planning cycle worksheet to CSV
+*CompensationPlanningApi* | [**call_5c2b55158b0950b1e9211655666645b6**](docs/CompensationPlanningApi.md#call_5c2b55158b0950b1e9211655666645b6) | **GET** /api/v1/compensation/planning_cycles/{id} | Get compensation planning cycle details
+*CompensationPlanningApi* | [**call_5c4aab35a34f5760ec044104b5232bf5**](docs/CompensationPlanningApi.md#call_5c4aab35a34f5760ec044104b5232bf5) | **POST** /api/v1/compensation/planning_cycles/{id}/approvals/final_approver/{employeeId} | Set final approver
+*CompensationPlanningApi* | [**call_7efceaee2c010f88244dd01ee81e6e7b**](docs/CompensationPlanningApi.md#call_7efceaee2c010f88244dd01ee81e6e7b) | **GET** /api/v1/compensation/planning_cycles/{id}/budgets | Get compensation planning cycle budgets
+*CompensationPlanningApi* | [**call_89a5068111ec499135c7d6e9a53d5a30**](docs/CompensationPlanningApi.md#call_89a5068111ec499135c7d6e9a53d5a30) | **DELETE** /api/v1/compensation/planning_cycles/{id}/employees | Remove employees from cycle
+*CompensationPlanningApi* | [**call_9bc279d788f6e86b4cd8b2e0d3de91b1**](docs/CompensationPlanningApi.md#call_9bc279d788f6e86b4cd8b2e0d3de91b1) | **GET** /api/v1/compensation/planning_cycles/{id}/summary | Get compensation planning cycle summary
+*CompensationPlanningApi* | [**cf87b8e09a001b6fb81dfce6c20ab9e3**](docs/CompensationPlanningApi.md#cf87b8e09a001b6fb81dfce6c20ab9e3) | **PUT** /api/v1/compensation/planning_cycles/{id}/approvals/{templateId} | Update approval flow
+*CompensationPlanningApi* | [**d6987e300672a00c7cfe59afebb64156**](docs/CompensationPlanningApi.md#d6987e300672a00c7cfe59afebb64156) | **GET** /api/v1/compensation/planning_cycles/{id}/change_comm | Get change communication letter details
+*CompensationPlanningApi* | [**dacd313af2106213fc4696175941ce65**](docs/CompensationPlanningApi.md#dacd313af2106213fc4696175941ce65) | **PUT** /api/v1/compensation/planning_cycles/{id}/budgets/guidelines | Save budget guidelines
+*CompensationPlanningApi* | [**e2ac4e1535f296cb8901f209e04caa83**](docs/CompensationPlanningApi.md#e2ac4e1535f296cb8901f209e04caa83) | **POST** /api/v1/compensation/planning_cycles | Create compensation planning cycle
+*CompensationPlanningApi* | [**ef7619b0ee4c8dc079aaea870cfbe81b**](docs/CompensationPlanningApi.md#ef7619b0ee4c8dc079aaea870cfbe81b) | **DELETE** /api/v1/compensation/planning_cycles/{id}/admins/{employeeId} | Remove cycle admin
+*CompensationPlanningApi* | [**f3883a522dadbe9e11b34f8b656e3adb**](docs/CompensationPlanningApi.md#f3883a522dadbe9e11b34f8b656e3adb) | **POST** /api/v1/compensation/planning_cycles/{id}/recommendations | Save recommendations
+*CompensationPlanningApi* | [**f4b431363af6573af46750f32632e88b**](docs/CompensationPlanningApi.md#f4b431363af6573af46750f32632e88b) | **PUT** /api/v1/compensation/planning_cycles/{id}/complete | Complete compensation planning cycle
+*CustomFieldsApi* | [**add_custom_field_list_value**](docs/CustomFieldsApi.md#add_custom_field_list_value) | **POST** /api/v1/hris/custom-fields/{customFieldId}/list-values | Add Custom Field List Value
+*CustomFieldsApi* | [**archive_public_custom_field**](docs/CustomFieldsApi.md#archive_public_custom_field) | **DELETE** /api/v1/hris/custom-fields/{customFieldId} | Archive Custom Field
+*CustomFieldsApi* | [**create_public_custom_field**](docs/CustomFieldsApi.md#create_public_custom_field) | **POST** /api/v1/hris/custom-fields | Create Custom Field
+*CustomFieldsApi* | [**delete_custom_field_list_value**](docs/CustomFieldsApi.md#delete_custom_field_list_value) | **DELETE** /api/v1/hris/custom-fields/{customFieldId}/list-values/{listValueId} | Delete Custom Field List Value
+*CustomFieldsApi* | [**edit_custom_field_list_value**](docs/CustomFieldsApi.md#edit_custom_field_list_value) | **PATCH** /api/v1/hris/custom-fields/{customFieldId}/list-values/{listValueId} | Edit Custom Field List Value
+*CustomFieldsApi* | [**edit_public_custom_field**](docs/CustomFieldsApi.md#edit_public_custom_field) | **PUT** /api/v1/hris/custom-fields/{customFieldId} | Edit Custom Field
+*CustomFieldsApi* | [**get_custom_field**](docs/CustomFieldsApi.md#get_custom_field) | **GET** /api/v1/hris/custom-fields/{customFieldId} | Get Custom Field
+*CustomFieldsApi* | [**list_archived_custom_fields**](docs/CustomFieldsApi.md#list_archived_custom_fields) | **GET** /api/v1/hris/custom-fields/archived | List Archived Custom Fields
+*CustomFieldsApi* | [**list_custom_field_list_values**](docs/CustomFieldsApi.md#list_custom_field_list_values) | **GET** /api/v1/hris/custom-fields/{customFieldId}/list-values | List Custom Field List Values
+*CustomFieldsApi* | [**list_custom_field_types**](docs/CustomFieldsApi.md#list_custom_field_types) | **GET** /api/v1/hris/custom-fields/types | List Custom Field Types
+*CustomFieldsApi* | [**list_custom_fields**](docs/CustomFieldsApi.md#list_custom_fields) | **GET** /api/v1/hris/custom-fields | List Custom Fields
+*CustomFieldsApi* | [**unarchive_public_custom_fields**](docs/CustomFieldsApi.md#unarchive_public_custom_fields) | **POST** /api/v1/hris/custom-fields/unarchive | Unarchive Custom Fields
+*CustomReportsApi* | [**get_legacy_report_field_map**](docs/CustomReportsApi.md#get_legacy_report_field_map) | **GET** /api/v1/custom-reports/legacy-field-map | Get Legacy Report Field Map
+*CustomReportsApi* | [**get_legacy_report_id_map**](docs/CustomReportsApi.md#get_legacy_report_id_map) | **GET** /api/v1/custom-reports/legacy-id-map | Get Legacy Report ID Map
+*CustomReportsApi* | [**get_report_by_id**](docs/CustomReportsApi.md#get_report_by_id) | **GET** /api/v1/custom-reports/{reportId} | Get Report by ID
 *CustomReportsApi* | [**list_reports**](docs/CustomReportsApi.md#list_reports) | **GET** /api/v1/custom-reports | List Reports
-*DatasetsApi* | [**get_data_from_dataset**](docs/DatasetsApi.md#get_data_from_dataset) | **POST** /api/v1/datasets/{datasetName} | Get Data from Dataset
-*DatasetsApi* | [**get_datasets**](docs/DatasetsApi.md#get_datasets) | **GET** /api/v1/datasets | Get Datasets
-*DatasetsApi* | [**get_datasets_v12**](docs/DatasetsApi.md#get_datasets_v12) | **GET** /api/v1_2/datasets | Get Datasets v1.2
-*DatasetsApi* | [**get_field_options**](docs/DatasetsApi.md#get_field_options) | **POST** /api/v1/datasets/{datasetName}/field-options | Get Field Options
-*DatasetsApi* | [**get_field_options_v12**](docs/DatasetsApi.md#get_field_options_v12) | **POST** /api/v1_2/datasets/{datasetName}/field-options | Get Field Options v1.2
-*DatasetsApi* | [**get_fields_from_dataset**](docs/DatasetsApi.md#get_fields_from_dataset) | **GET** /api/v1/datasets/{datasetName}/fields | Get Fields from Dataset
-*DatasetsApi* | [**get_fields_from_dataset_v12**](docs/DatasetsApi.md#get_fields_from_dataset_v12) | **GET** /api/v1_2/datasets/{datasetName}/fields | Get Fields from Dataset v1.2
-*EmployeeFilesApi* | [**add_employee_file_category**](docs/EmployeeFilesApi.md#add_employee_file_category) | **POST** /api/v1/employees/files/categories | Create Employee File Category
+*DatasetsApi* | [**get_data_from_dataset_v1**](docs/DatasetsApi.md#get_data_from_dataset_v1) | **POST** /api/v1/datasets/{datasetName} | Get Data from Dataset (v1)
+*DatasetsApi* | [**get_data_from_dataset_v2**](docs/DatasetsApi.md#get_data_from_dataset_v2) | **POST** /api/v2/datasets/{datasetName}/data | Get Data from Dataset (v2)
+*DatasetsApi* | [**get_field_options_v1**](docs/DatasetsApi.md#get_field_options_v1) | **POST** /api/v1/datasets/{datasetName}/field-options | Get Field Options (v1)
+*DatasetsApi* | [**get_field_options_v12**](docs/DatasetsApi.md#get_field_options_v12) | **POST** /api/v1_2/datasets/{datasetName}/field-options | Get Field Options (v1.2)
+*DatasetsApi* | [**get_fields_from_dataset_v1**](docs/DatasetsApi.md#get_fields_from_dataset_v1) | **GET** /api/v1/datasets/{datasetName}/fields | Get Fields from Dataset (v1)
+*DatasetsApi* | [**get_fields_from_dataset_v12**](docs/DatasetsApi.md#get_fields_from_dataset_v12) | **GET** /api/v1_2/datasets/{datasetName}/fields | Get Fields from Dataset (v1.2)
+*DatasetsApi* | [**list_datasets_v1**](docs/DatasetsApi.md#list_datasets_v1) | **GET** /api/v1/datasets | List Datasets (v1)
+*DatasetsApi* | [**list_datasets_v12**](docs/DatasetsApi.md#list_datasets_v12) | **GET** /api/v1_2/datasets | List Datasets (v1.2)
+*EmployeeFilesApi* | [**create_employee_file_category**](docs/EmployeeFilesApi.md#create_employee_file_category) | **POST** /api/v1/employees/files/categories | Create Employee File Category
 *EmployeeFilesApi* | [**delete_employee_file**](docs/EmployeeFilesApi.md#delete_employee_file) | **DELETE** /api/v1/employees/{id}/files/{fileId} | Delete Employee File
 *EmployeeFilesApi* | [**get_employee_file**](docs/EmployeeFilesApi.md#get_employee_file) | **GET** /api/v1/employees/{id}/files/{fileId} | Get Employee File
 *EmployeeFilesApi* | [**list_employee_files**](docs/EmployeeFilesApi.md#list_employee_files) | **GET** /api/v1/employees/{id}/files/view | List Employee Files
 *EmployeeFilesApi* | [**update_employee_file**](docs/EmployeeFilesApi.md#update_employee_file) | **POST** /api/v1/employees/{id}/files/{fileId} | Update Employee File
 *EmployeeFilesApi* | [**upload_employee_file**](docs/EmployeeFilesApi.md#upload_employee_file) | **POST** /api/v1/employees/{id}/files | Upload Employee File
+*EmployeeTablesApi* | [**create_table_row_v1**](docs/EmployeeTablesApi.md#create_table_row_v1) | **POST** /api/v1/employees/{id}/tables/{table} | Create Table Row (v1)
+*EmployeeTablesApi* | [**create_table_row_v11**](docs/EmployeeTablesApi.md#create_table_row_v11) | **POST** /api/v1_1/employees/{id}/tables/{table} | Create Table Row (v1.1)
+*EmployeeTablesApi* | [**delete_employee_table_row**](docs/EmployeeTablesApi.md#delete_employee_table_row) | **DELETE** /api/v1/employees/{id}/tables/{table}/{rowId} | Delete Employee Table Row
+*EmployeeTablesApi* | [**get_employee_table_data**](docs/EmployeeTablesApi.md#get_employee_table_data) | **GET** /api/v1/employees/{id}/tables/{table} | Get Employee Table Data
+*EmployeeTablesApi* | [**update_table_row_v1**](docs/EmployeeTablesApi.md#update_table_row_v1) | **POST** /api/v1/employees/{id}/tables/{table}/{rowId} | Update Table Row (v1)
+*EmployeeTablesApi* | [**update_table_row_v11**](docs/EmployeeTablesApi.md#update_table_row_v11) | **POST** /api/v1_1/employees/{id}/tables/{table}/{rowId} | Update Table Row (v1.1)
+*EmployeeVerificationApi* | [**get_employee_verification_integration**](docs/EmployeeVerificationApi.md#get_employee_verification_integration) | **GET** /api/v1/employee-verifications/integration | Get employee verification integration status
+*EmployeeVerificationApi* | [**list_employee_verifications_by_employee**](docs/EmployeeVerificationApi.md#list_employee_verifications_by_employee) | **GET** /api/v1/employee-verifications/employees/{employeeId} | List employee verification records for an employee
+*EmployeeVerificationApi* | [**send_employee_verification_lifecycle_email_by_user**](docs/EmployeeVerificationApi.md#send_employee_verification_lifecycle_email_by_user) | **POST** /api/v1/employee-verifications/users/{userId}/send-email | Send employee verification lifecycle email by user and email type
+*EmployeeVerificationApi* | [**update_employee_verification**](docs/EmployeeVerificationApi.md#update_employee_verification) | **PUT** /api/v1/employee-verifications/employees/{employeeId}/{verificationId} | Update an employee verification record
+*EmployeeVerificationApi* | [**update_employee_verification_integration**](docs/EmployeeVerificationApi.md#update_employee_verification_integration) | **PUT** /api/v1/employee-verifications/integration | Enable or disable the employee verification integration
 *EmployeesApi* | [**create_employee**](docs/EmployeesApi.md#create_employee) | **POST** /api/v1/employees | Create Employee
+*EmployeesApi* | [**delete_employee**](docs/EmployeesApi.md#delete_employee) | **DELETE** /api/v1/employees/{id} | Delete employee
 *EmployeesApi* | [**get_company_information**](docs/EmployeesApi.md#get_company_information) | **GET** /api/v1/company_information | Get Company Information
 *EmployeesApi* | [**get_employee**](docs/EmployeesApi.md#get_employee) | **GET** /api/v1/employees/{id} | Get Employee
-*EmployeesApi* | [**get_employees_directory**](docs/EmployeesApi.md#get_employees_directory) | **GET** /api/v1/employees/directory | Get Employee Directory
+*EmployeesApi* | [**get_employees_directory**](docs/EmployeesApi.md#get_employees_directory) | **GET** /api/v1/employees/directory | Get Employees Directory
 *EmployeesApi* | [**list_employees**](docs/EmployeesApi.md#list_employees) | **GET** /api/v1/employees | List Employees
 *EmployeesApi* | [**update_employee**](docs/EmployeesApi.md#update_employee) | **POST** /api/v1/employees/{id} | Update Employee
+*GoalsApi* | [**close_goal**](docs/GoalsApi.md#close_goal) | **POST** /api/v1/performance/employees/{employeeId}/goals/{goalId}/close | Close Goal
+*GoalsApi* | [**create_goal**](docs/GoalsApi.md#create_goal) | **POST** /api/v1/performance/employees/{employeeId}/goals | Create Goal
+*GoalsApi* | [**create_goal_comment**](docs/GoalsApi.md#create_goal_comment) | **POST** /api/v1/performance/employees/{employeeId}/goals/{goalId}/comments | Create Goal Comment
 *GoalsApi* | [**delete_goal**](docs/GoalsApi.md#delete_goal) | **DELETE** /api/v1/performance/employees/{employeeId}/goals/{goalId} | Delete Goal
 *GoalsApi* | [**delete_goal_comment**](docs/GoalsApi.md#delete_goal_comment) | **DELETE** /api/v1/performance/employees/{employeeId}/goals/{goalId}/comments/{commentId} | Delete Goal Comment
-*GoalsApi* | [**get_can_create_goal**](docs/GoalsApi.md#get_can_create_goal) | **GET** /api/v1/performance/employees/{employeeId}/goals/canCreateGoals | Check Goal Creation Permission
+*GoalsApi* | [**get_alignable_goal_options**](docs/GoalsApi.md#get_alignable_goal_options) | **GET** /api/v1/performance/employees/{employeeId}/goals/alignmentOptions | Get Alignable Goal Options
 *GoalsApi* | [**get_goal_aggregate**](docs/GoalsApi.md#get_goal_aggregate) | **GET** /api/v1/performance/employees/{employeeId}/goals/{goalId}/aggregate | Get Goal Aggregate
-*GoalsApi* | [**get_goal_comments**](docs/GoalsApi.md#get_goal_comments) | **GET** /api/v1/performance/employees/{employeeId}/goals/{goalId}/comments | Get Goal Comments
-*GoalsApi* | [**get_goals**](docs/GoalsApi.md#get_goals) | **GET** /api/v1/performance/employees/{employeeId}/goals | Get Goals
-*GoalsApi* | [**get_goals_aggregate_v1**](docs/GoalsApi.md#get_goals_aggregate_v1) | **GET** /api/v1/performance/employees/{employeeId}/goals/aggregate | Get Goals Aggregate
-*GoalsApi* | [**get_goals_aggregate_v1_1**](docs/GoalsApi.md#get_goals_aggregate_v1_1) | **GET** /api/v1_1/performance/employees/{employeeId}/goals/aggregate | Get Goals Aggregate v1.1
-*GoalsApi* | [**get_goals_aggregate_v1_2**](docs/GoalsApi.md#get_goals_aggregate_v1_2) | **GET** /api/v1_2/performance/employees/{employeeId}/goals/aggregate | Get Goals Aggregate v1.2
-*GoalsApi* | [**get_goals_alignment_options**](docs/GoalsApi.md#get_goals_alignment_options) | **GET** /api/v1/performance/employees/{employeeId}/goals/alignmentOptions | Get Alignable Goal Options
-*GoalsApi* | [**get_goals_filters_v1**](docs/GoalsApi.md#get_goals_filters_v1) | **GET** /api/v1/performance/employees/{employeeId}/goals/filters | Get Goal Filters
-*GoalsApi* | [**get_goals_filters_v1_1**](docs/GoalsApi.md#get_goals_filters_v1_1) | **GET** /api/v1_1/performance/employees/{employeeId}/goals/filters | Get Goal Filters v1.1
-*GoalsApi* | [**get_goals_filters_v1_2**](docs/GoalsApi.md#get_goals_filters_v1_2) | **GET** /api/v1_2/performance/employees/{employeeId}/goals/filters | Get Goal Status Counts v1.2
-*GoalsApi* | [**get_goals_share_options**](docs/GoalsApi.md#get_goals_share_options) | **GET** /api/v1/performance/employees/{employeeId}/goals/shareOptions | Get Available Goal Sharing Options
-*GoalsApi* | [**post_close_goal**](docs/GoalsApi.md#post_close_goal) | **POST** /api/v1/performance/employees/{employeeId}/goals/{goalId}/close | Close Goal
-*GoalsApi* | [**post_goal**](docs/GoalsApi.md#post_goal) | **POST** /api/v1/performance/employees/{employeeId}/goals | Create Goal
-*GoalsApi* | [**post_goal_comment**](docs/GoalsApi.md#post_goal_comment) | **POST** /api/v1/performance/employees/{employeeId}/goals/{goalId}/comments | Create Goal Comment
-*GoalsApi* | [**post_reopen_goal**](docs/GoalsApi.md#post_reopen_goal) | **POST** /api/v1/performance/employees/{employeeId}/goals/{goalId}/reopen | Reopen Goal
-*GoalsApi* | [**put_goal_comment**](docs/GoalsApi.md#put_goal_comment) | **PUT** /api/v1/performance/employees/{employeeId}/goals/{goalId}/comments/{commentId} | Update Goal Comment
-*GoalsApi* | [**put_goal_milestone_progress**](docs/GoalsApi.md#put_goal_milestone_progress) | **PUT** /api/v1/performance/employees/{employeeId}/goals/{goalId}/milestones/{milestoneId}/progress | Update Milestone Progress
-*GoalsApi* | [**put_goal_progress**](docs/GoalsApi.md#put_goal_progress) | **PUT** /api/v1/performance/employees/{employeeId}/goals/{goalId}/progress | Update Goal Progress
-*GoalsApi* | [**put_goal_shared_with**](docs/GoalsApi.md#put_goal_shared_with) | **PUT** /api/v1/performance/employees/{employeeId}/goals/{goalId}/sharedWith | Update Goal Sharing
-*GoalsApi* | [**put_goal_v1**](docs/GoalsApi.md#put_goal_v1) | **PUT** /api/v1/performance/employees/{employeeId}/goals/{goalId} | Update Goal
-*GoalsApi* | [**put_goal_v1_1**](docs/GoalsApi.md#put_goal_v1_1) | **PUT** /api/v1_1/performance/employees/{employeeId}/goals/{goalId} | Update Goal v1.1
+*GoalsApi* | [**get_goal_creation_permission**](docs/GoalsApi.md#get_goal_creation_permission) | **GET** /api/v1/performance/employees/{employeeId}/goals/canCreateGoals | Get Goal Creation Permission
+*GoalsApi* | [**get_goals_aggregate_v1**](docs/GoalsApi.md#get_goals_aggregate_v1) | **GET** /api/v1/performance/employees/{employeeId}/goals/aggregate | Get Goals Aggregate (v1)
+*GoalsApi* | [**get_goals_aggregate_v11**](docs/GoalsApi.md#get_goals_aggregate_v11) | **GET** /api/v1_1/performance/employees/{employeeId}/goals/aggregate | Get Goals Aggregate (v1.1)
+*GoalsApi* | [**get_goals_aggregate_v12**](docs/GoalsApi.md#get_goals_aggregate_v12) | **GET** /api/v1_2/performance/employees/{employeeId}/goals/aggregate | Get Goals Aggregate (v1.2)
+*GoalsApi* | [**get_goals_filters_v1**](docs/GoalsApi.md#get_goals_filters_v1) | **GET** /api/v1/performance/employees/{employeeId}/goals/filters | Get Goal Filters (v1)
+*GoalsApi* | [**get_goals_filters_v11**](docs/GoalsApi.md#get_goals_filters_v11) | **GET** /api/v1_1/performance/employees/{employeeId}/goals/filters | Get Goal Filters (v1.1)
+*GoalsApi* | [**get_goals_filters_v12**](docs/GoalsApi.md#get_goals_filters_v12) | **GET** /api/v1_2/performance/employees/{employeeId}/goals/filters | Get Goal Filters (v1.2)
+*GoalsApi* | [**list_goal_comments**](docs/GoalsApi.md#list_goal_comments) | **GET** /api/v1/performance/employees/{employeeId}/goals/{goalId}/comments | List Goal Comments
+*GoalsApi* | [**list_goal_share_options**](docs/GoalsApi.md#list_goal_share_options) | **GET** /api/v1/performance/employees/{employeeId}/goals/shareOptions | List Goal Sharing Options
+*GoalsApi* | [**list_goals**](docs/GoalsApi.md#list_goals) | **GET** /api/v1/performance/employees/{employeeId}/goals | List Goals
+*GoalsApi* | [**reopen_goal**](docs/GoalsApi.md#reopen_goal) | **POST** /api/v1/performance/employees/{employeeId}/goals/{goalId}/reopen | Reopen Goal
+*GoalsApi* | [**update_goal_comment**](docs/GoalsApi.md#update_goal_comment) | **PUT** /api/v1/performance/employees/{employeeId}/goals/{goalId}/comments/{commentId} | Update Goal Comment
+*GoalsApi* | [**update_goal_milestone_progress**](docs/GoalsApi.md#update_goal_milestone_progress) | **PUT** /api/v1/performance/employees/{employeeId}/goals/{goalId}/milestones/{milestoneId}/progress | Update Milestone Progress
+*GoalsApi* | [**update_goal_progress**](docs/GoalsApi.md#update_goal_progress) | **PUT** /api/v1/performance/employees/{employeeId}/goals/{goalId}/progress | Update Goal Progress
+*GoalsApi* | [**update_goal_sharing**](docs/GoalsApi.md#update_goal_sharing) | **PUT** /api/v1/performance/employees/{employeeId}/goals/{goalId}/sharedWith | Update Goal Sharing
+*GoalsApi* | [**update_goal_v1**](docs/GoalsApi.md#update_goal_v1) | **PUT** /api/v1/performance/employees/{employeeId}/goals/{goalId} | Update Goal (v1)
+*GoalsApi* | [**update_goal_v11**](docs/GoalsApi.md#update_goal_v11) | **PUT** /api/v1_1/performance/employees/{employeeId}/goals/{goalId} | Update Goal (v1.1)
+*HolidaysApi* | [**bulk_insert_company_holidays**](docs/HolidaysApi.md#bulk_insert_company_holidays) | **POST** /api/v1/holidays/bulk-insert | Bulk Create Company Holidays
+*HolidaysApi* | [**create_company_holiday**](docs/HolidaysApi.md#create_company_holiday) | **POST** /api/v1/holidays | Create Company Holiday
+*HolidaysApi* | [**delete_company_holiday**](docs/HolidaysApi.md#delete_company_holiday) | **DELETE** /api/v1/holidays/{id} | Delete Company Holiday
+*HolidaysApi* | [**get_catalog_holiday**](docs/HolidaysApi.md#get_catalog_holiday) | **GET** /api/v1/holidays/catalog/{uuid} | Get Catalog Holiday
+*HolidaysApi* | [**get_company_holiday**](docs/HolidaysApi.md#get_company_holiday) | **GET** /api/v1/holidays/{id} | Get Company Holiday
+*HolidaysApi* | [**list_catalog_holidays**](docs/HolidaysApi.md#list_catalog_holidays) | **GET** /api/v1/holidays/catalog | List Catalog Holidays
+*HolidaysApi* | [**list_company_holidays**](docs/HolidaysApi.md#list_company_holidays) | **GET** /api/v1/holidays | List Company Holidays
+*HolidaysApi* | [**update_company_holiday**](docs/HolidaysApi.md#update_company_holiday) | **PATCH** /api/v1/holidays/{id} | Update Company Holiday
 *HoursApi* | [**create_or_update_time_tracking_hour_records**](docs/HoursApi.md#create_or_update_time_tracking_hour_records) | **POST** /api/v1/timetracking/record | Create or Update Hour Records
 *HoursApi* | [**create_time_tracking_hour_record**](docs/HoursApi.md#create_time_tracking_hour_record) | **POST** /api/v1/timetracking/add | Create Hour Record
 *HoursApi* | [**delete_time_tracking_hour_record**](docs/HoursApi.md#delete_time_tracking_hour_record) | **DELETE** /api/v1/timetracking/delete/{id} | Delete Hour Record
 *HoursApi* | [**get_time_tracking_record**](docs/HoursApi.md#get_time_tracking_record) | **GET** /api/v1/timetracking/record/{id} | Get Time Tracking Record
 *HoursApi* | [**update_time_tracking_record**](docs/HoursApi.md#update_time_tracking_record) | **PUT** /api/v1/timetracking/adjust | Update Hour Record
-*LastChangeInformationApi* | [**get_changed_employee_ids**](docs/LastChangeInformationApi.md#get_changed_employee_ids) | **GET** /api/v1/employees/changed | Get Changed Employee IDs
+*LocationsApi* | [**create_location**](docs/LocationsApi.md#create_location) | **POST** /api/v1/hris/org/locations | Create a job location
+*LocationsApi* | [**delete_location**](docs/LocationsApi.md#delete_location) | **DELETE** /api/v1/hris/org/locations/{id} | Delete a job location
+*LocationsApi* | [**get_location**](docs/LocationsApi.md#get_location) | **GET** /api/v1/hris/org/locations/{id} | Get a job location
+*LocationsApi* | [**get_locations**](docs/LocationsApi.md#get_locations) | **GET** /api/v1/hris/org/locations | List job locations
+*LocationsApi* | [**update_location**](docs/LocationsApi.md#update_location) | **PUT** /api/v1/hris/org/locations/{id} | Update a job location
 *LoginApi* | [**login**](docs/LoginApi.md#login) | **POST** /api/v1/login | Login
+*MealRestBreaksApi* | [**assign_employees_to_break_policy**](docs/MealRestBreaksApi.md#assign_employees_to_break_policy) | **POST** /api/v1/time-tracking/break-policies/{id}/assign | Assign Employees to Break Policy
+*MealRestBreaksApi* | [**create_break**](docs/MealRestBreaksApi.md#create_break) | **POST** /api/v1/time-tracking/break-policies/{id}/breaks | Create Break
+*MealRestBreaksApi* | [**create_break_policy**](docs/MealRestBreaksApi.md#create_break_policy) | **POST** /api/v1/time-tracking/break-policies | Create Break Policy
+*MealRestBreaksApi* | [**delete_break**](docs/MealRestBreaksApi.md#delete_break) | **DELETE** /api/v1/time-tracking/breaks/{id} | Delete Break
+*MealRestBreaksApi* | [**delete_break_policy**](docs/MealRestBreaksApi.md#delete_break_policy) | **DELETE** /api/v1/time-tracking/break-policies/{id} | Delete Break Policy
+*MealRestBreaksApi* | [**get_break**](docs/MealRestBreaksApi.md#get_break) | **GET** /api/v1/time-tracking/breaks/{id} | Get Break
+*MealRestBreaksApi* | [**get_break_policy**](docs/MealRestBreaksApi.md#get_break_policy) | **GET** /api/v1/time-tracking/break-policies/{id} | Get Break Policy
+*MealRestBreaksApi* | [**get_break_policy_suggestions**](docs/MealRestBreaksApi.md#get_break_policy_suggestions) | **POST** /api/v1/time-tracking/break-policies/suggestions | Get Break Policy Suggestions
+*MealRestBreaksApi* | [**list_break_assessments**](docs/MealRestBreaksApi.md#list_break_assessments) | **GET** /api/v1/time-tracking/break-assessments | List Break Assessments
+*MealRestBreaksApi* | [**list_break_policies**](docs/MealRestBreaksApi.md#list_break_policies) | **GET** /api/v1/time-tracking/break-policies | List Break Policies
+*MealRestBreaksApi* | [**list_break_policy_breaks**](docs/MealRestBreaksApi.md#list_break_policy_breaks) | **GET** /api/v1/time-tracking/break-policies/{id}/breaks | List Breaks for Break Policy
+*MealRestBreaksApi* | [**list_break_policy_employees**](docs/MealRestBreaksApi.md#list_break_policy_employees) | **GET** /api/v1/time-tracking/break-policies/{id}/employees | List Break Policy Employees
+*MealRestBreaksApi* | [**list_employee_break_availabilities**](docs/MealRestBreaksApi.md#list_employee_break_availabilities) | **GET** /api/v1/time-tracking/employees/{id}/break-availabilities | List Employee Break Availabilities
+*MealRestBreaksApi* | [**list_employee_break_policies**](docs/MealRestBreaksApi.md#list_employee_break_policies) | **GET** /api/v1/time-tracking/employees/{id}/break-policies | List Employee Break Policies
+*MealRestBreaksApi* | [**replace_breaks_for_break_policy**](docs/MealRestBreaksApi.md#replace_breaks_for_break_policy) | **PUT** /api/v1/time-tracking/break-policies/{id}/breaks | Replace Breaks for Break Policy
+*MealRestBreaksApi* | [**set_break_policy_employees**](docs/MealRestBreaksApi.md#set_break_policy_employees) | **PUT** /api/v1/time-tracking/break-policies/{id}/assign | Set Employees for Break Policy
+*MealRestBreaksApi* | [**sync_break_policy**](docs/MealRestBreaksApi.md#sync_break_policy) | **PUT** /api/v1/time-tracking/break-policies/{id}/sync | Sync Break Policy
+*MealRestBreaksApi* | [**unassign_employees_from_break_policy**](docs/MealRestBreaksApi.md#unassign_employees_from_break_policy) | **POST** /api/v1/time-tracking/break-policies/{id}/unassign | Unassign Employees from Break Policy
+*MealRestBreaksApi* | [**update_break**](docs/MealRestBreaksApi.md#update_break) | **PATCH** /api/v1/time-tracking/breaks/{id} | Update Break
+*MealRestBreaksApi* | [**update_break_policy**](docs/MealRestBreaksApi.md#update_break_policy) | **PATCH** /api/v1/time-tracking/break-policies/{id} | Update Break Policy
+*OnboardingApi* | [**caa7fc488bcfaef14125398f2ebb987d**](docs/OnboardingApi.md#caa7fc488bcfaef14125398f2ebb987d) | **DELETE** /api/v1/new-hire-packets/{id} | Delete new hire packet
+*OnboardingApi* | [**call_0158de7cde2a4c4cf577f0b25070d809**](docs/OnboardingApi.md#call_0158de7cde2a4c4cf577f0b25070d809) | **GET** /api/v1/employees/{employeeId}/onboarding-experiences | List employee onboarding experiences
+*OnboardingApi* | [**call_044949386f2d655c6a627ef53f9434b7**](docs/OnboardingApi.md#call_044949386f2d655c6a627ef53f9434b7) | **GET** /api/v1/onboarding/new-hire-widget | Get welcome new hires widget
+*OnboardingApi* | [**call_19c7e26a1347ae7eb22919e9b0595c19**](docs/OnboardingApi.md#call_19c7e26a1347ae7eb22919e9b0595c19) | **POST** /api/v1/new-hire-packets/{id}/cancel | Cancel new hire packet
+*OnboardingApi* | [**call_1ab0279d46023eb951a434f24df885f1**](docs/OnboardingApi.md#call_1ab0279d46023eb951a434f24df885f1) | **PUT** /api/v1/new-hire-packets/{id} | Update new hire packet
+*OnboardingApi* | [**call_288aa996aba16d7a495c62321ea999a9**](docs/OnboardingApi.md#call_288aa996aba16d7a495c62321ea999a9) | **POST** /api/v1/employees/{employeeId}/onboarding-experiences | Create employee onboarding experience
+*OnboardingApi* | [**call_696f0a229cdde60b733568e3c4d043d9**](docs/OnboardingApi.md#call_696f0a229cdde60b733568e3c4d043d9) | **GET** /api/v1/new-hire-packets/{id} | Get new hire packet by id
+*OnboardingApi* | [**call_847dd061d1d1859e7ce8cb3adfc9faf2**](docs/OnboardingApi.md#call_847dd061d1d1859e7ce8cb3adfc9faf2) | **GET** /api/v1/employees/{employeeId}/onboarding-experiences/{onboardingExperienceId} | Get employee onboarding experience by id
+*OnboardingApi* | [**ec1ba8e76f33960b018d0d7518fe97b5**](docs/OnboardingApi.md#ec1ba8e76f33960b018d0d7518fe97b5) | **POST** /api/v1/new-hire-packets | Create new hire packet
+*OnboardingApi* | [**f44b802c30cdea2b9076b3f82f99c74d**](docs/OnboardingApi.md#f44b802c30cdea2b9076b3f82f99c74d) | **GET** /api/v1/new-hire-packets | List new hire packets
+*OnboardingApi* | [**f49b0f1f2fb1ef2c408ba12916ee9baa**](docs/OnboardingApi.md#f49b0f1f2fb1ef2c408ba12916ee9baa) | **POST** /api/v1/new-hire-packets/{id}/send | Send new hire packet
+*OnboardingApi* | [**update_new_hire_packet_gtky_answer_visibility**](docs/OnboardingApi.md#update_new_hire_packet_gtky_answer_visibility) | **PUT** /api/v1/new-hire-packets/{id}/question-visibility | Update GTKY answer visibility for a new hire packet
+*PayGradesBandsApi* | [**delete_compensation_level_groups_or_level**](docs/PayGradesBandsApi.md#delete_compensation_level_groups_or_level) | **DELETE** /api/v1/pay-grades-and-bands/levels/{segment} | Delete Compensation Level Groups or Level
+*PayGradesBandsApi* | [**get_compensation_level_group_status_counts**](docs/PayGradesBandsApi.md#get_compensation_level_group_status_counts) | **GET** /api/v1/pay-grades-and-bands/status-counts | Get Compensation Level Group Status Counts
+*PayGradesBandsApi* | [**get_job_title_level_assignments**](docs/PayGradesBandsApi.md#get_job_title_level_assignments) | **GET** /api/v1/pay-grades-and-bands/job-titles | Get Job Titles and Level Assignments
+*PayGradesBandsApi* | [**get_levels_and_bands_review**](docs/PayGradesBandsApi.md#get_levels_and_bands_review) | **GET** /api/v1/pay-grades-and-bands/review | Get Levels and Bands Review
+*PayGradesBandsApi* | [**get_levels_and_bands_status**](docs/PayGradesBandsApi.md#get_levels_and_bands_status) | **GET** /api/v1/pay-grades-and-bands/status | Get Levels and Bands Status
+*PayGradesBandsApi* | [**get_pay_bands**](docs/PayGradesBandsApi.md#get_pay_bands) | **GET** /api/v1/pay-grades-and-bands/pay-bands | Get Pay Bands
+*PayGradesBandsApi* | [**get_published_levels_and_bands**](docs/PayGradesBandsApi.md#get_published_levels_and_bands) | **GET** /api/v1/pay-grades-and-bands | Get Published Levels and Bands
+*PayGradesBandsApi* | [**list_compensation_level_groups_and_levels**](docs/PayGradesBandsApi.md#list_compensation_level_groups_and_levels) | **GET** /api/v1/pay-grades-and-bands/levels | List Compensation Level Groups and Levels
+*PayGradesBandsApi* | [**list_job_titles_with_employees**](docs/PayGradesBandsApi.md#list_job_titles_with_employees) | **GET** /api/v1/pay-grades-and-bands/job-titles-with-employees | List Job Titles with Employees
+*PayGradesBandsApi* | [**publish_draft_compensation_level_groups**](docs/PayGradesBandsApi.md#publish_draft_compensation_level_groups) | **POST** /api/v1/pay-grades-and-bands/publish | Publish Draft Compensation Level Groups
+*PayGradesBandsApi* | [**replace_job_title_level_assignments**](docs/PayGradesBandsApi.md#replace_job_title_level_assignments) | **PUT** /api/v1/pay-grades-and-bands/job-titles | Replace Job Title Level Assignments
+*PayGradesBandsApi* | [**update_compensation_level_groups_and_levels**](docs/PayGradesBandsApi.md#update_compensation_level_groups_and_levels) | **PUT** /api/v1/pay-grades-and-bands/levels | Update Compensation Level Groups and Levels
+*PayGradesBandsApi* | [**update_pay_bands**](docs/PayGradesBandsApi.md#update_pay_bands) | **PUT** /api/v1/pay-grades-and-bands/pay-bands | Update Pay Bands
+*PayGradesBandsApi* | [**upload_levels_and_bands_csv**](docs/PayGradesBandsApi.md#upload_levels_and_bands_csv) | **POST** /api/v1/pay-grades-and-bands/import | Upload Levels and Bands CSV
 *PhotosApi* | [**get_employee_photo**](docs/PhotosApi.md#get_employee_photo) | **GET** /api/v1/employees/{employeeId}/photo/{size} | Get Employee Photo
 *PhotosApi* | [**upload_employee_photo**](docs/PhotosApi.md#upload_employee_photo) | **POST** /api/v1/employees/{employeeId}/photo | Upload Employee Photo
-*PublicAPIApi* | [**add_company_file_category**](docs/PublicAPIApi.md#add_company_file_category) | **POST** /api/v1/files/categories | Create Company File Category
-*PublicAPIApi* | [**add_employee_file_category**](docs/PublicAPIApi.md#add_employee_file_category) | **POST** /api/v1/employees/files/categories | Create Employee File Category
+*PublicAPIApi* | [**a05b6d5f564f805d688ff2c1e37c3990**](docs/PublicAPIApi.md#a05b6d5f564f805d688ff2c1e37c3990) | **POST** /api/v1/compensation/planning_cycles/{id}/recommendations/send | Send recommendations to next stage
+*PublicAPIApi* | [**a6b8da1348a3151fe95adc03aaf64447**](docs/PublicAPIApi.md#a6b8da1348a3151fe95adc03aaf64447) | **GET** /api/v1/compensation/planning_cycles/{id}/employees | List employees in compensation planning cycle
+*PublicAPIApi* | [**add_custom_field_list_value**](docs/PublicAPIApi.md#add_custom_field_list_value) | **POST** /api/v1/hris/custom-fields/{customFieldId}/list-values | Add Custom Field List Value
+*PublicAPIApi* | [**add_total_rewards_employees**](docs/PublicAPIApi.md#add_total_rewards_employees) | **POST** /api/v1/compensation/total_rewards/employees | Add Employees to Total Rewards
 *PublicAPIApi* | [**adjust_time_off_balance**](docs/PublicAPIApi.md#adjust_time_off_balance) | **PUT** /api/v1/employees/{employeeId}/time_off/balance_adjustment | Adjust Time Off Balance
+*PublicAPIApi* | [**approve_timesheet**](docs/PublicAPIApi.md#approve_timesheet) | **POST** /api/v1/time-tracking/timesheet-approvals | Approve Timesheet
+*PublicAPIApi* | [**archive_public_custom_field**](docs/PublicAPIApi.md#archive_public_custom_field) | **DELETE** /api/v1/hris/custom-fields/{customFieldId} | Archive Custom Field
 *PublicAPIApi* | [**assign_employees_to_break_policy**](docs/PublicAPIApi.md#assign_employees_to_break_policy) | **POST** /api/v1/time-tracking/break-policies/{id}/assign | Assign Employees to Break Policy
-*PublicAPIApi* | [**assign_time_off_policies**](docs/PublicAPIApi.md#assign_time_off_policies) | **PUT** /api/v1/employees/{employeeId}/time_off/policies | Assign Time Off Policies
-*PublicAPIApi* | [**assign_time_off_policies_v1_1**](docs/PublicAPIApi.md#assign_time_off_policies_v1_1) | **PUT** /api/v1_1/employees/{employeeId}/time_off/policies | Assign Time Off Policies v1.1
+*PublicAPIApi* | [**assign_time_off_policies_v1**](docs/PublicAPIApi.md#assign_time_off_policies_v1) | **PUT** /api/v1/employees/{employeeId}/time_off/policies | Assign Time Off Policies (v1)
+*PublicAPIApi* | [**assign_time_off_policies_v11**](docs/PublicAPIApi.md#assign_time_off_policies_v11) | **PUT** /api/v1_1/employees/{employeeId}/time_off/policies | Assign Time Off Policies (v1.1)
+*PublicAPIApi* | [**b1e467e0eef72350eec61fcfeaf4e19d**](docs/PublicAPIApi.md#b1e467e0eef72350eec61fcfeaf4e19d) | **DELETE** /api/v1/compensation/planning_cycles/{id}/approvals/employee/{employeeId} | Remove from approval flow
+*PublicAPIApi* | [**b3c51254de6918637a971fe4af382a53**](docs/PublicAPIApi.md#b3c51254de6918637a971fe4af382a53) | **GET** /api/v1/compensation/planning_cycles/{id}/admins | List compensation planning cycle admins
+*PublicAPIApi* | [**b65f246186b41a9783a9397c11c703b4**](docs/PublicAPIApi.md#b65f246186b41a9783a9397c11c703b4) | **GET** /api/v1/compensation/planning_cycles | List compensation planning cycles
+*PublicAPIApi* | [**baa7162824294d030115568d1d8e6ca7**](docs/PublicAPIApi.md#baa7162824294d030115568d1d8e6ca7) | **GET** /api/v1/meta/timezones/{id} | Get timezone by ID
+*PublicAPIApi* | [**bulk_insert_company_holidays**](docs/PublicAPIApi.md#bulk_insert_company_holidays) | **POST** /api/v1/holidays/bulk-insert | Bulk Create Company Holidays
+*PublicAPIApi* | [**bulk_upsert_time_tracking_employee_enrollments**](docs/PublicAPIApi.md#bulk_upsert_time_tracking_employee_enrollments) | **POST** /api/v1/time-tracking/employees/bulk-upsert | Bulk Upsert Employee Enrollments
+*PublicAPIApi* | [**c5880b509783cd9d7fce9ddf5d6af1be**](docs/PublicAPIApi.md#c5880b509783cd9d7fce9ddf5d6af1be) | **PUT** /api/v1/compensation/equity/settings | Update company equity settings
+*PublicAPIApi* | [**c79f9c5950f983e59d2626faa30c00a1**](docs/PublicAPIApi.md#c79f9c5950f983e59d2626faa30c00a1) | **PUT** /api/v1/compensation/planning_cycles/{id}/change_comm/template | Save change comm template
+*PublicAPIApi* | [**c7c32ed5278ac67e2e518bf7484a75dc**](docs/PublicAPIApi.md#c7c32ed5278ac67e2e518bf7484a75dc) | **POST** /api/v1/compensation/planning_cycles/{id}/admins | Add cycle admins
+*PublicAPIApi* | [**caa7fc488bcfaef14125398f2ebb987d**](docs/PublicAPIApi.md#caa7fc488bcfaef14125398f2ebb987d) | **DELETE** /api/v1/new-hire-packets/{id} | Delete new hire packet
+*PublicAPIApi* | [**call_0158de7cde2a4c4cf577f0b25070d809**](docs/PublicAPIApi.md#call_0158de7cde2a4c4cf577f0b25070d809) | **GET** /api/v1/employees/{employeeId}/onboarding-experiences | List employee onboarding experiences
+*PublicAPIApi* | [**call_044949386f2d655c6a627ef53f9434b7**](docs/PublicAPIApi.md#call_044949386f2d655c6a627ef53f9434b7) | **GET** /api/v1/onboarding/new-hire-widget | Get welcome new hires widget
+*PublicAPIApi* | [**call_100b0cf8c5207b35697ff10370fd5fe1**](docs/PublicAPIApi.md#call_100b0cf8c5207b35697ff10370fd5fe1) | **PUT** /api/v1/compensation/planning_cycles/{id} | Update compensation planning cycle
+*PublicAPIApi* | [**call_10d66d8561dd7dac50ff9c21ef63d83b**](docs/PublicAPIApi.md#call_10d66d8561dd7dac50ff9c21ef63d83b) | **GET** /api/v1/meta/timezones/by-zip/{zip} | Get timezone by ZIP code
+*PublicAPIApi* | [**call_19c7e26a1347ae7eb22919e9b0595c19**](docs/PublicAPIApi.md#call_19c7e26a1347ae7eb22919e9b0595c19) | **POST** /api/v1/new-hire-packets/{id}/cancel | Cancel new hire packet
+*PublicAPIApi* | [**call_1ab0279d46023eb951a434f24df885f1**](docs/PublicAPIApi.md#call_1ab0279d46023eb951a434f24df885f1) | **PUT** /api/v1/new-hire-packets/{id} | Update new hire packet
+*PublicAPIApi* | [**call_1d1fc0f164cb51973a0206b8e2fb2d2d**](docs/PublicAPIApi.md#call_1d1fc0f164cb51973a0206b8e2fb2d2d) | **POST** /api/v1/compensation/planning_cycles/{id}/budgets/import | Import budget breakdown
+*PublicAPIApi* | [**call_1d64402ee192568adbd5e3179a91e6e2**](docs/PublicAPIApi.md#call_1d64402ee192568adbd5e3179a91e6e2) | **PUT** /api/v1/compensation/planning_cycles/{id}/budgets/breakdown | Save budget breakdown
+*PublicAPIApi* | [**call_22ad75be25455279e2987c80851af5fc**](docs/PublicAPIApi.md#call_22ad75be25455279e2987c80851af5fc) | **DELETE** /api/v1/compensation/planning_cycles/{id} | Delete compensation planning cycle
+*PublicAPIApi* | [**call_288aa996aba16d7a495c62321ea999a9**](docs/PublicAPIApi.md#call_288aa996aba16d7a495c62321ea999a9) | **POST** /api/v1/employees/{employeeId}/onboarding-experiences | Create employee onboarding experience
+*PublicAPIApi* | [**call_329acecaa6df729733d0752aa9f6b204**](docs/PublicAPIApi.md#call_329acecaa6df729733d0752aa9f6b204) | **GET** /api/v1/compensation/planning_cycles/{id}/worksheet | Get compensation planning cycle worksheet
+*PublicAPIApi* | [**call_3958585c861325ea7a2cd30a8c74f042**](docs/PublicAPIApi.md#call_3958585c861325ea7a2cd30a8c74f042) | **POST** /api/v1/compensation/planning_cycles/{id}/employees | Add employees to cycle
+*PublicAPIApi* | [**call_3a19f07aa737dc826ba43b9a1c1cd257**](docs/PublicAPIApi.md#call_3a19f07aa737dc826ba43b9a1c1cd257) | **PUT** /api/v1/compensation/planning_cycles/{id}/launch | Launch compensation planning cycle
+*PublicAPIApi* | [**call_4e886b18264480611f380805301c49c4**](docs/PublicAPIApi.md#call_4e886b18264480611f380805301c49c4) | **GET** /api/v1/compensation/planning_cycles/{id}/approvals | Get compensation planning approval flows
+*PublicAPIApi* | [**call_593d5bff120edf2a218a92022a682728**](docs/PublicAPIApi.md#call_593d5bff120edf2a218a92022a682728) | **GET** /api/v1/compensation/planning_cycles/{id}/worksheet/export | Export compensation planning cycle worksheet to CSV
+*PublicAPIApi* | [**call_5c2b55158b0950b1e9211655666645b6**](docs/PublicAPIApi.md#call_5c2b55158b0950b1e9211655666645b6) | **GET** /api/v1/compensation/planning_cycles/{id} | Get compensation planning cycle details
+*PublicAPIApi* | [**call_5c4aab35a34f5760ec044104b5232bf5**](docs/PublicAPIApi.md#call_5c4aab35a34f5760ec044104b5232bf5) | **POST** /api/v1/compensation/planning_cycles/{id}/approvals/final_approver/{employeeId} | Set final approver
 *PublicAPIApi* | [**call_5c5fb0f1211ae1c9451753f92f1053b6**](docs/PublicAPIApi.md#call_5c5fb0f1211ae1c9451753f92f1053b6) | **GET** /api/v1/meta/timezones | List timezones
+*PublicAPIApi* | [**call_696f0a229cdde60b733568e3c4d043d9**](docs/PublicAPIApi.md#call_696f0a229cdde60b733568e3c4d043d9) | **GET** /api/v1/new-hire-packets/{id} | Get new hire packet by id
+*PublicAPIApi* | [**call_7efceaee2c010f88244dd01ee81e6e7b**](docs/PublicAPIApi.md#call_7efceaee2c010f88244dd01ee81e6e7b) | **GET** /api/v1/compensation/planning_cycles/{id}/budgets | Get compensation planning cycle budgets
+*PublicAPIApi* | [**call_847dd061d1d1859e7ce8cb3adfc9faf2**](docs/PublicAPIApi.md#call_847dd061d1d1859e7ce8cb3adfc9faf2) | **GET** /api/v1/employees/{employeeId}/onboarding-experiences/{onboardingExperienceId} | Get employee onboarding experience by id
+*PublicAPIApi* | [**call_89a5068111ec499135c7d6e9a53d5a30**](docs/PublicAPIApi.md#call_89a5068111ec499135c7d6e9a53d5a30) | **DELETE** /api/v1/compensation/planning_cycles/{id}/employees | Remove employees from cycle
+*PublicAPIApi* | [**call_9bc279d788f6e86b4cd8b2e0d3de91b1**](docs/PublicAPIApi.md#call_9bc279d788f6e86b4cd8b2e0d3de91b1) | **GET** /api/v1/compensation/planning_cycles/{id}/summary | Get compensation planning cycle summary
+*PublicAPIApi* | [**call_9f398e2652ea47a6dc5121ce5184222a**](docs/PublicAPIApi.md#call_9f398e2652ea47a6dc5121ce5184222a) | **GET** /api/v1/compensation/tools | List available compensation tools
+*PublicAPIApi* | [**cf87b8e09a001b6fb81dfce6c20ab9e3**](docs/PublicAPIApi.md#cf87b8e09a001b6fb81dfce6c20ab9e3) | **PUT** /api/v1/compensation/planning_cycles/{id}/approvals/{templateId} | Update approval flow
+*PublicAPIApi* | [**check_total_rewards_profile**](docs/PublicAPIApi.md#check_total_rewards_profile) | **GET** /api/v1/compensation/total_rewards/{employeeId} | Check Total Rewards Profile Availability
+*PublicAPIApi* | [**clock_in**](docs/PublicAPIApi.md#clock_in) | **POST** /api/v1/time-tracking/clock-ins | Clock In
+*PublicAPIApi* | [**clock_out**](docs/PublicAPIApi.md#clock_out) | **POST** /api/v1/time-tracking/clock-outs | Clock Out
+*PublicAPIApi* | [**close_goal**](docs/PublicAPIApi.md#close_goal) | **POST** /api/v1/performance/employees/{employeeId}/goals/{goalId}/close | Close Goal
+*PublicAPIApi* | [**create_alert_configuration**](docs/PublicAPIApi.md#create_alert_configuration) | **POST** /api/v1/alert-configurations | Create Alert Configuration
 *PublicAPIApi* | [**create_application_comment**](docs/PublicAPIApi.md#create_application_comment) | **POST** /api/v1/applicant_tracking/applications/{applicationId}/comments | Create Job Application Comment
 *PublicAPIApi* | [**create_break**](docs/PublicAPIApi.md#create_break) | **POST** /api/v1/time-tracking/break-policies/{id}/breaks | Create Break
 *PublicAPIApi* | [**create_break_policy**](docs/PublicAPIApi.md#create_break_policy) | **POST** /api/v1/time-tracking/break-policies | Create Break Policy
 *PublicAPIApi* | [**create_candidate**](docs/PublicAPIApi.md#create_candidate) | **POST** /api/v1/applicant_tracking/application | Create Candidate
+*PublicAPIApi* | [**create_clock_entry**](docs/PublicAPIApi.md#create_clock_entry) | **POST** /api/v1/time-tracking/clock-entries | Create Clock Entry
+*PublicAPIApi* | [**create_company_file_category**](docs/PublicAPIApi.md#create_company_file_category) | **POST** /api/v1/files/categories | Create Company File Category
+*PublicAPIApi* | [**create_company_holiday**](docs/PublicAPIApi.md#create_company_holiday) | **POST** /api/v1/holidays | Create Company Holiday
+*PublicAPIApi* | [**create_compensation_benchmark**](docs/PublicAPIApi.md#create_compensation_benchmark) | **POST** /api/v1/compensation/benchmarks | Create Compensation Benchmark
+*PublicAPIApi* | [**create_compensation_benchmark_source**](docs/PublicAPIApi.md#create_compensation_benchmark_source) | **POST** /api/v1/compensation/benchmarks/sources | Create Compensation Benchmark Source
 *PublicAPIApi* | [**create_employee**](docs/PublicAPIApi.md#create_employee) | **POST** /api/v1/employees | Create Employee
 *PublicAPIApi* | [**create_employee_dependent**](docs/PublicAPIApi.md#create_employee_dependent) | **POST** /api/v1/employeedependents | Create Employee Dependent
+*PublicAPIApi* | [**create_employee_file_category**](docs/PublicAPIApi.md#create_employee_file_category) | **POST** /api/v1/employees/files/categories | Create Employee File Category
 *PublicAPIApi* | [**create_employee_training_record**](docs/PublicAPIApi.md#create_employee_training_record) | **POST** /api/v1/training/record/employee/{employeeId} | Create Employee Training Record
+*PublicAPIApi* | [**create_goal**](docs/PublicAPIApi.md#create_goal) | **POST** /api/v1/performance/employees/{employeeId}/goals | Create Goal
+*PublicAPIApi* | [**create_goal_comment**](docs/PublicAPIApi.md#create_goal_comment) | **POST** /api/v1/performance/employees/{employeeId}/goals/{goalId}/comments | Create Goal Comment
+*PublicAPIApi* | [**create_hour_entry**](docs/PublicAPIApi.md#create_hour_entry) | **POST** /api/v1/time-tracking/hour-entries | Create Hour Entry
 *PublicAPIApi* | [**create_job_opening**](docs/PublicAPIApi.md#create_job_opening) | **POST** /api/v1/applicant_tracking/job_opening | Create Job Opening
+*PublicAPIApi* | [**create_location**](docs/PublicAPIApi.md#create_location) | **POST** /api/v1/hris/org/locations | Create a job location
 *PublicAPIApi* | [**create_or_update_time_tracking_hour_records**](docs/PublicAPIApi.md#create_or_update_time_tracking_hour_records) | **POST** /api/v1/timetracking/record | Create or Update Hour Records
 *PublicAPIApi* | [**create_or_update_timesheet_clock_entries**](docs/PublicAPIApi.md#create_or_update_timesheet_clock_entries) | **POST** /api/v1/time_tracking/clock_entries/store | Create or Update Timesheet Clock Entries
 *PublicAPIApi* | [**create_or_update_timesheet_hour_entries**](docs/PublicAPIApi.md#create_or_update_timesheet_hour_entries) | **POST** /api/v1/time_tracking/hour_entries/store | Create or Update Timesheet Hour Entries
-*PublicAPIApi* | [**create_table_row**](docs/PublicAPIApi.md#create_table_row) | **POST** /api/v1/employees/{id}/tables/{table} | Create Table Row
-*PublicAPIApi* | [**create_table_row_v11**](docs/PublicAPIApi.md#create_table_row_v11) | **POST** /api/v1_1/employees/{id}/tables/{table} | Create Table Row v1.1
+*PublicAPIApi* | [**create_project_task**](docs/PublicAPIApi.md#create_project_task) | **POST** /api/v1/time-tracking/projects/{projectId}/tasks | Create Time Tracking Project Task
+*PublicAPIApi* | [**create_public_custom_field**](docs/PublicAPIApi.md#create_public_custom_field) | **POST** /api/v1/hris/custom-fields | Create Custom Field
+*PublicAPIApi* | [**create_shift_differential**](docs/PublicAPIApi.md#create_shift_differential) | **POST** /api/v1/time-tracking/shift-differentials | Create Time Tracking Shift Differential
+*PublicAPIApi* | [**create_table_row_v1**](docs/PublicAPIApi.md#create_table_row_v1) | **POST** /api/v1/employees/{id}/tables/{table} | Create Table Row (v1)
+*PublicAPIApi* | [**create_table_row_v11**](docs/PublicAPIApi.md#create_table_row_v11) | **POST** /api/v1_1/employees/{id}/tables/{table} | Create Table Row (v1.1)
 *PublicAPIApi* | [**create_time_off_history**](docs/PublicAPIApi.md#create_time_off_history) | **PUT** /api/v1/employees/{employeeId}/time_off/history | Create Time Off History Item
 *PublicAPIApi* | [**create_time_off_request**](docs/PublicAPIApi.md#create_time_off_request) | **PUT** /api/v1/employees/{employeeId}/time_off/request | Create Time Off Request
+*PublicAPIApi* | [**create_time_tracking_configuration**](docs/PublicAPIApi.md#create_time_tracking_configuration) | **POST** /api/v1/time-tracking/configurations | Create Configuration
 *PublicAPIApi* | [**create_time_tracking_hour_record**](docs/PublicAPIApi.md#create_time_tracking_hour_record) | **POST** /api/v1/timetracking/add | Create Hour Record
-*PublicAPIApi* | [**create_time_tracking_project**](docs/PublicAPIApi.md#create_time_tracking_project) | **POST** /api/v1/time_tracking/projects | Create Time Tracking Project
+*PublicAPIApi* | [**create_time_tracking_project**](docs/PublicAPIApi.md#create_time_tracking_project) | **POST** /api/v1/time-tracking/projects | Create Time Tracking Project
+*PublicAPIApi* | [**create_time_tracking_project_legacy**](docs/PublicAPIApi.md#create_time_tracking_project_legacy) | **POST** /api/v1/time_tracking/projects | Create Time Tracking Project (Legacy)
 *PublicAPIApi* | [**create_timesheet_clock_in_entry**](docs/PublicAPIApi.md#create_timesheet_clock_in_entry) | **POST** /api/v1/time_tracking/employees/{employeeId}/clock_in | Create Timesheet Clock-In Entry
 *PublicAPIApi* | [**create_timesheet_clock_out_entry**](docs/PublicAPIApi.md#create_timesheet_clock_out_entry) | **POST** /api/v1/time_tracking/employees/{employeeId}/clock_out | Create Timesheet Clock-Out Entry
 *PublicAPIApi* | [**create_training_category**](docs/PublicAPIApi.md#create_training_category) | **POST** /api/v1/training/category | Create Training Category
 *PublicAPIApi* | [**create_training_type**](docs/PublicAPIApi.md#create_training_type) | **POST** /api/v1/training/type | Create Training Type
 *PublicAPIApi* | [**create_webhook**](docs/PublicAPIApi.md#create_webhook) | **POST** /api/v1/webhooks | Create Webhook
+*PublicAPIApi* | [**d6987e300672a00c7cfe59afebb64156**](docs/PublicAPIApi.md#d6987e300672a00c7cfe59afebb64156) | **GET** /api/v1/compensation/planning_cycles/{id}/change_comm | Get change communication letter details
+*PublicAPIApi* | [**dacd313af2106213fc4696175941ce65**](docs/PublicAPIApi.md#dacd313af2106213fc4696175941ce65) | **PUT** /api/v1/compensation/planning_cycles/{id}/budgets/guidelines | Save budget guidelines
+*PublicAPIApi* | [**db49fb29f9f04d59afad7c01ce860418**](docs/PublicAPIApi.md#db49fb29f9f04d59afad7c01ce860418) | **GET** /api/v1/compensation/equity/settings | Get company equity settings
 *PublicAPIApi* | [**delete_break**](docs/PublicAPIApi.md#delete_break) | **DELETE** /api/v1/time-tracking/breaks/{id} | Delete Break
 *PublicAPIApi* | [**delete_break_policy**](docs/PublicAPIApi.md#delete_break_policy) | **DELETE** /api/v1/time-tracking/break-policies/{id} | Delete Break Policy
+*PublicAPIApi* | [**delete_clock_entry**](docs/PublicAPIApi.md#delete_clock_entry) | **DELETE** /api/v1/time-tracking/clock-entries/{id} | Delete Clock Entry
 *PublicAPIApi* | [**delete_company_file**](docs/PublicAPIApi.md#delete_company_file) | **DELETE** /api/v1/files/{fileId} | Delete Company File
+*PublicAPIApi* | [**delete_company_holiday**](docs/PublicAPIApi.md#delete_company_holiday) | **DELETE** /api/v1/holidays/{id} | Delete Company Holiday
+*PublicAPIApi* | [**delete_compensation_benchmark**](docs/PublicAPIApi.md#delete_compensation_benchmark) | **DELETE** /api/v1/compensation/benchmarks/{id} | Delete Compensation Benchmark
+*PublicAPIApi* | [**delete_compensation_benchmark_source**](docs/PublicAPIApi.md#delete_compensation_benchmark_source) | **DELETE** /api/v1/compensation/benchmarks/sources | Delete Compensation Benchmark Source
+*PublicAPIApi* | [**delete_compensation_level_groups_or_level**](docs/PublicAPIApi.md#delete_compensation_level_groups_or_level) | **DELETE** /api/v1/pay-grades-and-bands/levels/{segment} | Delete Compensation Level Groups or Level
+*PublicAPIApi* | [**delete_custom_field_list_value**](docs/PublicAPIApi.md#delete_custom_field_list_value) | **DELETE** /api/v1/hris/custom-fields/{customFieldId}/list-values/{listValueId} | Delete Custom Field List Value
+*PublicAPIApi* | [**delete_employee**](docs/PublicAPIApi.md#delete_employee) | **DELETE** /api/v1/employees/{id} | Delete employee
 *PublicAPIApi* | [**delete_employee_file**](docs/PublicAPIApi.md#delete_employee_file) | **DELETE** /api/v1/employees/{id}/files/{fileId} | Delete Employee File
 *PublicAPIApi* | [**delete_employee_table_row**](docs/PublicAPIApi.md#delete_employee_table_row) | **DELETE** /api/v1/employees/{id}/tables/{table}/{rowId} | Delete Employee Table Row
 *PublicAPIApi* | [**delete_employee_training_record**](docs/PublicAPIApi.md#delete_employee_training_record) | **DELETE** /api/v1/training/record/{employeeTrainingRecordId} | Delete Employee Training Record
 *PublicAPIApi* | [**delete_goal**](docs/PublicAPIApi.md#delete_goal) | **DELETE** /api/v1/performance/employees/{employeeId}/goals/{goalId} | Delete Goal
 *PublicAPIApi* | [**delete_goal_comment**](docs/PublicAPIApi.md#delete_goal_comment) | **DELETE** /api/v1/performance/employees/{employeeId}/goals/{goalId}/comments/{commentId} | Delete Goal Comment
+*PublicAPIApi* | [**delete_hour_entry**](docs/PublicAPIApi.md#delete_hour_entry) | **DELETE** /api/v1/time-tracking/hour-entries/{id} | Delete Hour Entry
+*PublicAPIApi* | [**delete_location**](docs/PublicAPIApi.md#delete_location) | **DELETE** /api/v1/hris/org/locations/{id} | Delete a job location
+*PublicAPIApi* | [**delete_project**](docs/PublicAPIApi.md#delete_project) | **DELETE** /api/v1/time-tracking/projects/{id} | Delete Time Tracking Project
+*PublicAPIApi* | [**delete_shift_differential**](docs/PublicAPIApi.md#delete_shift_differential) | **DELETE** /api/v1/time-tracking/shift-differentials/{id} | Delete Time Tracking Shift Differential
+*PublicAPIApi* | [**delete_task**](docs/PublicAPIApi.md#delete_task) | **DELETE** /api/v1/time-tracking/tasks/{id} | Delete Time Tracking Task
+*PublicAPIApi* | [**delete_time_tracking_configuration**](docs/PublicAPIApi.md#delete_time_tracking_configuration) | **DELETE** /api/v1/time-tracking/configurations/{id} | Delete Configuration
 *PublicAPIApi* | [**delete_time_tracking_hour_record**](docs/PublicAPIApi.md#delete_time_tracking_hour_record) | **DELETE** /api/v1/timetracking/delete/{id} | Delete Hour Record
+*PublicAPIApi* | [**delete_time_tracking_kiosk**](docs/PublicAPIApi.md#delete_time_tracking_kiosk) | **DELETE** /api/v1/time-tracking/kiosks/{id} | Delete Time Tracking Kiosk
 *PublicAPIApi* | [**delete_timesheet_clock_entries_via_post**](docs/PublicAPIApi.md#delete_timesheet_clock_entries_via_post) | **POST** /api/v1/time_tracking/clock_entries/delete | Delete Timesheet Clock Entries
 *PublicAPIApi* | [**delete_timesheet_hour_entries_via_post**](docs/PublicAPIApi.md#delete_timesheet_hour_entries_via_post) | **POST** /api/v1/time_tracking/hour_entries/delete | Delete Timesheet Hour Entries
 *PublicAPIApi* | [**delete_training_category**](docs/PublicAPIApi.md#delete_training_category) | **DELETE** /api/v1/training/category/{trainingCategoryId} | Delete Training Category
 *PublicAPIApi* | [**delete_training_type**](docs/PublicAPIApi.md#delete_training_type) | **DELETE** /api/v1/training/type/{trainingTypeId} | Delete Training Type
 *PublicAPIApi* | [**delete_webhook**](docs/PublicAPIApi.md#delete_webhook) | **DELETE** /api/v1/webhooks/{id} | Delete Webhook
+*PublicAPIApi* | [**e2ac4e1535f296cb8901f209e04caa83**](docs/PublicAPIApi.md#e2ac4e1535f296cb8901f209e04caa83) | **POST** /api/v1/compensation/planning_cycles | Create compensation planning cycle
+*PublicAPIApi* | [**ec1ba8e76f33960b018d0d7518fe97b5**](docs/PublicAPIApi.md#ec1ba8e76f33960b018d0d7518fe97b5) | **POST** /api/v1/new-hire-packets | Create new hire packet
+*PublicAPIApi* | [**edit_custom_field_list_value**](docs/PublicAPIApi.md#edit_custom_field_list_value) | **PATCH** /api/v1/hris/custom-fields/{customFieldId}/list-values/{listValueId} | Edit Custom Field List Value
+*PublicAPIApi* | [**edit_public_custom_field**](docs/PublicAPIApi.md#edit_public_custom_field) | **PUT** /api/v1/hris/custom-fields/{customFieldId} | Edit Custom Field
+*PublicAPIApi* | [**ef7619b0ee4c8dc079aaea870cfbe81b**](docs/PublicAPIApi.md#ef7619b0ee4c8dc079aaea870cfbe81b) | **DELETE** /api/v1/compensation/planning_cycles/{id}/admins/{employeeId} | Remove cycle admin
+*PublicAPIApi* | [**export_compensation_benchmark_details**](docs/PublicAPIApi.md#export_compensation_benchmark_details) | **GET** /api/v1/compensation/benchmarks/details/export | Export Compensation Benchmark Details
+*PublicAPIApi* | [**f3883a522dadbe9e11b34f8b656e3adb**](docs/PublicAPIApi.md#f3883a522dadbe9e11b34f8b656e3adb) | **POST** /api/v1/compensation/planning_cycles/{id}/recommendations | Save recommendations
+*PublicAPIApi* | [**f44b802c30cdea2b9076b3f82f99c74d**](docs/PublicAPIApi.md#f44b802c30cdea2b9076b3f82f99c74d) | **GET** /api/v1/new-hire-packets | List new hire packets
+*PublicAPIApi* | [**f49b0f1f2fb1ef2c408ba12916ee9baa**](docs/PublicAPIApi.md#f49b0f1f2fb1ef2c408ba12916ee9baa) | **POST** /api/v1/new-hire-packets/{id}/send | Send new hire packet
+*PublicAPIApi* | [**f4b431363af6573af46750f32632e88b**](docs/PublicAPIApi.md#f4b431363af6573af46750f32632e88b) | **PUT** /api/v1/compensation/planning_cycles/{id}/complete | Complete compensation planning cycle
+*PublicAPIApi* | [**get_alert_configuration**](docs/PublicAPIApi.md#get_alert_configuration) | **GET** /api/v1/alert-configurations/{id} | Get Alert Configuration
+*PublicAPIApi* | [**get_alignable_goal_options**](docs/PublicAPIApi.md#get_alignable_goal_options) | **GET** /api/v1/performance/employees/{employeeId}/goals/alignmentOptions | Get Alignable Goal Options
+*PublicAPIApi* | [**get_all_currency_types**](docs/PublicAPIApi.md#get_all_currency_types) | **GET** /api/v1/meta/currency/types | Get all currency types
+*PublicAPIApi* | [**get_all_provinces**](docs/PublicAPIApi.md#get_all_provinces) | **GET** /api/v1/meta/provinces | Get All Provinces
 *PublicAPIApi* | [**get_application_details**](docs/PublicAPIApi.md#get_application_details) | **GET** /api/v1/applicant_tracking/applications/{applicationId} | Get Job Application Details
 *PublicAPIApi* | [**get_applications**](docs/PublicAPIApi.md#get_applications) | **GET** /api/v1/applicant_tracking/applications | Get Job Applications
 *PublicAPIApi* | [**get_break**](docs/PublicAPIApi.md#get_break) | **GET** /api/v1/time-tracking/breaks/{id} | Get Break
 *PublicAPIApi* | [**get_break_policy**](docs/PublicAPIApi.md#get_break_policy) | **GET** /api/v1/time-tracking/break-policies/{id} | Get Break Policy
-*PublicAPIApi* | [**get_by_report_id**](docs/PublicAPIApi.md#get_by_report_id) | **GET** /api/v1/custom-reports/{reportId} | Get Report by ID
-*PublicAPIApi* | [**get_can_create_goal**](docs/PublicAPIApi.md#get_can_create_goal) | **GET** /api/v1/performance/employees/{employeeId}/goals/canCreateGoals | Check Goal Creation Permission
+*PublicAPIApi* | [**get_break_policy_suggestions**](docs/PublicAPIApi.md#get_break_policy_suggestions) | **POST** /api/v1/time-tracking/break-policies/suggestions | Get Break Policy Suggestions
+*PublicAPIApi* | [**get_catalog_holiday**](docs/PublicAPIApi.md#get_catalog_holiday) | **GET** /api/v1/holidays/catalog/{uuid} | Get Catalog Holiday
 *PublicAPIApi* | [**get_changed_employee_ids**](docs/PublicAPIApi.md#get_changed_employee_ids) | **GET** /api/v1/employees/changed | Get Changed Employee IDs
 *PublicAPIApi* | [**get_changed_employee_table_data**](docs/PublicAPIApi.md#get_changed_employee_table_data) | **GET** /api/v1/employees/changed/tables/{table} | Get Changed Employee Table Data
+*PublicAPIApi* | [**get_clock_entry**](docs/PublicAPIApi.md#get_clock_entry) | **GET** /api/v1/time-tracking/clock-entries/{id} | Get Clock Entry
 *PublicAPIApi* | [**get_company_file**](docs/PublicAPIApi.md#get_company_file) | **GET** /api/v1/files/{fileId} | Get Company File
+*PublicAPIApi* | [**get_company_holiday**](docs/PublicAPIApi.md#get_company_holiday) | **GET** /api/v1/holidays/{id} | Get Company Holiday
 *PublicAPIApi* | [**get_company_information**](docs/PublicAPIApi.md#get_company_information) | **GET** /api/v1/company_information | Get Company Information
 *PublicAPIApi* | [**get_company_locations**](docs/PublicAPIApi.md#get_company_locations) | **GET** /api/v1/applicant_tracking/locations | Get Company Locations
 *PublicAPIApi* | [**get_company_profile_integrations**](docs/PublicAPIApi.md#get_company_profile_integrations) | **GET** /api/v1/company-profile-integrations | Get Company Profile Integrations
 *PublicAPIApi* | [**get_company_report**](docs/PublicAPIApi.md#get_company_report) | **GET** /api/v1/reports/{id} | Get Company Report
+*PublicAPIApi* | [**get_compensation_benchmark_details**](docs/PublicAPIApi.md#get_compensation_benchmark_details) | **GET** /api/v1/compensation/benchmarks/details | Get Compensation Benchmark Details
+*PublicAPIApi* | [**get_compensation_level_group_status_counts**](docs/PublicAPIApi.md#get_compensation_level_group_status_counts) | **GET** /api/v1/pay-grades-and-bands/status-counts | Get Compensation Level Group Status Counts
 *PublicAPIApi* | [**get_countries_options**](docs/PublicAPIApi.md#get_countries_options) | **GET** /api/v1/meta/countries/options | Get Countries
-*PublicAPIApi* | [**get_data_from_dataset**](docs/PublicAPIApi.md#get_data_from_dataset) | **POST** /api/v1/datasets/{datasetName} | Get Data from Dataset
-*PublicAPIApi* | [**get_datasets**](docs/PublicAPIApi.md#get_datasets) | **GET** /api/v1/datasets | Get Datasets
-*PublicAPIApi* | [**get_datasets_v12**](docs/PublicAPIApi.md#get_datasets_v12) | **GET** /api/v1_2/datasets | Get Datasets v1.2
+*PublicAPIApi* | [**get_country_by_id**](docs/PublicAPIApi.md#get_country_by_id) | **GET** /api/v1/meta/countries/{id} | Get Country by ID
+*PublicAPIApi* | [**get_currency_conversions**](docs/PublicAPIApi.md#get_currency_conversions) | **GET** /api/v1/meta/currency-conversions | Get Currency Conversion Rates
+*PublicAPIApi* | [**get_custom_field**](docs/PublicAPIApi.md#get_custom_field) | **GET** /api/v1/hris/custom-fields/{customFieldId} | Get Custom Field
+*PublicAPIApi* | [**get_data_from_dataset_v1**](docs/PublicAPIApi.md#get_data_from_dataset_v1) | **POST** /api/v1/datasets/{datasetName} | Get Data from Dataset (v1)
+*PublicAPIApi* | [**get_data_from_dataset_v2**](docs/PublicAPIApi.md#get_data_from_dataset_v2) | **POST** /api/v2/datasets/{datasetName}/data | Get Data from Dataset (v2)
 *PublicAPIApi* | [**get_employee**](docs/PublicAPIApi.md#get_employee) | **GET** /api/v1/employees/{id} | Get Employee
 *PublicAPIApi* | [**get_employee_dependent**](docs/PublicAPIApi.md#get_employee_dependent) | **GET** /api/v1/employeedependents/{id} | Get Employee Dependent
 *PublicAPIApi* | [**get_employee_file**](docs/PublicAPIApi.md#get_employee_file) | **GET** /api/v1/employees/{id}/files/{fileId} | Get Employee File
 *PublicAPIApi* | [**get_employee_photo**](docs/PublicAPIApi.md#get_employee_photo) | **GET** /api/v1/employees/{employeeId}/photo/{size} | Get Employee Photo
 *PublicAPIApi* | [**get_employee_table_data**](docs/PublicAPIApi.md#get_employee_table_data) | **GET** /api/v1/employees/{id}/tables/{table} | Get Employee Table Data
-*PublicAPIApi* | [**get_employees_directory**](docs/PublicAPIApi.md#get_employees_directory) | **GET** /api/v1/employees/directory | Get Employee Directory
-*PublicAPIApi* | [**get_field_options**](docs/PublicAPIApi.md#get_field_options) | **POST** /api/v1/datasets/{datasetName}/field-options | Get Field Options
-*PublicAPIApi* | [**get_field_options_v12**](docs/PublicAPIApi.md#get_field_options_v12) | **POST** /api/v1_2/datasets/{datasetName}/field-options | Get Field Options v1.2
-*PublicAPIApi* | [**get_fields_from_dataset**](docs/PublicAPIApi.md#get_fields_from_dataset) | **GET** /api/v1/datasets/{datasetName}/fields | Get Fields from Dataset
-*PublicAPIApi* | [**get_fields_from_dataset_v12**](docs/PublicAPIApi.md#get_fields_from_dataset_v12) | **GET** /api/v1_2/datasets/{datasetName}/fields | Get Fields from Dataset v1.2
+*PublicAPIApi* | [**get_employee_verification_integration**](docs/PublicAPIApi.md#get_employee_verification_integration) | **GET** /api/v1/employee-verifications/integration | Get employee verification integration status
+*PublicAPIApi* | [**get_employees_directory**](docs/PublicAPIApi.md#get_employees_directory) | **GET** /api/v1/employees/directory | Get Employees Directory
+*PublicAPIApi* | [**get_field_options_v1**](docs/PublicAPIApi.md#get_field_options_v1) | **POST** /api/v1/datasets/{datasetName}/field-options | Get Field Options (v1)
+*PublicAPIApi* | [**get_field_options_v12**](docs/PublicAPIApi.md#get_field_options_v12) | **POST** /api/v1_2/datasets/{datasetName}/field-options | Get Field Options (v1.2)
+*PublicAPIApi* | [**get_fields_from_dataset_v1**](docs/PublicAPIApi.md#get_fields_from_dataset_v1) | **GET** /api/v1/datasets/{datasetName}/fields | Get Fields from Dataset (v1)
+*PublicAPIApi* | [**get_fields_from_dataset_v12**](docs/PublicAPIApi.md#get_fields_from_dataset_v12) | **GET** /api/v1_2/datasets/{datasetName}/fields | Get Fields from Dataset (v1.2)
 *PublicAPIApi* | [**get_goal_aggregate**](docs/PublicAPIApi.md#get_goal_aggregate) | **GET** /api/v1/performance/employees/{employeeId}/goals/{goalId}/aggregate | Get Goal Aggregate
-*PublicAPIApi* | [**get_goal_comments**](docs/PublicAPIApi.md#get_goal_comments) | **GET** /api/v1/performance/employees/{employeeId}/goals/{goalId}/comments | Get Goal Comments
-*PublicAPIApi* | [**get_goals**](docs/PublicAPIApi.md#get_goals) | **GET** /api/v1/performance/employees/{employeeId}/goals | Get Goals
-*PublicAPIApi* | [**get_goals_aggregate_v1**](docs/PublicAPIApi.md#get_goals_aggregate_v1) | **GET** /api/v1/performance/employees/{employeeId}/goals/aggregate | Get Goals Aggregate
-*PublicAPIApi* | [**get_goals_aggregate_v1_1**](docs/PublicAPIApi.md#get_goals_aggregate_v1_1) | **GET** /api/v1_1/performance/employees/{employeeId}/goals/aggregate | Get Goals Aggregate v1.1
-*PublicAPIApi* | [**get_goals_aggregate_v1_2**](docs/PublicAPIApi.md#get_goals_aggregate_v1_2) | **GET** /api/v1_2/performance/employees/{employeeId}/goals/aggregate | Get Goals Aggregate v1.2
-*PublicAPIApi* | [**get_goals_alignment_options**](docs/PublicAPIApi.md#get_goals_alignment_options) | **GET** /api/v1/performance/employees/{employeeId}/goals/alignmentOptions | Get Alignable Goal Options
-*PublicAPIApi* | [**get_goals_filters_v1**](docs/PublicAPIApi.md#get_goals_filters_v1) | **GET** /api/v1/performance/employees/{employeeId}/goals/filters | Get Goal Filters
-*PublicAPIApi* | [**get_goals_filters_v1_1**](docs/PublicAPIApi.md#get_goals_filters_v1_1) | **GET** /api/v1_1/performance/employees/{employeeId}/goals/filters | Get Goal Filters v1.1
-*PublicAPIApi* | [**get_goals_filters_v1_2**](docs/PublicAPIApi.md#get_goals_filters_v1_2) | **GET** /api/v1_2/performance/employees/{employeeId}/goals/filters | Get Goal Status Counts v1.2
-*PublicAPIApi* | [**get_goals_share_options**](docs/PublicAPIApi.md#get_goals_share_options) | **GET** /api/v1/performance/employees/{employeeId}/goals/shareOptions | Get Available Goal Sharing Options
+*PublicAPIApi* | [**get_goal_creation_permission**](docs/PublicAPIApi.md#get_goal_creation_permission) | **GET** /api/v1/performance/employees/{employeeId}/goals/canCreateGoals | Get Goal Creation Permission
+*PublicAPIApi* | [**get_goals_aggregate_v1**](docs/PublicAPIApi.md#get_goals_aggregate_v1) | **GET** /api/v1/performance/employees/{employeeId}/goals/aggregate | Get Goals Aggregate (v1)
+*PublicAPIApi* | [**get_goals_aggregate_v11**](docs/PublicAPIApi.md#get_goals_aggregate_v11) | **GET** /api/v1_1/performance/employees/{employeeId}/goals/aggregate | Get Goals Aggregate (v1.1)
+*PublicAPIApi* | [**get_goals_aggregate_v12**](docs/PublicAPIApi.md#get_goals_aggregate_v12) | **GET** /api/v1_2/performance/employees/{employeeId}/goals/aggregate | Get Goals Aggregate (v1.2)
+*PublicAPIApi* | [**get_goals_filters_v1**](docs/PublicAPIApi.md#get_goals_filters_v1) | **GET** /api/v1/performance/employees/{employeeId}/goals/filters | Get Goal Filters (v1)
+*PublicAPIApi* | [**get_goals_filters_v11**](docs/PublicAPIApi.md#get_goals_filters_v11) | **GET** /api/v1_1/performance/employees/{employeeId}/goals/filters | Get Goal Filters (v1.1)
+*PublicAPIApi* | [**get_goals_filters_v12**](docs/PublicAPIApi.md#get_goals_filters_v12) | **GET** /api/v1_2/performance/employees/{employeeId}/goals/filters | Get Goal Filters (v1.2)
 *PublicAPIApi* | [**get_hiring_leads**](docs/PublicAPIApi.md#get_hiring_leads) | **GET** /api/v1/applicant_tracking/hiring_leads | Get Hiring Leads
+*PublicAPIApi* | [**get_hour_entry**](docs/PublicAPIApi.md#get_hour_entry) | **GET** /api/v1/time-tracking/hour-entries/{id} | Get Hour Entry
 *PublicAPIApi* | [**get_job_summaries**](docs/PublicAPIApi.md#get_job_summaries) | **GET** /api/v1/applicant_tracking/jobs | Get Job Summaries
-*PublicAPIApi* | [**get_member_benefits**](docs/PublicAPIApi.md#get_member_benefits) | **GET** /api/v1/benefits/member-benefits | Get Member Benefits
-*PublicAPIApi* | [**get_monitor_fields**](docs/PublicAPIApi.md#get_monitor_fields) | **GET** /api/v1/webhooks/monitor_fields | Get Monitor Fields
-*PublicAPIApi* | [**get_post_fields**](docs/PublicAPIApi.md#get_post_fields) | **GET** /api/v1/webhooks/post-fields | Get Post Fields
-*PublicAPIApi* | [**get_states_by_country_id**](docs/PublicAPIApi.md#get_states_by_country_id) | **GET** /api/v1/meta/provinces/{countryId} | Get States by Country ID
+*PublicAPIApi* | [**get_job_title_level_assignments**](docs/PublicAPIApi.md#get_job_title_level_assignments) | **GET** /api/v1/pay-grades-and-bands/job-titles | Get Job Titles and Level Assignments
+*PublicAPIApi* | [**get_legacy_report_field_map**](docs/PublicAPIApi.md#get_legacy_report_field_map) | **GET** /api/v1/custom-reports/legacy-field-map | Get Legacy Report Field Map
+*PublicAPIApi* | [**get_legacy_report_id_map**](docs/PublicAPIApi.md#get_legacy_report_id_map) | **GET** /api/v1/custom-reports/legacy-id-map | Get Legacy Report ID Map
+*PublicAPIApi* | [**get_levels_and_bands_review**](docs/PublicAPIApi.md#get_levels_and_bands_review) | **GET** /api/v1/pay-grades-and-bands/review | Get Levels and Bands Review
+*PublicAPIApi* | [**get_levels_and_bands_status**](docs/PublicAPIApi.md#get_levels_and_bands_status) | **GET** /api/v1/pay-grades-and-bands/status | Get Levels and Bands Status
+*PublicAPIApi* | [**get_location**](docs/PublicAPIApi.md#get_location) | **GET** /api/v1/hris/org/locations/{id} | Get a job location
+*PublicAPIApi* | [**get_locations**](docs/PublicAPIApi.md#get_locations) | **GET** /api/v1/hris/org/locations | List job locations
+*PublicAPIApi* | [**get_meta_company**](docs/PublicAPIApi.md#get_meta_company) | **GET** /api/v1/meta/company | Get company properties
+*PublicAPIApi* | [**get_pay_bands**](docs/PublicAPIApi.md#get_pay_bands) | **GET** /api/v1/pay-grades-and-bands/pay-bands | Get Pay Bands
+*PublicAPIApi* | [**get_post_fields**](docs/PublicAPIApi.md#get_post_fields) | **GET** /api/v1/webhooks/post-fields | Get Webhook Post Fields
+*PublicAPIApi* | [**get_project**](docs/PublicAPIApi.md#get_project) | **GET** /api/v1/time-tracking/projects/{id} | Get Time Tracking Project
+*PublicAPIApi* | [**get_published_levels_and_bands**](docs/PublicAPIApi.md#get_published_levels_and_bands) | **GET** /api/v1/pay-grades-and-bands | Get Published Levels and Bands
+*PublicAPIApi* | [**get_report_by_id**](docs/PublicAPIApi.md#get_report_by_id) | **GET** /api/v1/custom-reports/{reportId} | Get Report by ID
+*PublicAPIApi* | [**get_shift_differential**](docs/PublicAPIApi.md#get_shift_differential) | **GET** /api/v1/time-tracking/shift-differentials/{id} | Get Time Tracking Shift Differential
+*PublicAPIApi* | [**get_states_by_country_id**](docs/PublicAPIApi.md#get_states_by_country_id) | **GET** /api/v1/meta/provinces/{countryId} | List states and provinces for a country by Country ID
 *PublicAPIApi* | [**get_statuses**](docs/PublicAPIApi.md#get_statuses) | **GET** /api/v1/applicant_tracking/statuses | Get Applicant Statuses
+*PublicAPIApi* | [**get_task**](docs/PublicAPIApi.md#get_task) | **GET** /api/v1/time-tracking/tasks/{id} | Get Time Tracking Task
 *PublicAPIApi* | [**get_time_off_balance**](docs/PublicAPIApi.md#get_time_off_balance) | **GET** /api/v1/employees/{employeeId}/time_off/calculator | Get Time Off Balance
+*PublicAPIApi* | [**get_time_tracking_configuration**](docs/PublicAPIApi.md#get_time_tracking_configuration) | **GET** /api/v1/time-tracking/configurations/{id} | Get Configuration
+*PublicAPIApi* | [**get_time_tracking_employee_enrollment**](docs/PublicAPIApi.md#get_time_tracking_employee_enrollment) | **GET** /api/v1/time-tracking/employees/{employeeId} | Get Employee Enrollment
+*PublicAPIApi* | [**get_time_tracking_kiosk**](docs/PublicAPIApi.md#get_time_tracking_kiosk) | **GET** /api/v1/time-tracking/kiosks/{id} | Get Time Tracking Kiosk
 *PublicAPIApi* | [**get_time_tracking_record**](docs/PublicAPIApi.md#get_time_tracking_record) | **GET** /api/v1/timetracking/record/{id} | Get Time Tracking Record
+*PublicAPIApi* | [**get_time_tracking_time_clock**](docs/PublicAPIApi.md#get_time_tracking_time_clock) | **GET** /api/v1/time-tracking/time-clocks/{id} | Get Time Tracking Time Clock
+*PublicAPIApi* | [**get_timesheet**](docs/PublicAPIApi.md#get_timesheet) | **GET** /api/v1/time-tracking/timesheets/{id} | Get Timesheet
+*PublicAPIApi* | [**get_timesheet_summary**](docs/PublicAPIApi.md#get_timesheet_summary) | **GET** /api/v1/time-tracking/timesheets/{id}/summary | Get Timesheet Summary
+*PublicAPIApi* | [**get_total_rewards_printable_statement**](docs/PublicAPIApi.md#get_total_rewards_printable_statement) | **GET** /api/v1/compensation/total_rewards/{employeeId}/printable | Get Printable Total Rewards Statement
+*PublicAPIApi* | [**get_total_rewards_statement**](docs/PublicAPIApi.md#get_total_rewards_statement) | **GET** /api/v1/compensation/total_rewards/{employeeId}/statement | Get Total Rewards Statement
 *PublicAPIApi* | [**get_webhook**](docs/PublicAPIApi.md#get_webhook) | **GET** /api/v1/webhooks/{id} | Get Webhook
-*PublicAPIApi* | [**get_webhook_logs**](docs/PublicAPIApi.md#get_webhook_logs) | **GET** /api/v1/webhooks/{id}/log | Get Webhook Logs
+*PublicAPIApi* | [**import_compensation_benchmarks**](docs/PublicAPIApi.md#import_compensation_benchmarks) | **POST** /api/v1/compensation/benchmarks/import | Import Compensation Benchmarks From CSV
+*PublicAPIApi* | [**list_alert_configurations**](docs/PublicAPIApi.md#list_alert_configurations) | **GET** /api/v1/alert-configurations | List Alert Configurations
+*PublicAPIApi* | [**list_alert_templates**](docs/PublicAPIApi.md#list_alert_templates) | **GET** /api/v1/alerts | List Alert Templates
+*PublicAPIApi* | [**list_archived_custom_fields**](docs/PublicAPIApi.md#list_archived_custom_fields) | **GET** /api/v1/hris/custom-fields/archived | List Archived Custom Fields
+*PublicAPIApi* | [**list_bank_holidays**](docs/PublicAPIApi.md#list_bank_holidays) | **GET** /api/v1/meta/bank-holidays | List Bank Holidays
 *PublicAPIApi* | [**list_benefit_coverages**](docs/PublicAPIApi.md#list_benefit_coverages) | **GET** /api/v1/benefitcoverages | List Benefit Coverages
 *PublicAPIApi* | [**list_benefit_deduction_types**](docs/PublicAPIApi.md#list_benefit_deduction_types) | **GET** /api/v1/benefits/settings/deduction_types/all | List Benefit Deduction Types
 *PublicAPIApi* | [**list_break_assessments**](docs/PublicAPIApi.md#list_break_assessments) | **GET** /api/v1/time-tracking/break-assessments | List Break Assessments
 *PublicAPIApi* | [**list_break_policies**](docs/PublicAPIApi.md#list_break_policies) | **GET** /api/v1/time-tracking/break-policies | List Break Policies
 *PublicAPIApi* | [**list_break_policy_breaks**](docs/PublicAPIApi.md#list_break_policy_breaks) | **GET** /api/v1/time-tracking/break-policies/{id}/breaks | List Breaks for Break Policy
 *PublicAPIApi* | [**list_break_policy_employees**](docs/PublicAPIApi.md#list_break_policy_employees) | **GET** /api/v1/time-tracking/break-policies/{id}/employees | List Break Policy Employees
+*PublicAPIApi* | [**list_calendar_events**](docs/PublicAPIApi.md#list_calendar_events) | **GET** /api/v1/calendar-events | List Calendar Events
+*PublicAPIApi* | [**list_catalog_holidays**](docs/PublicAPIApi.md#list_catalog_holidays) | **GET** /api/v1/holidays/catalog | List Catalog Holidays
+*PublicAPIApi* | [**list_clock_entries**](docs/PublicAPIApi.md#list_clock_entries) | **GET** /api/v1/time-tracking/clock-entries | List Clock Entries
 *PublicAPIApi* | [**list_company_benefits**](docs/PublicAPIApi.md#list_company_benefits) | **GET** /api/v1/benefit/company_benefit | List Company Benefits
 *PublicAPIApi* | [**list_company_files**](docs/PublicAPIApi.md#list_company_files) | **GET** /api/v1/files/view | Get Company Files and Categories
+*PublicAPIApi* | [**list_company_holidays**](docs/PublicAPIApi.md#list_company_holidays) | **GET** /api/v1/holidays | List Company Holidays
+*PublicAPIApi* | [**list_compensation_benchmark_sources**](docs/PublicAPIApi.md#list_compensation_benchmark_sources) | **GET** /api/v1/compensation/benchmarks/sources | List Compensation Benchmark Sources
+*PublicAPIApi* | [**list_compensation_benchmarks**](docs/PublicAPIApi.md#list_compensation_benchmarks) | **GET** /api/v1/compensation/benchmarks | List Compensation Benchmarks
+*PublicAPIApi* | [**list_compensation_level_groups_and_levels**](docs/PublicAPIApi.md#list_compensation_level_groups_and_levels) | **GET** /api/v1/pay-grades-and-bands/levels | List Compensation Level Groups and Levels
+*PublicAPIApi* | [**list_custom_field_list_values**](docs/PublicAPIApi.md#list_custom_field_list_values) | **GET** /api/v1/hris/custom-fields/{customFieldId}/list-values | List Custom Field List Values
+*PublicAPIApi* | [**list_custom_field_types**](docs/PublicAPIApi.md#list_custom_field_types) | **GET** /api/v1/hris/custom-fields/types | List Custom Field Types
+*PublicAPIApi* | [**list_custom_fields**](docs/PublicAPIApi.md#list_custom_fields) | **GET** /api/v1/hris/custom-fields | List Custom Fields
+*PublicAPIApi* | [**list_datasets_v1**](docs/PublicAPIApi.md#list_datasets_v1) | **GET** /api/v1/datasets | List Datasets (v1)
+*PublicAPIApi* | [**list_datasets_v12**](docs/PublicAPIApi.md#list_datasets_v12) | **GET** /api/v1_2/datasets | List Datasets (v1.2)
 *PublicAPIApi* | [**list_employee_benefits**](docs/PublicAPIApi.md#list_employee_benefits) | **GET** /api/v1/benefit/employee_benefit | List Employee Benefits
 *PublicAPIApi* | [**list_employee_break_availabilities**](docs/PublicAPIApi.md#list_employee_break_availabilities) | **GET** /api/v1/time-tracking/employees/{id}/break-availabilities | List Employee Break Availabilities
 *PublicAPIApi* | [**list_employee_break_policies**](docs/PublicAPIApi.md#list_employee_break_policies) | **GET** /api/v1/time-tracking/employees/{id}/break-policies | List Employee Break Policies
 *PublicAPIApi* | [**list_employee_dependents**](docs/PublicAPIApi.md#list_employee_dependents) | **GET** /api/v1/employeedependents | List Employee Dependents
 *PublicAPIApi* | [**list_employee_files**](docs/PublicAPIApi.md#list_employee_files) | **GET** /api/v1/employees/{id}/files/view | List Employee Files
-*PublicAPIApi* | [**list_employee_time_off_policies**](docs/PublicAPIApi.md#list_employee_time_off_policies) | **GET** /api/v1/employees/{employeeId}/time_off/policies | List Employee Time Off Policies
-*PublicAPIApi* | [**list_employee_time_off_policies_v1_1**](docs/PublicAPIApi.md#list_employee_time_off_policies_v1_1) | **GET** /api/v1_1/employees/{employeeId}/time_off/policies | List Employee Time Off Policies v1.1
+*PublicAPIApi* | [**list_employee_time_off_policies_v1**](docs/PublicAPIApi.md#list_employee_time_off_policies_v1) | **GET** /api/v1/employees/{employeeId}/time_off/policies | List Employee Time Off Policies (v1)
+*PublicAPIApi* | [**list_employee_time_off_policies_v11**](docs/PublicAPIApi.md#list_employee_time_off_policies_v11) | **GET** /api/v1_1/employees/{employeeId}/time_off/policies | List Employee Time Off Policies (v1.1)
 *PublicAPIApi* | [**list_employee_trainings**](docs/PublicAPIApi.md#list_employee_trainings) | **GET** /api/v1/training/record/employee/{employeeId} | List Employee Training Records
+*PublicAPIApi* | [**list_employee_verifications_by_employee**](docs/PublicAPIApi.md#list_employee_verifications_by_employee) | **GET** /api/v1/employee-verifications/employees/{employeeId} | List employee verification records for an employee
 *PublicAPIApi* | [**list_employees**](docs/PublicAPIApi.md#list_employees) | **GET** /api/v1/employees | List Employees
 *PublicAPIApi* | [**list_fields**](docs/PublicAPIApi.md#list_fields) | **GET** /api/v1/meta/fields | List Fields
+*PublicAPIApi* | [**list_goal_comments**](docs/PublicAPIApi.md#list_goal_comments) | **GET** /api/v1/performance/employees/{employeeId}/goals/{goalId}/comments | List Goal Comments
+*PublicAPIApi* | [**list_goal_share_options**](docs/PublicAPIApi.md#list_goal_share_options) | **GET** /api/v1/performance/employees/{employeeId}/goals/shareOptions | List Goal Sharing Options
+*PublicAPIApi* | [**list_goals**](docs/PublicAPIApi.md#list_goals) | **GET** /api/v1/performance/employees/{employeeId}/goals | List Goals
+*PublicAPIApi* | [**list_hour_entries**](docs/PublicAPIApi.md#list_hour_entries) | **GET** /api/v1/time-tracking/hour-entries | List Hour Entries
+*PublicAPIApi* | [**list_industries**](docs/PublicAPIApi.md#list_industries) | **GET** /api/v1/meta/industries | List Industries
+*PublicAPIApi* | [**list_job_titles_with_employees**](docs/PublicAPIApi.md#list_job_titles_with_employees) | **GET** /api/v1/pay-grades-and-bands/job-titles-with-employees | List Job Titles with Employees
 *PublicAPIApi* | [**list_list_fields**](docs/PublicAPIApi.md#list_list_fields) | **GET** /api/v1/meta/lists | List List Fields
 *PublicAPIApi* | [**list_member_benefit_events**](docs/PublicAPIApi.md#list_member_benefit_events) | **GET** /api/v1/benefit/member_benefit | List Member Benefit Events
+*PublicAPIApi* | [**list_member_benefits**](docs/PublicAPIApi.md#list_member_benefits) | **GET** /api/v1/benefits/member-benefits | List Member Benefits
+*PublicAPIApi* | [**list_monitor_fields**](docs/PublicAPIApi.md#list_monitor_fields) | **GET** /api/v1/webhooks/monitor_fields | List Monitor Fields
+*PublicAPIApi* | [**list_project_tasks**](docs/PublicAPIApi.md#list_project_tasks) | **GET** /api/v1/time-tracking/projects/{projectId}/tasks | List Time Tracking Project Tasks
+*PublicAPIApi* | [**list_projects**](docs/PublicAPIApi.md#list_projects) | **GET** /api/v1/time-tracking/projects | List Time Tracking Projects
 *PublicAPIApi* | [**list_reports**](docs/PublicAPIApi.md#list_reports) | **GET** /api/v1/custom-reports | List Reports
+*PublicAPIApi* | [**list_shift_differentials**](docs/PublicAPIApi.md#list_shift_differentials) | **GET** /api/v1/time-tracking/shift-differentials | List Time Tracking Shift Differentials
 *PublicAPIApi* | [**list_tabular_fields**](docs/PublicAPIApi.md#list_tabular_fields) | **GET** /api/v1/meta/tables | List Tabular Fields
 *PublicAPIApi* | [**list_time_off_policies**](docs/PublicAPIApi.md#list_time_off_policies) | **GET** /api/v1/meta/time_off/policies | List Time Off Policies
 *PublicAPIApi* | [**list_time_off_requests**](docs/PublicAPIApi.md#list_time_off_requests) | **GET** /api/v1/time_off/requests | List Time Off Requests
 *PublicAPIApi* | [**list_time_off_types**](docs/PublicAPIApi.md#list_time_off_types) | **GET** /api/v1/meta/time_off/types | List Time Off Types
+*PublicAPIApi* | [**list_time_tracking_configurations**](docs/PublicAPIApi.md#list_time_tracking_configurations) | **GET** /api/v1/time-tracking/configurations | List Configurations
+*PublicAPIApi* | [**list_time_tracking_employees**](docs/PublicAPIApi.md#list_time_tracking_employees) | **GET** /api/v1/time-tracking/employees | List Enrolled Employees
+*PublicAPIApi* | [**list_time_tracking_kiosks**](docs/PublicAPIApi.md#list_time_tracking_kiosks) | **GET** /api/v1/time-tracking/kiosks | List Time Tracking Kiosks
+*PublicAPIApi* | [**list_time_tracking_time_clocks**](docs/PublicAPIApi.md#list_time_tracking_time_clocks) | **GET** /api/v1/time-tracking/time-clocks | List Time Tracking Time Clocks
 *PublicAPIApi* | [**list_timesheet_entries**](docs/PublicAPIApi.md#list_timesheet_entries) | **GET** /api/v1/time_tracking/timesheet_entries | List Timesheet Entries
+*PublicAPIApi* | [**list_timesheets**](docs/PublicAPIApi.md#list_timesheets) | **GET** /api/v1/time-tracking/timesheets | List Timesheets
 *PublicAPIApi* | [**list_training_categories**](docs/PublicAPIApi.md#list_training_categories) | **GET** /api/v1/training/category | List Training Categories
 *PublicAPIApi* | [**list_training_types**](docs/PublicAPIApi.md#list_training_types) | **GET** /api/v1/training/type | List Training Types
 *PublicAPIApi* | [**list_users**](docs/PublicAPIApi.md#list_users) | **GET** /api/v1/meta/users | List Users
+*PublicAPIApi* | [**list_webhook_logs**](docs/PublicAPIApi.md#list_webhook_logs) | **GET** /api/v1/webhooks/{id}/log | List Webhook Logs
 *PublicAPIApi* | [**list_webhooks**](docs/PublicAPIApi.md#list_webhooks) | **GET** /api/v1/webhooks | List Webhooks
 *PublicAPIApi* | [**list_whos_out**](docs/PublicAPIApi.md#list_whos_out) | **GET** /api/v1/time_off/whos_out | List Who’s Out
+*PublicAPIApi* | [**list_whos_out_v1**](docs/PublicAPIApi.md#list_whos_out_v1) | **GET** /api/v1/whos-out | List Who&#39;s Out
 *PublicAPIApi* | [**login**](docs/PublicAPIApi.md#login) | **POST** /api/v1/login | Login
-*PublicAPIApi* | [**post_close_goal**](docs/PublicAPIApi.md#post_close_goal) | **POST** /api/v1/performance/employees/{employeeId}/goals/{goalId}/close | Close Goal
-*PublicAPIApi* | [**post_goal**](docs/PublicAPIApi.md#post_goal) | **POST** /api/v1/performance/employees/{employeeId}/goals | Create Goal
-*PublicAPIApi* | [**post_goal_comment**](docs/PublicAPIApi.md#post_goal_comment) | **POST** /api/v1/performance/employees/{employeeId}/goals/{goalId}/comments | Create Goal Comment
-*PublicAPIApi* | [**post_reopen_goal**](docs/PublicAPIApi.md#post_reopen_goal) | **POST** /api/v1/performance/employees/{employeeId}/goals/{goalId}/reopen | Reopen Goal
-*PublicAPIApi* | [**put_goal_comment**](docs/PublicAPIApi.md#put_goal_comment) | **PUT** /api/v1/performance/employees/{employeeId}/goals/{goalId}/comments/{commentId} | Update Goal Comment
-*PublicAPIApi* | [**put_goal_milestone_progress**](docs/PublicAPIApi.md#put_goal_milestone_progress) | **PUT** /api/v1/performance/employees/{employeeId}/goals/{goalId}/milestones/{milestoneId}/progress | Update Milestone Progress
-*PublicAPIApi* | [**put_goal_progress**](docs/PublicAPIApi.md#put_goal_progress) | **PUT** /api/v1/performance/employees/{employeeId}/goals/{goalId}/progress | Update Goal Progress
-*PublicAPIApi* | [**put_goal_shared_with**](docs/PublicAPIApi.md#put_goal_shared_with) | **PUT** /api/v1/performance/employees/{employeeId}/goals/{goalId}/sharedWith | Update Goal Sharing
-*PublicAPIApi* | [**put_goal_v1**](docs/PublicAPIApi.md#put_goal_v1) | **PUT** /api/v1/performance/employees/{employeeId}/goals/{goalId} | Update Goal
-*PublicAPIApi* | [**put_goal_v1_1**](docs/PublicAPIApi.md#put_goal_v1_1) | **PUT** /api/v1_1/performance/employees/{employeeId}/goals/{goalId} | Update Goal v1.1
+*PublicAPIApi* | [**patch_company_profile_company_information**](docs/PublicAPIApi.md#patch_company_profile_company_information) | **PATCH** /api/v1/company-profile-data/company-information | Update company information (phone, address, legal name)
+*PublicAPIApi* | [**publish_draft_compensation_level_groups**](docs/PublicAPIApi.md#publish_draft_compensation_level_groups) | **POST** /api/v1/pay-grades-and-bands/publish | Publish Draft Compensation Level Groups
+*PublicAPIApi* | [**put_company_industry_codes**](docs/PublicAPIApi.md#put_company_industry_codes) | **PUT** /api/v1/company-profile-data/industry-codes | Update Company Industry Codes
+*PublicAPIApi* | [**put_company_profile_display_name**](docs/PublicAPIApi.md#put_company_profile_display_name) | **PUT** /api/v1/company-profile-data/display-name | Update company display name
+*PublicAPIApi* | [**remove_total_rewards_custom_disclaimer**](docs/PublicAPIApi.md#remove_total_rewards_custom_disclaimer) | **DELETE** /api/v1/compensation/total_rewards/custom_disclaimer | Remove Total Rewards Custom Disclaimer
+*PublicAPIApi* | [**remove_total_rewards_employees**](docs/PublicAPIApi.md#remove_total_rewards_employees) | **DELETE** /api/v1/compensation/total_rewards/employees | Remove Employees from Total Rewards
+*PublicAPIApi* | [**reopen_goal**](docs/PublicAPIApi.md#reopen_goal) | **POST** /api/v1/performance/employees/{employeeId}/goals/{goalId}/reopen | Reopen Goal
+*PublicAPIApi* | [**replace_alert_configuration**](docs/PublicAPIApi.md#replace_alert_configuration) | **PUT** /api/v1/alert-configurations/{id} | Replace Alert Configuration
 *PublicAPIApi* | [**replace_breaks_for_break_policy**](docs/PublicAPIApi.md#replace_breaks_for_break_policy) | **PUT** /api/v1/time-tracking/break-policies/{id}/breaks | Replace Breaks for Break Policy
+*PublicAPIApi* | [**replace_job_title_level_assignments**](docs/PublicAPIApi.md#replace_job_title_level_assignments) | **PUT** /api/v1/pay-grades-and-bands/job-titles | Replace Job Title Level Assignments
 *PublicAPIApi* | [**request_custom_report**](docs/PublicAPIApi.md#request_custom_report) | **POST** /api/v1/reports/custom | Request Custom Report
+*PublicAPIApi* | [**scheduling_create_schedule**](docs/PublicAPIApi.md#scheduling_create_schedule) | **POST** /api/v1/scheduling/schedules | Create Schedule
+*PublicAPIApi* | [**scheduling_create_shift**](docs/PublicAPIApi.md#scheduling_create_shift) | **POST** /api/v1/scheduling/shifts | Create Shift
+*PublicAPIApi* | [**scheduling_delete_schedule**](docs/PublicAPIApi.md#scheduling_delete_schedule) | **DELETE** /api/v1/scheduling/schedules/{id} | Delete Schedule
+*PublicAPIApi* | [**scheduling_delete_shift**](docs/PublicAPIApi.md#scheduling_delete_shift) | **DELETE** /api/v1/scheduling/shifts/{id} | Delete Shift
+*PublicAPIApi* | [**scheduling_get_schedule**](docs/PublicAPIApi.md#scheduling_get_schedule) | **GET** /api/v1/scheduling/schedules/{id} | Get Schedule
+*PublicAPIApi* | [**scheduling_get_schedule_pdf**](docs/PublicAPIApi.md#scheduling_get_schedule_pdf) | **GET** /api/v1/scheduling/schedules/{id}/pdf | Get Schedule PDF
+*PublicAPIApi* | [**scheduling_get_shift**](docs/PublicAPIApi.md#scheduling_get_shift) | **GET** /api/v1/scheduling/shifts/{id} | Get Shift
+*PublicAPIApi* | [**scheduling_list_schedules**](docs/PublicAPIApi.md#scheduling_list_schedules) | **GET** /api/v1/scheduling/schedules | List Schedules
+*PublicAPIApi* | [**scheduling_list_shift_assessments**](docs/PublicAPIApi.md#scheduling_list_shift_assessments) | **GET** /api/v1/scheduling/shift-assessments | List Shift Assessments
+*PublicAPIApi* | [**scheduling_list_shifts**](docs/PublicAPIApi.md#scheduling_list_shifts) | **GET** /api/v1/scheduling/shifts | List Shifts
+*PublicAPIApi* | [**scheduling_list_timezones**](docs/PublicAPIApi.md#scheduling_list_timezones) | **GET** /api/v1/scheduling/timezones | List Timezones
+*PublicAPIApi* | [**scheduling_publish_shifts**](docs/PublicAPIApi.md#scheduling_publish_shifts) | **POST** /api/v1/scheduling/shifts/publish | Publish Shifts
+*PublicAPIApi* | [**scheduling_update_schedule**](docs/PublicAPIApi.md#scheduling_update_schedule) | **PATCH** /api/v1/scheduling/schedules/{id} | Update Schedule
+*PublicAPIApi* | [**scheduling_update_shift**](docs/PublicAPIApi.md#scheduling_update_shift) | **PATCH** /api/v1/scheduling/shifts/{id} | Update Shift
+*PublicAPIApi* | [**send_employee_verification_lifecycle_email_by_user**](docs/PublicAPIApi.md#send_employee_verification_lifecycle_email_by_user) | **POST** /api/v1/employee-verifications/users/{userId}/send-email | Send employee verification lifecycle email by user and email type
 *PublicAPIApi* | [**set_break_policy_employees**](docs/PublicAPIApi.md#set_break_policy_employees) | **PUT** /api/v1/time-tracking/break-policies/{id}/assign | Set Employees for Break Policy
+*PublicAPIApi* | [**set_total_rewards_custom_disclaimer**](docs/PublicAPIApi.md#set_total_rewards_custom_disclaimer) | **PUT** /api/v1/compensation/total_rewards/custom_disclaimer | Set Total Rewards Custom Disclaimer
+*PublicAPIApi* | [**set_total_rewards_onboarding_step**](docs/PublicAPIApi.md#set_total_rewards_onboarding_step) | **PUT** /api/v1/compensation/total_rewards/onboarding/{stepName} | Set Total Rewards Onboarding Step Status
 *PublicAPIApi* | [**sync_break_policy**](docs/PublicAPIApi.md#sync_break_policy) | **PUT** /api/v1/time-tracking/break-policies/{id}/sync | Sync Break Policy
+*PublicAPIApi* | [**unarchive_public_custom_fields**](docs/PublicAPIApi.md#unarchive_public_custom_fields) | **POST** /api/v1/hris/custom-fields/unarchive | Unarchive Custom Fields
 *PublicAPIApi* | [**unassign_employees_from_break_policy**](docs/PublicAPIApi.md#unassign_employees_from_break_policy) | **POST** /api/v1/time-tracking/break-policies/{id}/unassign | Unassign Employees from Break Policy
 *PublicAPIApi* | [**update_applicant_status**](docs/PublicAPIApi.md#update_applicant_status) | **POST** /api/v1/applicant_tracking/applications/{applicationId}/status | Update Applicant Status
 *PublicAPIApi* | [**update_break**](docs/PublicAPIApi.md#update_break) | **PATCH** /api/v1/time-tracking/breaks/{id} | Update Break
 *PublicAPIApi* | [**update_break_policy**](docs/PublicAPIApi.md#update_break_policy) | **PATCH** /api/v1/time-tracking/break-policies/{id} | Update Break Policy
+*PublicAPIApi* | [**update_clock_entry**](docs/PublicAPIApi.md#update_clock_entry) | **PATCH** /api/v1/time-tracking/clock-entries/{id} | Update Clock Entry
 *PublicAPIApi* | [**update_company_file**](docs/PublicAPIApi.md#update_company_file) | **POST** /api/v1/files/{fileId} | Update Company File
+*PublicAPIApi* | [**update_company_holiday**](docs/PublicAPIApi.md#update_company_holiday) | **PATCH** /api/v1/holidays/{id} | Update Company Holiday
+*PublicAPIApi* | [**update_compensation_benchmark**](docs/PublicAPIApi.md#update_compensation_benchmark) | **PUT** /api/v1/compensation/benchmarks | Update Compensation Benchmark
+*PublicAPIApi* | [**update_compensation_benchmark_sources**](docs/PublicAPIApi.md#update_compensation_benchmark_sources) | **PUT** /api/v1/compensation/benchmarks/sources | Update Compensation Benchmark Sources
+*PublicAPIApi* | [**update_compensation_level_groups_and_levels**](docs/PublicAPIApi.md#update_compensation_level_groups_and_levels) | **PUT** /api/v1/pay-grades-and-bands/levels | Update Compensation Level Groups and Levels
 *PublicAPIApi* | [**update_employee**](docs/PublicAPIApi.md#update_employee) | **POST** /api/v1/employees/{id} | Update Employee
 *PublicAPIApi* | [**update_employee_dependent**](docs/PublicAPIApi.md#update_employee_dependent) | **PUT** /api/v1/employeedependents/{id} | Update Employee Dependent
 *PublicAPIApi* | [**update_employee_file**](docs/PublicAPIApi.md#update_employee_file) | **POST** /api/v1/employees/{id}/files/{fileId} | Update Employee File
 *PublicAPIApi* | [**update_employee_training_record**](docs/PublicAPIApi.md#update_employee_training_record) | **PUT** /api/v1/training/record/{employeeTrainingRecordId} | Update Employee Training Record
+*PublicAPIApi* | [**update_employee_verification**](docs/PublicAPIApi.md#update_employee_verification) | **PUT** /api/v1/employee-verifications/employees/{employeeId}/{verificationId} | Update an employee verification record
+*PublicAPIApi* | [**update_employee_verification_integration**](docs/PublicAPIApi.md#update_employee_verification_integration) | **PUT** /api/v1/employee-verifications/integration | Enable or disable the employee verification integration
+*PublicAPIApi* | [**update_goal_comment**](docs/PublicAPIApi.md#update_goal_comment) | **PUT** /api/v1/performance/employees/{employeeId}/goals/{goalId}/comments/{commentId} | Update Goal Comment
+*PublicAPIApi* | [**update_goal_milestone_progress**](docs/PublicAPIApi.md#update_goal_milestone_progress) | **PUT** /api/v1/performance/employees/{employeeId}/goals/{goalId}/milestones/{milestoneId}/progress | Update Milestone Progress
+*PublicAPIApi* | [**update_goal_progress**](docs/PublicAPIApi.md#update_goal_progress) | **PUT** /api/v1/performance/employees/{employeeId}/goals/{goalId}/progress | Update Goal Progress
+*PublicAPIApi* | [**update_goal_sharing**](docs/PublicAPIApi.md#update_goal_sharing) | **PUT** /api/v1/performance/employees/{employeeId}/goals/{goalId}/sharedWith | Update Goal Sharing
+*PublicAPIApi* | [**update_goal_v1**](docs/PublicAPIApi.md#update_goal_v1) | **PUT** /api/v1/performance/employees/{employeeId}/goals/{goalId} | Update Goal (v1)
+*PublicAPIApi* | [**update_goal_v11**](docs/PublicAPIApi.md#update_goal_v11) | **PUT** /api/v1_1/performance/employees/{employeeId}/goals/{goalId} | Update Goal (v1.1)
+*PublicAPIApi* | [**update_hour_entry**](docs/PublicAPIApi.md#update_hour_entry) | **PATCH** /api/v1/time-tracking/hour-entries/{id} | Update Hour Entry
 *PublicAPIApi* | [**update_list_field_values**](docs/PublicAPIApi.md#update_list_field_values) | **PUT** /api/v1/meta/lists/{listFieldId} | Update List Field Values
-*PublicAPIApi* | [**update_table_row**](docs/PublicAPIApi.md#update_table_row) | **POST** /api/v1/employees/{id}/tables/{table}/{rowId} | Update Table Row
-*PublicAPIApi* | [**update_table_row_v11**](docs/PublicAPIApi.md#update_table_row_v11) | **POST** /api/v1_1/employees/{id}/tables/{table}/{rowId} | Update Table Row v1.1
+*PublicAPIApi* | [**update_location**](docs/PublicAPIApi.md#update_location) | **PUT** /api/v1/hris/org/locations/{id} | Update a job location
+*PublicAPIApi* | [**update_new_hire_packet_gtky_answer_visibility**](docs/PublicAPIApi.md#update_new_hire_packet_gtky_answer_visibility) | **PUT** /api/v1/new-hire-packets/{id}/question-visibility | Update GTKY answer visibility for a new hire packet
+*PublicAPIApi* | [**update_pay_bands**](docs/PublicAPIApi.md#update_pay_bands) | **PUT** /api/v1/pay-grades-and-bands/pay-bands | Update Pay Bands
+*PublicAPIApi* | [**update_project**](docs/PublicAPIApi.md#update_project) | **PATCH** /api/v1/time-tracking/projects/{id} | Update Time Tracking Project
+*PublicAPIApi* | [**update_shift_differential**](docs/PublicAPIApi.md#update_shift_differential) | **PATCH** /api/v1/time-tracking/shift-differentials/{id} | Update Time Tracking Shift Differential
+*PublicAPIApi* | [**update_table_row_v1**](docs/PublicAPIApi.md#update_table_row_v1) | **POST** /api/v1/employees/{id}/tables/{table}/{rowId} | Update Table Row (v1)
+*PublicAPIApi* | [**update_table_row_v11**](docs/PublicAPIApi.md#update_table_row_v11) | **POST** /api/v1_1/employees/{id}/tables/{table}/{rowId} | Update Table Row (v1.1)
+*PublicAPIApi* | [**update_task**](docs/PublicAPIApi.md#update_task) | **PATCH** /api/v1/time-tracking/tasks/{id} | Update Time Tracking Task
 *PublicAPIApi* | [**update_time_off_request_status**](docs/PublicAPIApi.md#update_time_off_request_status) | **PUT** /api/v1/time_off/requests/{requestId}/status | Update Time Off Request Status
+*PublicAPIApi* | [**update_time_tracking_configuration**](docs/PublicAPIApi.md#update_time_tracking_configuration) | **PATCH** /api/v1/time-tracking/configurations/{id} | Update Configuration
+*PublicAPIApi* | [**update_time_tracking_employee_enrollment**](docs/PublicAPIApi.md#update_time_tracking_employee_enrollment) | **PATCH** /api/v1/time-tracking/employees/{employeeId} | Update Employee Enrollment
+*PublicAPIApi* | [**update_time_tracking_kiosk**](docs/PublicAPIApi.md#update_time_tracking_kiosk) | **PATCH** /api/v1/time-tracking/kiosks/{id} | Update Time Tracking Kiosk
 *PublicAPIApi* | [**update_time_tracking_record**](docs/PublicAPIApi.md#update_time_tracking_record) | **PUT** /api/v1/timetracking/adjust | Update Hour Record
+*PublicAPIApi* | [**update_time_tracking_time_clock**](docs/PublicAPIApi.md#update_time_tracking_time_clock) | **PATCH** /api/v1/time-tracking/time-clocks/{id} | Update Time Tracking Time Clock
 *PublicAPIApi* | [**update_training_category**](docs/PublicAPIApi.md#update_training_category) | **PUT** /api/v1/training/category/{trainingCategoryId} | Update Training Category
 *PublicAPIApi* | [**update_training_type**](docs/PublicAPIApi.md#update_training_type) | **PUT** /api/v1/training/type/{trainingTypeId} | Update Training Type
 *PublicAPIApi* | [**update_webhook**](docs/PublicAPIApi.md#update_webhook) | **PUT** /api/v1/webhooks/{id} | Update Webhook
 *PublicAPIApi* | [**upload_company_file**](docs/PublicAPIApi.md#upload_company_file) | **POST** /api/v1/files | Upload Company File
 *PublicAPIApi* | [**upload_employee_file**](docs/PublicAPIApi.md#upload_employee_file) | **POST** /api/v1/employees/{id}/files | Upload Employee File
 *PublicAPIApi* | [**upload_employee_photo**](docs/PublicAPIApi.md#upload_employee_photo) | **POST** /api/v1/employees/{employeeId}/photo | Upload Employee Photo
+*PublicAPIApi* | [**upload_levels_and_bands_csv**](docs/PublicAPIApi.md#upload_levels_and_bands_csv) | **POST** /api/v1/pay-grades-and-bands/import | Upload Levels and Bands CSV
 *ReportsApi* | [**get_company_report**](docs/ReportsApi.md#get_company_report) | **GET** /api/v1/reports/{id} | Get Company Report
 *ReportsApi* | [**request_custom_report**](docs/ReportsApi.md#request_custom_report) | **POST** /api/v1/reports/custom | Request Custom Report
-*TabularDataApi* | [**create_table_row**](docs/TabularDataApi.md#create_table_row) | **POST** /api/v1/employees/{id}/tables/{table} | Create Table Row
-*TabularDataApi* | [**create_table_row_v11**](docs/TabularDataApi.md#create_table_row_v11) | **POST** /api/v1_1/employees/{id}/tables/{table} | Create Table Row v1.1
-*TabularDataApi* | [**delete_employee_table_row**](docs/TabularDataApi.md#delete_employee_table_row) | **DELETE** /api/v1/employees/{id}/tables/{table}/{rowId} | Delete Employee Table Row
-*TabularDataApi* | [**get_changed_employee_table_data**](docs/TabularDataApi.md#get_changed_employee_table_data) | **GET** /api/v1/employees/changed/tables/{table} | Get Changed Employee Table Data
-*TabularDataApi* | [**get_employee_table_data**](docs/TabularDataApi.md#get_employee_table_data) | **GET** /api/v1/employees/{id}/tables/{table} | Get Employee Table Data
-*TabularDataApi* | [**update_table_row**](docs/TabularDataApi.md#update_table_row) | **POST** /api/v1/employees/{id}/tables/{table}/{rowId} | Update Table Row
-*TabularDataApi* | [**update_table_row_v11**](docs/TabularDataApi.md#update_table_row_v11) | **POST** /api/v1_1/employees/{id}/tables/{table}/{rowId} | Update Table Row v1.1
+*SchedulingApi* | [**scheduling_create_schedule**](docs/SchedulingApi.md#scheduling_create_schedule) | **POST** /api/v1/scheduling/schedules | Create Schedule
+*SchedulingApi* | [**scheduling_create_shift**](docs/SchedulingApi.md#scheduling_create_shift) | **POST** /api/v1/scheduling/shifts | Create Shift
+*SchedulingApi* | [**scheduling_delete_schedule**](docs/SchedulingApi.md#scheduling_delete_schedule) | **DELETE** /api/v1/scheduling/schedules/{id} | Delete Schedule
+*SchedulingApi* | [**scheduling_delete_shift**](docs/SchedulingApi.md#scheduling_delete_shift) | **DELETE** /api/v1/scheduling/shifts/{id} | Delete Shift
+*SchedulingApi* | [**scheduling_get_schedule**](docs/SchedulingApi.md#scheduling_get_schedule) | **GET** /api/v1/scheduling/schedules/{id} | Get Schedule
+*SchedulingApi* | [**scheduling_get_schedule_pdf**](docs/SchedulingApi.md#scheduling_get_schedule_pdf) | **GET** /api/v1/scheduling/schedules/{id}/pdf | Get Schedule PDF
+*SchedulingApi* | [**scheduling_get_shift**](docs/SchedulingApi.md#scheduling_get_shift) | **GET** /api/v1/scheduling/shifts/{id} | Get Shift
+*SchedulingApi* | [**scheduling_list_schedules**](docs/SchedulingApi.md#scheduling_list_schedules) | **GET** /api/v1/scheduling/schedules | List Schedules
+*SchedulingApi* | [**scheduling_list_shift_assessments**](docs/SchedulingApi.md#scheduling_list_shift_assessments) | **GET** /api/v1/scheduling/shift-assessments | List Shift Assessments
+*SchedulingApi* | [**scheduling_list_shifts**](docs/SchedulingApi.md#scheduling_list_shifts) | **GET** /api/v1/scheduling/shifts | List Shifts
+*SchedulingApi* | [**scheduling_list_timezones**](docs/SchedulingApi.md#scheduling_list_timezones) | **GET** /api/v1/scheduling/timezones | List Timezones
+*SchedulingApi* | [**scheduling_publish_shifts**](docs/SchedulingApi.md#scheduling_publish_shifts) | **POST** /api/v1/scheduling/shifts/publish | Publish Shifts
+*SchedulingApi* | [**scheduling_update_schedule**](docs/SchedulingApi.md#scheduling_update_schedule) | **PATCH** /api/v1/scheduling/schedules/{id} | Update Schedule
+*SchedulingApi* | [**scheduling_update_shift**](docs/SchedulingApi.md#scheduling_update_shift) | **PATCH** /api/v1/scheduling/shifts/{id} | Update Shift
 *TimeOffApi* | [**adjust_time_off_balance**](docs/TimeOffApi.md#adjust_time_off_balance) | **PUT** /api/v1/employees/{employeeId}/time_off/balance_adjustment | Adjust Time Off Balance
-*TimeOffApi* | [**assign_time_off_policies**](docs/TimeOffApi.md#assign_time_off_policies) | **PUT** /api/v1/employees/{employeeId}/time_off/policies | Assign Time Off Policies
-*TimeOffApi* | [**assign_time_off_policies_v1_1**](docs/TimeOffApi.md#assign_time_off_policies_v1_1) | **PUT** /api/v1_1/employees/{employeeId}/time_off/policies | Assign Time Off Policies v1.1
+*TimeOffApi* | [**assign_time_off_policies_v1**](docs/TimeOffApi.md#assign_time_off_policies_v1) | **PUT** /api/v1/employees/{employeeId}/time_off/policies | Assign Time Off Policies (v1)
+*TimeOffApi* | [**assign_time_off_policies_v11**](docs/TimeOffApi.md#assign_time_off_policies_v11) | **PUT** /api/v1_1/employees/{employeeId}/time_off/policies | Assign Time Off Policies (v1.1)
 *TimeOffApi* | [**create_time_off_history**](docs/TimeOffApi.md#create_time_off_history) | **PUT** /api/v1/employees/{employeeId}/time_off/history | Create Time Off History Item
 *TimeOffApi* | [**create_time_off_request**](docs/TimeOffApi.md#create_time_off_request) | **PUT** /api/v1/employees/{employeeId}/time_off/request | Create Time Off Request
 *TimeOffApi* | [**get_time_off_balance**](docs/TimeOffApi.md#get_time_off_balance) | **GET** /api/v1/employees/{employeeId}/time_off/calculator | Get Time Off Balance
-*TimeOffApi* | [**list_employee_time_off_policies**](docs/TimeOffApi.md#list_employee_time_off_policies) | **GET** /api/v1/employees/{employeeId}/time_off/policies | List Employee Time Off Policies
-*TimeOffApi* | [**list_employee_time_off_policies_v1_1**](docs/TimeOffApi.md#list_employee_time_off_policies_v1_1) | **GET** /api/v1_1/employees/{employeeId}/time_off/policies | List Employee Time Off Policies v1.1
+*TimeOffApi* | [**list_employee_time_off_policies_v1**](docs/TimeOffApi.md#list_employee_time_off_policies_v1) | **GET** /api/v1/employees/{employeeId}/time_off/policies | List Employee Time Off Policies (v1)
+*TimeOffApi* | [**list_employee_time_off_policies_v11**](docs/TimeOffApi.md#list_employee_time_off_policies_v11) | **GET** /api/v1_1/employees/{employeeId}/time_off/policies | List Employee Time Off Policies (v1.1)
 *TimeOffApi* | [**list_time_off_policies**](docs/TimeOffApi.md#list_time_off_policies) | **GET** /api/v1/meta/time_off/policies | List Time Off Policies
 *TimeOffApi* | [**list_time_off_requests**](docs/TimeOffApi.md#list_time_off_requests) | **GET** /api/v1/time_off/requests | List Time Off Requests
 *TimeOffApi* | [**list_time_off_types**](docs/TimeOffApi.md#list_time_off_types) | **GET** /api/v1/meta/time_off/types | List Time Off Types
 *TimeOffApi* | [**list_whos_out**](docs/TimeOffApi.md#list_whos_out) | **GET** /api/v1/time_off/whos_out | List Who’s Out
+*TimeOffApi* | [**list_whos_out_v1**](docs/TimeOffApi.md#list_whos_out_v1) | **GET** /api/v1/whos-out | List Who&#39;s Out
 *TimeOffApi* | [**update_time_off_request_status**](docs/TimeOffApi.md#update_time_off_request_status) | **PUT** /api/v1/time_off/requests/{requestId}/status | Update Time Off Request Status
-*TimeTrackingApi* | [**assign_employees_to_break_policy**](docs/TimeTrackingApi.md#assign_employees_to_break_policy) | **POST** /api/v1/time-tracking/break-policies/{id}/assign | Assign Employees to Break Policy
-*TimeTrackingApi* | [**create_break**](docs/TimeTrackingApi.md#create_break) | **POST** /api/v1/time-tracking/break-policies/{id}/breaks | Create Break
-*TimeTrackingApi* | [**create_break_policy**](docs/TimeTrackingApi.md#create_break_policy) | **POST** /api/v1/time-tracking/break-policies | Create Break Policy
+*TimeTrackingApi* | [**approve_timesheet**](docs/TimeTrackingApi.md#approve_timesheet) | **POST** /api/v1/time-tracking/timesheet-approvals | Approve Timesheet
+*TimeTrackingApi* | [**bulk_upsert_time_tracking_employee_enrollments**](docs/TimeTrackingApi.md#bulk_upsert_time_tracking_employee_enrollments) | **POST** /api/v1/time-tracking/employees/bulk-upsert | Bulk Upsert Employee Enrollments
+*TimeTrackingApi* | [**clock_in**](docs/TimeTrackingApi.md#clock_in) | **POST** /api/v1/time-tracking/clock-ins | Clock In
+*TimeTrackingApi* | [**clock_out**](docs/TimeTrackingApi.md#clock_out) | **POST** /api/v1/time-tracking/clock-outs | Clock Out
+*TimeTrackingApi* | [**create_clock_entry**](docs/TimeTrackingApi.md#create_clock_entry) | **POST** /api/v1/time-tracking/clock-entries | Create Clock Entry
+*TimeTrackingApi* | [**create_hour_entry**](docs/TimeTrackingApi.md#create_hour_entry) | **POST** /api/v1/time-tracking/hour-entries | Create Hour Entry
 *TimeTrackingApi* | [**create_or_update_timesheet_clock_entries**](docs/TimeTrackingApi.md#create_or_update_timesheet_clock_entries) | **POST** /api/v1/time_tracking/clock_entries/store | Create or Update Timesheet Clock Entries
 *TimeTrackingApi* | [**create_or_update_timesheet_hour_entries**](docs/TimeTrackingApi.md#create_or_update_timesheet_hour_entries) | **POST** /api/v1/time_tracking/hour_entries/store | Create or Update Timesheet Hour Entries
-*TimeTrackingApi* | [**create_time_tracking_project**](docs/TimeTrackingApi.md#create_time_tracking_project) | **POST** /api/v1/time_tracking/projects | Create Time Tracking Project
+*TimeTrackingApi* | [**create_project_task**](docs/TimeTrackingApi.md#create_project_task) | **POST** /api/v1/time-tracking/projects/{projectId}/tasks | Create Time Tracking Project Task
+*TimeTrackingApi* | [**create_shift_differential**](docs/TimeTrackingApi.md#create_shift_differential) | **POST** /api/v1/time-tracking/shift-differentials | Create Time Tracking Shift Differential
+*TimeTrackingApi* | [**create_time_tracking_configuration**](docs/TimeTrackingApi.md#create_time_tracking_configuration) | **POST** /api/v1/time-tracking/configurations | Create Configuration
+*TimeTrackingApi* | [**create_time_tracking_project**](docs/TimeTrackingApi.md#create_time_tracking_project) | **POST** /api/v1/time-tracking/projects | Create Time Tracking Project
+*TimeTrackingApi* | [**create_time_tracking_project_legacy**](docs/TimeTrackingApi.md#create_time_tracking_project_legacy) | **POST** /api/v1/time_tracking/projects | Create Time Tracking Project (Legacy)
 *TimeTrackingApi* | [**create_timesheet_clock_in_entry**](docs/TimeTrackingApi.md#create_timesheet_clock_in_entry) | **POST** /api/v1/time_tracking/employees/{employeeId}/clock_in | Create Timesheet Clock-In Entry
 *TimeTrackingApi* | [**create_timesheet_clock_out_entry**](docs/TimeTrackingApi.md#create_timesheet_clock_out_entry) | **POST** /api/v1/time_tracking/employees/{employeeId}/clock_out | Create Timesheet Clock-Out Entry
-*TimeTrackingApi* | [**delete_break**](docs/TimeTrackingApi.md#delete_break) | **DELETE** /api/v1/time-tracking/breaks/{id} | Delete Break
-*TimeTrackingApi* | [**delete_break_policy**](docs/TimeTrackingApi.md#delete_break_policy) | **DELETE** /api/v1/time-tracking/break-policies/{id} | Delete Break Policy
+*TimeTrackingApi* | [**delete_clock_entry**](docs/TimeTrackingApi.md#delete_clock_entry) | **DELETE** /api/v1/time-tracking/clock-entries/{id} | Delete Clock Entry
+*TimeTrackingApi* | [**delete_hour_entry**](docs/TimeTrackingApi.md#delete_hour_entry) | **DELETE** /api/v1/time-tracking/hour-entries/{id} | Delete Hour Entry
+*TimeTrackingApi* | [**delete_project**](docs/TimeTrackingApi.md#delete_project) | **DELETE** /api/v1/time-tracking/projects/{id} | Delete Time Tracking Project
+*TimeTrackingApi* | [**delete_shift_differential**](docs/TimeTrackingApi.md#delete_shift_differential) | **DELETE** /api/v1/time-tracking/shift-differentials/{id} | Delete Time Tracking Shift Differential
+*TimeTrackingApi* | [**delete_task**](docs/TimeTrackingApi.md#delete_task) | **DELETE** /api/v1/time-tracking/tasks/{id} | Delete Time Tracking Task
+*TimeTrackingApi* | [**delete_time_tracking_configuration**](docs/TimeTrackingApi.md#delete_time_tracking_configuration) | **DELETE** /api/v1/time-tracking/configurations/{id} | Delete Configuration
+*TimeTrackingApi* | [**delete_time_tracking_kiosk**](docs/TimeTrackingApi.md#delete_time_tracking_kiosk) | **DELETE** /api/v1/time-tracking/kiosks/{id} | Delete Time Tracking Kiosk
 *TimeTrackingApi* | [**delete_timesheet_clock_entries_via_post**](docs/TimeTrackingApi.md#delete_timesheet_clock_entries_via_post) | **POST** /api/v1/time_tracking/clock_entries/delete | Delete Timesheet Clock Entries
 *TimeTrackingApi* | [**delete_timesheet_hour_entries_via_post**](docs/TimeTrackingApi.md#delete_timesheet_hour_entries_via_post) | **POST** /api/v1/time_tracking/hour_entries/delete | Delete Timesheet Hour Entries
-*TimeTrackingApi* | [**get_break**](docs/TimeTrackingApi.md#get_break) | **GET** /api/v1/time-tracking/breaks/{id} | Get Break
-*TimeTrackingApi* | [**get_break_policy**](docs/TimeTrackingApi.md#get_break_policy) | **GET** /api/v1/time-tracking/break-policies/{id} | Get Break Policy
-*TimeTrackingApi* | [**list_break_assessments**](docs/TimeTrackingApi.md#list_break_assessments) | **GET** /api/v1/time-tracking/break-assessments | List Break Assessments
-*TimeTrackingApi* | [**list_break_policies**](docs/TimeTrackingApi.md#list_break_policies) | **GET** /api/v1/time-tracking/break-policies | List Break Policies
-*TimeTrackingApi* | [**list_break_policy_breaks**](docs/TimeTrackingApi.md#list_break_policy_breaks) | **GET** /api/v1/time-tracking/break-policies/{id}/breaks | List Breaks for Break Policy
-*TimeTrackingApi* | [**list_break_policy_employees**](docs/TimeTrackingApi.md#list_break_policy_employees) | **GET** /api/v1/time-tracking/break-policies/{id}/employees | List Break Policy Employees
-*TimeTrackingApi* | [**list_employee_break_availabilities**](docs/TimeTrackingApi.md#list_employee_break_availabilities) | **GET** /api/v1/time-tracking/employees/{id}/break-availabilities | List Employee Break Availabilities
-*TimeTrackingApi* | [**list_employee_break_policies**](docs/TimeTrackingApi.md#list_employee_break_policies) | **GET** /api/v1/time-tracking/employees/{id}/break-policies | List Employee Break Policies
+*TimeTrackingApi* | [**get_clock_entry**](docs/TimeTrackingApi.md#get_clock_entry) | **GET** /api/v1/time-tracking/clock-entries/{id} | Get Clock Entry
+*TimeTrackingApi* | [**get_hour_entry**](docs/TimeTrackingApi.md#get_hour_entry) | **GET** /api/v1/time-tracking/hour-entries/{id} | Get Hour Entry
+*TimeTrackingApi* | [**get_project**](docs/TimeTrackingApi.md#get_project) | **GET** /api/v1/time-tracking/projects/{id} | Get Time Tracking Project
+*TimeTrackingApi* | [**get_shift_differential**](docs/TimeTrackingApi.md#get_shift_differential) | **GET** /api/v1/time-tracking/shift-differentials/{id} | Get Time Tracking Shift Differential
+*TimeTrackingApi* | [**get_task**](docs/TimeTrackingApi.md#get_task) | **GET** /api/v1/time-tracking/tasks/{id} | Get Time Tracking Task
+*TimeTrackingApi* | [**get_time_tracking_configuration**](docs/TimeTrackingApi.md#get_time_tracking_configuration) | **GET** /api/v1/time-tracking/configurations/{id} | Get Configuration
+*TimeTrackingApi* | [**get_time_tracking_employee_enrollment**](docs/TimeTrackingApi.md#get_time_tracking_employee_enrollment) | **GET** /api/v1/time-tracking/employees/{employeeId} | Get Employee Enrollment
+*TimeTrackingApi* | [**get_time_tracking_kiosk**](docs/TimeTrackingApi.md#get_time_tracking_kiosk) | **GET** /api/v1/time-tracking/kiosks/{id} | Get Time Tracking Kiosk
+*TimeTrackingApi* | [**get_time_tracking_time_clock**](docs/TimeTrackingApi.md#get_time_tracking_time_clock) | **GET** /api/v1/time-tracking/time-clocks/{id} | Get Time Tracking Time Clock
+*TimeTrackingApi* | [**get_timesheet**](docs/TimeTrackingApi.md#get_timesheet) | **GET** /api/v1/time-tracking/timesheets/{id} | Get Timesheet
+*TimeTrackingApi* | [**get_timesheet_summary**](docs/TimeTrackingApi.md#get_timesheet_summary) | **GET** /api/v1/time-tracking/timesheets/{id}/summary | Get Timesheet Summary
+*TimeTrackingApi* | [**list_clock_entries**](docs/TimeTrackingApi.md#list_clock_entries) | **GET** /api/v1/time-tracking/clock-entries | List Clock Entries
+*TimeTrackingApi* | [**list_hour_entries**](docs/TimeTrackingApi.md#list_hour_entries) | **GET** /api/v1/time-tracking/hour-entries | List Hour Entries
+*TimeTrackingApi* | [**list_project_tasks**](docs/TimeTrackingApi.md#list_project_tasks) | **GET** /api/v1/time-tracking/projects/{projectId}/tasks | List Time Tracking Project Tasks
+*TimeTrackingApi* | [**list_projects**](docs/TimeTrackingApi.md#list_projects) | **GET** /api/v1/time-tracking/projects | List Time Tracking Projects
+*TimeTrackingApi* | [**list_shift_differentials**](docs/TimeTrackingApi.md#list_shift_differentials) | **GET** /api/v1/time-tracking/shift-differentials | List Time Tracking Shift Differentials
+*TimeTrackingApi* | [**list_time_tracking_configurations**](docs/TimeTrackingApi.md#list_time_tracking_configurations) | **GET** /api/v1/time-tracking/configurations | List Configurations
+*TimeTrackingApi* | [**list_time_tracking_employees**](docs/TimeTrackingApi.md#list_time_tracking_employees) | **GET** /api/v1/time-tracking/employees | List Enrolled Employees
+*TimeTrackingApi* | [**list_time_tracking_kiosks**](docs/TimeTrackingApi.md#list_time_tracking_kiosks) | **GET** /api/v1/time-tracking/kiosks | List Time Tracking Kiosks
+*TimeTrackingApi* | [**list_time_tracking_time_clocks**](docs/TimeTrackingApi.md#list_time_tracking_time_clocks) | **GET** /api/v1/time-tracking/time-clocks | List Time Tracking Time Clocks
 *TimeTrackingApi* | [**list_timesheet_entries**](docs/TimeTrackingApi.md#list_timesheet_entries) | **GET** /api/v1/time_tracking/timesheet_entries | List Timesheet Entries
-*TimeTrackingApi* | [**replace_breaks_for_break_policy**](docs/TimeTrackingApi.md#replace_breaks_for_break_policy) | **PUT** /api/v1/time-tracking/break-policies/{id}/breaks | Replace Breaks for Break Policy
-*TimeTrackingApi* | [**set_break_policy_employees**](docs/TimeTrackingApi.md#set_break_policy_employees) | **PUT** /api/v1/time-tracking/break-policies/{id}/assign | Set Employees for Break Policy
-*TimeTrackingApi* | [**sync_break_policy**](docs/TimeTrackingApi.md#sync_break_policy) | **PUT** /api/v1/time-tracking/break-policies/{id}/sync | Sync Break Policy
-*TimeTrackingApi* | [**unassign_employees_from_break_policy**](docs/TimeTrackingApi.md#unassign_employees_from_break_policy) | **POST** /api/v1/time-tracking/break-policies/{id}/unassign | Unassign Employees from Break Policy
-*TimeTrackingApi* | [**update_break**](docs/TimeTrackingApi.md#update_break) | **PATCH** /api/v1/time-tracking/breaks/{id} | Update Break
-*TimeTrackingApi* | [**update_break_policy**](docs/TimeTrackingApi.md#update_break_policy) | **PATCH** /api/v1/time-tracking/break-policies/{id} | Update Break Policy
+*TimeTrackingApi* | [**list_timesheets**](docs/TimeTrackingApi.md#list_timesheets) | **GET** /api/v1/time-tracking/timesheets | List Timesheets
+*TimeTrackingApi* | [**update_clock_entry**](docs/TimeTrackingApi.md#update_clock_entry) | **PATCH** /api/v1/time-tracking/clock-entries/{id} | Update Clock Entry
+*TimeTrackingApi* | [**update_hour_entry**](docs/TimeTrackingApi.md#update_hour_entry) | **PATCH** /api/v1/time-tracking/hour-entries/{id} | Update Hour Entry
+*TimeTrackingApi* | [**update_project**](docs/TimeTrackingApi.md#update_project) | **PATCH** /api/v1/time-tracking/projects/{id} | Update Time Tracking Project
+*TimeTrackingApi* | [**update_shift_differential**](docs/TimeTrackingApi.md#update_shift_differential) | **PATCH** /api/v1/time-tracking/shift-differentials/{id} | Update Time Tracking Shift Differential
+*TimeTrackingApi* | [**update_task**](docs/TimeTrackingApi.md#update_task) | **PATCH** /api/v1/time-tracking/tasks/{id} | Update Time Tracking Task
+*TimeTrackingApi* | [**update_time_tracking_configuration**](docs/TimeTrackingApi.md#update_time_tracking_configuration) | **PATCH** /api/v1/time-tracking/configurations/{id} | Update Configuration
+*TimeTrackingApi* | [**update_time_tracking_employee_enrollment**](docs/TimeTrackingApi.md#update_time_tracking_employee_enrollment) | **PATCH** /api/v1/time-tracking/employees/{employeeId} | Update Employee Enrollment
+*TimeTrackingApi* | [**update_time_tracking_kiosk**](docs/TimeTrackingApi.md#update_time_tracking_kiosk) | **PATCH** /api/v1/time-tracking/kiosks/{id} | Update Time Tracking Kiosk
+*TimeTrackingApi* | [**update_time_tracking_time_clock**](docs/TimeTrackingApi.md#update_time_tracking_time_clock) | **PATCH** /api/v1/time-tracking/time-clocks/{id} | Update Time Tracking Time Clock
+*TotalRewardsApi* | [**add_total_rewards_employees**](docs/TotalRewardsApi.md#add_total_rewards_employees) | **POST** /api/v1/compensation/total_rewards/employees | Add Employees to Total Rewards
+*TotalRewardsApi* | [**check_total_rewards_profile**](docs/TotalRewardsApi.md#check_total_rewards_profile) | **GET** /api/v1/compensation/total_rewards/{employeeId} | Check Total Rewards Profile Availability
+*TotalRewardsApi* | [**get_total_rewards_printable_statement**](docs/TotalRewardsApi.md#get_total_rewards_printable_statement) | **GET** /api/v1/compensation/total_rewards/{employeeId}/printable | Get Printable Total Rewards Statement
+*TotalRewardsApi* | [**get_total_rewards_statement**](docs/TotalRewardsApi.md#get_total_rewards_statement) | **GET** /api/v1/compensation/total_rewards/{employeeId}/statement | Get Total Rewards Statement
+*TotalRewardsApi* | [**remove_total_rewards_custom_disclaimer**](docs/TotalRewardsApi.md#remove_total_rewards_custom_disclaimer) | **DELETE** /api/v1/compensation/total_rewards/custom_disclaimer | Remove Total Rewards Custom Disclaimer
+*TotalRewardsApi* | [**remove_total_rewards_employees**](docs/TotalRewardsApi.md#remove_total_rewards_employees) | **DELETE** /api/v1/compensation/total_rewards/employees | Remove Employees from Total Rewards
+*TotalRewardsApi* | [**set_total_rewards_custom_disclaimer**](docs/TotalRewardsApi.md#set_total_rewards_custom_disclaimer) | **PUT** /api/v1/compensation/total_rewards/custom_disclaimer | Set Total Rewards Custom Disclaimer
+*TotalRewardsApi* | [**set_total_rewards_onboarding_step**](docs/TotalRewardsApi.md#set_total_rewards_onboarding_step) | **PUT** /api/v1/compensation/total_rewards/onboarding/{stepName} | Set Total Rewards Onboarding Step Status
 *TrainingApi* | [**create_employee_training_record**](docs/TrainingApi.md#create_employee_training_record) | **POST** /api/v1/training/record/employee/{employeeId} | Create Employee Training Record
 *TrainingApi* | [**create_training_category**](docs/TrainingApi.md#create_training_category) | **POST** /api/v1/training/category | Create Training Category
 *TrainingApi* | [**create_training_type**](docs/TrainingApi.md#create_training_type) | **POST** /api/v1/training/type | Create Training Type
@@ -412,56 +794,83 @@ Class | Method | HTTP request | Description
 *TrainingApi* | [**update_training_type**](docs/TrainingApi.md#update_training_type) | **PUT** /api/v1/training/type/{trainingTypeId} | Update Training Type
 *WebhooksApi* | [**create_webhook**](docs/WebhooksApi.md#create_webhook) | **POST** /api/v1/webhooks | Create Webhook
 *WebhooksApi* | [**delete_webhook**](docs/WebhooksApi.md#delete_webhook) | **DELETE** /api/v1/webhooks/{id} | Delete Webhook
-*WebhooksApi* | [**get_monitor_fields**](docs/WebhooksApi.md#get_monitor_fields) | **GET** /api/v1/webhooks/monitor_fields | Get Monitor Fields
-*WebhooksApi* | [**get_post_fields**](docs/WebhooksApi.md#get_post_fields) | **GET** /api/v1/webhooks/post-fields | Get Post Fields
+*WebhooksApi* | [**get_post_fields**](docs/WebhooksApi.md#get_post_fields) | **GET** /api/v1/webhooks/post-fields | Get Webhook Post Fields
 *WebhooksApi* | [**get_webhook**](docs/WebhooksApi.md#get_webhook) | **GET** /api/v1/webhooks/{id} | Get Webhook
-*WebhooksApi* | [**get_webhook_logs**](docs/WebhooksApi.md#get_webhook_logs) | **GET** /api/v1/webhooks/{id}/log | Get Webhook Logs
+*WebhooksApi* | [**list_monitor_fields**](docs/WebhooksApi.md#list_monitor_fields) | **GET** /api/v1/webhooks/monitor_fields | List Monitor Fields
+*WebhooksApi* | [**list_webhook_logs**](docs/WebhooksApi.md#list_webhook_logs) | **GET** /api/v1/webhooks/{id}/log | List Webhook Logs
 *WebhooksApi* | [**list_webhooks**](docs/WebhooksApi.md#list_webhooks) | **GET** /api/v1/webhooks | List Webhooks
 *WebhooksApi* | [**update_webhook**](docs/WebhooksApi.md#update_webhook) | **PUT** /api/v1/webhooks/{id} | Update Webhook
 
 
 ## Models
 
+- [A05b6d5f564f805d688ff2c1e37c3990Request](docs/A05b6d5f564f805d688ff2c1e37c3990Request.md)
+- [AddCustomFieldListValueRequest](docs/AddCustomFieldListValueRequest.md)
+- [AddCustomFieldListValueResponse](docs/AddCustomFieldListValueResponse.md)
+- [AddCustomFieldListValueResponseOneOfInner](docs/AddCustomFieldListValueResponseOneOfInner.md)
+- [AddCycleAdminsResponse](docs/AddCycleAdminsResponse.md)
+- [AddCycleAdminsResponseAddedInner](docs/AddCycleAdminsResponseAddedInner.md)
+- [AddCycleAdminsResponseSkippedInner](docs/AddCycleAdminsResponseSkippedInner.md)
+- [AddTotalRewardsEmployeesRequest](docs/AddTotalRewardsEmployeesRequest.md)
 - [AdjustTimeOffBalance](docs/AdjustTimeOffBalance.md)
 - [AdjustTimeTrackingRequestSchema](docs/AdjustTimeTrackingRequestSchema.md)
+- [AlertConfigurationV1](docs/AlertConfigurationV1.md)
+- [AlertConfigurationWriteV1](docs/AlertConfigurationWriteV1.md)
+- [AlertTemplateListResponseV1](docs/AlertTemplateListResponseV1.md)
+- [AlertTemplateListResponseV1AlertsInner](docs/AlertTemplateListResponseV1AlertsInner.md)
 - [AlignmentOptionsResponse](docs/AlignmentOptionsResponse.md)
 - [AlignmentOptionsResponseAlignsWithOptionsInner](docs/AlignmentOptionsResponseAlignsWithOptionsInner.md)
 - [ApplicantStatus](docs/ApplicantStatus.md)
 - [ApplicationDetails](docs/ApplicationDetails.md)
 - [ApplicationDetailsApplicant](docs/ApplicationDetailsApplicant.md)
-- [ApplicationDetailsApplicantAddress](docs/ApplicationDetailsApplicantAddress.md)
-- [ApplicationDetailsApplicantEducation](docs/ApplicationDetailsApplicantEducation.md)
-- [ApplicationDetailsApplicantEducationLevel](docs/ApplicationDetailsApplicantEducationLevel.md)
 - [ApplicationDetailsAttachmentsInner](docs/ApplicationDetailsAttachmentsInner.md)
 - [ApplicationDetailsJob](docs/ApplicationDetailsJob.md)
-- [ApplicationDetailsJobHiringLead](docs/ApplicationDetailsJobHiringLead.md)
-- [ApplicationDetailsJobHiringLeadJobTitle](docs/ApplicationDetailsJobHiringLeadJobTitle.md)
 - [ApplicationDetailsJobTitle](docs/ApplicationDetailsJobTitle.md)
 - [ApplicationDetailsQuestionsAndAnswersInner](docs/ApplicationDetailsQuestionsAndAnswersInner.md)
 - [ApplicationDetailsQuestionsAndAnswersInnerAnswer](docs/ApplicationDetailsQuestionsAndAnswersInnerAnswer.md)
 - [ApplicationDetailsQuestionsAndAnswersInnerQuestion](docs/ApplicationDetailsQuestionsAndAnswersInnerQuestion.md)
 - [ApplicationDetailsStatus](docs/ApplicationDetailsStatus.md)
-- [ApplicationDetailsStatusChangedByUser](docs/ApplicationDetailsStatusChangedByUser.md)
-- [ApplicationDetailsStatusChangedByUserJobTitle](docs/ApplicationDetailsStatusChangedByUserJobTitle.md)
 - [ApplicationsList](docs/ApplicationsList.md)
 - [ApplicationsListApplicationsInner](docs/ApplicationsListApplicationsInner.md)
 - [ApplicationsListApplicationsInnerApplicant](docs/ApplicationsListApplicationsInnerApplicant.md)
 - [ApplicationsListApplicationsInnerJob](docs/ApplicationsListApplicationsInnerJob.md)
 - [ApplicationsListApplicationsInnerJobTitle](docs/ApplicationsListApplicationsInnerJobTitle.md)
 - [ApplicationsListApplicationsInnerStatus](docs/ApplicationsListApplicationsInnerStatus.md)
+- [ApproveTimesheetRequest](docs/ApproveTimesheetRequest.md)
+- [ArchiveCustomFieldResponse](docs/ArchiveCustomFieldResponse.md)
+- [ArchivedCustomFieldsListResponse](docs/ArchivedCustomFieldsListResponse.md)
 - [AssignEmployeesToBreakPolicyRequest](docs/AssignEmployeesToBreakPolicyRequest.md)
-- [AssignTimeOffPoliciesRequestInner](docs/AssignTimeOffPoliciesRequestInner.md)
+- [AssignTimeOffPoliciesV1RequestInner](docs/AssignTimeOffPoliciesV1RequestInner.md)
 - [AssignedTimeOffPolicy](docs/AssignedTimeOffPolicy.md)
 - [AssignedTimeOffPolicyV11](docs/AssignedTimeOffPolicyV11.md)
 - [AvailableAction](docs/AvailableAction.md)
-- [BadRequest](docs/BadRequest.md)
-- [BadRequestError](docs/BadRequestError.md)
+- [BadRequestV1](docs/BadRequestV1.md)
+- [BadRequestV1Error](docs/BadRequestV1Error.md)
+- [BankHoliday](docs/BankHoliday.md)
 - [BenefitCoveragesResponse](docs/BenefitCoveragesResponse.md)
 - [BenefitCoveragesResponseBenefitCoveragesInner](docs/BenefitCoveragesResponseBenefitCoveragesInner.md)
 - [BenefitDeductionSubType](docs/BenefitDeductionSubType.md)
 - [BenefitDeductionType](docs/BenefitDeductionType.md)
 - [BenefitDeductionTypeId](docs/BenefitDeductionTypeId.md)
+- [BudgetBreakdownImportResponse](docs/BudgetBreakdownImportResponse.md)
+- [BudgetGuidelinesView](docs/BudgetGuidelinesView.md)
+- [BudgetGuidelinesWarnings](docs/BudgetGuidelinesWarnings.md)
+- [C79f9c5950f983e59d2626faa30c00a1Request](docs/C79f9c5950f983e59d2626faa30c00a1Request.md)
+- [C7c32ed5278ac67e2e518bf7484a75dcRequest](docs/C7c32ed5278ac67e2e518bf7484a75dcRequest.md)
+- [CalendarAnniversaryCalendarEventV1](docs/CalendarAnniversaryCalendarEventV1.md)
+- [CalendarBirthdayCalendarEventV1](docs/CalendarBirthdayCalendarEventV1.md)
+- [CalendarCalendarEventPersonV1](docs/CalendarCalendarEventPersonV1.md)
+- [CalendarCalendarEventsListResponseV1](docs/CalendarCalendarEventsListResponseV1.md)
+- [CalendarCalendarEventsListResponseV1DataInner](docs/CalendarCalendarEventsListResponseV1DataInner.md)
+- [CalendarCalendarEventsListResponseV1Links](docs/CalendarCalendarEventsListResponseV1Links.md)
+- [CalendarCalendarEventsListResponseV1LinksNext](docs/CalendarCalendarEventsListResponseV1LinksNext.md)
+- [CalendarCalendarEventsListResponseV1LinksPrev](docs/CalendarCalendarEventsListResponseV1LinksPrev.md)
+- [CalendarCalendarEventsListResponseV1Meta](docs/CalendarCalendarEventsListResponseV1Meta.md)
+- [CalendarHolidayCalendarEventV1](docs/CalendarHolidayCalendarEventV1.md)
+- [CalendarTimeOffCalendarEventV1](docs/CalendarTimeOffCalendarEventV1.md)
 - [CanCreateGoalsResponse](docs/CanCreateGoalsResponse.md)
+- [Cf87b8e09a001b6fb81dfce6c20ab9e3Request](docs/Cf87b8e09a001b6fb81dfce6c20ab9e3Request.md)
+- [ChangeCustomFieldListValueRequest](docs/ChangeCustomFieldListValueRequest.md)
 - [ChangedEmployeeIdsResponse](docs/ChangedEmployeeIdsResponse.md)
 - [ChangedEmployeeIdsResponseEmployeesValue](docs/ChangedEmployeeIdsResponseEmployeesValue.md)
 - [ChangedEmployeeTableDataResponse](docs/ChangedEmployeeTableDataResponse.md)
@@ -469,10 +878,13 @@ Class | Method | HTTP request | Description
 - [ChangedEmployeeTableDataResponseEmployeesValueRowsInnerValue](docs/ChangedEmployeeTableDataResponseEmployeesValueRowsInnerValue.md)
 - [ChangedEmployeeTableDataResponseEmployeesValueRowsInnerValueAnyOfInner](docs/ChangedEmployeeTableDataResponseEmployeesValueRowsInnerValueAnyOfInner.md)
 - [ClockEntriesSchema](docs/ClockEntriesSchema.md)
+- [ClockEntryClockEntryLocationInputV1](docs/ClockEntryClockEntryLocationInputV1.md)
+- [ClockEntryCreateClockEntryV1](docs/ClockEntryCreateClockEntryV1.md)
 - [ClockEntryIdsSchema](docs/ClockEntryIdsSchema.md)
 - [ClockEntrySchema](docs/ClockEntrySchema.md)
 - [ClockInRequestSchema](docs/ClockInRequestSchema.md)
 - [ClockOutRequestSchema](docs/ClockOutRequestSchema.md)
+- [CloseGoalRequest](docs/CloseGoalRequest.md)
 - [CompanyBenefitSummary](docs/CompanyBenefitSummary.md)
 - [CompanyBenefitsListResponse](docs/CompanyBenefitsListResponse.md)
 - [CompanyDeletedWebhookPayload](docs/CompanyDeletedWebhookPayload.md)
@@ -480,39 +892,105 @@ Class | Method | HTTP request | Description
 - [CompanyFilesResponse](docs/CompanyFilesResponse.md)
 - [CompanyFilesResponseCategoriesInner](docs/CompanyFilesResponseCategoriesInner.md)
 - [CompanyFilesResponseCategoriesInnerFilesInner](docs/CompanyFilesResponseCategoriesInnerFilesInner.md)
+- [CompanyIndustryDataObject](docs/CompanyIndustryDataObject.md)
 - [CompanyInformation](docs/CompanyInformation.md)
 - [CompanyInformationAddress](docs/CompanyInformationAddress.md)
 - [CompanyIntegrationsUpdatedWebhookPayload](docs/CompanyIntegrationsUpdatedWebhookPayload.md)
 - [CompanyIntegrationsUpdatedWebhookPayloadData](docs/CompanyIntegrationsUpdatedWebhookPayloadData.md)
+- [CompanyProfileData](docs/CompanyProfileData.md)
+- [CompanyProfileDataAddress](docs/CompanyProfileDataAddress.md)
 - [CompanyProfileIntegrations](docs/CompanyProfileIntegrations.md)
 - [CompanyUpdatedWebhookPayload](docs/CompanyUpdatedWebhookPayload.md)
+- [CompensationBenchmarkDetailEmployee](docs/CompensationBenchmarkDetailEmployee.md)
+- [CompensationBenchmarkDetailEmployeeJobTitle](docs/CompensationBenchmarkDetailEmployeeJobTitle.md)
+- [CompensationBenchmarkDetailEmployeeSalary](docs/CompensationBenchmarkDetailEmployeeSalary.md)
+- [CompensationBenchmarkDetails](docs/CompensationBenchmarkDetails.md)
+- [CompensationBenchmarkDetailsBenchmarkValuesInner](docs/CompensationBenchmarkDetailsBenchmarkValuesInner.md)
+- [CompensationBenchmarkJobLocationEmployee](docs/CompensationBenchmarkJobLocationEmployee.md)
+- [CompensationBenchmarkJobLocationEmployeeSalary](docs/CompensationBenchmarkJobLocationEmployeeSalary.md)
+- [CompensationBenchmarkJobLocationPair](docs/CompensationBenchmarkJobLocationPair.md)
+- [CompensationBenchmarkJobLocationPairJobDetails](docs/CompensationBenchmarkJobLocationPairJobDetails.md)
+- [CompensationBenchmarkOverview](docs/CompensationBenchmarkOverview.md)
+- [CompensationBenchmarkOverviewValues](docs/CompensationBenchmarkOverviewValues.md)
+- [CompensationBenchmarkSource](docs/CompensationBenchmarkSource.md)
+- [CompensationBenchmarkingColumnMap](docs/CompensationBenchmarkingColumnMap.md)
+- [CompensationBenchmarksList](docs/CompensationBenchmarksList.md)
+- [CompensationEquitySettingsResponse](docs/CompensationEquitySettingsResponse.md)
+- [CompensationEquitySettingsResponseCompanyValuation](docs/CompensationEquitySettingsResponseCompanyValuation.md)
+- [CompensationEquitySettingsResponseDisclaimers](docs/CompensationEquitySettingsResponseDisclaimers.md)
+- [CompensationEquitySettingsResponseOutstandingShares](docs/CompensationEquitySettingsResponseOutstandingShares.md)
+- [CompensationEquitySettingsResponsePricePerShare](docs/CompensationEquitySettingsResponsePricePerShare.md)
+- [CompensationEquitySettingsResponseSliderMin](docs/CompensationEquitySettingsResponseSliderMin.md)
+- [CompensationEquitySettingsResponseVestingConditions](docs/CompensationEquitySettingsResponseVestingConditions.md)
+- [CompensationEquitySettingsUpdateRequest](docs/CompensationEquitySettingsUpdateRequest.md)
+- [CompensationPlanningCycleAdminsResponse](docs/CompensationPlanningCycleAdminsResponse.md)
+- [CompensationPlanningCycleAdminsResponseAdminsInner](docs/CompensationPlanningCycleAdminsResponseAdminsInner.md)
+- [CompensationPlanningCycleCompleteResponse](docs/CompensationPlanningCycleCompleteResponse.md)
+- [CompensationPlanningCycleCompleteResponseErrorsInner](docs/CompensationPlanningCycleCompleteResponseErrorsInner.md)
+- [CompensationToolsDataObject](docs/CompensationToolsDataObject.md)
+- [CompensationToolsResponse](docs/CompensationToolsResponse.md)
+- [CompensationUpsellData](docs/CompensationUpsellData.md)
+- [CompletedQuestionsAndResponseDataObject](docs/CompletedQuestionsAndResponseDataObject.md)
+- [ConversionRateDataObject](docs/ConversionRateDataObject.md)
+- [CountriesOptionsResponse](docs/CountriesOptionsResponse.md)
 - [Country](docs/Country.md)
 - [CountrySchema](docs/CountrySchema.md)
 - [CreateApplicationCommentRequest](docs/CreateApplicationCommentRequest.md)
 - [CreateCandidateResponse](docs/CreateCandidateResponse.md)
 - [CreateCommentResponse](docs/CreateCommentResponse.md)
+- [CreateCompensationBenchmarkRequest](docs/CreateCompensationBenchmarkRequest.md)
+- [CreateCompensationBenchmarkSourceRequest](docs/CreateCompensationBenchmarkSourceRequest.md)
 - [CreateEmployeeTrainingRecordRequest](docs/CreateEmployeeTrainingRecordRequest.md)
 - [CreateEmployeeTrainingRecordRequestCost](docs/CreateEmployeeTrainingRecordRequestCost.md)
+- [CreateGoalCommentRequest](docs/CreateGoalCommentRequest.md)
+- [CreateGoalRequest](docs/CreateGoalRequest.md)
+- [CreateGoalRequestMilestonesInner](docs/CreateGoalRequestMilestonesInner.md)
 - [CreateJobOpeningResponse](docs/CreateJobOpeningResponse.md)
+- [CreateLocationRequest](docs/CreateLocationRequest.md)
+- [CreateLocationRequestAddress](docs/CreateLocationRequestAddress.md)
 - [CreateTrainingCategoryRequest](docs/CreateTrainingCategoryRequest.md)
 - [CreateTrainingTypeRequest](docs/CreateTrainingTypeRequest.md)
 - [CreateTrainingTypeRequestCategory](docs/CreateTrainingTypeRequestCategory.md)
-- [CreateTrainingTypeRequestDueFromHireDate](docs/CreateTrainingTypeRequestDueFromHireDate.md)
-- [CreateTrainingTypeRequestDueFromHireDateOneOf](docs/CreateTrainingTypeRequestDueFromHireDateOneOf.md)
 - [CreateWebhookBadRequestResponse](docs/CreateWebhookBadRequestResponse.md)
+- [CreatedCompensationBenchmark](docs/CreatedCompensationBenchmark.md)
+- [CreatedCompensationBenchmarkSavedBenchmark](docs/CreatedCompensationBenchmarkSavedBenchmark.md)
+- [CreatedCompensationBenchmarkSource](docs/CreatedCompensationBenchmarkSource.md)
+- [CreatedTimeOffRequest](docs/CreatedTimeOffRequest.md)
+- [CreatedTimeOffRequestAmount](docs/CreatedTimeOffRequestAmount.md)
+- [CreatedTimeOffRequestNotes](docs/CreatedTimeOffRequestNotes.md)
+- [CreatedTimeOffRequestStatus](docs/CreatedTimeOffRequestStatus.md)
+- [CreatedTimeOffRequestType](docs/CreatedTimeOffRequestType.md)
+- [CurrencyConversionsResponse](docs/CurrencyConversionsResponse.md)
 - [CursorPagedResponseMetadata](docs/CursorPagedResponseMetadata.md)
 - [CursorPagesResponse](docs/CursorPagesResponse.md)
-- [CursorPaginationQueryObject](docs/CursorPaginationQueryObject.md)
+- [CustomFieldDefinitionResponseObject](docs/CustomFieldDefinitionResponseObject.md)
+- [CustomFieldDefinitionResponseObjectValuesInner](docs/CustomFieldDefinitionResponseObjectValuesInner.md)
+- [CustomFieldRequest](docs/CustomFieldRequest.md)
+- [CustomFieldTypeViewObject](docs/CustomFieldTypeViewObject.md)
+- [CustomFieldViewObject](docs/CustomFieldViewObject.md)
+- [CustomFieldsListResponse](docs/CustomFieldsListResponse.md)
+- [CustomReportResponse](docs/CustomReportResponse.md)
+- [CustomReportResponseFieldsInner](docs/CustomReportResponseFieldsInner.md)
+- [Dacd313af2106213fc4696175941ce65Request](docs/Dacd313af2106213fc4696175941ce65Request.md)
 - [DataRequest](docs/DataRequest.md)
-- [DataRequestAggregationsInner](docs/DataRequestAggregationsInner.md)
+- [DataRequestAggregations](docs/DataRequestAggregations.md)
 - [DataRequestFilters](docs/DataRequestFilters.md)
 - [DataRequestFiltersFiltersInner](docs/DataRequestFiltersFiltersInner.md)
 - [DataRequestSortByInner](docs/DataRequestSortByInner.md)
-- [Dataset](docs/Dataset.md)
+- [DatasetDataResponseV2](docs/DatasetDataResponseV2.md)
+- [DatasetDataResponseV2DataInner](docs/DatasetDataResponseV2DataInner.md)
+- [DatasetDataResponseV2DataInnerFieldsValue](docs/DatasetDataResponseV2DataInnerFieldsValue.md)
+- [DatasetDataResponseV2Links](docs/DatasetDataResponseV2Links.md)
+- [DatasetDataResponseV2Meta](docs/DatasetDataResponseV2Meta.md)
 - [DatasetFieldsResponse](docs/DatasetFieldsResponse.md)
-- [DatasetResponse](docs/DatasetResponse.md)
-- [DatasetsResponse](docs/DatasetsResponse.md)
-- [DatasetsResponseDatasetsInner](docs/DatasetsResponseDatasetsInner.md)
+- [DatasetResponseV1](docs/DatasetResponseV1.md)
+- [DatasetV1](docs/DatasetV1.md)
+- [DatasetsResponseV12](docs/DatasetsResponseV12.md)
+- [DatasetsResponseV12DatasetsInner](docs/DatasetsResponseV12DatasetsInner.md)
+- [DeleteCompensationBenchmarkSourceRequest](docs/DeleteCompensationBenchmarkSourceRequest.md)
+- [DeleteCompensationBenchmarkSourceResponse](docs/DeleteCompensationBenchmarkSourceResponse.md)
+- [DetailsAndCurrencyRequestDataObject](docs/DetailsAndCurrencyRequestDataObject.md)
+- [Ec1ba8e76f33960b018d0d7518fe97b5Request](docs/Ec1ba8e76f33960b018d0d7518fe97b5Request.md)
 - [Employee](docs/Employee.md)
 - [EmployeeBenefitFilters](docs/EmployeeBenefitFilters.md)
 - [EmployeeBenefitFiltersFilters](docs/EmployeeBenefitFiltersFilters.md)
@@ -521,41 +999,70 @@ Class | Method | HTTP request | Description
 - [EmployeeBenefitsListResponseEmployeeBenefitsInnerEmployeeBenefitInner](docs/EmployeeBenefitsListResponseEmployeeBenefitsInnerEmployeeBenefitInner.md)
 - [EmployeeCreatedWebhookPayload](docs/EmployeeCreatedWebhookPayload.md)
 - [EmployeeCreatedWebhookPayloadData](docs/EmployeeCreatedWebhookPayloadData.md)
+- [EmployeeCursorPaginationQueryObject](docs/EmployeeCursorPaginationQueryObject.md)
 - [EmployeeDeletedWebhookPayload](docs/EmployeeDeletedWebhookPayload.md)
 - [EmployeeDeletedWebhookPayloadData](docs/EmployeeDeletedWebhookPayloadData.md)
 - [EmployeeDependent](docs/EmployeeDependent.md)
 - [EmployeeDependentsResponse](docs/EmployeeDependentsResponse.md)
 - [EmployeeDependentsResponseEmployeeDependentsInner](docs/EmployeeDependentsResponseEmployeeDependentsInner.md)
 - [EmployeeFileUpdate](docs/EmployeeFileUpdate.md)
+- [EmployeeOptionalField](docs/EmployeeOptionalField.md)
+- [EmployeePhotoJsonResponse](docs/EmployeePhotoJsonResponse.md)
 - [EmployeeResponse](docs/EmployeeResponse.md)
 - [EmployeeResponseAggregationsInner](docs/EmployeeResponseAggregationsInner.md)
+- [EmployeeStringCodeErrorResponseV1](docs/EmployeeStringCodeErrorResponseV1.md)
+- [EmployeeStringCodeErrorResponseV1Error](docs/EmployeeStringCodeErrorResponseV1Error.md)
 - [EmployeeTableRow](docs/EmployeeTableRow.md)
-- [EmployeeTableRowValue](docs/EmployeeTableRowValue.md)
-- [EmployeeTableRowValueAnyOfInner](docs/EmployeeTableRowValueAnyOfInner.md)
 - [EmployeeTimeOffPolicyAssignment](docs/EmployeeTimeOffPolicyAssignment.md)
 - [EmployeeTimeOffPolicyAssignmentV11](docs/EmployeeTimeOffPolicyAssignmentV11.md)
+- [EmployeeTimeOffRequestApproverResponseInner](docs/EmployeeTimeOffRequestApproverResponseInner.md)
 - [EmployeeTimesheetEntryTransformer](docs/EmployeeTimesheetEntryTransformer.md)
 - [EmployeeUpdatedWebhookPayload](docs/EmployeeUpdatedWebhookPayload.md)
 - [EmployeeUpdatedWebhookPayloadData](docs/EmployeeUpdatedWebhookPayloadData.md)
 - [EmployeeValue](docs/EmployeeValue.md)
 - [EmployeeValueAnyOfInner](docs/EmployeeValueAnyOfInner.md)
+- [EmployeeVerificationIntegration](docs/EmployeeVerificationIntegration.md)
+- [EmployeeVerificationIntegrationResponse](docs/EmployeeVerificationIntegrationResponse.md)
+- [EmployeeVerificationLifecycleEmailAcceptedResponse](docs/EmployeeVerificationLifecycleEmailAcceptedResponse.md)
+- [EmployeeVerificationPublicApiRecord](docs/EmployeeVerificationPublicApiRecord.md)
+- [EmployeeVerificationUpdateResponse](docs/EmployeeVerificationUpdateResponse.md)
+- [EmployeeVerificationsListResponse](docs/EmployeeVerificationsListResponse.md)
+- [EmployeesDirectoryJsonResponse](docs/EmployeesDirectoryJsonResponse.md)
+- [EmployeesDirectoryJsonResponseFieldsInner](docs/EmployeesDirectoryJsonResponseFieldsInner.md)
+- [EmployeesDirectoryXmlResponse](docs/EmployeesDirectoryXmlResponse.md)
+- [EmployeesDirectoryXmlResponseEmployees](docs/EmployeesDirectoryXmlResponseEmployees.md)
+- [EmployeesDirectoryXmlResponseEmployeesEmployeeInner](docs/EmployeesDirectoryXmlResponseEmployeesEmployeeInner.md)
+- [EmployeesDirectoryXmlResponseEmployeesEmployeeInnerFieldInner](docs/EmployeesDirectoryXmlResponseEmployeesEmployeeInnerFieldInner.md)
+- [EmployeesDirectoryXmlResponseFieldset](docs/EmployeesDirectoryXmlResponseFieldset.md)
+- [EmployeesDirectoryXmlResponseFieldsetFieldInner](docs/EmployeesDirectoryXmlResponseFieldsetFieldInner.md)
+- [ErrorResponse](docs/ErrorResponse.md)
+- [ErrorResponseError](docs/ErrorResponseError.md)
+- [F3883a522dadbe9e11b34f8b656e3adbRequest](docs/F3883a522dadbe9e11b34f8b656e3adbRequest.md)
 - [Field1](docs/Field1.md)
 - [Field1Id](docs/Field1Id.md)
-- [FieldList](docs/FieldList.md)
-- [FieldListFieldsInner](docs/FieldListFieldsInner.md)
 - [FieldOptionsRequestSchema](docs/FieldOptionsRequestSchema.md)
 - [FieldOptionsRequestSchemaDependentFieldsValueInner](docs/FieldOptionsRequestSchemaDependentFieldsValueInner.md)
 - [FieldOptionsTransformer](docs/FieldOptionsTransformer.md)
-- [Forbidden](docs/Forbidden.md)
+- [FieldOptionsTransformerId](docs/FieldOptionsTransformerId.md)
+- [ForbiddenV1](docs/ForbiddenV1.md)
+- [ForbiddenV1Error](docs/ForbiddenV1Error.md)
+- [GetBreakPolicySuggestionsRequest](docs/GetBreakPolicySuggestionsRequest.md)
 - [GetCompanyReportResponse](docs/GetCompanyReportResponse.md)
+- [GetCompanyReportResponseEmployeesInner](docs/GetCompanyReportResponseEmployeesInner.md)
+- [GetDataFromDatasetV2Request](docs/GetDataFromDatasetV2Request.md)
+- [GetEmployeeResponse](docs/GetEmployeeResponse.md)
+- [GetEmployeesEmployeeBaseResponse](docs/GetEmployeesEmployeeBaseResponse.md)
 - [GetEmployeesEmployeeResponse](docs/GetEmployeesEmployeeResponse.md)
+- [GetEmployeesEmployeeResponseAllOfOvertimeRate](docs/GetEmployeesEmployeeResponseAllOfOvertimeRate.md)
+- [GetEmployeesEmployeeResponseAllOfPayRate](docs/GetEmployeesEmployeeResponseAllOfPayRate.md)
+- [GetEmployeesEmployeeResponseAllOfTeams](docs/GetEmployeesEmployeeResponseAllOfTeams.md)
 - [GetEmployeesFilterRequestObject](docs/GetEmployeesFilterRequestObject.md)
 - [GetEmployeesResponseObject](docs/GetEmployeesResponseObject.md)
 - [GetEmployeesResponseObjectLinks](docs/GetEmployeesResponseObjectLinks.md)
 - [GetEmployeesResponseObjectLinksNext](docs/GetEmployeesResponseObjectLinksNext.md)
 - [GetEmployeesResponseObjectLinksPrev](docs/GetEmployeesResponseObjectLinksPrev.md)
 - [GetEmployeesResponseObjectLinksSelf](docs/GetEmployeesResponseObjectLinksSelf.md)
-- [Goal](docs/Goal.md)
+- [GlobalHolidayGlobalHolidayV1](docs/GlobalHolidayGlobalHolidayV1.md)
 - [GoalAggregate](docs/GoalAggregate.md)
 - [GoalAggregateAlignsWithOptionsInner](docs/GoalAggregateAlignsWithOptionsInner.md)
 - [GoalAggregateCommentsInner](docs/GoalAggregateCommentsInner.md)
@@ -568,6 +1075,7 @@ Class | Method | HTTP request | Description
 - [GoalFiltersV11FiltersInner](docs/GoalFiltersV11FiltersInner.md)
 - [GoalFiltersV11FiltersInnerActions](docs/GoalFiltersV11FiltersInnerActions.md)
 - [GoalFiltersV1FiltersInner](docs/GoalFiltersV1FiltersInner.md)
+- [GoalResponse](docs/GoalResponse.md)
 - [GoalsAggregateV1](docs/GoalsAggregateV1.md)
 - [GoalsAggregateV11](docs/GoalsAggregateV11.md)
 - [GoalsAggregateV11CommentsInner](docs/GoalsAggregateV11CommentsInner.md)
@@ -577,30 +1085,64 @@ Class | Method | HTTP request | Description
 - [GoalsAggregateV1PersonsInner](docs/GoalsAggregateV1PersonsInner.md)
 - [GoalsList](docs/GoalsList.md)
 - [HiringLead](docs/HiringLead.md)
+- [HolidayBulkInsertCompanyHolidayErrorV1](docs/HolidayBulkInsertCompanyHolidayErrorV1.md)
+- [HolidayBulkInsertCompanyHolidayRecordV1](docs/HolidayBulkInsertCompanyHolidayRecordV1.md)
+- [HolidayBulkInsertCompanyHolidaysFailureResponseV1](docs/HolidayBulkInsertCompanyHolidaysFailureResponseV1.md)
+- [HolidayBulkInsertCompanyHolidaysResponseV1](docs/HolidayBulkInsertCompanyHolidaysResponseV1.md)
+- [HolidayCatalogHolidayListResponseV1](docs/HolidayCatalogHolidayListResponseV1.md)
+- [HolidayCatalogHolidayListResponseV1Links](docs/HolidayCatalogHolidayListResponseV1Links.md)
+- [HolidayCompanyHolidayAudienceV1](docs/HolidayCompanyHolidayAudienceV1.md)
+- [HolidayCompanyHolidayListResponseV1](docs/HolidayCompanyHolidayListResponseV1.md)
+- [HolidayCompanyHolidayListResponseV1Links](docs/HolidayCompanyHolidayListResponseV1Links.md)
+- [HolidayCompanyHolidayListResponseV1Meta](docs/HolidayCompanyHolidayListResponseV1Meta.md)
+- [HolidayCompanyHolidayPayStatusHoursV1](docs/HolidayCompanyHolidayPayStatusHoursV1.md)
+- [HolidayCompanyHolidayV1](docs/HolidayCompanyHolidayV1.md)
+- [HolidayCreateCompanyHolidayRequestV1](docs/HolidayCreateCompanyHolidayRequestV1.md)
+- [HolidayUpdateCompanyHolidayRequestV1](docs/HolidayUpdateCompanyHolidayRequestV1.md)
 - [HourEntriesRequestSchema](docs/HourEntriesRequestSchema.md)
+- [HourEntryCreateHourEntryV1](docs/HourEntryCreateHourEntryV1.md)
 - [HourEntryIdsSchema](docs/HourEntryIdsSchema.md)
+- [HourEntryPatchHourEntryV1](docs/HourEntryPatchHourEntryV1.md)
 - [HourEntrySchema](docs/HourEntrySchema.md)
-- [InvalidRequest](docs/InvalidRequest.md)
-- [InvalidRequestError](docs/InvalidRequestError.md)
+- [ImportCompensationBenchmarksResponse](docs/ImportCompensationBenchmarksResponse.md)
+- [Industry](docs/Industry.md)
+- [InlineObject](docs/InlineObject.md)
+- [InlineObject1](docs/InlineObject1.md)
+- [InlineObject1EmployeesInner](docs/InlineObject1EmployeesInner.md)
+- [InlineObject1Status](docs/InlineObject1Status.md)
+- [InlineObject2](docs/InlineObject2.md)
+- [InlineObject2Inner](docs/InlineObject2Inner.md)
 - [JobSummary](docs/JobSummary.md)
-- [JobSummaryDepartment](docs/JobSummaryDepartment.md)
-- [JobSummaryHiringLead](docs/JobSummaryHiringLead.md)
-- [JobSummaryLocation](docs/JobSummaryLocation.md)
 - [JobSummaryStatus](docs/JobSummaryStatus.md)
-- [JsonDirectoryEmployee](docs/JsonDirectoryEmployee.md)
-- [JsonDirectoryEmployeeFieldsInner](docs/JsonDirectoryEmployeeFieldsInner.md)
 - [JsonEmployeeFiles](docs/JsonEmployeeFiles.md)
 - [JsonEmployeeFilesCategoriesInner](docs/JsonEmployeeFilesCategoriesInner.md)
 - [JsonEmployeeFilesCategoriesInnerFilesInner](docs/JsonEmployeeFilesCategoriesInnerFilesInner.md)
 - [JsonEmployeeFilesEmployee](docs/JsonEmployeeFilesEmployee.md)
+- [LegacyReportFieldMapResponse](docs/LegacyReportFieldMapResponse.md)
+- [LegacyReportFieldMapResponseMappingsInner](docs/LegacyReportFieldMapResponseMappingsInner.md)
+- [LegacyReportIDMapResponse](docs/LegacyReportIDMapResponse.md)
+- [LegacyReportIDMapResponseMappingsInner](docs/LegacyReportIDMapResponseMappingsInner.md)
+- [LevelsAndBandsColumnMap](docs/LevelsAndBandsColumnMap.md)
+- [LevelsAndBandsGroupStatusCounts](docs/LevelsAndBandsGroupStatusCounts.md)
+- [LevelsAndBandsJobTitleAssignment](docs/LevelsAndBandsJobTitleAssignment.md)
+- [LevelsAndBandsJobTitleAssignmentsRequest](docs/LevelsAndBandsJobTitleAssignmentsRequest.md)
+- [LevelsAndBandsPayBandValue](docs/LevelsAndBandsPayBandValue.md)
+- [LevelsAndBandsUploadResponse](docs/LevelsAndBandsUploadResponse.md)
 - [ListFieldDetail](docs/ListFieldDetail.md)
 - [ListFieldOption](docs/ListFieldOption.md)
 - [ListFieldValues](docs/ListFieldValues.md)
 - [ListFieldValuesOptionsInner](docs/ListFieldValuesOptionsInner.md)
+- [ListFieldValuesXml](docs/ListFieldValuesXml.md)
+- [ListFieldValuesXmlOptionInner](docs/ListFieldValuesXmlOptionInner.md)
 - [ListUsersResponseValue](docs/ListUsersResponseValue.md)
 - [ListUsersXmlResponse](docs/ListUsersXmlResponse.md)
 - [ListUsersXmlResponseUserInner](docs/ListUsersXmlResponseUserInner.md)
+- [ListValueViewObject](docs/ListValueViewObject.md)
 - [Location](docs/Location.md)
+- [LocationResponseObject](docs/LocationResponseObject.md)
+- [LocationResponseObjectAddress](docs/LocationResponseObjectAddress.md)
+- [LocationResponseObjectAddressCountry](docs/LocationResponseObjectAddressCountry.md)
+- [LocationResponseObjectAddressState](docs/LocationResponseObjectAddressState.md)
 - [LoginFailureResponse](docs/LoginFailureResponse.md)
 - [LoginFailureXmlResponse](docs/LoginFailureXmlResponse.md)
 - [LoginResponse](docs/LoginResponse.md)
@@ -619,27 +1161,110 @@ Class | Method | HTTP request | Description
 - [MemberBenefitsGetSuccessResponseLinksPrev](docs/MemberBenefitsGetSuccessResponseLinksPrev.md)
 - [MemberBenefitsGetSuccessResponseMeta](docs/MemberBenefitsGetSuccessResponseMeta.md)
 - [MemberBenefitsGetValidationErrorResponse](docs/MemberBenefitsGetValidationErrorResponse.md)
+- [MetaCompanyPropertiesResponse](docs/MetaCompanyPropertiesResponse.md)
+- [MetaCurrencyTypeItem](docs/MetaCurrencyTypeItem.md)
+- [Model1d1fc0f164cb51973a0206b8e2fb2d2dRequest](docs/Model1d1fc0f164cb51973a0206b8e2fb2d2dRequest.md)
+- [Model1d1fc0f164cb51973a0206b8e2fb2d2dRequestBudgetBreakdownInner](docs/Model1d1fc0f164cb51973a0206b8e2fb2d2dRequestBudgetBreakdownInner.md)
+- [Model1d64402ee192568adbd5e3179a91e6e2RequestInner](docs/Model1d64402ee192568adbd5e3179a91e6e2RequestInner.md)
+- [Model1d64402ee192568adbd5e3179a91e6e2RequestInnerBudgetAllocations](docs/Model1d64402ee192568adbd5e3179a91e6e2RequestInnerBudgetAllocations.md)
+- [Model288aa996aba16d7a495c62321ea999a9Request](docs/Model288aa996aba16d7a495c62321ea999a9Request.md)
+- [Model288aa996aba16d7a495c62321ea999a9RequestSentDateTime](docs/Model288aa996aba16d7a495c62321ea999a9RequestSentDateTime.md)
+- [Model3958585c861325ea7a2cd30a8c74f042Request](docs/Model3958585c861325ea7a2cd30a8c74f042Request.md)
+- [Model89a5068111ec499135c7d6e9a53d5a30Request](docs/Model89a5068111ec499135c7d6e9a53d5a30Request.md)
 - [ModelField](docs/ModelField.md)
+- [MonitorFieldList](docs/MonitorFieldList.md)
+- [MonitorFieldListFieldsInner](docs/MonitorFieldListFieldsInner.md)
+- [NewHirePacketGtkyAnswerVisibilityItem](docs/NewHirePacketGtkyAnswerVisibilityItem.md)
+- [NewHirePacketGtkyAnswerVisibilityRequest](docs/NewHirePacketGtkyAnswerVisibilityRequest.md)
+- [NewHirePacketGtkyAnswerVisibilityResponse](docs/NewHirePacketGtkyAnswerVisibilityResponse.md)
+- [NewHirePacketPublicApi](docs/NewHirePacketPublicApi.md)
+- [NewHirePacketPublicApiWritableBody](docs/NewHirePacketPublicApiWritableBody.md)
+- [NewHirePacketsListResponse](docs/NewHirePacketsListResponse.md)
+- [NewHireWidgetItem](docs/NewHireWidgetItem.md)
+- [NewHireWidgetResponse](docs/NewHireWidgetResponse.md)
 - [NewWebHook](docs/NewWebHook.md)
+- [OnboardingExperiencePublicApi](docs/OnboardingExperiencePublicApi.md)
+- [OnboardingExperiencesListResponse](docs/OnboardingExperiencesListResponse.md)
+- [PagedLocationResponse](docs/PagedLocationResponse.md)
 - [PagedResponse](docs/PagedResponse.md)
 - [Pagination](docs/Pagination.md)
 - [PaginationMetaData](docs/PaginationMetaData.md)
+- [PatchCompanyProfileCompanyInformationRequest](docs/PatchCompanyProfileCompanyInformationRequest.md)
+- [PatchCompanyProfileCompanyInformationRequestAddress](docs/PatchCompanyProfileCompanyInformationRequestAddress.md)
+- [PayGradesAndBandsConfigurationStatus](docs/PayGradesAndBandsConfigurationStatus.md)
+- [PayGradesAndBandsConfigurationStatusJobTitles](docs/PayGradesAndBandsConfigurationStatusJobTitles.md)
+- [PayGradesAndBandsConfigurationStatusJobTitlesWarningsInner](docs/PayGradesAndBandsConfigurationStatusJobTitlesWarningsInner.md)
+- [PayGradesAndBandsConfigurationStatusLevels](docs/PayGradesAndBandsConfigurationStatusLevels.md)
+- [PayGradesAndBandsConfigurationStatusLevelsErrorsInner](docs/PayGradesAndBandsConfigurationStatusLevelsErrorsInner.md)
+- [PayGradesAndBandsConfigurationStatusPayBands](docs/PayGradesAndBandsConfigurationStatusPayBands.md)
+- [PayGradesAndBandsConfigurationStatusReview](docs/PayGradesAndBandsConfigurationStatusReview.md)
+- [PayGradesAndBandsDeleteGroupsResponse](docs/PayGradesAndBandsDeleteGroupsResponse.md)
+- [PayGradesAndBandsDeleteHierarchyGroup](docs/PayGradesAndBandsDeleteHierarchyGroup.md)
+- [PayGradesAndBandsDeleteHierarchyJobTitle](docs/PayGradesAndBandsDeleteHierarchyJobTitle.md)
+- [PayGradesAndBandsDeleteHierarchyLevel](docs/PayGradesAndBandsDeleteHierarchyLevel.md)
+- [PayGradesAndBandsDeleteLevelResponse](docs/PayGradesAndBandsDeleteLevelResponse.md)
+- [PayGradesAndBandsDeleteResponse](docs/PayGradesAndBandsDeleteResponse.md)
+- [PayGradesAndBandsJobTitleAssignmentsGroup](docs/PayGradesAndBandsJobTitleAssignmentsGroup.md)
+- [PayGradesAndBandsJobTitleAssignmentsJobTitle](docs/PayGradesAndBandsJobTitleAssignmentsJobTitle.md)
+- [PayGradesAndBandsJobTitleAssignmentsLevel](docs/PayGradesAndBandsJobTitleAssignmentsLevel.md)
+- [PayGradesAndBandsJobTitleAssignmentsResponse](docs/PayGradesAndBandsJobTitleAssignmentsResponse.md)
+- [PayGradesAndBandsJobTitleEmployee](docs/PayGradesAndBandsJobTitleEmployee.md)
+- [PayGradesAndBandsJobTitleWithEmployees](docs/PayGradesAndBandsJobTitleWithEmployees.md)
+- [PayGradesAndBandsLevel](docs/PayGradesAndBandsLevel.md)
+- [PayGradesAndBandsLevelJobTitle](docs/PayGradesAndBandsLevelJobTitle.md)
+- [PayGradesAndBandsLevelsGroup](docs/PayGradesAndBandsLevelsGroup.md)
+- [PayGradesAndBandsLevelsResponse](docs/PayGradesAndBandsLevelsResponse.md)
+- [PayGradesAndBandsPayBandJobTitle](docs/PayGradesAndBandsPayBandJobTitle.md)
+- [PayGradesAndBandsPayBandLevel](docs/PayGradesAndBandsPayBandLevel.md)
+- [PayGradesAndBandsPayBandsGroup](docs/PayGradesAndBandsPayBandsGroup.md)
+- [PayGradesAndBandsPayBandsResponse](docs/PayGradesAndBandsPayBandsResponse.md)
+- [PayGradesAndBandsPublishResponse](docs/PayGradesAndBandsPublishResponse.md)
+- [PayGradesAndBandsPublishedGroup](docs/PayGradesAndBandsPublishedGroup.md)
+- [PayGradesAndBandsPublishedJobTitle](docs/PayGradesAndBandsPublishedJobTitle.md)
+- [PayGradesAndBandsPublishedLevel](docs/PayGradesAndBandsPublishedLevel.md)
+- [PayGradesAndBandsPublishedResponse](docs/PayGradesAndBandsPublishedResponse.md)
+- [PayGradesAndBandsReviewGroup](docs/PayGradesAndBandsReviewGroup.md)
+- [PayGradesAndBandsReviewJobTitle](docs/PayGradesAndBandsReviewJobTitle.md)
+- [PayGradesAndBandsReviewLevel](docs/PayGradesAndBandsReviewLevel.md)
+- [PayGradesAndBandsReviewResponse](docs/PayGradesAndBandsReviewResponse.md)
+- [PayGradesAndBandsSaveLevelsResponse](docs/PayGradesAndBandsSaveLevelsResponse.md)
+- [PayGradesAndBandsUpdateJobTitlesResponse](docs/PayGradesAndBandsUpdateJobTitlesResponse.md)
+- [PayGradesAndBandsUpdateLevel](docs/PayGradesAndBandsUpdateLevel.md)
+- [PayGradesAndBandsUpdateLevelsGroup](docs/PayGradesAndBandsUpdateLevelsGroup.md)
+- [PayGradesAndBandsUpdateLevelsRequest](docs/PayGradesAndBandsUpdateLevelsRequest.md)
+- [PayGradesAndBandsUpdatePayBandItem](docs/PayGradesAndBandsUpdatePayBandItem.md)
+- [PayGradesAndBandsUpdatePayBandsResponse](docs/PayGradesAndBandsUpdatePayBandsResponse.md)
 - [PersonInfoApiTransformer](docs/PersonInfoApiTransformer.md)
-- [PostGoalCommentRequest](docs/PostGoalCommentRequest.md)
-- [PostGoalRequest](docs/PostGoalRequest.md)
-- [PostGoalRequestMilestonesInner](docs/PostGoalRequestMilestonesInner.md)
 - [PostNewEmployee](docs/PostNewEmployee.md)
 - [ProblemDetailsResponse](docs/ProblemDetailsResponse.md)
+- [ProblemDetailsResponseV2](docs/ProblemDetailsResponseV2.md)
 - [ProjectCreateRequestSchema](docs/ProjectCreateRequestSchema.md)
+- [ProjectCreateTimeTrackingProjectTaskV1](docs/ProjectCreateTimeTrackingProjectTaskV1.md)
+- [ProjectCreateTimeTrackingProjectV1](docs/ProjectCreateTimeTrackingProjectV1.md)
+- [ProjectCreateTimeTrackingProjectV1TasksInner](docs/ProjectCreateTimeTrackingProjectV1TasksInner.md)
 - [ProjectInfoApiTransformer](docs/ProjectInfoApiTransformer.md)
 - [ProjectInfoApiTransformerProject](docs/ProjectInfoApiTransformerProject.md)
-- [ProjectInfoApiTransformerTask](docs/ProjectInfoApiTransformerTask.md)
-- [PutGoalCommentRequest](docs/PutGoalCommentRequest.md)
-- [PutGoalMilestoneProgressRequest](docs/PutGoalMilestoneProgressRequest.md)
-- [PutGoalProgressRequest](docs/PutGoalProgressRequest.md)
-- [PutGoalSharedWithRequest](docs/PutGoalSharedWithRequest.md)
-- [PutGoalV11Request](docs/PutGoalV11Request.md)
-- [PutGoalV11RequestMilestonesInner](docs/PutGoalV11RequestMilestonesInner.md)
+- [ProjectLegacyErrorResponseV1](docs/ProjectLegacyErrorResponseV1.md)
+- [ProjectLegacyErrorResponseV1Error](docs/ProjectLegacyErrorResponseV1Error.md)
+- [ProjectPaginatedResponseDataV1](docs/ProjectPaginatedResponseDataV1.md)
+- [ProjectPaginatedResponseDataV1Meta](docs/ProjectPaginatedResponseDataV1Meta.md)
+- [ProjectPaginatedTasksResponseV1](docs/ProjectPaginatedTasksResponseV1.md)
+- [ProjectPaginatedTasksResponseV1Links](docs/ProjectPaginatedTasksResponseV1Links.md)
+- [ProjectPaginatedTasksResponseV1Meta](docs/ProjectPaginatedTasksResponseV1Meta.md)
+- [ProjectPaginatedTimeTrackingProjectsResponseV1](docs/ProjectPaginatedTimeTrackingProjectsResponseV1.md)
+- [ProjectStandardApiErrorResponseV1](docs/ProjectStandardApiErrorResponseV1.md)
+- [ProjectTimeTrackingProjectV1](docs/ProjectTimeTrackingProjectV1.md)
+- [ProjectTimeTrackingTaskV1](docs/ProjectTimeTrackingTaskV1.md)
+- [ProjectUpdateTimeTrackingProjectTaskV1](docs/ProjectUpdateTimeTrackingProjectTaskV1.md)
+- [ProjectUpdateTimeTrackingProjectV1](docs/ProjectUpdateTimeTrackingProjectV1.md)
+- [ProvinceItem](docs/ProvinceItem.md)
+- [PublicCustomFieldTypesResponse](docs/PublicCustomFieldTypesResponse.md)
+- [PublicListValuesCustomFieldSettingsResponse](docs/PublicListValuesCustomFieldSettingsResponse.md)
+- [PublicListValuesCustomFieldSettingsResponseValuesInner](docs/PublicListValuesCustomFieldSettingsResponseValuesInner.md)
+- [PutCompanyIndustryCodesRequest](docs/PutCompanyIndustryCodesRequest.md)
+- [PutCompanyProfileDisplayNameRequest](docs/PutCompanyProfileDisplayNameRequest.md)
+- [RemoveCycleAdminSelfResponse](docs/RemoveCycleAdminSelfResponse.md)
+- [RemoveTotalRewardsEmployeesRequest](docs/RemoveTotalRewardsEmployeesRequest.md)
 - [Report](docs/Report.md)
 - [ReportsResponse](docs/ReportsResponse.md)
 - [Request](docs/Request.md)
@@ -649,8 +1274,46 @@ Class | Method | HTTP request | Description
 - [RequestCustomReportResponse](docs/RequestCustomReportResponse.md)
 - [RequestCustomReportResponseEmployeesInner](docs/RequestCustomReportResponseEmployeesInner.md)
 - [RequestCustomReportResponseFieldsInner](docs/RequestCustomReportResponseFieldsInner.md)
+- [SaveChangeCommTemplateResponse](docs/SaveChangeCommTemplateResponse.md)
+- [SchedulingCreateScheduleRequestV1](docs/SchedulingCreateScheduleRequestV1.md)
+- [SchedulingCreateSchedulingShiftRequestV1](docs/SchedulingCreateSchedulingShiftRequestV1.md)
+- [SchedulingPublishShiftsFailureV1](docs/SchedulingPublishShiftsFailureV1.md)
+- [SchedulingPublishShiftsRequest](docs/SchedulingPublishShiftsRequest.md)
+- [SchedulingPublishShiftsResultV1](docs/SchedulingPublishShiftsResultV1.md)
+- [SchedulingScheduleListResponseV1](docs/SchedulingScheduleListResponseV1.md)
+- [SchedulingScheduleListResponseV1Links](docs/SchedulingScheduleListResponseV1Links.md)
+- [SchedulingScheduleListResponseV1Meta](docs/SchedulingScheduleListResponseV1Meta.md)
+- [SchedulingScheduleV1](docs/SchedulingScheduleV1.md)
+- [SchedulingSchedulingShiftAssessmentV1](docs/SchedulingSchedulingShiftAssessmentV1.md)
+- [SchedulingSchedulingShiftAssessmentViolationV1](docs/SchedulingSchedulingShiftAssessmentViolationV1.md)
+- [SchedulingSchedulingShiftV1](docs/SchedulingSchedulingShiftV1.md)
+- [SchedulingShiftAssessmentListResponseV1](docs/SchedulingShiftAssessmentListResponseV1.md)
+- [SchedulingShiftAssessmentListResponseV1Meta](docs/SchedulingShiftAssessmentListResponseV1Meta.md)
+- [SchedulingShiftListResponseV1](docs/SchedulingShiftListResponseV1.md)
+- [SchedulingShiftListResponseV1Links](docs/SchedulingShiftListResponseV1Links.md)
+- [SchedulingShiftListResponseV1LinksNext](docs/SchedulingShiftListResponseV1LinksNext.md)
+- [SchedulingShiftListResponseV1LinksPrev](docs/SchedulingShiftListResponseV1LinksPrev.md)
+- [SchedulingShiftListResponseV1Meta](docs/SchedulingShiftListResponseV1Meta.md)
+- [SchedulingTimezoneListResponseV1](docs/SchedulingTimezoneListResponseV1.md)
+- [SchedulingTimezoneListResponseV1Meta](docs/SchedulingTimezoneListResponseV1Meta.md)
+- [SchedulingTimezoneV1](docs/SchedulingTimezoneV1.md)
+- [SchedulingUpdateScheduleRequestV1](docs/SchedulingUpdateScheduleRequestV1.md)
+- [SchedulingUpdateSchedulingShiftRequestV1](docs/SchedulingUpdateSchedulingShiftRequestV1.md)
+- [SendEmployeeVerificationLifecycleEmailByUserRequest](docs/SendEmployeeVerificationLifecycleEmailByUserRequest.md)
+- [SendRecommendationsResponse](docs/SendRecommendationsResponse.md)
 - [SetBreakPolicyEmployeesRequest](docs/SetBreakPolicyEmployeesRequest.md)
+- [SetTotalRewardsCustomDisclaimerRequest](docs/SetTotalRewardsCustomDisclaimerRequest.md)
+- [SetTotalRewardsOnboardingStepRequest](docs/SetTotalRewardsOnboardingStepRequest.md)
 - [ShareOptionsResponse](docs/ShareOptionsResponse.md)
+- [ShiftDifferentialCreateTimeTrackingShiftDifferentialV1](docs/ShiftDifferentialCreateTimeTrackingShiftDifferentialV1.md)
+- [ShiftDifferentialCreateTimeTrackingShiftDifferentialV1TimesInner](docs/ShiftDifferentialCreateTimeTrackingShiftDifferentialV1TimesInner.md)
+- [ShiftDifferentialPaginatedResponseDataV1](docs/ShiftDifferentialPaginatedResponseDataV1.md)
+- [ShiftDifferentialPaginatedResponseDataV1Meta](docs/ShiftDifferentialPaginatedResponseDataV1Meta.md)
+- [ShiftDifferentialPaginatedTimeTrackingShiftDifferentialsResponseV1](docs/ShiftDifferentialPaginatedTimeTrackingShiftDifferentialsResponseV1.md)
+- [ShiftDifferentialTimeTrackingShiftDifferentialTimeV1](docs/ShiftDifferentialTimeTrackingShiftDifferentialTimeV1.md)
+- [ShiftDifferentialTimeTrackingShiftDifferentialV1](docs/ShiftDifferentialTimeTrackingShiftDifferentialV1.md)
+- [ShiftDifferentialUpdateTimeTrackingShiftDifferentialV1](docs/ShiftDifferentialUpdateTimeTrackingShiftDifferentialV1.md)
+- [StandardApiErrorResponse](docs/StandardApiErrorResponse.md)
 - [State](docs/State.md)
 - [StateProvinceResponseSchema](docs/StateProvinceResponseSchema.md)
 - [StateProvinceSchema](docs/StateProvinceSchema.md)
@@ -675,28 +1338,53 @@ Class | Method | HTTP request | Description
 - [TimeOffTypesAndDefaultHoursDefaultHoursInner](docs/TimeOffTypesAndDefaultHoursDefaultHoursInner.md)
 - [TimeOffTypesAndDefaultHoursTimeOffTypesInner](docs/TimeOffTypesAndDefaultHoursTimeOffTypesInner.md)
 - [TimeTrackingBreakPolicyEmployeeCollectionV1Inner](docs/TimeTrackingBreakPolicyEmployeeCollectionV1Inner.md)
+- [TimeTrackingBreakPolicySuggestionsResponseV1](docs/TimeTrackingBreakPolicySuggestionsResponseV1.md)
+- [TimeTrackingBreakPolicySuggestionsResponseV1SuggestedPoliciesInner](docs/TimeTrackingBreakPolicySuggestionsResponseV1SuggestedPoliciesInner.md)
+- [TimeTrackingBreakPolicySuggestionsResponseV1SuggestedPoliciesInnerBreaksInner](docs/TimeTrackingBreakPolicySuggestionsResponseV1SuggestedPoliciesInnerBreaksInner.md)
 - [TimeTrackingBulkResponseSchema](docs/TimeTrackingBulkResponseSchema.md)
 - [TimeTrackingBulkResponseSchemaResponse](docs/TimeTrackingBulkResponseSchemaResponse.md)
+- [TimeTrackingBulkUpsertEmployeeTimeTrackingDataAcceptedV1](docs/TimeTrackingBulkUpsertEmployeeTimeTrackingDataAcceptedV1.md)
+- [TimeTrackingBulkUpsertEmployeeTimeTrackingDataRecordV1](docs/TimeTrackingBulkUpsertEmployeeTimeTrackingDataRecordV1.md)
+- [TimeTrackingClockEntryLocationV1](docs/TimeTrackingClockEntryLocationV1.md)
+- [TimeTrackingClockEntryPaginatedResponseDataV1](docs/TimeTrackingClockEntryPaginatedResponseDataV1.md)
+- [TimeTrackingClockEntryPaginatedResponseDataV1Meta](docs/TimeTrackingClockEntryPaginatedResponseDataV1Meta.md)
+- [TimeTrackingClockEntryV1](docs/TimeTrackingClockEntryV1.md)
+- [TimeTrackingConfigurationPaginatedResponseDataV1](docs/TimeTrackingConfigurationPaginatedResponseDataV1.md)
+- [TimeTrackingConfigurationPaginatedResponseDataV1Links](docs/TimeTrackingConfigurationPaginatedResponseDataV1Links.md)
+- [TimeTrackingConfigurationPaginatedResponseDataV1LinksNext](docs/TimeTrackingConfigurationPaginatedResponseDataV1LinksNext.md)
+- [TimeTrackingConfigurationPaginatedResponseDataV1LinksPrev](docs/TimeTrackingConfigurationPaginatedResponseDataV1LinksPrev.md)
+- [TimeTrackingConfigurationPaginatedResponseDataV1Meta](docs/TimeTrackingConfigurationPaginatedResponseDataV1Meta.md)
+- [TimeTrackingCreateClockInV1](docs/TimeTrackingCreateClockInV1.md)
+- [TimeTrackingCreateClockOutV1](docs/TimeTrackingCreateClockOutV1.md)
 - [TimeTrackingCreateOrUpdateTimeTrackingBreakWithoutPolicyV1](docs/TimeTrackingCreateOrUpdateTimeTrackingBreakWithoutPolicyV1.md)
 - [TimeTrackingCreateTimeTrackingBreakPolicyV1](docs/TimeTrackingCreateTimeTrackingBreakPolicyV1.md)
 - [TimeTrackingCreateTimeTrackingBreakV1](docs/TimeTrackingCreateTimeTrackingBreakV1.md)
+- [TimeTrackingCreateTimeTrackingConfigurationV1](docs/TimeTrackingCreateTimeTrackingConfigurationV1.md)
 - [TimeTrackingDeleteResponseSchema](docs/TimeTrackingDeleteResponseSchema.md)
+- [TimeTrackingEmployeeEnrollmentPaginatedResponseDataV1](docs/TimeTrackingEmployeeEnrollmentPaginatedResponseDataV1.md)
+- [TimeTrackingEmployeeTimeTrackingDataV1](docs/TimeTrackingEmployeeTimeTrackingDataV1.md)
+- [TimeTrackingHourEntryPaginatedResponseDataV1](docs/TimeTrackingHourEntryPaginatedResponseDataV1.md)
+- [TimeTrackingHourEntryV1](docs/TimeTrackingHourEntryV1.md)
 - [TimeTrackingIdResponseSchema](docs/TimeTrackingIdResponseSchema.md)
 - [TimeTrackingOffsetPaginatedResponseDataV1](docs/TimeTrackingOffsetPaginatedResponseDataV1.md)
 - [TimeTrackingOffsetPaginatedResponseDataV1Links](docs/TimeTrackingOffsetPaginatedResponseDataV1Links.md)
-- [TimeTrackingOffsetPaginatedResponseDataV1LinksNext](docs/TimeTrackingOffsetPaginatedResponseDataV1LinksNext.md)
-- [TimeTrackingOffsetPaginatedResponseDataV1LinksPrev](docs/TimeTrackingOffsetPaginatedResponseDataV1LinksPrev.md)
 - [TimeTrackingOffsetPaginatedResponseDataV1Meta](docs/TimeTrackingOffsetPaginatedResponseDataV1Meta.md)
+- [TimeTrackingPagePaginatedResponseDataV1](docs/TimeTrackingPagePaginatedResponseDataV1.md)
 - [TimeTrackingPaginatedBreakAssessmentsResponseV1](docs/TimeTrackingPaginatedBreakAssessmentsResponseV1.md)
 - [TimeTrackingPaginatedBreakPoliciesResponseV1](docs/TimeTrackingPaginatedBreakPoliciesResponseV1.md)
 - [TimeTrackingPaginatedBreakPolicyEmployeesResponseV1](docs/TimeTrackingPaginatedBreakPolicyEmployeesResponseV1.md)
 - [TimeTrackingPaginatedBreaksResponseV1](docs/TimeTrackingPaginatedBreaksResponseV1.md)
+- [TimeTrackingPaginatedClockEntriesResponseV1](docs/TimeTrackingPaginatedClockEntriesResponseV1.md)
+- [TimeTrackingPaginatedEmployeeTimeTrackingDataResponseV1](docs/TimeTrackingPaginatedEmployeeTimeTrackingDataResponseV1.md)
+- [TimeTrackingPaginatedHourEntriesResponseV1](docs/TimeTrackingPaginatedHourEntriesResponseV1.md)
+- [TimeTrackingPaginatedTimeTrackingConfigurationsResponseV1](docs/TimeTrackingPaginatedTimeTrackingConfigurationsResponseV1.md)
+- [TimeTrackingPaginatedTimeTrackingKiosksResponseV1](docs/TimeTrackingPaginatedTimeTrackingKiosksResponseV1.md)
+- [TimeTrackingPaginatedTimeTrackingTimeClocksResponseV1](docs/TimeTrackingPaginatedTimeTrackingTimeClocksResponseV1.md)
+- [TimeTrackingPaginatedTimesheetsResponseV1](docs/TimeTrackingPaginatedTimesheetsResponseV1.md)
+- [TimeTrackingPaginatedTimesheetsResponseV1Meta](docs/TimeTrackingPaginatedTimesheetsResponseV1Meta.md)
 - [TimeTrackingProjectWithTasksAndEmployeeIds](docs/TimeTrackingProjectWithTasksAndEmployeeIds.md)
 - [TimeTrackingRecord](docs/TimeTrackingRecord.md)
 - [TimeTrackingRecordSchema](docs/TimeTrackingRecordSchema.md)
-- [TimeTrackingRecordSchemaProject](docs/TimeTrackingRecordSchemaProject.md)
-- [TimeTrackingRecordSchemaProjectTask](docs/TimeTrackingRecordSchemaProjectTask.md)
-- [TimeTrackingRecordSchemaShiftDifferential](docs/TimeTrackingRecordSchemaShiftDifferential.md)
 - [TimeTrackingSyncTimeTrackingBreakPolicyV1](docs/TimeTrackingSyncTimeTrackingBreakPolicyV1.md)
 - [TimeTrackingTask](docs/TimeTrackingTask.md)
 - [TimeTrackingTimeTrackingBreakAssessmentV1](docs/TimeTrackingTimeTrackingBreakAssessmentV1.md)
@@ -705,33 +1393,94 @@ Class | Method | HTTP request | Description
 - [TimeTrackingTimeTrackingBreakPolicyV1](docs/TimeTrackingTimeTrackingBreakPolicyV1.md)
 - [TimeTrackingTimeTrackingBreakPolicyWithRelationsV1](docs/TimeTrackingTimeTrackingBreakPolicyWithRelationsV1.md)
 - [TimeTrackingTimeTrackingBreakV1](docs/TimeTrackingTimeTrackingBreakV1.md)
+- [TimeTrackingTimeTrackingConfigurationV1](docs/TimeTrackingTimeTrackingConfigurationV1.md)
+- [TimeTrackingTimeTrackingHourEntryV1](docs/TimeTrackingTimeTrackingHourEntryV1.md)
+- [TimeTrackingTimeTrackingKioskV1](docs/TimeTrackingTimeTrackingKioskV1.md)
+- [TimeTrackingTimeTrackingTimeClockV1](docs/TimeTrackingTimeTrackingTimeClockV1.md)
+- [TimeTrackingTimesheetV1](docs/TimeTrackingTimesheetV1.md)
+- [TimeTrackingUpdateClockEntryV1](docs/TimeTrackingUpdateClockEntryV1.md)
+- [TimeTrackingUpdateEmployeeTimeTrackingDataV1](docs/TimeTrackingUpdateEmployeeTimeTrackingDataV1.md)
 - [TimeTrackingUpdateTimeTrackingBreakPolicyV1](docs/TimeTrackingUpdateTimeTrackingBreakPolicyV1.md)
 - [TimeTrackingUpdateTimeTrackingBreakV1](docs/TimeTrackingUpdateTimeTrackingBreakV1.md)
+- [TimeTrackingUpdateTimeTrackingConfigurationV1](docs/TimeTrackingUpdateTimeTrackingConfigurationV1.md)
+- [TimeTrackingUpdateTimeTrackingKioskV1](docs/TimeTrackingUpdateTimeTrackingKioskV1.md)
+- [TimeTrackingUpdateTimeTrackingTimeClockV1](docs/TimeTrackingUpdateTimeTrackingTimeClockV1.md)
 - [TimesheetEntryInfoApiTransformer](docs/TimesheetEntryInfoApiTransformer.md)
-- [TimesheetEntryInfoApiTransformerBreakInfo](docs/TimesheetEntryInfoApiTransformerBreakInfo.md)
+- [TimesheetTimesheetDailyEntryV1](docs/TimesheetTimesheetDailyEntryV1.md)
+- [TimesheetTimesheetDailySummaryV1](docs/TimesheetTimesheetDailySummaryV1.md)
 - [TimezoneListResponse](docs/TimezoneListResponse.md)
 - [TimezoneResource](docs/TimezoneResource.md)
+- [TotalRewardsBenefitDetailsValues](docs/TotalRewardsBenefitDetailsValues.md)
+- [TotalRewardsBenefitSectionValues](docs/TotalRewardsBenefitSectionValues.md)
+- [TotalRewardsCalendarSectionValues](docs/TotalRewardsCalendarSectionValues.md)
+- [TotalRewardsCompSummaryValues](docs/TotalRewardsCompSummaryValues.md)
+- [TotalRewardsCustomDisclaimerInfo](docs/TotalRewardsCustomDisclaimerInfo.md)
+- [TotalRewardsEmployeeStatement](docs/TotalRewardsEmployeeStatement.md)
+- [TotalRewardsEquityDetailsValues](docs/TotalRewardsEquityDetailsValues.md)
+- [TotalRewardsEquityEstimatedValuationValues](docs/TotalRewardsEquityEstimatedValuationValues.md)
+- [TotalRewardsEquityGrowthChartItem](docs/TotalRewardsEquityGrowthChartItem.md)
+- [TotalRewardsEquityGrowthEstimation](docs/TotalRewardsEquityGrowthEstimation.md)
+- [TotalRewardsEquitySectionValues](docs/TotalRewardsEquitySectionValues.md)
+- [TotalRewardsExtraPayDetailsValues](docs/TotalRewardsExtraPayDetailsValues.md)
+- [TotalRewardsExtraPaySectionValues](docs/TotalRewardsExtraPaySectionValues.md)
+- [TotalRewardsHolidayValue](docs/TotalRewardsHolidayValue.md)
+- [TotalRewardsOnboardingStep](docs/TotalRewardsOnboardingStep.md)
+- [TotalRewardsOverviewSectionValues](docs/TotalRewardsOverviewSectionValues.md)
+- [TotalRewardsTimeOffPolicyValue](docs/TotalRewardsTimeOffPolicyValue.md)
+- [TotalRewardsTimelineItem](docs/TotalRewardsTimelineItem.md)
+- [TotalRewardsTimelineItemLabel](docs/TotalRewardsTimelineItemLabel.md)
+- [TotalRewardsTimelineSectionValues](docs/TotalRewardsTimelineSectionValues.md)
 - [TrainingCategory](docs/TrainingCategory.md)
 - [TrainingRecord](docs/TrainingRecord.md)
 - [TrainingRecordMap](docs/TrainingRecordMap.md)
 - [TrainingRecordType](docs/TrainingRecordType.md)
 - [TrainingType](docs/TrainingType.md)
 - [TrainingTypeCategory](docs/TrainingTypeCategory.md)
-- [TrainingTypeDueFromHireDate](docs/TrainingTypeDueFromHireDate.md)
-- [TrainingTypeDueFromHireDateOneOf](docs/TrainingTypeDueFromHireDateOneOf.md)
 - [TransformedApiEmployeeGoalDetails](docs/TransformedApiEmployeeGoalDetails.md)
 - [TransformedApiEmployeeGoalDetailsGoal](docs/TransformedApiEmployeeGoalDetailsGoal.md)
 - [TransformedApiGoal](docs/TransformedApiGoal.md)
-- [TransformedApiGoalActions](docs/TransformedApiGoalActions.md)
 - [TransformedApiGoalMilestonesInner](docs/TransformedApiGoalMilestonesInner.md)
+- [UnarchiveCustomFieldsRequest](docs/UnarchiveCustomFieldsRequest.md)
+- [UnarchiveCustomFieldsResponse](docs/UnarchiveCustomFieldsResponse.md)
 - [UnassignEmployeesFromBreakPolicyRequest](docs/UnassignEmployeesFromBreakPolicyRequest.md)
 - [UpdateApplicantStatusRequest](docs/UpdateApplicantStatusRequest.md)
 - [UpdateApplicantStatusResponse](docs/UpdateApplicantStatusResponse.md)
+- [UpdateCompanyIndustryCodes400Response](docs/UpdateCompanyIndustryCodes400Response.md)
+- [UpdateCompanyIndustryCodes403Response](docs/UpdateCompanyIndustryCodes403Response.md)
+- [UpdateCompanyIndustryCodes404Response](docs/UpdateCompanyIndustryCodes404Response.md)
+- [UpdateCompanyIndustryCodes500Response](docs/UpdateCompanyIndustryCodes500Response.md)
+- [UpdateCompanyIndustryCodesResponse](docs/UpdateCompanyIndustryCodesResponse.md)
+- [UpdateCompanyNameBadRequestResponse](docs/UpdateCompanyNameBadRequestResponse.md)
+- [UpdateCompanyNameBadRequestResponseError](docs/UpdateCompanyNameBadRequestResponseError.md)
+- [UpdateCompanyNameForbiddenResponse](docs/UpdateCompanyNameForbiddenResponse.md)
+- [UpdateCompanyNameForbiddenResponseError](docs/UpdateCompanyNameForbiddenResponseError.md)
+- [UpdateCompanyNameInternalErrorResponse](docs/UpdateCompanyNameInternalErrorResponse.md)
+- [UpdateCompanyNameSuccessResponse](docs/UpdateCompanyNameSuccessResponse.md)
+- [UpdateCompensationBenchmarkRequest](docs/UpdateCompensationBenchmarkRequest.md)
+- [UpdateCompensationBenchmarkSourceItem](docs/UpdateCompensationBenchmarkSourceItem.md)
+- [UpdateCompensationBenchmarkSourcesRequest](docs/UpdateCompensationBenchmarkSourcesRequest.md)
+- [UpdateCompensationBenchmarkSourcesResponse](docs/UpdateCompensationBenchmarkSourcesResponse.md)
 - [UpdateEmployeeTrainingRecordRequest](docs/UpdateEmployeeTrainingRecordRequest.md)
+- [UpdateEmployeeVerificationIntegrationRequest](docs/UpdateEmployeeVerificationIntegrationRequest.md)
+- [UpdateEmployeeVerificationRequest](docs/UpdateEmployeeVerificationRequest.md)
+- [UpdateGoalCommentRequest](docs/UpdateGoalCommentRequest.md)
+- [UpdateGoalMilestoneProgressRequest](docs/UpdateGoalMilestoneProgressRequest.md)
+- [UpdateGoalProgressRequest](docs/UpdateGoalProgressRequest.md)
+- [UpdateGoalSharingRequest](docs/UpdateGoalSharingRequest.md)
+- [UpdateGoalV1](docs/UpdateGoalV1.md)
+- [UpdateGoalV11Request](docs/UpdateGoalV11Request.md)
+- [UpdateGoalV11RequestMilestonesInner](docs/UpdateGoalV11RequestMilestonesInner.md)
+- [UpdateLocationRequest](docs/UpdateLocationRequest.md)
+- [UpdateLocationRequestAddress](docs/UpdateLocationRequestAddress.md)
+- [UpdatePayBandsRequest](docs/UpdatePayBandsRequest.md)
 - [UpdateTrainingCategoryRequest](docs/UpdateTrainingCategoryRequest.md)
 - [UpdateTrainingTypeRequest](docs/UpdateTrainingTypeRequest.md)
 - [UpdateTrainingTypeRequestCategory](docs/UpdateTrainingTypeRequestCategory.md)
 - [UpdateWebhookBadRequestResponse](docs/UpdateWebhookBadRequestResponse.md)
+- [UpdatedCompensationBenchmark](docs/UpdatedCompensationBenchmark.md)
+- [UpdatedCompensationBenchmarkSavedBenchmark](docs/UpdatedCompensationBenchmarkSavedBenchmark.md)
+- [UploadEmployeePhotoRequest1](docs/UploadEmployeePhotoRequest1.md)
+- [UserPermissionData](docs/UserPermissionData.md)
 - [WebHookPostFieldDataObject](docs/WebHookPostFieldDataObject.md)
 - [WebHookPostFieldPageDataObject](docs/WebHookPostFieldPageDataObject.md)
 - [WebHookPostFieldResponseObject](docs/WebHookPostFieldResponseObject.md)
@@ -755,12 +1504,13 @@ Class | Method | HTTP request | Description
 - [WebhooksList](docs/WebhooksList.md)
 - [WebhooksListWebhooksInner](docs/WebhooksListWebhooksInner.md)
 - [WhosOutEntry](docs/WhosOutEntry.md)
-- [XmlDirectoryEmployee](docs/XmlDirectoryEmployee.md)
-- [XmlDirectoryEmployeeEmployees](docs/XmlDirectoryEmployeeEmployees.md)
-- [XmlDirectoryEmployeeEmployeesEmployeeInner](docs/XmlDirectoryEmployeeEmployeesEmployeeInner.md)
-- [XmlDirectoryEmployeeEmployeesEmployeeInnerFieldInner](docs/XmlDirectoryEmployeeEmployeesEmployeeInnerFieldInner.md)
-- [XmlDirectoryEmployeeFieldset](docs/XmlDirectoryEmployeeFieldset.md)
-- [XmlDirectoryEmployeeFieldsetFieldInner](docs/XmlDirectoryEmployeeFieldsetFieldInner.md)
+- [WhosOutListResponseV1](docs/WhosOutListResponseV1.md)
+- [WhosOutListResponseV1Links](docs/WhosOutListResponseV1Links.md)
+- [WhosOutListResponseV1LinksNext](docs/WhosOutListResponseV1LinksNext.md)
+- [WhosOutListResponseV1LinksPrev](docs/WhosOutListResponseV1LinksPrev.md)
+- [WhosOutListResponseV1Meta](docs/WhosOutListResponseV1Meta.md)
+- [WhosOutPersonV1](docs/WhosOutPersonV1.md)
+- [WhosOutV1](docs/WhosOutV1.md)
 - [XmlEmployeeFiles](docs/XmlEmployeeFiles.md)
 - [XmlEmployeeFilesCategoryInner](docs/XmlEmployeeFilesCategoryInner.md)
 - [XmlEmployeeFilesCategoryInnerFileInner](docs/XmlEmployeeFilesCategoryInnerFileInner.md)

@@ -6,7 +6,7 @@ Job title
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** | Title ID, or null if not set | [optional] 
+**id** | **int** |  | [optional] 
 **label** | **str** | Title text | [optional] 
 
 ## Example

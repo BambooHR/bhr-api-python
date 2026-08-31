@@ -12,13 +12,15 @@ Method | HTTP request | Description
 
 Login
 
-Exchanges username, password, and application key for a persistent API key scoped to that user and application. No pre-existing authentication is required; credentials are passed in the request body.
+Exchanges username, password, and application key for a persistent API key scoped to that user and application. No pre-existing authentication is required; credentials are passed in the request body. On success, returns a persistent API key, the authenticated user ID, the linked employee ID (null when no employee record is associated), and the base API URL to use for subsequent requests.
 
-This endpoint is deprecated. Prefer OAuth or OpenID for new integrations.
+This endpoint is deprecated. New integrations should prefer OAuth or OpenID Connect instead.
 
 `applicationKey` must correspond to a registered non-mobile application; iOS and Android app keys are explicitly rejected with a 403 (no body). The optional `deviceId` associates the generated key with a specific device.
 
 Response format is determined by the `Accept` request header. Send `Accept: application/json` to receive JSON; omit the header or send any other value to receive XML. Alternatively, set `?format=json` in the query string to force JSON regardless of the `Accept` header.
+
+Note: If the company has SSO enabled and password login is disabled, this endpoint returns HTTP 200 with a plain-text error message rather than a structured error response.
 
 ### Example
 

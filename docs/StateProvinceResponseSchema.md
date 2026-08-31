@@ -1,12 +1,12 @@
 # StateProvinceResponseSchema
 
-Schema for states/provinces response
+Response from `GET /api/v1/meta/provinces/{countryId}`. The `options` list is sorted by `label` (subdivision abbreviation).
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**options** | [**List[StateProvinceSchema]**](StateProvinceSchema.md) | Array of state/province options | [optional] 
+**options** | [**List[StateProvinceSchema]**](StateProvinceSchema.md) | Subdivisions for the requested &#x60;countryId&#x60;. Each object matches StateProvinceSchema; &#x60;label&#x60; is the subdivision abbreviation, &#x60;name&#x60; the full name, &#x60;iso&#x60; the ISO 3166-2 code. | [optional] 
 
 ## Example
 

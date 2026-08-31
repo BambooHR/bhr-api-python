@@ -6,9 +6,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **pagination** | [**Pagination**](Pagination.md) |  | [optional] 
-**name** | **str** |  | [optional] 
-**label** | **str** |  | [optional] 
-**fields** | [**List[ModelField]**](ModelField.md) |  | [optional] 
+**name** | **str** | Machine-readable dataset identifier matching the requested datasetName. | [optional] 
+**label** | **str** | Human-readable display name for the dataset. | [optional] 
+**fields** | [**List[ModelField]**](ModelField.md) | Paginated array of field descriptors for this dataset. | [optional] 
 
 ## Example
 

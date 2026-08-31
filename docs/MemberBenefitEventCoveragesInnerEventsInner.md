@@ -7,8 +7,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **effective_date** | **date** | The date this event takes effect (YYYY-MM-DD). | [optional] 
 **type** | **str** | The type of benefit event. | [optional] 
-**premium_tier_id** | **str** | The premium tier ID for enrollment events. Only present on events with type &#39;enrollment&#39;. | [optional] 
-**monthly_premium_in_cents** | **int** | The monthly premium amount in cents for enrollment events. Only present on events with type &#39;enrollment&#39;. | [optional] 
+**premium_tier_id** | **str** |  | [optional] 
+**monthly_premium_in_cents** | **float** |  | [optional] 
 
 ## Example
 

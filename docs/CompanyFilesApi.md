@@ -4,7 +4,7 @@ All URIs are relative to *https://companySubDomain.bamboohr.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**add_company_file_category**](CompanyFilesApi.md#add_company_file_category) | **POST** /api/v1/files/categories | Create Company File Category
+[**create_company_file_category**](CompanyFilesApi.md#create_company_file_category) | **POST** /api/v1/files/categories | Create Company File Category
 [**delete_company_file**](CompanyFilesApi.md#delete_company_file) | **DELETE** /api/v1/files/{fileId} | Delete Company File
 [**get_company_file**](CompanyFilesApi.md#get_company_file) | **GET** /api/v1/files/{fileId} | Get Company File
 [**list_company_files**](CompanyFilesApi.md#list_company_files) | **GET** /api/v1/files/view | Get Company Files and Categories
@@ -12,12 +12,14 @@ Method | HTTP request | Description
 [**upload_company_file**](CompanyFilesApi.md#upload_company_file) | **POST** /api/v1/files | Upload Company File
 
 
-# **add_company_file_category**
-> add_company_file_category(request_body)
+# **create_company_file_category**
+> create_company_file_category(request_body)
 
 Create Company File Category
 
 Creates one or more company file categories. Accepts a JSON array of category name strings or an equivalent XML document. An empty payload returns 200 without creating anything. Returns 400 if a name is empty or already exists, 403 if the caller lacks permission or the name is reserved, and 500 on an internal error.
+
+OAuth Scopes: company_file.write
 
 ### Example
 
@@ -56,9 +58,9 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Create Company File Category
-        api_instance.add_company_file_category(request_body)
+        api_instance.create_company_file_category(request_body)
     except Exception as e:
-        print("Exception when calling CompanyFilesApi->add_company_file_category: %s\n" % e)
+        print("Exception when calling CompanyFilesApi->create_company_file_category: %s\n" % e)
 ```
 
 
@@ -100,7 +102,9 @@ void (empty response body)
 
 Delete Company File
 
-Deletes the specified company file. Requires the caller to have company file write access. Returns 404 if the file does not exist, 403 if the caller lacks permission, and 500 on an internal error.
+Permanently removes a company file and its associated storage. The company must have the Files tool enabled; otherwise the file is treated as not found. Read-only file types (e.g. e-signature templates) are silently skipped. No response body is returned on success. Use "Company Files > List Company Files" to obtain file IDs.
+
+OAuth Scopes: company_file.write
 
 ### Example
 
@@ -170,9 +174,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | The company file was deleted successfully. |  -  |
+**200** | The company file was deleted successfully. No response body is returned. |  -  |
 **403** | The API user does not have permission to delete the requested file. |  -  |
-**404** | The requested file was not found. |  -  |
+**404** | The requested file was not found, or the Files tool is not enabled for the company. |  -  |
 **500** | An internal server error occurred. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -183,6 +187,8 @@ void (empty response body)
 Get Company File
 
 Downloads a company file by its ID. The response body is the raw file content. The `Content-Type` header reflects the file's MIME type and `Content-Disposition` is set to `attachment` with the original filename. Access is permitted if the file or its category is shared with employees, shared directly with the requesting user, or the user has view permission on the file section.
+
+OAuth Scopes: company_file
 
 ### Example
 
@@ -265,6 +271,8 @@ Get Company Files and Categories
 
 Returns all company file categories and the files within each category that the requesting user is permitted to see. The response format is determined by the `Accept` request header: send `application/json` for JSON or omit it (or send `application/xml`) for XML.
 
+OAuth Scopes: company_file
+
 ### Example
 
 * Basic Authentication (basic):
@@ -343,6 +351,8 @@ This endpoint does not need any parameter.
 Update Company File
 
 Updates metadata for an existing company file. Supports renaming the file, moving it to a different category, and toggling employee visibility. Accepts JSON or XML. Only fields included in the request body are updated.
+
+OAuth Scopes: company_file.write
 
 ### Example
 
@@ -428,6 +438,8 @@ void (empty response body)
 Upload Company File
 
 Uploads a file to a company file category. The request must be a `multipart/form-data` POST. On success, a `Location` header is returned with the URL of the newly created file resource. The file must be under 20MB and use a supported extension. Uploading to read-only categories is not permitted. Uploading to implementation categories is not permitted on companies that have completed implementation.
+
+OAuth Scopes: company_file.write
 
 ### Example
 

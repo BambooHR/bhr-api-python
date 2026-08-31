@@ -13,7 +13,11 @@ Method | HTTP request | Description
 
 Get Employee Photo
 
-Returns an employee photo at the requested size. Available sizes are: `original` (full resolution), `large` (340×340), `medium` (170×170), `small` (150×150), `xs` (50×50), and `tiny` (20×20). The server always sets `Content-Type: image/jpeg`, but the underlying byte payload may reflect the original upload format.
+Returns an employee photo at the requested size. Available sizes are: `original` (full resolution), `large` (340×340), `medium` (170×170), `small` (150×150), `xs` (50×50), and `tiny` (20×20). The response shape is selected via standard HTTP content negotiation. By default the body is the stored image bytes and the `Content-Type` response header matches the body (`image/jpeg`, `image/png`, `image/bmp`, `image/gif`, or `image/tiff`). When the caller sends `Accept: application/json`, the body is a JSON object `{ mimeType, fileBase64 }` with the same image bytes base64-encoded. The JSON variant is not recommended for AI connector use, since the base64 payload is too large for an AI model to consume reliably as text input. For AI connectors that need to display or reference a photo, use the `photoUrl` field returned by `list-employees` instead. It is a time-limited signed URL that avoids transferring image bytes through the AI model's context.
+
+A 404 response covers three distinct cases: (1) the employee exists but has no photo on file (a normal, non-error state), (2) the employee ID does not exist, or (3) the size value is not one of the recognized options. The `x-bamboohr-error-message` response header distinguishes them: `Employee photo not found`, `Employee not found`, or `Size: "<value>" is not a valid size option. Valid sizes are: xs, small, tiny, original, medium and large.`. Treat "Employee photo not found" as a normal "no photo on file" result rather than as a bad employee ID, permission failure, or other error to debug.
+
+OAuth Scopes: employee:photo
 
 ### Example
 
@@ -83,15 +87,15 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: image/jpeg
+ - **Accept**: image/*, application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Image bytes returned with Content-Type: image/jpeg. The payload may reflect the original upload format and is not guaranteed to be JPEG-encoded. |  -  |
-**403** | The API user does not have permission to view this employee&#39;s photo. |  -  |
-**404** | The employee does not exist, no photo is on file, or an unrecognized size was specified. |  -  |
+**200** | Employee photo, returned in one of two shapes via standard HTTP content negotiation: binary &#x60;image/*&#x60; bytes by default (matching the stored format), or &#x60;application/json&#x60; with &#x60;{ mimeType, fileBase64 }&#x60; when the caller sends &#x60;Accept: application/json&#x60;. |  -  |
+**403** | The authenticated user does not have permission to view this employee&#39;s photo. |  -  |
+**404** | Returned in three distinct cases: the employee does not exist, the employee has no photo on file, or the requested size is not a recognized value. The &#x60;x-bamboohr-error-message&#x60; response header reports which case applies (&#x60;Employee not found&#x60;, &#x60;Employee photo not found&#x60;, or &#x60;Size: \&quot;&lt;value&gt;\&quot; is not a valid size option. Valid sizes are: xs, small, tiny, original, medium and large.&#x60;). \&quot;Employee photo not found\&quot; is the expected response for an employee who simply has not uploaded a photo and should not be treated as an error to debug. |  * x-bamboohr-error-message - Human-readable error message describing why the request failed (e.g. &#39;Invalid status&#39;). <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -100,7 +104,9 @@ void (empty response body)
 
 Upload Employee Photo
 
-Uploads a new photo for an employee. The request must be a `multipart/form-data` POST with a `file` field. Confirmed supported formats: JPEG, PNG, BMP. Other formats (e.g. HEIC, SVG, AVIF, TIFF) are not reliably supported and may return 415, 500, or 502. The image must be square (width and height must match within one pixel) and at least 150×150 pixels. Maximum file size is 20MB. The photo replaces the employee's current photo for all size variants. Employees may upload their own photo if the company has self-photo uploads enabled.
+Uploads a new photo for an employee. Accepts a `multipart/form-data` POST with a `file` field carrying raw binary image bytes (typical browser and SDK usage). An `application/json` POST with a `fileBase64` property is also accepted, but it is not recommended for AI connector use. The base64 payload is too large for an AI model to produce reliably in a single tool call. Supported formats: JPEG, PNG, BMP, GIF. Other formats (HEIC, SVG, AVIF, WebP) are rejected with 415. TIFF is accepted by the format gate but some variants may fail downstream. The image must be square within 1 pixel and at least 150×150 pixels. This endpoint does not perform cropping, so if your source image is not square, you must crop it before uploading. Photo upload through this endpoint is not a viable AI connector workflow. For interactive cropping or any AI-initiated photo change, redirect the user to the BambooHR web UI. Maximum file size is 20MB (applies to the decoded bytes for the JSON variant). The photo replaces the employee's current photo for all size variants. Employees may upload their own photo if the company has self-photo uploads enabled.
+
+OAuth Scopes: employee:photo.write
 
 ### Example
 
@@ -135,8 +141,8 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.PhotosApi(api_client)
-    employee_id = 56 # int | The ID of the employee whose photo is being uploaded.
-    file = None # bytearray | The image file to upload as the employee's photo.
+    employee_id = 56 # int | The internal employee ID of the employee whose photo is being uploaded.
+    file = None # bytearray | The image file to upload as the employee's photo. Supported formats: JPEG, PNG, BMP, GIF (HEIC, SVG, AVIF, and WebP are rejected with 415; TIFF is accepted by the format gate but some variants may fail downstream). Must be square (width and height within 1 pixel), at least 150×150 pixels, and no larger than 20MB. This endpoint does not perform cropping; non-square sources must be cropped client-side before upload.
 
     try:
         # Upload Employee Photo
@@ -152,8 +158,8 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **employee_id** | **int**| The ID of the employee whose photo is being uploaded. | 
- **file** | **bytearray**| The image file to upload as the employee&#39;s photo. | 
+ **employee_id** | **int**| The internal employee ID of the employee whose photo is being uploaded. | 
+ **file** | **bytearray**| The image file to upload as the employee&#39;s photo. Supported formats: JPEG, PNG, BMP, GIF (HEIC, SVG, AVIF, and WebP are rejected with 415; TIFF is accepted by the format gate but some variants may fail downstream). Must be square (width and height within 1 pixel), at least 150×150 pixels, and no larger than 20MB. This endpoint does not perform cropping; non-square sources must be cropped client-side before upload. | 
 
 ### Return type
 
@@ -165,16 +171,17 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: multipart/form-data
+ - **Content-Type**: multipart/form-data, application/json
  - **Accept**: Not defined
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | The photo was uploaded and processed successfully. |  -  |
+**201** | The photo was uploaded and processed successfully. No response body is returned. |  -  |
 **400** | The request is invalid: no file provided, zero-byte file, or the maximum number of photo uploads (32767) has been exceeded. |  -  |
-**403** | The API user does not have permission to upload photos for this employee. |  -  |
+**402** | The photo could not be processed: the image crop failed, or the file contents could not be read. |  -  |
+**403** | The authenticated user does not have permission to upload photos for this employee. |  -  |
 **404** | The employee does not exist. |  -  |
 **413** | The uploaded file exceeds the 20MB size limit. |  -  |
 **415** | The image does not meet requirements: not square (width and height differ by more than one pixel), smaller than 150×150 pixels, or the file could not be read as a supported image format. |  -  |

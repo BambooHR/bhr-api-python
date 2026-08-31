@@ -6,8 +6,8 @@ Pagination links
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**prev** | [**TimeTrackingOffsetPaginatedResponseDataV1LinksPrev**](TimeTrackingOffsetPaginatedResponseDataV1LinksPrev.md) |  | 
-**next** | [**TimeTrackingOffsetPaginatedResponseDataV1LinksNext**](TimeTrackingOffsetPaginatedResponseDataV1LinksNext.md) |  | 
+**prev** | **object** |  | 
+**next** | **object** |  | 
 
 ## Example
 

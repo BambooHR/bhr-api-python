@@ -7,7 +7,7 @@ The current status of the request.
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **last_changed** | **date** | The date the status was last changed (company timezone). | [optional] 
-**last_changed_by_user_id** | **int** | The user ID who last changed the status. | [optional] 
+**last_changed_by_user_id** | **str** | The user ID who last changed the status. | [optional] 
 **status** | **str** | The current status value. | [optional] 
 
 ## Example

@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** | Job opening ID | [optional] 
 **title** | [**ApplicationDetailsJobTitle**](ApplicationDetailsJobTitle.md) |  | [optional] 
-**hiring_lead** | [**ApplicationDetailsJobHiringLead**](ApplicationDetailsJobHiringLead.md) |  | [optional] 
+**hiring_lead** | **object** |  | [optional] 
 
 ## Example
 

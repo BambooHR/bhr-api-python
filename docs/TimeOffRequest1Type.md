@@ -6,7 +6,7 @@ The time off type for this request.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** | The time off type ID. | [optional] 
+**id** | **str** | The time off type ID. | [optional] 
 **name** | **str** | The time off type name. | [optional] 
 **icon** | **str** | The icon name for the time off type. | [optional] 
 

@@ -21,7 +21,9 @@ Method | HTTP request | Description
 
 Create Job Application Comment
 
-Add a comment to an application. The owner of the API key used must have access to ATS settings. The `type` field defaults to `comment` if omitted.
+Add a comment to an application. The authenticated caller must have access to ATS settings. The `type` field defaults to `comment` if omitted.
+
+OAuth Scopes: hiring:applications.write
 
 ### Example
 
@@ -58,7 +60,7 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.ApplicantTrackingApi(api_client)
-    application_id = 56 # int | The ID of the application to add a comment to.
+    application_id = 'application_id_example' # str | The ID of the application to add a comment to.
     create_application_comment_request = bamboohr_sdk.CreateApplicationCommentRequest() # CreateApplicationCommentRequest | Comment object to post
 
     try:
@@ -77,7 +79,7 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **application_id** | **int**| The ID of the application to add a comment to. | 
+ **application_id** | **str**| The ID of the application to add a comment to. | 
  **create_application_comment_request** | [**CreateApplicationCommentRequest**](CreateApplicationCommentRequest.md)| Comment object to post | 
 
 ### Return type
@@ -110,7 +112,9 @@ Name | Type | Description  | Notes
 
 Create Candidate
 
-Create a new candidate application for a job opening. The owner of the API key used must have access to ATS settings. On success, returns the new candidate ID. Only fields required by the target job opening's standard questions need to be provided beyond firstName, lastName, and jobId.
+Create a new candidate application for a job opening. The authenticated caller must have access to ATS settings. On success, returns the new candidate ID. Only fields required by the target job opening's standard questions need to be provided beyond firstName, lastName, and jobId.
+
+OAuth Scopes: hiring:applications.write
 
 ### Example
 
@@ -228,6 +232,7 @@ Name | Type | Description  | Notes
 **403** | Insufficient user permissions or API access is not turned on. |  -  |
 **404** | Bad request url. |  -  |
 **422** | Unprocessable entity. One or more parameters failed validation. |  -  |
+**429** | Too Many Requests - Rate limit exceeded. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -236,12 +241,11 @@ Name | Type | Description  | Notes
 
 Create Job Opening
 
-Create a new job opening. The owner of the API key used must have access to ATS settings. Use the Get Company Locations and Get Hiring Leads endpoints to obtain valid IDs for `jobLocation` and `hiringLead`. On success, returns the new job opening ID.
+Create a new job opening. The authenticated caller must have access to ATS settings. Use the Get Company Locations and Get Hiring Leads endpoints to obtain valid IDs for `jobLocation` and `hiringLead`. On success, returns the new job opening ID.
 
 ### Example
 
 * Basic Authentication (basic):
-* OAuth Authentication (oauth):
 
 ```python
 import bamboohr_sdk
@@ -266,15 +270,13 @@ configuration = bamboohr_sdk.Configuration(
     password = os.environ["PASSWORD"]
 )
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
 # Enter a context with an instance of the API client
 with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.ApplicantTrackingApi(api_client)
     posting_title = 'posting_title_example' # str | The posting title of the job opening.
     job_status = 'job_status_example' # str | The status of the job opening.
-    hiring_lead = 56 # int | The employee id (from the v1/applicant_tracking/hiring_leads endpoint) of the hiring lead for the job opening.
+    hiring_lead = 56 # int | The internal employee ID of the hiring lead for the job opening. Use `employeeId` from Get Hiring Leads (`get-hiring-leads`).
     employment_type = 'employment_type_example' # str | The type of employment offered in the job opening, e.g. Full-Time, Part-Time, Contractor, etc.
     job_description = 'job_description_example' # str | The long-form text description of the job opening.
     department = 'department_example' # str | The department of the job opening. (optional)
@@ -313,7 +315,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **posting_title** | **str**| The posting title of the job opening. | 
  **job_status** | **str**| The status of the job opening. | 
- **hiring_lead** | **int**| The employee id (from the v1/applicant_tracking/hiring_leads endpoint) of the hiring lead for the job opening. | 
+ **hiring_lead** | **int**| The internal employee ID of the hiring lead for the job opening. Use &#x60;employeeId&#x60; from Get Hiring Leads (&#x60;get-hiring-leads&#x60;). | 
  **employment_type** | **str**| The type of employment offered in the job opening, e.g. Full-Time, Part-Time, Contractor, etc. | 
  **job_description** | **str**| The long-form text description of the job opening. | 
  **department** | **str**| The department of the job opening. | [optional] 
@@ -340,7 +342,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basic](../README.md#basic), [oauth](../README.md#oauth)
+[basic](../README.md#basic)
 
 ### HTTP request headers
 
@@ -364,7 +366,9 @@ Name | Type | Description  | Notes
 
 Get Job Application Details
 
-Get the full details of a single application including applicant info, job details, questions and answers, and status history. The owner of the API key used must have access to ATS settings.
+Get the full details of a single application including applicant info, job details, questions and answers, and status history. The authenticated caller must have access to ATS settings.
+
+OAuth Scopes: hiring:applications
 
 ### Example
 
@@ -400,7 +404,7 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.ApplicantTrackingApi(api_client)
-    application_id = 56 # int | The ID of the application to retrieve details for.
+    application_id = 'application_id_example' # str | The ID of the application to retrieve details for.
 
     try:
         # Get Job Application Details
@@ -418,7 +422,7 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **application_id** | **int**| The ID of the application to retrieve details for. | 
+ **application_id** | **str**| The ID of the application to retrieve details for. | 
 
 ### Return type
 
@@ -449,7 +453,9 @@ Name | Type | Description  | Notes
 
 Get Job Applications
 
-Get a list of applications. The owner of the API key used must have access to ATS settings. Combine as many different optional parameter filters as you like.
+Get a list of applications. The authenticated caller must have access to ATS settings. Combine as many different optional parameter filters as you like.
+
+OAuth Scopes: hiring:applications
 
 ### Example
 
@@ -493,7 +499,7 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
     search_string = 'search_string_example' # str | A general search criteria by which to find applications. (optional)
     sort_by = 'sort_by_example' # str | A specific field to sort the results by. (optional)
     sort_order = 'sort_order_example' # str | Order by which to sort results. (optional)
-    new_since = '2024-01-01 13:00:00' # str | Only return applications submitted after this UTC timestamp. Format: `Y-m-d H:i:s` (e.g. `2024-01-01 13:00:00`). (optional)
+    new_since = '2024-01-01 13:00:00' # str | Only return applications submitted after this UTC timestamp. Format: `Y-m-d H:i:s` (e.g. `2024-01-01 13:00:00`). Do NOT use ISO 8601 format (no `T` separator or `Z` suffix). (optional)
 
     try:
         # Get Job Applications
@@ -519,7 +525,7 @@ Name | Type | Description  | Notes
  **search_string** | **str**| A general search criteria by which to find applications. | [optional] 
  **sort_by** | **str**| A specific field to sort the results by. | [optional] 
  **sort_order** | **str**| Order by which to sort results. | [optional] 
- **new_since** | **str**| Only return applications submitted after this UTC timestamp. Format: &#x60;Y-m-d H:i:s&#x60; (e.g. &#x60;2024-01-01 13:00:00&#x60;). | [optional] 
+ **new_since** | **str**| Only return applications submitted after this UTC timestamp. Format: &#x60;Y-m-d H:i:s&#x60; (e.g. &#x60;2024-01-01 13:00:00&#x60;). Do NOT use ISO 8601 format (no &#x60;T&#x60; separator or &#x60;Z&#x60; suffix). | [optional] 
 
 ### Return type
 
@@ -550,7 +556,9 @@ Name | Type | Description  | Notes
 
 Get Company Locations
 
-Get all company locations available for use when creating a job opening. The owner of the API key used must have access to ATS settings. Use the returned location IDs as the `jobLocation` field when calling the Create Job Opening endpoint.
+Get all company locations available for use when creating a job opening. The authenticated caller must have access to ATS settings. Use the returned location IDs as the `jobLocation` field when calling the Create Job Opening endpoint.
+
+OAuth Scopes: hiring:applications
 
 ### Example
 
@@ -631,12 +639,11 @@ This endpoint does not need any parameter.
 
 Get Hiring Leads
 
-Get the list of employees who can be assigned as a hiring lead when creating a new job opening. The owner of the API key used must have access to ATS settings. Use the returned `employeeId` values as the `hiringLead` field when calling the Create Job Opening endpoint.
+Get the list of employees who can be assigned as a hiring lead when creating a new job opening. The authenticated caller must have access to ATS settings. Use the returned `employeeId` values as the `hiringLead` field when calling the Create Job Opening endpoint.
 
 ### Example
 
 * Basic Authentication (basic):
-* OAuth Authentication (oauth):
 
 ```python
 import bamboohr_sdk
@@ -660,8 +667,6 @@ configuration = bamboohr_sdk.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with bamboohr_sdk.ApiClient(configuration) as api_client:
@@ -689,7 +694,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[basic](../README.md#basic), [oauth](../README.md#oauth)
+[basic](../README.md#basic)
 
 ### HTTP request headers
 
@@ -712,7 +717,9 @@ This endpoint does not need any parameter.
 
 Get Job Summaries
 
-Get a list of job opening summaries. The owner of the API key used must have access to ATS settings. Results can be filtered by status group and sorted by various fields. By default returns all non-deleted job openings.
+Get a list of job opening summaries. The authenticated caller must have access to ATS settings. Results can be filtered by status group and sorted by various fields. By default returns all non-deleted job openings.
+
+OAuth Scopes: hiring:applications
 
 ### Example
 
@@ -803,7 +810,9 @@ Name | Type | Description  | Notes
 
 Get Applicant Statuses
 
-Get a list of applicant statuses configured for the company. The owner of the API key used must have access to ATS settings. Returns both system-defined and custom statuses.
+Get a list of applicant statuses configured for the company. The authenticated caller must have access to ATS settings. Returns both system-defined and custom statuses.
+
+OAuth Scopes: hiring:applications
 
 ### Example
 
@@ -883,7 +892,9 @@ This endpoint does not need any parameter.
 
 Update Applicant Status
 
-Update the status of an application. The owner of the API key used must have access to ATS settings. Use the Get Applicant Statuses endpoint to obtain valid status IDs.
+Update the status of an application. The authenticated caller must have access to ATS settings. Use the Get Applicant Statuses endpoint to obtain valid status IDs.
+
+OAuth Scopes: hiring:applications.write
 
 ### Example
 

@@ -4,16 +4,197 @@ All URIs are relative to *https://companySubDomain.bamboohr.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_by_report_id**](CustomReportsApi.md#get_by_report_id) | **GET** /api/v1/custom-reports/{reportId} | Get Report by ID
+[**get_legacy_report_field_map**](CustomReportsApi.md#get_legacy_report_field_map) | **GET** /api/v1/custom-reports/legacy-field-map | Get Legacy Report Field Map
+[**get_legacy_report_id_map**](CustomReportsApi.md#get_legacy_report_id_map) | **GET** /api/v1/custom-reports/legacy-id-map | Get Legacy Report ID Map
+[**get_report_by_id**](CustomReportsApi.md#get_report_by_id) | **GET** /api/v1/custom-reports/{reportId} | Get Report by ID
 [**list_reports**](CustomReportsApi.md#list_reports) | **GET** /api/v1/custom-reports | List Reports
 
 
-# **get_by_report_id**
-> EmployeeResponse get_by_report_id(report_id, page=page, page_size=page_size)
+# **get_legacy_report_field_map**
+> LegacyReportFieldMapResponse get_legacy_report_field_map()
+
+Get Legacy Report Field Map
+
+Returns the mapping from the field identifiers the deprecated Reports > Get Company Report (`get-company-report`) endpoint emitted to the field names the Custom Reports and Datasets endpoints use today. Use it to repoint automations that still reference legacy identifiers — a field that came back as `location` before the report migration is `jobInformationLocation` afterward. To translate legacy report IDs rather than field identifiers, use Get Legacy Report ID Map (`get-legacy-report-id-map`) instead.
+
+The map covers the whole company and is not paginated. It is not scoped to the calling user's reports or field permissions, so a field appearing here does not mean the caller can read its data.
+
+A legacy identifier can map to more than one field. The legacy report emitted an amount column and its currency-code column under a single identifier, so `payRate` maps to both `compensationPayRate` and `compensationPayRateCurrencyCode`. The identifier alone cannot tell you which one a given report used, so compare `type` or `fieldLabel` against the column you are replacing. An identifier that is absent from the response has no equivalent field at all — that column was lost in the migration, and there is nothing to point an automation at.
+
+Some legacy fields encoded a category in the field itself: a legacy "Vacation" time off field returned only vacation hours. These map to a general field plus a `qualifier`, and you have to apply it. If you request the mapped `fieldName` on its own, you get every category rather than the one the legacy field returned. The operator differs by field — time off policy qualifiers use `equal`, while time off category, benefit plan, and training qualifiers use `includes` and expect the value wrapped in an array. To reproduce a legacy "Safety Training" due-date column, request `trainingDueDate` and filter `{"field": "trainingName", "operator": "includes", "value": ["Safety Training"]}`.
+
+Qualifier values are legacy names carried over without validation, so a category, plan, or training that has since been renamed or removed will produce a qualifier that matches nothing. Check the value against Datasets > Get Field Options (v1.2) (`get-field-options-v1_2`) before repointing an automation.
+
+The map is cached per account for up to an hour, so a field that was just added or renamed may not appear immediately.
+
+OAuth Scopes: report
+
+### Example
+
+* OAuth Authentication (oauth):
+
+```python
+import bamboohr_sdk
+from bamboohr_sdk.models.legacy_report_field_map_response import LegacyReportFieldMapResponse
+from bamboohr_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://companySubDomain.bamboohr.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = bamboohr_sdk.Configuration(
+    host = "https://companySubDomain.bamboohr.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with bamboohr_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = bamboohr_sdk.CustomReportsApi(api_client)
+
+    try:
+        # Get Legacy Report Field Map
+        api_response = api_instance.get_legacy_report_field_map()
+        print("The response of CustomReportsApi->get_legacy_report_field_map:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CustomReportsApi->get_legacy_report_field_map: %s\n" % e)
+```
+
+
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**LegacyReportFieldMapResponse**](LegacyReportFieldMapResponse.md)
+
+### Authorization
+
+[oauth](../README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Returns an object containing a single &#x60;mappings&#x60; array, with one entry per legacy-identifier-to-field mapping in the account. |  -  |
+**401** | Unauthorized. No response body is returned. |  -  |
+**403** | The authenticated user is not authorized to access reports. |  -  |
+**500** | Internal server error. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_legacy_report_id_map**
+> LegacyReportIDMapResponse get_legacy_report_id_map()
+
+Get Legacy Report ID Map
+
+Returns a mapping from legacy custom report IDs to the new report IDs created by the report migration. Use this to update automations or integrations that still reference legacy report IDs. Pass a `newReportId` to Get Report by ID (`get-report-by-id`) to execute the migrated report.
+
+Administrators receive a mapping for every custom report in the account; other users receive mappings only for the custom reports they can access (reports they own or that are shared with them). Because the map for a non-administrator is silently limited to their accessible reports, a legacy ID that is absent may be outside that user's visibility rather than nonexistent in the account.
+
+Each entry pairs a `legacyReportId` with its `newReportId` and a `status`. When a report has not been migrated, `newReportId` is `null` and `status` is `notMigrated`; otherwise `newReportId` is the migrated report's ID and `status` is `migrated`.
+
+Returns an empty `mappings` array when the user has no accessible custom reports.
+
+OAuth Scopes: report
+
+### Example
+
+* OAuth Authentication (oauth):
+
+```python
+import bamboohr_sdk
+from bamboohr_sdk.models.legacy_report_id_map_response import LegacyReportIDMapResponse
+from bamboohr_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://companySubDomain.bamboohr.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = bamboohr_sdk.Configuration(
+    host = "https://companySubDomain.bamboohr.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with bamboohr_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = bamboohr_sdk.CustomReportsApi(api_client)
+
+    try:
+        # Get Legacy Report ID Map
+        api_response = api_instance.get_legacy_report_id_map()
+        print("The response of CustomReportsApi->get_legacy_report_id_map:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CustomReportsApi->get_legacy_report_id_map: %s\n" % e)
+```
+
+
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**LegacyReportIDMapResponse**](LegacyReportIDMapResponse.md)
+
+### Authorization
+
+[oauth](../README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Returns an object containing a &#x60;mappings&#x60; array of legacy-to-new report ID mappings. |  -  |
+**403** | The caller is not authorized to access reports. |  -  |
+**500** | An unexpected error occurred while building the legacy report ID map. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_report_by_id**
+> CustomReportResponse get_report_by_id(report_id, page=page, page_size=page_size)
 
 Get Report by ID
 
-Retrieve data for a specific saved custom report by its ID. Returns the same paginated data structure as the ad-hoc dataset query endpoint, using the report's saved field list and filter configuration. Use GET /api/v1/custom-reports to list available report IDs. Results default to 500 records per page; use the `page` and `page_size` query parameters to paginate.
+Executes a saved custom report and returns its data using the report's configured fields and filters. The `data` array contains employee record objects whose keys are determined by the fields selected when the report was created — each object is a flat key-value map where keys are field names (e.g. `firstName`, `status`, `hireDate`) and values are strings or `null`. The `aggregations` array is empty unless the report's underlying dataset configuration includes aggregation rules. Use "List Reports" to discover available report IDs.
+
+Response shape: Each element of `data` is a flat key-value object — field values are top-level keys (e.g. `row["firstName"]`). This differs from `get-data-from-dataset-v2`, where field values are nested under a `fields` key (e.g. `row["fields"]["firstName"]`).
+
+The top-level `fields` array lists the report's columns in the order the report shows them. Each entry's `name` is the key that column uses in every `data` record, and `label` is the column heading the customer sees in BambooHR — their own wording if they renamed the column. When `label` is `null`, display `name`.
+
+There is no schema-only response from this endpoint.
+
+The `pagination.total_records` value is the number of rows produced by the saved report after applying the report's configured filters, not necessarily the total number of employees in the account. Validate output before using in automated pipelines.
+
+Results default to page 1 with 500 records per page (maximum 1000). Out-of-range page numbers are clamped to the nearest valid page. Invalid or zero values for `page` and `page_size` fall back to their defaults.
+
+OAuth Scopes: report
 
 ### Example
 
@@ -22,7 +203,7 @@ Retrieve data for a specific saved custom report by its ID. Returns the same pag
 
 ```python
 import bamboohr_sdk
-from bamboohr_sdk.models.employee_response import EmployeeResponse
+from bamboohr_sdk.models.custom_report_response import CustomReportResponse
 from bamboohr_sdk.rest import ApiException
 from pprint import pprint
 
@@ -49,17 +230,17 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.CustomReportsApi(api_client)
-    report_id = 56 # int | The ID of the saved custom report to retrieve data for.
+    report_id = 56 # int | The numeric ID of the saved custom report to execute.
     page = 1 # int | The page number to retrieve. Defaults to 1. (optional) (default to 1)
-    page_size = 500 # int | The number of records to retrieve per page. Defaults to 500. Maximum is 1000. (optional) (default to 500)
+    page_size = 500 # int | The number of records per page. Defaults to 500. Maximum is 1000. (optional) (default to 500)
 
     try:
         # Get Report by ID
-        api_response = api_instance.get_by_report_id(report_id, page=page, page_size=page_size)
-        print("The response of CustomReportsApi->get_by_report_id:\n")
+        api_response = api_instance.get_report_by_id(report_id, page=page, page_size=page_size)
+        print("The response of CustomReportsApi->get_report_by_id:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling CustomReportsApi->get_by_report_id: %s\n" % e)
+        print("Exception when calling CustomReportsApi->get_report_by_id: %s\n" % e)
 ```
 
 
@@ -69,13 +250,13 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **report_id** | **int**| The ID of the saved custom report to retrieve data for. | 
+ **report_id** | **int**| The numeric ID of the saved custom report to execute. | 
  **page** | **int**| The page number to retrieve. Defaults to 1. | [optional] [default to 1]
- **page_size** | **int**| The number of records to retrieve per page. Defaults to 500. Maximum is 1000. | [optional] [default to 500]
+ **page_size** | **int**| The number of records per page. Defaults to 500. Maximum is 1000. | [optional] [default to 500]
 
 ### Return type
 
-[**EmployeeResponse**](EmployeeResponse.md)
+[**CustomReportResponse**](CustomReportResponse.md)
 
 ### Authorization
 
@@ -90,11 +271,11 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Report details |  -  |
-**400** | Invalid or missing argument(s) |  -  |
-**403** | Access denied |  -  |
-**404** | Report not found |  -  |
-**500** | An unexpected error occurred while getting a report |  -  |
+**200** | Paginated report data with dynamic employee fields based on the report&#39;s configuration, preceded by a &#x60;fields&#x60; array describing the report&#39;s columns. |  -  |
+**400** | Invalid or missing argument(s). Returned when the request fails validation or contains a type error.  Validation failures may add an &#x60;error.fields&#x60; map of field name to error messages. This is unrelated to the top-level &#x60;fields&#x60; array returned on 200. |  -  |
+**403** | Access denied. The caller does not have permission to view this report. |  -  |
+**404** | Report not found. No saved custom report exists with the given ID. |  -  |
+**500** | An unexpected error occurred while retrieving the report. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -103,7 +284,13 @@ Name | Type | Description  | Notes
 
 List Reports
 
-Retrieve a paginated list of saved custom reports available in the account. Returns each report's ID and name. Use the report ID with GET /api/v1/custom-reports/{reportId} to fetch the report's data. Results default to 500 records per page.
+Returns a paginated list of saved custom reports available in the account. Each report entry contains an `id` (integer) and a `name` (string). Pass a report's `id` to "Get Report by ID" to execute it and retrieve its data.
+
+Results default to page 1 with 500 records per page (maximum 1000). Out-of-range page numbers are clamped to the nearest valid page rather than returning an error. Invalid or zero values for `page` and `page_size` fall back to their defaults.
+
+The `pagination` object includes `total_records`, `current_page`, `total_pages`, and nullable `next_page`/`prev_page` links. When there is no next or previous page the corresponding value is `null`.
+
+OAuth Scopes: report
 
 ### Example
 
@@ -139,7 +326,7 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.CustomReportsApi(api_client)
-    page = 1 # int | The page number to retrieve. Defaults to 1. (optional) (default to 1)
+    page = 1 # int | The page number to retrieve. Out-of-range values are clamped to the nearest valid page. Defaults to 1. (optional) (default to 1)
     page_size = 500 # int | The number of records to retrieve per page. Defaults to 500. Maximum is 1000. (optional) (default to 500)
 
     try:
@@ -158,7 +345,7 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int**| The page number to retrieve. Defaults to 1. | [optional] [default to 1]
+ **page** | **int**| The page number to retrieve. Out-of-range values are clamped to the nearest valid page. Defaults to 1. | [optional] [default to 1]
  **page_size** | **int**| The number of records to retrieve per page. Defaults to 500. Maximum is 1000. | [optional] [default to 500]
 
 ### Return type
@@ -178,9 +365,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | A list of reports |  -  |
-**403** | Access denied |  -  |
-**500** | An unexpected error occurred while getting the list of reports |  -  |
+**200** | Returns an object containing a &#x60;reports&#x60; array of report objects and a &#x60;pagination&#x60; object with page navigation metadata. |  -  |
+**403** | The caller is not authorized to access reports, or the required feature toggle is not enabled for this account. |  -  |
+**500** | An unexpected error occurred while retrieving the list of reports. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -1,15 +1,15 @@
 # StateProvinceSchema
 
-Schema for state/province data
+One state or province (subdivision) row. The same field meanings as each element of `StateProvinceResponseSchema.options` from `GET /api/v1/meta/provinces/{countryId}`.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** | State/province ID | [optional] 
-**label** | **str** | State/province abbreviation | [optional] 
-**iso** | **str** | ISO code for the state/province | [optional] 
-**name** | **str** | Full name of the state/province | [optional] 
+**label** | **str** | Subdivision abbreviation (e.g. \&quot;UT\&quot; for Utah). This is the short code used in &#x60;options[].label&#x60;, not the full name (see &#x60;name&#x60;). | [optional] 
+**iso** | **str** | ISO 3166-2 subdivision code (e.g. \&quot;US-UT\&quot; for Utah). | [optional] 
+**name** | **str** | Full subdivision name (e.g. \&quot;Utah\&quot;), distinct from the abbreviation in &#x60;label&#x60;. | [optional] 
 
 ## Example
 

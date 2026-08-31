@@ -12,13 +12,13 @@ Name | Type | Description | Notes
 **paid** | **bool** | Whether the break is paid | [optional] 
 **duration** | **int** | Duration of the break in minutes | [optional] 
 **availability_type** | **str** | When the break is available to be taken | [optional] 
-**availability_min_hours_worked** | **float** | Minimum hours that must be worked before the break can be taken | [optional] 
-**availability_max_hours_worked** | **float** | Maximum hours that can be worked before the break must be taken | [optional] 
-**availability_start_time** | **str** | Earliest time the break can be taken (HH:MM format) | [optional] 
-**availability_end_time** | **str** | Latest time the break can be taken (HH:MM format) | [optional] 
+**availability_min_hours_worked** | **float** |  | [optional] 
+**availability_max_hours_worked** | **float** |  | [optional] 
+**availability_start_time** | **str** |  | [optional] 
+**availability_end_time** | **str** |  | [optional] 
 **created_at** | **datetime** | ISO 8601 timestamp when the break was created | [optional] [readonly] 
-**updated_at** | **datetime** | ISO 8601 timestamp when the break was last updated | [optional] [readonly] 
-**deleted_at** | **datetime** | ISO 8601 timestamp when the break was deleted | [optional] [readonly] 
+**updated_at** | **datetime** |  | [optional] [readonly] 
+**deleted_at** | **datetime** |  | [optional] [readonly] 
 
 ## Example
 

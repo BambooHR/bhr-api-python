@@ -7,7 +7,7 @@ Response data containing ID and message
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | Unique identifier for the time tracking record | [optional] 
-**message** | **str** | Response message, typically used for error details | [optional] 
+**message** | **str** |  | [optional] 
 
 ## Example
 

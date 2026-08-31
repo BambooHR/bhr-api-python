@@ -7,8 +7,8 @@ Schema for field options request
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **fields** | **List[str]** | List of field names to get options for | 
-**dependent_fields** | **Dict[str, List[FieldOptionsRequestSchemaDependentFieldsValueInner]]** | Dependent fields and their values that affect the options of the requested fields | [optional] 
-**filters** | **object** | Optional filters to apply when retrieving field options. Filters limit the returned options based on other field values. | [optional] 
+**dependent_fields** | **Dict[str, List[FieldOptionsRequestSchemaDependentFieldsValueInner]]** |  | [optional] 
+**filters** | **object** |  | [optional] 
 
 ## Example
 

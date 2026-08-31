@@ -7,7 +7,7 @@ Schema for creating a new task for a time tracking project
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** | Name of the task. | 
-**billable** | **bool** | Indicates if the task is billable. Defaults to true if not provided. | [optional] 
+**billable** | **bool** | Indicates if the task is billable. Defaults to true if not provided. | [optional] [default to True]
 
 ## Example
 

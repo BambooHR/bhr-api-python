@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **project_id** | **int** | The ID of the project to associate with the timesheet entry. | [optional] 
 **task_id** | **int** | The ID of the task to associate with the timesheet entry. | [optional] 
 **note** | **str** | Optional note to associate with the timesheet entry. | [optional] 
-**break_id** | **str** | Optional break id to associate with the timesheet entry. | [optional] 
+**break_id** | **str** |  | [optional] 
 
 ## Example
 

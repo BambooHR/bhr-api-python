@@ -6,10 +6,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | Status ID | [optional] 
-**code** | **str** | Internal status code, or null for custom statuses | [optional] 
+**code** | **str** |  | [optional] 
 **name** | **str** | Status display name | [optional] 
 **translated_name** | **str** | Translated display name | [optional] 
-**description** | **str** | Optional description of the status | [optional] 
+**description** | **str** |  | [optional] 
 **enabled** | **bool** | Whether the status is currently active and selectable | [optional] 
 **manageable** | **bool** | Whether the status can be managed (edited/deleted) by the company | [optional] 
 

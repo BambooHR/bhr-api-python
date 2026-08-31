@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **success** | **bool** | Always &#x60;true&#x60; on HTTP 200. | 
 **user_id** | **int** | The authenticated user ID. | 
-**employee_id** | **int** | The employee ID linked to this user. &#x60;null&#x60; when no employee record is associated. | [optional] 
+**employee_id** | **int** |  | [optional] 
 **key** | **str** | The API key to use for subsequent requests. | 
 **api_url** | **str** | The base URL for subsequent API calls. | 
 

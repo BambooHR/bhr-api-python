@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **start_date** | **date** | Start date of the enrollment period (YYYY-MM-DD). | [optional] 
-**end_date** | **date** | End date of the enrollment period (YYYY-MM-DD), or null if the enrollment has no calculated end date. | [optional] 
+**end_date** | **date** |  | [optional] 
 **status** | **str** | The enrollment status for this date range. | [optional] 
 
 ## Example

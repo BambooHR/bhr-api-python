@@ -6,13 +6,13 @@ Schema for clock-in request body
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**project_id** | **int** | ID of the time tracking project that should be associated with the timesheet entry. Required if taskId is specified. | [optional] 
-**task_id** | **int** | ID of the time tracking task that should be associated with the timesheet entry. | [optional] 
-**note** | **str** | The note that should be associated with the timesheet entry | [optional] 
-**var_date** | **date** | Date for the timesheet entry. Must be in YYYY-MM-DD format. | [optional] 
-**start** | **str** | The time for the clock in. In 24 hour format HH:MM | [optional] 
-**timezone** | **str** | The timezone associated with the clock in. | [optional] 
-**break_id** | **str** | ID of the break that should be associated with the timesheet entry. | [optional] 
+**project_id** | **int** |  | [optional] 
+**task_id** | **int** |  | [optional] 
+**note** | **str** |  | [optional] 
+**var_date** | **date** |  | [optional] 
+**start** | **str** |  | [optional] 
+**timezone** | **str** |  | [optional] 
+**break_id** | **str** |  | [optional] 
 **offline** | **bool** | Whether this is an offline punch. When true, bypasses the shift schedule clock-in restriction. Intended for devices that store punches offline and sync later. | [optional] 
 
 ## Example
