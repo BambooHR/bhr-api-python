@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **name** | **str** | File display name. | [optional] 
 **original_file_name** | **str** | Original uploaded filename. | [optional] 
 **size** | **int** | File size in bytes. | [optional] 
-**date_created** | **str** | UTC creation timestamp in &#x60;YYYY-MM-DDTHH:MM:SS+0000&#x60; format. | [optional] 
+**date_created** | **str** | UTC creation timestamp in ISO 8601 format (e.g. &#x60;2024-01-15T12:30:00+0000&#x60;). | [optional] 
 **created_by** | **str** | Full name of the user who uploaded the file. | [optional] 
 **share_with_employee** | **str** | Whether the file is shared with the employee. | [optional] 
 **can_rename_file** | **str** | Whether the caller can rename this file. | [optional] 

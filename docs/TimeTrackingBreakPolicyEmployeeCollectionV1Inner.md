@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** | The employee ID | 
-**name** | **str** | The employee name {Preferred Last} | 
-**photo_url** | **str** | The employee profile photo | 
+**id** | **int** | The internal employee ID. | 
+**name** | **str** |  | 
+**photo_url** | **str** |  | 
 
 ## Example
 

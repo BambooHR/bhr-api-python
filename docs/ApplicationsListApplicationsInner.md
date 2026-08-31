@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **id** | **int** | Application ID | [optional] 
 **applied_date** | **datetime** | ISO 8601 datetime when the application was submitted | [optional] 
 **status** | [**ApplicationsListApplicationsInnerStatus**](ApplicationsListApplicationsInnerStatus.md) |  | [optional] 
-**rating** | **int** | Candidate rating (1-5) or null if not rated | [optional] 
+**rating** | **int** |  | [optional] 
 **applicant** | [**ApplicationsListApplicationsInnerApplicant**](ApplicationsListApplicationsInnerApplicant.md) |  | [optional] 
 **job** | [**ApplicationsListApplicationsInnerJob**](ApplicationsListApplicationsInnerJob.md) |  | [optional] 
 

@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | The employee ID. | [optional] 
+**id** | **str** | The internal employee ID. | [optional] 
 
 ## Example
 

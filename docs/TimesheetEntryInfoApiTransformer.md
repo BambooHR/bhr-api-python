@@ -9,13 +9,13 @@ Name | Type | Description | Notes
 **employee_id** | **int** | Employee ID | [optional] 
 **type** | **str** | Entry type | [optional] 
 **var_date** | **date** | Date of the timesheet | [optional] 
-**start** | **datetime** | Start time | [optional] 
-**end** | **datetime** | End time | [optional] 
-**timezone** | **str** | Timezone | [optional] 
-**hours** | **float** | Hours worked | [optional] 
-**note** | **str** | Note | [optional] 
+**start** | **datetime** |  | [optional] 
+**end** | **datetime** |  | [optional] 
+**timezone** | **str** |  | [optional] 
+**hours** | **float** |  | [optional] 
+**note** | **str** |  | [optional] 
 **project_info** | [**ProjectInfoApiTransformer**](ProjectInfoApiTransformer.md) |  | [optional] 
-**break_info** | [**TimesheetEntryInfoApiTransformerBreakInfo**](TimesheetEntryInfoApiTransformerBreakInfo.md) |  | [optional] 
+**break_info** | **object** |  | [optional] 
 
 ## Example
 

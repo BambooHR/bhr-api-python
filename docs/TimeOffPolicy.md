@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **id** | **int** | The policy ID. | [optional] 
 **time_off_type_id** | **int** | The ID of the time off type this policy belongs to. | [optional] 
 **name** | **str** | The policy name. | [optional] 
-**effective_date** | **str** | Deprecated. Always null. | [optional] 
+**effective_date** | **str** |  | [optional] 
 **type** | **str** | The policy type. | [optional] 
 
 ## Example

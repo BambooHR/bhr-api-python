@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**employee_id** | **int** | The ID of the employee. | [optional] 
-**pay_frequency** | **str** | The employee&#39;s current pay frequency (e.g., &#39;semi-monthly&#39;, &#39;biweekly&#39;), or null if no pay schedule is set. | [optional] 
+**employee_id** | **int** | The internal employee ID. | [optional] 
+**pay_frequency** | **str** |  | [optional] 
 **employee_benefit** | [**List[EmployeeBenefitsListResponseEmployeeBenefitsInnerEmployeeBenefitInner]**](EmployeeBenefitsListResponseEmployeeBenefitsInnerEmployeeBenefitInner.md) | The employee&#39;s benefit plan enrollments, including both current and future scheduled changes. | [optional] 
 
 ## Example

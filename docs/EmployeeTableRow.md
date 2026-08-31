@@ -7,7 +7,7 @@ A single row from the requested table. The returned fields depend on the table a
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | The table row ID. | [optional] 
-**employee_id** | **str** | The employee ID that owns this row. | [optional] 
+**employee_id** | **str** | The internal employee ID that owns this row. | [optional] 
 
 ## Example
 

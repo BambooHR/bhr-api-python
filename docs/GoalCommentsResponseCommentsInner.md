@@ -9,8 +9,8 @@ Name | Type | Description | Notes
 **author_user_id** | **int** | The user ID of the comment author. | [optional] 
 **created_at** | **str** | ISO 8601 UTC timestamp when the comment was created. | [optional] 
 **text** | **str** | The text content of the comment. | [optional] 
-**can_edit** | **bool** | Whether the API user can edit this comment. | [optional] 
-**can_delete** | **bool** | Whether the API user can delete this comment. | [optional] 
+**can_edit** | **bool** | Whether the authenticated caller can edit this comment. | [optional] 
+**can_delete** | **bool** | Whether the authenticated caller can delete this comment. | [optional] 
 
 ## Example
 

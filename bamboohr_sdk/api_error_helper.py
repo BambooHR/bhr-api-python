@@ -7,34 +7,34 @@ for API error responses.
 
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from bamboohr_sdk.exceptions import (
     ApiException,
-    ClientException,
-    ServerException,
-    BadRequestException,
     AuthenticationFailedException,
-    PermissionDeniedException,
-    ResourceNotFoundException,
-    MethodNotAllowedException,
-    RequestTimeoutException,
-    ConflictException,
-    PayloadTooLargeException,
-    UnsupportedMediaTypeException,
-    UnprocessableEntityException,
-    RateLimitExceededException,
-    InternalServerErrorException,
-    NotImplementedException,
     BadGatewayException,
-    ServiceUnavailableException,
+    BadRequestException,
+    ClientException,
+    ConflictException,
     GatewayTimeoutException,
     InsufficientStorageException,
+    InternalServerErrorException,
+    MethodNotAllowedException,
     NetworkReadTimeoutException,
+    NotImplementedException,
+    PayloadTooLargeException,
+    PermissionDeniedException,
+    RateLimitExceededException,
+    RequestTimeoutException,
+    ResourceNotFoundException,
+    ServerException,
+    ServiceUnavailableException,
+    UnprocessableEntityException,
+    UnsupportedMediaTypeException,
 )
 
 # Error messages and debugging tips by HTTP status code
-ERROR_MESSAGES: Dict[int, Dict[str, Any]] = {
+ERROR_MESSAGES: dict[int, dict[str, Any]] = {
     400: {
         "type": "BadRequest",
         "title": "Bad request",
@@ -303,7 +303,7 @@ ERROR_MESSAGES: Dict[int, Dict[str, Any]] = {
 }
 
 # Mapping from status code to exception class
-_STATUS_TO_EXCEPTION: Dict[int, type] = {
+_STATUS_TO_EXCEPTION: dict[int, type] = {
     400: BadRequestException,
     401: AuthenticationFailedException,
     403: PermissionDeniedException,
@@ -328,9 +328,9 @@ _STATUS_TO_EXCEPTION: Dict[int, type] = {
 def create_exception(
     status_code: int,
     reason: str,
-    headers: Optional[Any] = None,
-    body: Optional[str] = None,
-    request_id: Optional[str] = None,
+    headers: Any | None = None,
+    body: str | None = None,
+    request_id: str | None = None,
 ) -> ApiException:
     """Create an appropriate exception based on the HTTP status code.
 
@@ -367,9 +367,9 @@ def create_exception(
 
 def format_detailed_error_message(
     base_message: str,
-    causes: Optional[List[str]] = None,
-    tips: Optional[List[str]] = None,
-    request_id: Optional[str] = None,
+    causes: list[str] | None = None,
+    tips: list[str] | None = None,
+    request_id: str | None = None,
 ) -> str:
     """Format a detailed error message with causes, tips, and request ID.
 
@@ -394,14 +394,12 @@ def format_detailed_error_message(
         for tip in tips:
             parts.append(f"- {tip}")
         if request_id:
-            parts.append(
-                f"- Include this Request ID ({request_id}) when contacting support"
-            )
+            parts.append(f"- Include this Request ID ({request_id}) when contacting support")
 
     return "\n".join(parts)
 
 
-def get_error_info(status_code: int) -> Optional[Dict[str, Any]]:
+def get_error_info(status_code: int) -> dict[str, Any] | None:
     """Get error information for a given HTTP status code.
 
     :param status_code: The HTTP status code.

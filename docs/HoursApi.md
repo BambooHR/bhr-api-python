@@ -18,6 +18,8 @@ Create or Update Hour Records
 
 Bulk add/edit hour records. The endpoint can return HTTP 201 even when individual items fail validation; inspect each item's `success` flag and per-item `response.message` for partial failures.
 
+OAuth Scopes: time_tracking.write
+
 ### Example
 
 * Basic Authentication (basic):
@@ -101,6 +103,8 @@ Name | Type | Description  | Notes
 Create Hour Record
 
 Adds a single hour record. Use this endpoint when creating one record at a time. For bulk imports, use create-or-update-time-tracking-hour-records.
+
+OAuth Scopes: time_tracking.write
 
 ### Example
 
@@ -187,6 +191,8 @@ Delete Hour Record
 
 Deletes an hour record by `timeTrackingId` (`id` path parameter). This removes all stored revisions associated with that logical time tracking record. Not-found and invalid-id cases are currently returned as a 400 invalid-argument response for backward compatibility.
 
+OAuth Scopes: time_tracking.write
+
 ### Example
 
 * Basic Authentication (basic):
@@ -270,6 +276,8 @@ Name | Type | Description  | Notes
 Get Time Tracking Record
 
 Retrieves a single time tracking hour record by its ID. Returns the full record details including hours, date, employee, project, task, and shift differential information. The `project` and `shiftDifferential` fields are null when not applicable. For historical compatibility, missing records may surface as an empty/null payload rather than a strict not-found response.
+
+OAuth Scopes: time_tracking
 
 ### Example
 
@@ -356,6 +364,8 @@ Name | Type | Description  | Notes
 Update Hour Record
 
 Edits an existing hour record by `timeTrackingId`.
+
+OAuth Scopes: time_tracking.write
 
 ### Example
 

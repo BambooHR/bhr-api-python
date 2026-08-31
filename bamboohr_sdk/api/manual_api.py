@@ -26,12 +26,11 @@ from __future__ import annotations
 
 import json
 import logging
-from typing import Any, Dict, List, Optional, Tuple, Union
-from urllib.parse import urlencode
+from typing import Any
 
+from bamboohr_sdk import rest
 from bamboohr_sdk.api_client import ApiClient
 from bamboohr_sdk.api_response import ApiResponse
-from bamboohr_sdk import rest
 from bamboohr_sdk.exceptions import ApiException
 
 logger = logging.getLogger("bamboohr_sdk")
@@ -55,7 +54,7 @@ class ManualApi:
         :class:`~bamboohr_sdk.client.bamboohr_client.BambooHRClient`).
     """
 
-    def __init__(self, api_client: Optional[ApiClient] = None) -> None:
+    def __init__(self, api_client: ApiClient | None = None) -> None:
         if api_client is None:
             api_client = ApiClient.get_default()
         self.api_client = api_client
@@ -67,9 +66,9 @@ class ManualApi:
     def get(
         self,
         resource_path: str,
-        query_params: Optional[Dict[str, Any]] = None,
-        headers: Optional[Dict[str, str]] = None,
-        _request_timeout: Optional[Union[float, Tuple[float, float]]] = None,
+        query_params: dict[str, Any] | None = None,
+        headers: dict[str, str] | None = None,
+        _request_timeout: float | tuple[float, float] | None = None,
     ) -> ApiResponse:
         """Perform a GET request.
 
@@ -79,15 +78,17 @@ class ManualApi:
         :param _request_timeout: Per-request timeout override.
         :return: :class:`ApiResponse` with ``status_code``, ``data``, ``headers``, and ``raw_data``.
         """
-        return self.request("GET", resource_path, query_params=query_params, headers=headers, _request_timeout=_request_timeout)
+        return self.request(
+            "GET", resource_path, query_params=query_params, headers=headers, _request_timeout=_request_timeout
+        )
 
     def post(
         self,
         resource_path: str,
-        query_params: Optional[Dict[str, Any]] = None,
-        headers: Optional[Dict[str, str]] = None,
+        query_params: dict[str, Any] | None = None,
+        headers: dict[str, str] | None = None,
         body: Any = None,
-        _request_timeout: Optional[Union[float, Tuple[float, float]]] = None,
+        _request_timeout: float | tuple[float, float] | None = None,
     ) -> ApiResponse:
         """Perform a POST request.
 
@@ -98,15 +99,22 @@ class ManualApi:
         :param _request_timeout: Per-request timeout override.
         :return: :class:`ApiResponse`.
         """
-        return self.request("POST", resource_path, query_params=query_params, headers=headers, body=body, _request_timeout=_request_timeout)
+        return self.request(
+            "POST",
+            resource_path,
+            query_params=query_params,
+            headers=headers,
+            body=body,
+            _request_timeout=_request_timeout,
+        )
 
     def put(
         self,
         resource_path: str,
-        query_params: Optional[Dict[str, Any]] = None,
-        headers: Optional[Dict[str, str]] = None,
+        query_params: dict[str, Any] | None = None,
+        headers: dict[str, str] | None = None,
         body: Any = None,
-        _request_timeout: Optional[Union[float, Tuple[float, float]]] = None,
+        _request_timeout: float | tuple[float, float] | None = None,
     ) -> ApiResponse:
         """Perform a PUT request.
 
@@ -117,15 +125,22 @@ class ManualApi:
         :param _request_timeout: Per-request timeout override.
         :return: :class:`ApiResponse`.
         """
-        return self.request("PUT", resource_path, query_params=query_params, headers=headers, body=body, _request_timeout=_request_timeout)
+        return self.request(
+            "PUT",
+            resource_path,
+            query_params=query_params,
+            headers=headers,
+            body=body,
+            _request_timeout=_request_timeout,
+        )
 
     def delete(
         self,
         resource_path: str,
-        query_params: Optional[Dict[str, Any]] = None,
-        headers: Optional[Dict[str, str]] = None,
+        query_params: dict[str, Any] | None = None,
+        headers: dict[str, str] | None = None,
         body: Any = None,
-        _request_timeout: Optional[Union[float, Tuple[float, float]]] = None,
+        _request_timeout: float | tuple[float, float] | None = None,
     ) -> ApiResponse:
         """Perform a DELETE request.
 
@@ -136,7 +151,14 @@ class ManualApi:
         :param _request_timeout: Per-request timeout override.
         :return: :class:`ApiResponse`.
         """
-        return self.request("DELETE", resource_path, query_params=query_params, headers=headers, body=body, _request_timeout=_request_timeout)
+        return self.request(
+            "DELETE",
+            resource_path,
+            query_params=query_params,
+            headers=headers,
+            body=body,
+            _request_timeout=_request_timeout,
+        )
 
     # ------------------------------------------------------------------
     # Core request method
@@ -146,10 +168,10 @@ class ManualApi:
         self,
         method: str,
         resource_path: str,
-        query_params: Optional[Dict[str, Any]] = None,
-        headers: Optional[Dict[str, str]] = None,
+        query_params: dict[str, Any] | None = None,
+        headers: dict[str, str] | None = None,
         body: Any = None,
-        _request_timeout: Optional[Union[float, Tuple[float, float]]] = None,
+        _request_timeout: float | tuple[float, float] | None = None,
     ) -> ApiResponse:
         """Perform an arbitrary HTTP request through the SDK infrastructure.
 
@@ -215,8 +237,8 @@ class ManualApi:
 
     @staticmethod
     def _dict_to_query_tuples(
-        params: Optional[Dict[str, Any]],
-    ) -> Optional[List[Tuple[str, str]]]:
+        params: dict[str, Any] | None,
+    ) -> list[tuple[str, str]] | None:
         """Convert a flat dict to the list-of-tuples format expected by
         :meth:`ApiClient.param_serialize`.
         """

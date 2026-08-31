@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **pagination_complete** | **bool** | Indicates whether there are more pages of results available | [optional] 
-**next_page_url** | **str** | URL to fetch the next page of results, or null if there are no more results | [optional] 
+**next_page_url** | **str** |  | [optional] 
 **applications** | [**List[ApplicationsListApplicationsInner]**](ApplicationsListApplicationsInner.md) | List of application objects | [optional] 
 
 ## Example

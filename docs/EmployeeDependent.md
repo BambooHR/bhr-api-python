@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**employee_id** | **str** | The ID of the employee this dependent belongs to. Required. | 
+**employee_id** | **str** | The internal employee ID of the employee this dependent belongs to. Required. | 
 **first_name** | **str** | The dependent&#39;s first name. | [optional] 
 **middle_name** | **str** | The dependent&#39;s middle name. | [optional] 
 **last_name** | **str** | The dependent&#39;s last name. | [optional] 

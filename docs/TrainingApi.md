@@ -23,7 +23,9 @@ Method | HTTP request | Description
 
 Create Employee Training Record
 
-Creates a new training record for the specified employee. The 'completed' date (yyyy-mm-dd) and 'type' (training type ID) are required. Optional fields include instructor, hours, credits, notes, and cost. The owner of the API key must have permission to add trainings for the employee.
+Creates a new training record for the specified employee. The 'completed' date (yyyy-mm-dd) and 'type' (training type ID) are required. Optional fields include instructor, hours, credits, notes, and cost. The authenticated caller must have permission to add trainings for the employee.
+
+OAuth Scopes: training.write
 
 ### Example
 
@@ -60,7 +62,7 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.TrainingApi(api_client)
-    employee_id = 56 # int | The ID of the employee to add a training record to.
+    employee_id = 56 # int | The internal employee ID of the employee to add a training record to.
     create_employee_training_record_request = bamboohr_sdk.CreateEmployeeTrainingRecordRequest() # CreateEmployeeTrainingRecordRequest | Training object to post
 
     try:
@@ -79,7 +81,7 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **employee_id** | **int**| The ID of the employee to add a training record to. | 
+ **employee_id** | **int**| The internal employee ID of the employee to add a training record to. | 
  **create_employee_training_record_request** | [**CreateEmployeeTrainingRecordRequest**](CreateEmployeeTrainingRecordRequest.md)| Training object to post | 
 
 ### Return type
@@ -113,7 +115,9 @@ Name | Type | Description  | Notes
 
 Create Training Category
 
-Creates a new training category. The 'name' field is required. Returns the created TrainingCategory on success. The owner of the API key must have access to training settings.
+Creates a new training category. The 'name' field is required. Returns the created TrainingCategory on success. The authenticated caller must have access to training settings.
+
+OAuth Scopes: training.write
 
 ### Example
 
@@ -201,7 +205,9 @@ Name | Type | Description  | Notes
 
 Create Training Type
 
-Creates a new training type. Only 'name' is required; all other fields are optional. When 'renewable' is true, 'frequency' (months between renewals) must also be provided. The 'dueFromHireDate' field is only valid when 'required' is true. The owner of the API key must have access to training settings.
+Creates a new training type. Only 'name' is required; all other fields are optional. When 'renewable' is true, 'frequency' (months between renewals) must also be provided. The 'dueFromHireDate' field is only valid when 'required' is true. The authenticated caller must have access to training settings.
+
+OAuth Scopes: training.write
 
 ### Example
 
@@ -289,7 +295,9 @@ Name | Type | Description  | Notes
 
 Delete Employee Training Record
 
-Delete an existing employee training record. The owner of the API key used must have permission to view and edit the employee and training type.
+Delete an existing employee training record. The authenticated caller must have permission to view and edit the employee and training type.
+
+OAuth Scopes: training.write
 
 ### Example
 
@@ -372,7 +380,9 @@ void (empty response body)
 
 Delete Training Category
 
-Delete an existing training category. The owner of the API key used must have access to training settings.
+Delete an existing training category. The authenticated caller must have access to training settings.
+
+OAuth Scopes: training.write
 
 ### Example
 
@@ -455,7 +465,9 @@ void (empty response body)
 
 Delete Training Type
 
-Delete an existing training type. The owner of the API key must have access to training settings. Deleting a training type will only be successful if all employee trainings for this type have been removed prior to this request.
+Delete an existing training type. The authenticated caller must have access to training settings. Deleting a training type will only be successful if all employee trainings for this type have been removed prior to this request.
+
+OAuth Scopes: training.write
 
 ### Example
 
@@ -539,7 +551,9 @@ void (empty response body)
 
 List Employee Training Records
 
-Returns all training records for the specified employee as an object keyed by training record ID. Use the optional 'type' query parameter to filter by training type ID. Fields such as instructor, credits, hours, and cost are only included when enabled in the company's training settings. The owner of the API key must have permission to view the employee.
+Returns all training records for the specified employee as an object keyed by training record ID. Use the optional 'type' query parameter to filter by training type ID. Fields such as instructor, credits, hours, and cost are only included when enabled in the company's training settings. The authenticated caller must have permission to view the employee.
+
+OAuth Scopes: training
 
 ### Example
 
@@ -575,7 +589,7 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with bamboohr_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = bamboohr_sdk.TrainingApi(api_client)
-    employee_id = 56 # int | The ID of the employee to get a list of trainings for.
+    employee_id = 56 # int | The internal employee ID of the employee to get a list of trainings for.
     type = 56 # int | Optional training type ID to filter records. Omitting this parameter returns all training records for the employee. (optional)
 
     try:
@@ -594,7 +608,7 @@ with bamboohr_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **employee_id** | **int**| The ID of the employee to get a list of trainings for. | 
+ **employee_id** | **int**| The internal employee ID of the employee to get a list of trainings for. | 
  **type** | **int**| Optional training type ID to filter records. Omitting this parameter returns all training records for the employee. | [optional] 
 
 ### Return type
@@ -628,7 +642,9 @@ Name | Type | Description  | Notes
 
 List Training Categories
 
-Returns all training categories for the company as an object keyed by category ID. Each entry contains the category ID and name. The owner of the API key must have access to training settings.
+Returns all training categories for the company as an object keyed by category ID. Each entry contains the category ID and name. The authenticated caller must have access to training settings.
+
+OAuth Scopes: training
 
 ### Example
 
@@ -711,7 +727,9 @@ This endpoint does not need any parameter.
 
 List Training Types
 
-Returns all training types for the company as an object keyed by training type ID. Each entry includes the training name, renewable status, renewal frequency, required status, due-date window for new hires, category, link URL, description, and self-completion permission. The owner of the API key must have access to training settings.
+Returns all training types for the company as an object keyed by training type ID. Each entry includes the training name, renewable status, renewal frequency, required status, due-date window for new hires, category, link URL, description, and self-completion permission. The authenticated caller must have access to training settings.
+
+OAuth Scopes: training
 
 ### Example
 
@@ -794,7 +812,9 @@ This endpoint does not need any parameter.
 
 Update Employee Training Record
 
-Updates an existing employee training record. The 'completed' date (yyyy-mm-dd) is required; all other fields are optional. Returns the updated TrainingRecord with HTTP 201. Returns 405 when the record cannot be updated. The owner of the API key must have permission to edit trainings for the employee.
+Updates an existing employee training record. The 'completed' date (yyyy-mm-dd) is required; all other fields are optional. Returns the updated TrainingRecord with HTTP 201. Returns 405 when the record cannot be updated. The authenticated caller must have permission to edit trainings for the employee.
+
+OAuth Scopes: training.write
 
 ### Example
 
@@ -885,7 +905,9 @@ Name | Type | Description  | Notes
 
 Update Training Category
 
-Updates the name of an existing training category. Returns 409 if a category with the same name already exists. The owner of the API key must have access to training settings.
+Updates the name of an existing training category. Returns 409 if a category with the same name already exists. The authenticated caller must have access to training settings.
+
+OAuth Scopes: training.write
 
 ### Example
 
@@ -975,7 +997,9 @@ Name | Type | Description  | Notes
 
 Update Training Type
 
-Updates an existing training type. Only provided fields are updated. To remove a category, pass an empty string or null for the category field. Returns 405 when the training type cannot be modified. The owner of the API key must have access to training settings.
+Updates an existing training type. Only provided fields are updated. To remove a category, pass an empty string or null for the category field. Returns 405 when the training type cannot be modified. The authenticated caller must have access to training settings.
+
+OAuth Scopes: training.write
 
 ### Example
 

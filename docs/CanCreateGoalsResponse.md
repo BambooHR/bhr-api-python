@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**can_create_goals** | **bool** | Whether the API user can create a goal for this employee. | [optional] 
+**can_create_goals** | **bool** | Whether the authenticated caller can create a goal for this employee. | [optional] 
 
 ## Example
 

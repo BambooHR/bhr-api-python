@@ -13,15 +13,15 @@ Name | Type | Description | Notes
 **var_date** | **date** | The date of the break assessment | [optional] 
 **timezone** | **str** | The timezone of the break assessment | [optional] 
 **result** | **str** | The result of the break assessment | [optional] 
-**available_ymdt** | **datetime** | ISO 8601 timestamp when the break became available | [optional] [readonly] 
-**unavailable_ymdt** | **datetime** | ISO 8601 timestamp when the break became unavailable | [optional] [readonly] 
+**available_ymdt** | **datetime** |  | [optional] [readonly] 
+**unavailable_ymdt** | **datetime** |  | [optional] [readonly] 
 **created_at** | **datetime** | ISO 8601 timestamp when the break was created | [optional] [readonly] 
-**updated_at** | **datetime** | ISO 8601 timestamp when the break was last updated | [optional] [readonly] 
+**updated_at** | **datetime** |  | [optional] [readonly] 
 **violations** | [**List[TimeTrackingTimeTrackingBreakAssessmentViolationV1]**](TimeTrackingTimeTrackingBreakAssessmentViolationV1.md) | Violations associated with the assessment  | [optional] 
 **clock_entry_ids** | **List[int]** | Clock entry ids associated with the time tracking break assessment | [optional] 
-**expected_duration** | **int** | The expected duration of the break in minutes | [optional] 
-**recorded_duration** | **int** | The recorded duration of the break in minutes | [optional] 
-**duration_difference** | **int** | The difference between the expected and recorded duration in minutes | [optional] 
+**expected_duration** | **int** |  | [optional] 
+**recorded_duration** | **int** |  | [optional] 
+**duration_difference** | **int** |  | [optional] 
 
 ## Example
 

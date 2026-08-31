@@ -8,11 +8,11 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | Unique identifier for the break policy | [optional] [readonly] 
 **name** | **str** | Name of the break policy | [optional] 
-**description** | **str** | Optional description of the break policy | [optional] 
+**description** | **str** |  | [optional] 
 **all_employees_assigned** | **bool** | Whether all employees are assigned to this break policy | [optional] 
 **created_at** | **datetime** | ISO 8601 timestamp when the break policy was created | [optional] [readonly] 
-**updated_at** | **datetime** | ISO 8601 timestamp when the break policy was last updated | [optional] [readonly] 
-**deleted_at** | **datetime** | ISO 8601 timestamp when the break policy was deleted | [optional] [readonly] 
+**updated_at** | **datetime** |  | [optional] [readonly] 
+**deleted_at** | **datetime** |  | [optional] [readonly] 
 
 ## Example
 

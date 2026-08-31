@@ -17,11 +17,11 @@ Name | Type | Description | Notes
 **timezone** | **str** | The timezone the break availability is calculated in | [optional] [readonly] 
 **recorded_duration** | **int** | The duration of the break that has been recorded so far | [optional] [readonly] 
 **available** | **bool** | Whether the break is currently available to be taken | [optional] [readonly] 
-**available_after_minutes_worked** | **int** | Minutes of work after which the break becomes available | [optional] [readonly] 
-**available_in** | **int** | Minutes until the break becomes available | [optional] [readonly] 
-**unavailable_in** | **int** | Minutes until the break becomes unavailable | [optional] [readonly] 
-**available_at** | **datetime** | When the break is or becomes available | [optional] [readonly] 
-**unavailable_at** | **datetime** | When the break is or becomes unavailable | [optional] [readonly] 
+**available_after_minutes_worked** | **int** |  | [optional] [readonly] 
+**available_in** | **int** |  | [optional] [readonly] 
+**unavailable_in** | **int** |  | [optional] [readonly] 
+**available_at** | **datetime** |  | [optional] [readonly] 
+**unavailable_at** | **datetime** |  | [optional] [readonly] 
 
 ## Example
 

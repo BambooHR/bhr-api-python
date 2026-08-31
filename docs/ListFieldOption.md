@@ -7,10 +7,12 @@ A single option on a list field.
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** | The option ID. | [optional] 
-**name** | **str** | The display value of the option. | [optional] 
-**archived** | **str** | Whether this option is archived. One of: yes, no. | [optional] 
-**created_date** | **str** | When the option was created, in ISO 8601 format when available. | [optional] 
-**archived_date** | **str** | When the option was archived, in ISO 8601 format when available. | [optional] 
+**name** | **str** | The display value of the option. In XML format, this is the text content of the &lt;option&gt; element. | [optional] 
+**archived** | **str** | Whether this option is archived. Archived options are preserved for historical data integrity and continue to appear in responses. Filter by archived: no to show only active options. | [optional] 
+**created_date** | **str** |  | [optional] 
+**archived_date** | **str** |  | [optional] 
+**manageable** | **str** | Whether this individual option can be modified via the API. | [optional] 
+**frequency** | **str** |  | [optional] 
 
 ## Example
 

@@ -7,9 +7,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | The coverage level ID. | [optional] 
 **short_name** | **str** | The short display name for this coverage level (e.g. \&quot;Employee + Spouse\&quot;). | [optional] 
-**description** | **str** | An optional longer description of the coverage level. Null if not set. | [optional] 
-**sort_order** | **str** | The sort order used when displaying coverage levels. | [optional] 
-**benefit_plan_id** | **str** | The benefit plan this coverage level belongs to, or null for company-wide coverage levels. | [optional] 
+**description** | **str** |  | [optional] 
+**sort_order** | **str** | The display sort order for this coverage level. | [optional] 
+**benefit_plan_id** | **str** |  | [optional] 
 
 ## Example
 

@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **title** | **str** | The report title. | [optional] 
 **fields** | [**List[RequestCustomReportResponseFieldsInner]**](RequestCustomReportResponseFieldsInner.md) | Metadata for each field included in the report. | [optional] 
-**employees** | [**List[RequestCustomReportResponseEmployeesInner]**](RequestCustomReportResponseEmployeesInner.md) | One object per employee. Each object contains an &#x60;id&#x60; property plus one key per report field. | [optional] 
+**employees** | [**List[GetCompanyReportResponseEmployeesInner]**](GetCompanyReportResponseEmployeesInner.md) | One object per employee. Each object contains an &#x60;id&#x60; property plus one key per report field. | [optional] 
 
 ## Example
 
