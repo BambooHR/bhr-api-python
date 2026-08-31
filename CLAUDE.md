@@ -33,11 +33,20 @@ make test                  # Run pytest + classify_semver.sh bash tests
 make lint                  # Run ruff linter
 make format                # Run ruff formatter
 make typecheck             # Run mypy
+make sync-accessors        # Regenerate client accessors from the generated APIs
+make check-accessors       # Verify accessors are in sync (used by CI)
 make classify-semver OLD=specs/public.yaml NEW=/tmp/new.yaml           # Classify semver bump
 make classify-semver OLD=specs/public.yaml NEW=/tmp/new.yaml APPLY=true  # Classify + bump version
 ```
 
-> **Note:** There are no GitHub Actions workflows yet. Run `make lint`, `make typecheck`, and `make test` locally before pushing.
+> **Note:** The `SDK Update` workflow (`.github/workflows/sdk-update.yml`) fetches the
+> upstream spec, regenerates, runs format/lint/accessor/smoke/test checks, and opens a bot
+> PR. There is no PR-event CI, so run `make lint`, `make typecheck`, and `make test`
+> locally before pushing.
+>
+> **Dev dependencies are pinned to compatible ranges in `pyproject.toml`.** They were
+> open-ended (`ruff>=0.3`), and CI silently resolved ruff 0.16.5, which stabilized RUF036
+> and failed `make lint` with 1059 errors in generated code. Bump the pins deliberately.
 
 # SDK Generation Pipeline
 
@@ -96,7 +105,23 @@ All builder methods:
 ## API Access
 `client.employees()` returns an `EmployeesApi` instance — never instantiate API classes directly.
 
-Available accessors: `employees`, `time_off`, `benefits`, `reports`, `tabular_data`, `photos`, `webhooks`, `goals`, `training`, `time_tracking`, `account_information`, `applicant_tracking`, `company_files`, `employee_files`, `custom_reports`, `datasets`, `hours`, `last_change_information`, `login`, `manual`
+The accessor list is **generated**, not hand-maintained: `scripts/sync_accessors.py`
+rewrites the block between the `# --- BEGIN/END GENERATED ACCESSORS ---` markers in
+`bamboohr_sdk/client/bamboohr_client.py` from `bamboohr_sdk/api/__init__.py`. It runs
+automatically inside `make generate` (via `post_generate.py`), so a spec tag rename
+updates the client instead of breaking it.
+
+Run `make sync-accessors` after regenerating; `make check-accessors` fails if they drift.
+
+**Anything hand-written must live outside the markers.** `manual()` is the example — it
+sits below the END marker, and `ManualApi` never appears in the generated
+`api/__init__.py`, so the sync cannot touch it.
+
+For the current list:
+
+```bash
+grep -oE "def [a-z_]+\(self\)" bamboohr_sdk/client/bamboohr_client.py
+```
 
 ## Custom / Unsupported Endpoints
 Use `client.manual()` (returns `ManualApi`) to call endpoints not yet in the generated SDK. Inherits all SDK auth, retry, and logging behavior.

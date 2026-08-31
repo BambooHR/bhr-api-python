@@ -18,7 +18,7 @@ DEVELOPER_URL = https://github.com/BambooHR/bhr-api-python
 DEVELOPER = BambooHR
 LICENSE_NAME = MIT
 
-.PHONY: help generate clean cleanup-obsolete generate-error-docs test lint typecheck format classify-semver smoke-test
+.PHONY: help generate clean cleanup-obsolete generate-error-docs test lint typecheck format classify-semver smoke-test sync-accessors check-accessors
 
 help:
 	@echo "BambooHR API Python SDK - Available commands:"
@@ -30,6 +30,8 @@ help:
 	@echo "  make lint              - Run ruff linter"
 	@echo "  make format            - Run ruff formatter"
 	@echo "  make typecheck         - Run mypy type checker"
+	@echo "  make sync-accessors    - Regenerate client accessors from generated APIs"
+	@echo "  make check-accessors   - Verify client accessors are in sync (CI)"
 	@echo "  make classify-semver OLD=old.yaml NEW=new.yaml [APPLY=true] - Classify semver bump"
 
 generate:
@@ -105,6 +107,16 @@ format:
 	$(PYTHON) -m ruff format bamboohr_sdk/ tests/
 	$(PYTHON) -m ruff check --fix bamboohr_sdk/ tests/
 	@echo "Format complete!"
+
+sync-accessors:
+	@echo "Syncing client API accessors with generated APIs..."
+	$(PYTHON) scripts/sync_accessors.py
+	@echo "Accessor sync complete!"
+
+check-accessors:
+	@echo "Checking client API accessors are in sync..."
+	$(PYTHON) scripts/sync_accessors.py --check
+	@echo "Accessor check complete!"
 
 typecheck:
 	@echo "Running mypy type checker..."

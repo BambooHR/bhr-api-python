@@ -6,12 +6,11 @@ Manages token state, expiration tracking, and refresh callback notifications.
 from __future__ import annotations
 
 import time
+from collections.abc import Callable
 from dataclasses import dataclass
-from typing import Callable, Optional
-
 
 # Type alias for the token refresh callback
-TokenRefreshCallback = Callable[[str, Optional[str], str, Optional[str]], None]
+TokenRefreshCallback = Callable[[str, str | None, str, str | None], None]
 
 # Proactive refresh buffer: refresh 5 minutes before expiry
 EXPIRY_BUFFER_SECONDS = 300
@@ -27,15 +26,15 @@ class TokenResponse:
     """
 
     access_token: str
-    refresh_token: Optional[str] = None
-    expires_in: Optional[int] = None
+    refresh_token: str | None = None
+    expires_in: int | None = None
 
     @property
     def has_refresh_token(self) -> bool:
         """Return True if a new refresh token was included."""
         return self.refresh_token is not None
 
-    def get_expires_at(self) -> Optional[float]:
+    def get_expires_at(self) -> float | None:
         """Return the absolute expiration timestamp, or ``None``."""
         if self.expires_in is None:
             return None
@@ -61,15 +60,13 @@ class TokenManager:
     def __init__(
         self,
         access_token: str,
-        refresh_token: Optional[str] = None,
-        expires_in: Optional[int] = None,
-        on_token_refresh: Optional[TokenRefreshCallback] = None,
+        refresh_token: str | None = None,
+        expires_in: int | None = None,
+        on_token_refresh: TokenRefreshCallback | None = None,
     ) -> None:
         self._access_token = access_token
         self._refresh_token = refresh_token
-        self._expires_at: Optional[float] = (
-            (time.time() + expires_in) if expires_in is not None else None
-        )
+        self._expires_at: float | None = (time.time() + expires_in) if expires_in is not None else None
         self._on_token_refresh = on_token_refresh
 
     # ------------------------------------------------------------------
@@ -82,12 +79,12 @@ class TokenManager:
         return self._access_token
 
     @property
-    def refresh_token(self) -> Optional[str]:
+    def refresh_token(self) -> str | None:
         """Return the current refresh token."""
         return self._refresh_token
 
     @property
-    def expires_at(self) -> Optional[float]:
+    def expires_at(self) -> float | None:
         """Return the token expiration timestamp, or ``None``."""
         return self._expires_at
 
@@ -120,7 +117,7 @@ class TokenManager:
             return False
         return time.time() >= self._expires_at
 
-    def seconds_until_expiry(self) -> Optional[float]:
+    def seconds_until_expiry(self) -> float | None:
         """Return seconds until expiry, or ``None`` if unknown."""
         if self._expires_at is None:
             return None

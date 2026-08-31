@@ -13,6 +13,27 @@ from bamboohr_sdk.client.bamboohr_client import BambooHRClient
 # ---------------------------------------------------------------------------
 
 
+def _discover_generated_apis() -> list[tuple[str, str]]:
+    """Return the ``(module, class)`` pairs of every generated API class.
+
+    Shares its source of truth — ``bamboohr_sdk/api/__init__.py`` — with
+    scripts/sync_accessors.py, so the accessor tests below automatically
+    cover whatever the current spec generates.
+    """
+    import re
+    from pathlib import Path
+
+    api_init = Path(__file__).resolve().parent.parent / "bamboohr_sdk" / "api" / "__init__.py"
+    pattern = re.compile(
+        r"^from\s+bamboohr_sdk\.api\.(\w+)\s+import\s+(\w+)\s*$",
+        re.MULTILINE,
+    )
+    return sorted(set(pattern.findall(api_init.read_text())))
+
+
+_GENERATED_APIS = _discover_generated_apis()
+
+
 def _build_client(**kwargs) -> BambooHRClient:
     """Return a fully-built client with sensible defaults."""
     defaults = {
@@ -199,120 +220,41 @@ class TestAPIAccessors:
         with pytest.raises(RuntimeError, match="not been built"):
             c.employees()
 
-    def test_employees(self):
-        from bamboohr_sdk.api.employees_api import EmployeesApi
+    # The per-API accessor tests used to be written out by hand, one method
+    # per API. That list went stale the moment the spec renamed a tag: it
+    # still asserted on tabular_data() and last_change_information() after
+    # the generator had replaced them with employee_tables() and
+    # change_tracking(), so the suite failed on APIs that no longer existed
+    # while the 15 genuinely new ones went completely untested.
+    #
+    # Driving the test off the generated API index instead means coverage
+    # tracks the spec automatically and this list can never drift again.
+    @pytest.mark.parametrize(("module", "cls"), _GENERATED_APIS, ids=[m for m, _ in _GENERATED_APIS])
+    def test_generated_accessor_returns_expected_api(self, module, cls):
+        import importlib
+
+        api_class = getattr(importlib.import_module(f"bamboohr_sdk.api.{module}"), cls)
+        accessor = module[: -len("_api")] if module.endswith("_api") else module
 
         client = _build_client()
-        api = client.employees()
-        assert isinstance(api, EmployeesApi)
+        assert isinstance(getattr(client, accessor)(), api_class)
 
-    def test_time_off(self):
-        from bamboohr_sdk.api.time_off_api import TimeOffApi
+    def test_every_generated_api_has_an_accessor(self):
+        client = _build_client()
+        missing = [
+            module[: -len("_api")]
+            for module, _ in _GENERATED_APIS
+            if not callable(getattr(client, module[: -len("_api")], None))
+        ]
+        assert not missing, f"generated APIs without a client accessor: {missing}"
+
+    def test_manual_accessor_is_available(self):
+        # ManualApi is hand-written and deliberately absent from the
+        # generated index, so it needs its own explicit test.
+        from bamboohr_sdk.api.manual_api import ManualApi
 
         client = _build_client()
-        assert isinstance(client.time_off(), TimeOffApi)
-
-    def test_benefits(self):
-        from bamboohr_sdk.api.benefits_api import BenefitsApi
-
-        client = _build_client()
-        assert isinstance(client.benefits(), BenefitsApi)
-
-    def test_reports(self):
-        from bamboohr_sdk.api.reports_api import ReportsApi
-
-        client = _build_client()
-        assert isinstance(client.reports(), ReportsApi)
-
-    def test_tabular_data(self):
-        from bamboohr_sdk.api.tabular_data_api import TabularDataApi
-
-        client = _build_client()
-        assert isinstance(client.tabular_data(), TabularDataApi)
-
-    def test_photos(self):
-        from bamboohr_sdk.api.photos_api import PhotosApi
-
-        client = _build_client()
-        assert isinstance(client.photos(), PhotosApi)
-
-    def test_webhooks(self):
-        from bamboohr_sdk.api.webhooks_api import WebhooksApi
-
-        client = _build_client()
-        assert isinstance(client.webhooks(), WebhooksApi)
-
-    def test_goals(self):
-        from bamboohr_sdk.api.goals_api import GoalsApi
-
-        client = _build_client()
-        assert isinstance(client.goals(), GoalsApi)
-
-    def test_training(self):
-        from bamboohr_sdk.api.training_api import TrainingApi
-
-        client = _build_client()
-        assert isinstance(client.training(), TrainingApi)
-
-    def test_time_tracking(self):
-        from bamboohr_sdk.api.time_tracking_api import TimeTrackingApi
-
-        client = _build_client()
-        assert isinstance(client.time_tracking(), TimeTrackingApi)
-
-    def test_account_information(self):
-        from bamboohr_sdk.api.account_information_api import AccountInformationApi
-
-        client = _build_client()
-        assert isinstance(client.account_information(), AccountInformationApi)
-
-    def test_applicant_tracking(self):
-        from bamboohr_sdk.api.applicant_tracking_api import ApplicantTrackingApi
-
-        client = _build_client()
-        assert isinstance(client.applicant_tracking(), ApplicantTrackingApi)
-
-    def test_company_files(self):
-        from bamboohr_sdk.api.company_files_api import CompanyFilesApi
-
-        client = _build_client()
-        assert isinstance(client.company_files(), CompanyFilesApi)
-
-    def test_employee_files(self):
-        from bamboohr_sdk.api.employee_files_api import EmployeeFilesApi
-
-        client = _build_client()
-        assert isinstance(client.employee_files(), EmployeeFilesApi)
-
-    def test_custom_reports(self):
-        from bamboohr_sdk.api.custom_reports_api import CustomReportsApi
-
-        client = _build_client()
-        assert isinstance(client.custom_reports(), CustomReportsApi)
-
-    def test_datasets(self):
-        from bamboohr_sdk.api.datasets_api import DatasetsApi
-
-        client = _build_client()
-        assert isinstance(client.datasets(), DatasetsApi)
-
-    def test_hours(self):
-        from bamboohr_sdk.api.hours_api import HoursApi
-
-        client = _build_client()
-        assert isinstance(client.hours(), HoursApi)
-
-    def test_last_change_information(self):
-        from bamboohr_sdk.api.last_change_information_api import LastChangeInformationApi
-
-        client = _build_client()
-        assert isinstance(client.last_change_information(), LastChangeInformationApi)
-
-    def test_login(self):
-        from bamboohr_sdk.api.login_api import LoginApi
-
-        client = _build_client()
-        assert isinstance(client.login(), LoginApi)
+        assert isinstance(client.manual(), ManualApi)
 
 
 class TestAPIAccessorCaching:

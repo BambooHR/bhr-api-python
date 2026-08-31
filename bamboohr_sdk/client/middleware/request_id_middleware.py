@@ -9,7 +9,6 @@ from __future__ import annotations
 
 import logging
 import threading
-from typing import Optional
 
 logger = logging.getLogger("bamboohr_sdk")
 
@@ -37,11 +36,11 @@ class RequestIdMiddleware:
         self._local = threading.local()
 
     @property
-    def last_request_id(self) -> Optional[str]:
+    def last_request_id(self) -> str | None:
         """Return the most recent request ID, or ``None`` if not yet set."""
         return getattr(self._local, "last_request_id", None)
 
-    def extract_request_id(self, response) -> Optional[str]:
+    def extract_request_id(self, response) -> str | None:
         """Extract the request ID from a response object.
 
         Supports any object with a ``getheader(name, default)`` method
@@ -51,7 +50,7 @@ class RequestIdMiddleware:
         :param response: The HTTP response object.
         :return: The extracted request ID, or ``None``.
         """
-        request_id: Optional[str] = None
+        request_id: str | None = None
 
         # RESTResponse style
         if hasattr(response, "getheader"):
